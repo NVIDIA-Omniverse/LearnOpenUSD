@@ -4,6 +4,7 @@ image: ubuntu:22.04
 before_script:
   - apt update
   - apt install -y curl
+  - apt install -y git
   - curl -LsSf https://astral.sh/uv/install.sh | sh
   - source $HOME/.local/bin/env
   - uv sync
@@ -11,7 +12,7 @@ before_script:
 pages:
   stage: deploy
   script:
-    - ./repo docs
+    - uv run sphinx-build -M html docs/source/ docs/build/
     - mkdir public
     - cp -ar docs/build/html/* public
   tags:
