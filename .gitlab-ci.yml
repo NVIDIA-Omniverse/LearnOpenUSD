@@ -1,0 +1,24 @@
+image: gitlab-master.nvidia.com:5005/hwinf-scm/pages-runner
+
+# this runs before each job's 'script'
+before_script:
+  - apt update
+  - apt install -y curl
+  - curl -LsSf https://astral.sh/uv/install.sh | sh
+  - uv sync
+
+pages:
+  stage: deploy
+  script:
+    - ./repo docs
+    - mkdir public
+    - cp -ar docs/build/html/* public
+  tags:
+    - pages
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+
+
