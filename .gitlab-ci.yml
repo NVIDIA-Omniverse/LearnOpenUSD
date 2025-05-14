@@ -1,4 +1,5 @@
-image: gitlab-master.nvidia.com:5005/hwinf-scm/pages-runner
+# the eks-docker tag tells gitlab to run on "runners" owned by omniverse
+image: ubuntu:16.04
 
 # this runs before each job's 'script'
 before_script:
@@ -14,7 +15,7 @@ pages:
     - mkdir public
     - cp -ar docs/build/html/* public
   tags:
-    - pages
+    - eks-docker
   artifacts:
     paths:
       - public
