@@ -1,9 +1,9 @@
-image: gitlab-master.nvidia.com:5005/hwinf-scm/pages-runner
+image: ubuntu:22.04
 
 # this runs before each job's 'script'
 before_script:
-  - apt-get update
-  - apt-get install -y curl
+  - apt update
+  - apt install -y curl
   - curl -LsSf https://astral.sh/uv/install.sh | sh
   - uv sync
 
