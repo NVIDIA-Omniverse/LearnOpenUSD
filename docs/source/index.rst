@@ -13,8 +13,8 @@ documentation for details.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
+   what-openusd/index
    stage-setting/index
    scene-description-blueprints/index
    composition-basics/index

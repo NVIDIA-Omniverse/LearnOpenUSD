@@ -31,7 +31,7 @@ myst_all_links_external = True
 myst_title_to_header = True
 myst_number_code_blocks = ['python']
 nb_number_source_lines = True
-nb_render_markdown_format = "myst"
+# nb_render_markdown_format = "myst"
 
 quizdown_config = {
     'start_on_load': True,			# detect and convert all divs with class quizdown
@@ -109,8 +109,8 @@ class LOUSDHTMLTranslatorMixin:
                     self.builder.imgpath, urllib.parse.quote(self.builder.images[olduri])
                 )
                 # Create video tag with attributes
-                self.body.append('<video controls autoplay="autoplay" loop width="100%">')
-                self.body.append(f'<source src="{node["uri"]}" type="video/mp4">')
+                self.body.append('<video controls autoplay loop width="100%">')
+                self.body.append(f'<source src="{node["uri"]}" type="video/webm">')
                 self.body.append('Your browser does not support the video tag.')
                 self.body.append('</video>')
         else:
@@ -170,6 +170,7 @@ def copy_asset_folders(app, exception):
             # Copy the assets folder
             shutil.copytree(assets_path, dst_assets, dirs_exist_ok=True)
             print(f"Copied {assets_path} to {dst_assets}")
+
 def setup(app):
     # Wait for the builder to be initialized
     app.connect('builder-inited', setup_translators)

@@ -1,3 +1,5 @@
+# Attributes
+
 USD attributes are one of the two types of USD properties, the other being relationships. Properties are used to describe the characteristics of objects, or "prims," within a USD scene.
 
 Attributes store data values that define the appearance, behavior, or other properties of a prim.

@@ -1,3 +1,5 @@
+# Prim
+
 Primitives, or prims for short, are the building blocks of any OpenUSD scene, making understanding them essential for anyone working with 3D content creation and manipulation in the OpenUSD ecosystem.
 
 <@ nvfunc kaltura 1_trdtyb7a @>

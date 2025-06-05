@@ -1,3 +1,5 @@
+# Prim Hierarchy 
+
 Now, we're ready to move onto **Activity 3: Creating a Hierarchy**. Switch over to the Jupyter notebook environment and come back to the course when
 complete.
 

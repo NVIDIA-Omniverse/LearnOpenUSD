@@ -13,7 +13,7 @@ jupytext:
 # TimeCodes and TimeSamples
 
 
-This module, _Setting Up Basic Animations_, shows us how to set up animation in a stage using OpenUSD.
+This module, _TimeCodes and TimeSamples_, shows us how to set up animation in a stage using OpenUSD.
 
 In this module, we will:
 
@@ -22,9 +22,7 @@ In this module, we will:
 
 ## What are TimeCode and Time Samples?
 
-![TimeCode Time Sample Definition](../../images/TimeCodeTimeSample_Definition.webm){loop autoplay controls}
-:::{video} ../../images/TimeCodeTimeSample_Definition.webm
-:::
+![TimeCode Time Sample Definition](../images/TimeCodeTimeSample_Definition.webm)
 
 In OpenUSD, timeCode and timeSample are two important concepts that enable us
 to work with animations and simulation in USD scenes.
@@ -37,7 +35,7 @@ attribute in USD. Each attribute can have a collection of timeSamples that map
 timeCode to the attribute's data type values, allowing for animation over
 time.
 
-### How Does It Work?
+## How Does It Work?
 
 In a USD scene, the timeCode ordinates of all timeSamples are scaled to
 seconds based on the `timeCodesPerSecond` metadata value defined in the root
@@ -56,9 +54,9 @@ positions, rotations, or material properties. When an attribute is evaluated
 at a specific timeCode, the value is linearly interpolated from the
 surrounding timeSamples, allowing for smooth animation playback.
 
-### Working With Python
+## Working With Python
 
-![TimeCode TimeSample Python](../../images/TimeCodeTimeSample_Python.webm)
+![TimeCode TimeSample Python](../images/TimeCodeTimeSample_Python.webm)
 
 Below is an example of how we can get or set timeSamples in Python. First,
 we're getting the timeSamples of the `DisplayColor` on a cube prim. This
@@ -78,18 +76,19 @@ sphere_xform_api.SetTranslate(Gf.Vec3d(0,-4.5,0), time=Usd.TimeCode(30))
 ```
 
 ## Examples
++++ {"tags": ["remove-cell"]}
 >**NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook.
-
++++
 ```{code-cell}
 :tags: [remove-input]
 from utils.visualization import DisplayUSD
 from utils.helperfunctions import create_new_stage
 ```
 
-Let's also create a USD stage to use for this module, using the [`Stage`](https://openusd.org/release/glossary.html#usdglossary-stage) class from the `Usd` module.
+Let's create a USD stage to serve as the starting point for the example in this module. We will create a simple stage with a sphere and a blue cube as a backdrop.
 
 ```{code-cell}
-
+:tags: [remove-output]
 # Import the necessary modules from the `pxr` library:
 from pxr import Usd, UsdGeom, Gf
 
@@ -123,9 +122,10 @@ DisplayUSD("assets/timecode_sample.usda", show_usd_code=True)
 
 A [`Usd.TimeCode`](https://openusd.org/release/api/class_usd_time_code.html) is therefore a unitless, generic time measurement that serves as the ordinate for time-sampled data in USD files. [`Usd.Stage`](https://openusd.org/release/api/class_usd_stage.html) defines the mapping of `TimeCode`s to units like seconds and frames.
 
-To set the stage's `start` TimeCode and `end` TimeCode, use the [`SetStartTimeCode()`](https://openusd.org/release/api/class_usd_stage.html#aef35e121cd9662129b6e338e85ceab44) and [`SetEndTimeCode()`](https://openusd.org/release/api/class_usd_stage.html#a05e5e8a51041bc7f9b7f1165ccec9fa4) methods.
+To set the stage's `start` TimeCode and `end` TimeCode metadata, use the [`SetStartTimeCode()`](https://openusd.org/release/api/class_usd_stage.html#aef35e121cd9662129b6e338e85ceab44) and [`SetEndTimeCode()`](https://openusd.org/release/api/class_usd_stage.html#a05e5e8a51041bc7f9b7f1165ccec9fa4) methods.
 
 ```{code-cell}
+:tags: [remove-output]
 :emphasize-lines: 12-14
 
 from pxr import Usd, UsdGeom, Gf
@@ -144,9 +144,9 @@ stage.SetStartTimeCode(1)
 stage.SetEndTimeCode(60)
 
 # Export to a new flattened layer for this example.
-stage.Export("assets/timecode_ex1.usda")
+stage.Export("assets/timecode_ex1.usda", addSourceFileComment=False)
 ```
-
+Note the stage metadata at the top of the layer.
 ```{code-cell}
 :tags: [remove-input]
 DisplayUSD("assets/timecode_ex1.usda", show_usd_code=True)
@@ -179,6 +179,7 @@ USD will interpolate the values for the cube's size attribute between set timeSa
 Let's create a sphere that moves up and down using the [`XformCommonAPI`](https://openusd.org/release/api/class_usd_geom_xform_common_a_p_i.html).
 
 ```{code-cell}
+:tags: [remove-output]
 :emphasize-lines: 19-31
 
 from pxr import Usd, UsdGeom
@@ -214,7 +215,7 @@ sphere_xform_api.SetTranslate(Gf.Vec3d(0, -3.25, 0), time=50)
 sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=60)  
 
 # Export to a new flattened layer for this example.
-stage.Export("assets/timecode_ex2a.usda")
+stage.Export("assets/timecode_ex2a.usda", addSourceFileComment=False)
 ```
 ```{code-cell}
 :tags: [remove-input]
@@ -230,6 +231,7 @@ For more complex animation it is not recommended to define the animation using s
 It is possible to set timeSamples for different attributes. We can demonstrate this with the scale of the sphere.
 
 ```{code-cell}
+:tags: [remove-output]
 :emphasize-lines: 28-37
 
 from pxr import Usd, UsdGeom
@@ -271,7 +273,7 @@ sphere_xform_api.SetScale(Gf.Vec3f(0.75, 2.00, 0.75), time=50)
 sphere_xform_api.SetScale(Gf.Vec3f(1.00, 1.00, 1.00), time=60)  
 
 # Export to a new flattened layer for this example.
-stage.Export("assets/timecode_ex2b.usda")
+stage.Export("assets/timecode_ex2b.usda", addSourceFileComment=False)
 ```
 ```{code-cell}
 :tags: [remove-input]
@@ -286,10 +288,4 @@ time, while timeSample stores the actual attribute values at specific timeCode
 ordinates. Understanding these concepts unlocks a way for creating, manipulating, and rendering dynamic scenes and simulations in OpenUSD-based
 workflows across various industries.
 
-
-:::{toctree}
-Overview <self>
-LOUSD106-Setting_Up_Basic_Animations
-exercise-setting-timecodes-timesamples
-:::
    

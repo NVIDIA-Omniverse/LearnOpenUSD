@@ -1,3 +1,5 @@
+# OpenUSD File Formats
+
 In this lesson, we'll explore the core OpenUSD file formats – USD, USDA, USDC and USDZ. All the formats are used by OpenUSD for storing and exchanging 3D scene data of various types, including meshes, cameras, lights, and shaders.
 
 <@ nvfunc kaltura 1_dl84ev5g @>

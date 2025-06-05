@@ -83,7 +83,7 @@ def _render_html_code_visualizer(
             log.debug(msg=f'Could not read file "{target_file_path}" for code visualization.')
 
     code_output_template = Template("""
-<div class="col text-left code-column ${extra_code_css_class}">
+<div class="text-left ${extra_code_css_class}">
     <pre>
         <code id="${snippet_id}" class="language-python" style="display: none;">${code}</code>
     </pre>
@@ -157,33 +157,10 @@ def DisplayCode(usd_filename: str, max_height: Optional[int] = None) -> DisplayH
         height: ${viewer_height}px;
     }
 
-    .container-fluid {
-        display: flex;
-        height: 100%; /* Ensures the container takes the full height of the viewport. */
+    .container-usd-render {
+        background-color: var(--pst-color-surface);
     }
-    .container-fluid .row,
-    .container-fluid .row .col {
-        display: flex;
-        flex: 1;
-    }
-    .visualization-column {
-        flex: 1; /* This makes the left column take up the remaining space. */
-    }
-    .code-column {
-        display: flex;
-        flex: 0 1 100% !important;
-        justify-content: center;
-        align-items: center;
-        max-width: 500px; /* Fixed width for the right column. */
-        /* background-color: #d0d0d0; */ /* Optional, for visual clarity. */
-    }
-    .code-column.full-width {
-        max-width: 100%;
-    }
-    .code-column pre {
-        max-width: 100%;
-        /* overflow: auto; */
-    }
+
     .code-column pre code.hljs {
         background: #282c34;
         color: #abb2bf;
@@ -196,9 +173,9 @@ def DisplayCode(usd_filename: str, max_height: Optional[int] = None) -> DisplayH
 
 ${highlightjs_imports}
 
-<div class="container-fluid text-center">
-    <div class="row row-cols-${nb_items}">
-        <div class="col">
+<div class="container-usd-render">
+    <div>
+        <div>
                         
         ${templated_code_output_html}
 
@@ -240,7 +217,7 @@ def FlattenFile(input_file_path: str, show_usd_lights: bool = False) -> str:
     intermediary_file = input_file_path.replace(".usd", "_flattened-inter.usd")
     original_stage = Usd.Stage.Open(input_file_path)
     original_stage.Flatten()
-    original_stage.Export(intermediary_file)
+    original_stage.Export(intermediary_file, addSourceFileComment=False)
     _convert_geometry_primitives(
         source_file_path=intermediary_file,
         destination_file_path=destination_file_path,
@@ -268,7 +245,7 @@ def CovertFile(usd_filename):
 def DisplaySingleUSD(
     usd_filename: str,
     width: Union[str, int] = "auto",
-    height: int = 800,
+    height: int = 400,
     disable_scrollwheel_zoom: bool = True,
     show_usd_code: bool = False,
     show_usd_lights: bool = False,
@@ -307,7 +284,7 @@ def DisplaySingleUSD(
 
     model-viewer {
         height: 100%;
-        width: auto;
+        width: 100%;
         --progress-bar-color: darkgrey;
     }
     model-viewer .loading-annotation {
@@ -350,35 +327,8 @@ def DisplaySingleUSD(
         }
     }
                         
-    .container-fluid {
-        display: flex;
-        height: 100%; /* Ensures the container takes the full height of the viewport. */
-    }
-    .container-fluid .row,
-    .container-fluid .row .col {
-        display: flex;
-        flex: 1;
-    }
-    .visualization-column {
-        flex: 1; /* This makes the left column take up the remaining space. */
-    }
-    .code-column {
-        display: flex;
-        flex: 0 1 100% !important;
-        justify-content: center;
-        align-items: center;
-        max-width: 500px; /* Fixed width for the right column. */
-        /* background-color: #d0d0d0; */ /* Optional, for visual clarity. */
-    }
-    .code-column pre {
-        max-width: 100%;
-        /* overflow: auto; */
-    }
-    .code-column pre code.hljs {
-        background: #282c34;
-        color: #abb2bf;
-        border-radius: 4px;
-        text-wrap: nowrap;
+    .container-usd-render {
+        background-color: var(--pst-color-surface);
     }
 </style>
 
@@ -392,26 +342,20 @@ def DisplaySingleUSD(
 
 ${highlightjs_imports}
 
-<div class="container-fluid text-center">
-    <div class="row row-cols-${nb_items}">
-        <div class="col">
-
-<div id="${model_viewer_uuid}-wrapper" class="visualization-column">
-    <model-viewer id="${model_viewer_uuid}" src="${usd_file}" autoplay ar shadow-intensity="1" camera-controls touch-action="pan-y" ${zoom_attr}>
-        <div class="loading-annotation">
-            <div class="message">Loading your model...</div>
-            <div class="asset-id">${usd_file_id}</div>
-            <div class="spinner-container">
-                <div class="spinner"></div>
+<div class="container-usd-render">
+    <div id="${model_viewer_uuid}-wrapper" class="visualization-column">
+        <model-viewer id="${model_viewer_uuid}" src="${usd_file}" autoplay ar shadow-intensity="1" camera-controls touch-action="pan-y" ${zoom_attr}>
+            <div class="loading-annotation">
+                <div class="message">Loading your model...</div>
+                <div class="asset-id">${usd_file_id}</div>
+                <div class="spinner-container">
+                    <div class="spinner"></div>
+                </div>
             </div>
-        </div>
-    </model-viewer>
-</div>
-                        
-        ${templated_code_output_html}
-
-        </div>
+        </model-viewer>
     </div>
+                
+    ${templated_code_output_html}
 </div>
 
 <script type="module">
@@ -505,7 +449,7 @@ ${highlightjs_imports}
 def DisplayUSD(
     usd_filenames: Union[str, List[str]],
     width: Union[str, int] = "auto",
-    height: int = 800,
+    height: int = 400,
     disable_scrollwheel_zoom: bool = True,
     show_usd_code: bool = False,
     show_usd_lights: bool = False,

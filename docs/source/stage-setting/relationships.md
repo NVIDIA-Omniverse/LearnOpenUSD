@@ -1,3 +1,5 @@
+# Relationships
+
 In the previous lesson, we introduced the concept of USD properties, which are used to describe the characteristics of prims in USD scenes. As mentioned, there are two types of USD properties: attributes and relationships. This
 lesson will discuss relationships.
 
