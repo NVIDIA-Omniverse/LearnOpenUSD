@@ -15,6 +15,9 @@ documentation for details.
    :maxdepth: 2
    :caption: Contents:
 
-   usage
-   basic-animation/index
+   stage-setting/index
+   scene-description-blueprints/index
+   composition-basics/index
+   beyond-basics/index
    test
+   usage

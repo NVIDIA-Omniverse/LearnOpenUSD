@@ -1,0 +1,26 @@
+#usda 1.0
+(
+    doc = """Generated from Composed Stage of root layer C:\\code\\lousd-pub\\docs\\source\\stage-setting\\assets\\timecode_sample.usda
+
+
+Generated from Composed Stage of root layer C:\\code\\lousd-pub\\docs\\source\\stage-setting\\assets\\timecode_ex1.usda
+"""
+    endTimeCode = 60
+    startTimeCode = 1
+)
+
+def Xform "World"
+{
+    def Sphere "Sphere"
+    {
+    }
+
+    def Cube "Backdrop"
+    {
+        color3f[] primvars:displayColor = [(0, 0, 1)]
+        float3 xformOp:scale = (5, 5, 0.1)
+        double3 xformOp:translate = (0, 0, -2)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+}
+

@@ -1,6 +1,6 @@
 #usda 1.0
 (
-    doc = """Generated from Composed Stage of root layer C:\\code\\lousd-pub\\docs\\source\\basic-animation\\experimenting-time\\assets\\timecode_sample.usda
+    doc = """Generated from Composed Stage of root layer C:\\code\\lousd-pub\\docs\\source\\stage-setting\\timecodes-timesamples\\assets\\timecode_sample.usda
 """
     endTimeCode = 60
     startTimeCode = 1

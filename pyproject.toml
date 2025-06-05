@@ -16,6 +16,8 @@ dependencies = [
     "usd-core>=25.5",
     "usd2gltf>=0.3.5",
     "nbsphinx>=0.9.6",
+    "jupytext>=1.17.2",
+    "types-usd>=24.5.2",
 ]
 
 [build-system]

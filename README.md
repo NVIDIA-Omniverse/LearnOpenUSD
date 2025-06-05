@@ -1,5 +1,8 @@
 # LOUSD Website
 
+```
+uv run sphinx-build -M html docs/source/ docs/build/
+```
 
 
 ## Getting started

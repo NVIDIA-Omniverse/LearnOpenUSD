@@ -516,6 +516,22 @@ wheels = [
 ]
 
 [[package]]
+name = "jupytext"
+version = "1.17.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "markdown-it-py" },
+    { name = "mdit-py-plugins" },
+    { name = "nbformat" },
+    { name = "packaging" },
+    { name = "pyyaml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/30/ce/0bd5290ca4978777154e2683413dca761781aacf57f7dc0146f5210df8b1/jupytext-1.17.2.tar.gz", hash = "sha256:772d92898ac1f2ded69106f897b34af48ce4a85c985fa043a378ff5a65455f02", size = 3748577 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ed/f1/82ea8e783433707cafd9790099a2d19f113c22f32a31c8bb5abdc7a61dbb/jupytext-1.17.2-py3-none-any.whl", hash = "sha256:4f85dc43bb6a24b75491c5c434001ad5ef563932f68f15dd3e1c8ce12a4a426b", size = 164401 },
+]
+
+[[package]]
 name = "livereload"
 version = "2.7.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1360,6 +1376,15 @@ wheels = [
 ]
 
 [[package]]
+name = "types-usd"
+version = "24.5.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/1e/2e/b27175e276886dece2660c527556981dbf9465b977826e8b602500113fed/types_usd-24.5.2.tar.gz", hash = "sha256:5da654fdc17dfb8ddf2b264c626e5236e6572b5359498c5ec634b5577abe86fa", size = 487745 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a9/38/77e716ff072350c3ae98da836e26080ffaf72e5da41c301dad55d23d8897/types_usd-24.5.2-py2.py3-none-any.whl", hash = "sha256:e696c40f7aec7fa3f65f14d26345b9b747d9004616bcd9fb01c85d4bb52b3d68", size = 541467 },
+]
+
+[[package]]
 name = "typing-extensions"
 version = "4.13.2"
 source = { registry = "https://pypi.org/simple" }
@@ -1416,6 +1441,7 @@ name = "utils"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "jupytext" },
     { name = "livereload" },
     { name = "myst-nb" },
     { name = "myst-parser" },
@@ -1425,12 +1451,14 @@ dependencies = [
     { name = "sphinx-design" },
     { name = "sphinxcontrib-doxylink" },
     { name = "sphinxcontrib-quizdown" },
+    { name = "types-usd" },
     { name = "usd-core" },
     { name = "usd2gltf" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "jupytext", specifier = ">=1.17.2" },
     { name = "livereload", specifier = ">=2.7.1" },
     { name = "myst-nb", specifier = ">=1.2.0" },
     { name = "myst-parser", specifier = ">=4.0.1" },
@@ -1440,6 +1468,7 @@ requires-dist = [
     { name = "sphinx-design", specifier = ">=0.6.1" },
     { name = "sphinxcontrib-doxylink", specifier = ">=1.13.0" },
     { name = "sphinxcontrib-quizdown", git = "https://github.com/bonartm/sphinxcontrib-quizdown" },
+    { name = "types-usd", specifier = ">=24.5.2" },
     { name = "usd-core", specifier = ">=25.5" },
     { name = "usd2gltf", specifier = ">=0.3.5" },
 ]

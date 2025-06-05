@@ -11,4 +11,6 @@ Return to the course when complete.
 If you don't already have it open, you can find the Jupyter notebook in the
 _Using the Jupyter Notebook_ section of this course.
 
-:::{include} LOUSD106-Setting_Up_Basic_Animations.ipynb
+:::{literalinclude} LOUSD106-Setting_Up_Basic_Animations.ipynb
+:language: md
+:::
