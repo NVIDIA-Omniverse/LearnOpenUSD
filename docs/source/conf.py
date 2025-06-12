@@ -20,7 +20,8 @@ extensions = [
     # 'myst_parser',
     'sphinxcontrib.quizdown',
     'myst_nb',
-    'sphinx_design'
+    'sphinx_design',
+    'directives'
 ]
 
 templates_path = ['_templates']

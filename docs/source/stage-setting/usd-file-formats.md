@@ -2,25 +2,26 @@
 
 In this lesson, we'll explore the core OpenUSD file formats – USD, USDA, USDC and USDZ. All the formats are used by OpenUSD for storing and exchanging 3D scene data of various types, including meshes, cameras, lights, and shaders.
 
-<@ nvfunc kaltura 1_dl84ev5g @>
+```{kaltura} 1_dl84ev5g
+```
 
-#### What is USDA?
+## What is USDA?
 
 USDA (`.usda`) are ASCII text files that encode scene descriptions in a format that can easily be read and edited. It is a native file format used by OpenUSD to store and exchange 3D scene data. It is human-readable, which makes USDA particularly useful for tasks that involve manual editing or inspection of
 scene data. This makes USDA optimal for small files, such as a stage that is referencing external content.
 
-#### What is USDC?
+## What is USDC?
 
 The Crate Binary Format, or USDC (`.usdc`), is a compressed binary file format used by OpenUSD to store and exchange 3D scene data. It is designed to minimize load time and provide a more efficient representation of the scene data compared to the human-readable ASCII format (USDA).
 
 The Crate Binary Format uses various compression techniques to reduce the file size and improve loading performance. It also employs memory mapping for faster file access and loading times. The structure of the file is organized in a way that allows for efficient parsing and retrieval of the scene data. USDC is extremely efficient for numerically-heavy data, like geometry.
 
-#### What is USD?
+## What is USD?
 
 A USD (`.usd`) file can be either ASCII or binary – the advantage of which is that we can change the underlying format at any point without breaking references. Using USD is also beneficial for debugging, because an asset that is in binary can easily be changed to ASCII to take a look at what might be causing the issue. As we learn more about USD, we may decide to separate
 heavier data from more light weight data. When doing so, consider using `.usdc` and `.usda` explicitly to avoid obfuscation and create large `.usda` files unintentionally.
 
-#### What is USDZ?
+## What is USDZ?
 
 Let’s also touch on USDZ (`.usdz`). USDZ is an atomic, uncompressed, zipped archive so that we can deliver all of the necessary assets together. We would not use USDZ if we are still making edits to the asset, but it is a great way to package and ship our asset when it is complete. For example, a mesh with
 its texture files can be delivered as one archive. It’s generally intended as read-only and is optimal for XR experiences. More on USDZ will be covered in future lessons.
@@ -29,9 +30,13 @@ its texture files can be delivered as one archive. It’s generally intended as 
 
 Each USD file format can be created through Python bindings in the OpenUSD library. When creating a new stage we can pass in a string to represent a file name that ends in `.usdc`, `.usd`, `.usda`, or `.usdz`.
 
-For this course, we will primarily be using USDA files because they are readable, but as we work more with OpenUSD, we may choose to use USDC or USD instead. We may also choose to use some other 3D format backed by an `SdfFileFormatPlugin` if we prefer to keep our source data as is and still leverage all of OpenUSD for scene manipulation and rendering.
+In these lessons, we primarily use USDA files because they are human-readable, making them ideal for learning and accessibility. As you advance in your OpenUSD work, you may prefer to use USDC or USD formats instead.
 
-### Key Takeaways
+```{note}
+The file format choices in these lessons prioritize learning over production best practices. For real-world projects, we recommend following the file format guidelines outlined in the official documentation rather than simply copying our approach in these lessons.
+```
+
+## Key Takeaways
 
 Now, we should have a better understanding of the various OpenUSD file formats and the purpose each one serves.
 

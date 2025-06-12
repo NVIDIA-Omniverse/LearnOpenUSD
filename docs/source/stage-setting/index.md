@@ -1,15 +1,16 @@
 # Setting the Stage
 
 :::{toctree}
+:maxdepth: 1
 Overview <self>
 stage
-prim
-prim-hierarchy
-attributes
+prims
+properties/index
 timecodes-timesamples
 relationships
 prim-property-paths
 usd-file-formats
 usd-modules
+metadata
 :::
    

@@ -1,6 +1,20 @@
+---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.17.2
+kernelspec:
+  display_name: Python 3 (ipykernel)
+  language: python
+  name: python3
+---
+
 # Prim and Property Paths
 
-In OpenUSD, a path is a type that represents the location of a prim within a scene hierarchy. Its string representation consists of a sequence of prim names separated by forward slashes (`/`), similar to file paths in a directory structure. The stage root, which serves as the starting point for the hierarchy, is represented by a forward slash (`/`).
+## What is a Path?
+In OpenUSD, a path represents the location of a prim or property within a scenegraph. The string representation for a prim path consists of a sequence of prim names separated by forward slashes (`/`), similar to file paths in a directory structure. The stage pseudo-root, which serves as the starting point for the hierarchy, is represented by a forward slash (`/`).
 
 For example, the path `/World/Geometry/Box` represents a prim named `Box` that is a child of a prim named `Geometry`, which is a child of the root prim named `World`.
 
@@ -23,7 +37,7 @@ They are used to:
 
 ### Working With Python
 
-![Path Python](../../images/Path_Python.webm)
+![Path Python](../images/Path_Python.webm)
 
 Here are a few Python functions relevant to paths in OpenUSD.
 
@@ -38,8 +52,63 @@ Usd.Prim.GetPath()
 Usd.Stage.GetPrimAtPath()
 ```
 
+## Examples
 
-### Key Takeaways
++++ {"tags": ["remove-cell"]}
+> **NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook.
++++
+```{code-cell}
+:tags: [remove-input]
+from utils.visualization import DisplayUSD, DisplayCode
+from utils.helperfunctions import create_new_stage
+```
+
+### Example 1: Getting, Validating, and Defining Prims at Path  
+
+Each prim has a [path](https://openusd.org/release/glossary.html#usdglossary-path) to describe its location in [namespace](https://openusd.org/release/glossary.html#usdglossary-namespace).
+
+For example, we defined a prim `hello` at path `/hello` and another prim `world` at path `/hello/world`.
+
+We can retrieve prims using their path using [`GetPrimAtPath()`](https://openusd.org/release/api/class_usd_stage.html#a6ceb556070804b712c01a7968f925735). This will either return a valid or invalid prim. When using `GetPrimAtPath()` we should always check if the returned prim is valid before using it.
+
+To check if a prim is valid we can use the [`IsValid()`](https://openusd.org/release/api/class_usd_object.html#ac532c4b500b1a85ea22217f2c65a70ed) method. Valid means that the prim exists in the stage. Invalid is when the prim does not exist in the stage or when the path is invalid.
+
+```{note}
+When using `GetPrimAtPath()`, it will return type `UsdPrim`. If our prim is of type `UsdGeom`, we will not be able to use `UsdGeom` API schema on it.
+```
+
+```{code-cell}
+:emphasize-lines: 7-20
+
+from pxr import Usd
+
+stage: Usd.Stage = Usd.Stage.CreateNew("assets/paths.usda")
+stage.DefinePrim("/hello")
+stage.DefinePrim("/hello/world")
+
+# Get the primitive at the path "/hello" from the current stage
+hello_prim: Usd.Prim = stage.GetPrimAtPath("/hello")
+
+# Get the primitive at the path "/hello/world" from the current stage
+hello_world_prim: Usd.Prim = stage.GetPrimAtPath("/hello/world")
+
+# Get the primitive at the path "/world" from the current stage
+# Note: This will return an invalid prim because "/world" does not exist, but if changed to "/hello/world" it will return a valid prim
+world_prim: Usd.Prim = stage.GetPrimAtPath("/world")
+
+# Print whether the primitive is valid
+print("Is /hello a valid prim? ", hello_prim.IsValid())
+print("Is /hello/world a valid prim? ", hello_world_prim.IsValid())
+print("Is /world a valid prim? ", world_prim.IsValid())
+
+stage.Save()
+```
+```{code-cell}
+:tags: [remove-input]
+DisplayCode("assets/paths.usda")
+```
+
+## Key Takeaways
 
 Using `Sdf.Path` objects in OpenUSD provides a way to uniquely identify and locate objects (prims) within our scene hierarchy. We will use paths for authoring, querying, and navigating USD data effectively.
 

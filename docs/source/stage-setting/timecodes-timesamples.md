@@ -13,14 +13,14 @@ jupytext:
 # TimeCodes and TimeSamples
 
 
-This module, _TimeCodes and TimeSamples_, shows us how to set up animation in a stage using OpenUSD.
+This lesson, _TimeCode and TimeSample_, shows us how to set up animation in a stage using OpenUSD.
 
-In this module, we will:
+In this lesson, we will:
 
   * **Set start and end timeCodes for a stage**. Learn how to set start and end timeCode metadata for a USD stage, establishing a timeline that forms the foundation for animated scenes.
   * **Set timeSamples on attributes**. Gain the skills to set timeSamples on individual attributes, allowing us to animate specific properties of prims over time.
 
-## What are TimeCode and Time Samples?
+## What are TimeCodes and TimeSamples?
 
 ![TimeCode Time Sample Definition](../images/TimeCodeTimeSample_Definition.webm)
 
@@ -35,7 +35,7 @@ attribute in USD. Each attribute can have a collection of timeSamples that map
 timeCode to the attribute's data type values, allowing for animation over
 time.
 
-## How Does It Work?
+### How Does It Work?
 
 In a USD scene, the timeCode ordinates of all timeSamples are scaled to
 seconds based on the `timeCodesPerSecond` metadata value defined in the root
@@ -54,12 +54,12 @@ positions, rotations, or material properties. When an attribute is evaluated
 at a specific timeCode, the value is linearly interpolated from the
 surrounding timeSamples, allowing for smooth animation playback.
 
-## Working With Python
+### Working With Python
 
 ![TimeCode TimeSample Python](../images/TimeCodeTimeSample_Python.webm)
 
 Below is an example of how we can get or set timeSamples in Python. First,
-we're getting the timeSamples of the `DisplayColor` on a cube prim. This
+we're getting the timeSamples of the `displayColor` on a cube prim. This
 method returns a vector of timeCode ordinates at which time samples are
 authored for the given attribute.
 
@@ -85,7 +85,7 @@ from utils.visualization import DisplayUSD
 from utils.helperfunctions import create_new_stage
 ```
 
-Let's create a USD stage to serve as the starting point for the example in this module. We will create a simple stage with a sphere and a blue cube as a backdrop.
+Let's create a USD stage to serve as the starting point for the example in this lesson. We will create a simple stage with a sphere and a blue cube as a backdrop.
 
 ```{code-cell}
 :tags: [remove-output]
@@ -285,7 +285,6 @@ DisplayUSD("assets/timecode_ex2b.usda", show_usd_code=True)
 
 To sum it up, timeCode provides a unitless time ordinate scaled to real-world
 time, while timeSample stores the actual attribute values at specific timeCode
-ordinates. Understanding these concepts unlocks a way for creating, manipulating, and rendering dynamic scenes and simulations in OpenUSD-based
-workflows across various industries.
+ordinates. Understanding these concepts unlocks a way for creating, manipulating, and rendering dynamic scenes and simulations in OpenUSD-based workflows across various industries.
 
    
