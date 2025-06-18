@@ -53,7 +53,7 @@ Custom attributes are the easiest and most flexible way to adapt OpenUSD to spec
 
 Here’s an example where we’re creating a custom attribute to add a serial number and last maintenance date to a prim, so a supervisor can easily identify which machines are due for maintenance from the 3D model.
 
-```
+```python
 stage = Usd.Stage.CreateInMemory()
 prim = stage.DefinePrim("/ExamplePrim", "Xform")
 serial_num_attr = prim.CreateAttribute("serial_number", Sdf.ValueTypeNames.String)
@@ -65,10 +65,18 @@ serial_num_attr.Set("qt6hfg23")
 mtce_date_attr.Set("20241004")
 
 print(f"Serial Number: {serial_num_attr.Get()}")
-print(f"Last Maintenance Date: {mtce_date_attr.Get()}")`
+print(f"Last Maintenance Date: {mtce_date_attr.Get()}")
 ```
 
 ## Examples
+
++++ {"tags": ["remove-cell"]}
+>**NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook.
++++
+```{code-cell}
+:tags: [remove-input]
+from utils.visualization import DisplayUSD, DisplayCode
+```
 
 ### Example 1: Adding Attributes to a Prim
 
@@ -76,18 +84,23 @@ print(f"Last Maintenance Date: {mtce_date_attr.Get()}")`
 
 Here is an example of a `Cube` prim with an attribute called `weight`:
 
-```python
+```usda
 def Cube "Box" 
 {
     double weight = 50
 }
 ```
 
-+++ {"cell_id": "c2cdfca0c25b465b9ea49ba19b1af6f5", "deepnote_cell_type": "markdown"}
+```{code-cell}
 
-**Add the following code to the cell below, then run the cell:**
-   
-```python
+from pxr import Usd, UsdGeom
+
+file_path = "assets/second_stage.usda"
+stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+
+# ADD CODE BELOW HERE
+# vvvvvvvvvvvvvvvvvvv
+
 # Get the Cube prim at path: `/Geometry/GroupTransform/Box`:
 cube: UsdGeom.Cube = UsdGeom.Cube(stage.GetPrimAtPath("/Geometry/GroupTransform/Box"))
 # Get all attribute names associated with Cube:
@@ -99,34 +112,16 @@ for attr in cube_attrs:
 cube_color_attr: Usd.Attribute = cube.GetDisplayColorAttr()
 # Set the "Display Color" attribute to red:
 cube_color_attr.Set([(1.0, 0.0, 0.0)])
-```
-
-```{code-cell} ipython3
-:cell_id: 28c16840a27a45f195a16a74e6d2e9e2
-:deepnote_cell_type: code
-:deepnote_to_be_reexecuted: false
-:execution_millis: 761
-:execution_start: 1715975958609
-:source_hash: null
-
-from pxr import Usd, UsdGeom
-
-file_path = "assets/second_stage.usda"
-stage: Usd.Stage = Usd.Stage.Open(file_path)
-
-# ADD CODE BELOW HERE
-# vvvvvvvvvvvvvvvvvvv
-
-# [...]
 
 # ^^^^^^^^^^^^^^^^^^^^
 # ADD CODE ABOVE HERE
 
 stage.Save()
+```
+```{code-cell}
+:tags: [remove-input]
 DisplayUSD(file_path, show_usd_code=True)
 ```
-
-+++ {"cell_id": "c01b427604ff41a38b094a5a175edbb3", "deepnote_cell_type": "markdown"}
 
 To see all attributes defined by a schema we used [`GetSchemaAttributeNames()`](https://openusd.org/release/api/class_usd_geom_cube.html#a7c62fe4bca24edb5beae756618bf602f). Each schema will contain their own predetermined attributes.
 
@@ -146,23 +141,8 @@ box_prim.CreateAttribute("weight_lb", Sdf.ValueTypeNames.Float)
 
 [`ValueTypeNames`](https://openusd.org/release/api/class_sdf_value_type_name.html) represent an attribute's type. These are defined in [`Sdf`](https://openusd.org/release/api/sdf_page_front.html) and more types can be found in OpenUSD's [documentation](https://openusd.org/release/api/sdf_page_front.html#sdf_metadata_types).
 
-+++
 
-**Add the following code to the cell below, then run the cell:**
-
-```python
-# Create additional attributes for the box prim
-box_prim.CreateAttribute("weight_lb", Sdf.ValueTypeNames.Float, custom=True)
-box_prim.CreateAttribute("size_cm", Sdf.ValueTypeNames.Float, custom=True)
-box_prim.CreateAttribute("type", Sdf.ValueTypeNames.String, custom=True)
-box_prim.CreateAttribute("hazardous_material", Sdf.ValueTypeNames.Bool, custom=True)
-```
-
-```{code-cell} ipython3
-:cell_id: b716c7189202452cb868d10331f36ca8
-:deepnote_cell_type: code
-:deepnote_to_be_reexecuted: true
-:source_hash: null
+```{code-cell}
 
 from pxr import Usd, UsdGeom, Sdf
 
@@ -179,7 +159,11 @@ box_prim.GetReferences().AddReference("box/cubebox_a02_distilled/cubebox_a02_dis
 # ADD CODE BELOW HERE
 # vvvvvvvvvvvvvvvvvvv
 
-# [...]
+# Create additional attributes for the box prim
+box_prim.CreateAttribute("weight_lb", Sdf.ValueTypeNames.Float, custom=True)
+box_prim.CreateAttribute("size_cm", Sdf.ValueTypeNames.Float, custom=True)
+box_prim.CreateAttribute("type", Sdf.ValueTypeNames.String, custom=True)
+box_prim.CreateAttribute("hazardous_material", Sdf.ValueTypeNames.Bool, custom=True)
 
 # ^^^^^^^^^^^^^^^^^^^^
 # ADD CODE ABOVE HERE
@@ -187,6 +171,9 @@ box_prim.GetReferences().AddReference("box/cubebox_a02_distilled/cubebox_a02_dis
 
 # Save the stage
 stage.Save()
+```
+```{code-cell}
+:tags: [remove-input]
 DisplayUSD(file_path, show_usd_code=True)
 ```
 
@@ -194,27 +181,9 @@ DisplayUSD(file_path, show_usd_code=True)
 
 After creating an attribute, we can set and get the value of the attribute, similar to what we did in the previous activity. 
 
-**Add the following code to the cell below, then run the cell:**
-
-``` python
-# Defining the weight attribute
-box_weight_attr: Usd.Attribute = box_prim.CreateAttribute("weight_lb", Sdf.ValueTypeNames.Float, custom=True)
-# Set the value of the weight attribute
-box_weight_attr.Set(50)
-
-# Print the weight of the box
-print("Weight of Box:", box_weight_attr.Get())
-```
-
 Try applying the same logic to the other attributes.
 
-```{code-cell} ipython3
-:cell_id: 91feafabf9d14d829d18a19c3cd1b367
-:deepnote_cell_type: code
-:deepnote_to_be_reexecuted: true
-:execution_millis: 332
-:execution_start: 1716323401730
-:source_hash: null
+```{code-cell} 
 
 from pxr import Usd, UsdGeom, Sdf
 
@@ -236,20 +205,28 @@ box_prim.CreateAttribute("hazardous_material", Sdf.ValueTypeNames.Bool, custom=T
 # ADD CODE BELOW HERE
 # vvvvvvvvvvvvvvvvvvv
 
-# [...]
+# Defining the weight attribute
+box_weight_attr: Usd.Attribute = box_prim.CreateAttribute("weight_lb", Sdf.ValueTypeNames.Float, custom=True)
+# Set the value of the weight attribute
+box_weight_attr.Set(50)
+
+# Print the weight of the box
+print("Weight of Box:", box_weight_attr.Get())
 
 # ^^^^^^^^^^^^^^^^^^^^
 # ADD CODE ABOVE HERE
 
 
 stage.Save()
+```
+```{code-cell}
+:tags: [remove-input]
 DisplayUSD(file_path, show_usd_code=True)
 ```
 
 ## Key Takeaways
 
-Custom attributes in OpenUSD provide a versatile way to extend the
-functionality of scene descriptions, making them adaptable to various specialized needs. By understanding how to create, set, and retrieve custom attributes, we can enhance our OpenUSD workflows and better manage complex data in our projects, significantly improve the precision and efficiency of digital models, and build USD pipelines that are tailored to specific use
+Custom attributes in OpenUSD provide a versatile way to extend the functionality of scene descriptions, making them adaptable to various specialized needs. By understanding how to create, set, and retrieve custom attributes, we can enhance our OpenUSD workflows and better manage complex data in our projects, significantly improve the precision and efficiency of digital models, and build USD pipelines that are tailored to specific use
 cases.
 
 

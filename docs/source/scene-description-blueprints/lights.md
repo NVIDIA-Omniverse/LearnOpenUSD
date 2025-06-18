@@ -53,65 +53,67 @@ light_prim.GetIntensityAttr().Set(500)
 
 ## Examples
 
++++ {"tags": ["remove-cell"]}
+>**NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook.
++++
+```{code-cell}
+:tags: [remove-input]
+from utils.visualization import DisplayUSD, DisplayCode
+```
+
 ### Example 1: UsdLux and DistantLight
 
 [`UsdLux`](https://openusd.org/release/api/usd_lux_page_front.html) is a USD lighting schema that provides a representation for lights.
 
-One of the classes in `UsdLux` is [`DistantLight`](https://openusd.org/release/api/class_usd_lux_distant_light.html). A light is emitted from a distance source along the -Z axis. This is commonly known as a directional light.
-
-`UsdLux` is another example of a schema-specific API.
-
-**Add the following code to the cell below, then run the cell:**
-
-```python
-# Define a new Scope primitive at the path "/World/Environment" on the current stage:
-env: UsdGeom.Scope = UsdGeom.Scope.Define(stage, world.GetPath().AppendPath("Environment"))
-
-# Define a new DistantLight primitive at the path "/World/Environment/SkyLight" on the current stage:
-distant_light: UsdLux.DistantLight = UsdLux.DistantLight.Define(stage, env.GetPath().AppendPath("SkyLight"))
-```
-
-> **NOTE:** The Light will not show up in the scene visually but it is displayed in the hierarchy.
+One of the schemas in `UsdLux` is [`DistantLight`](https://openusd.org/release/api/class_usd_lux_distant_light.html). A light is emitted from a distance source along the -Z axis. This is commonly known as a directional light.
 
 ```{code-cell}
-
+:emphasize-lines: 13-14
 from pxr import Usd, UsdGeom, UsdLux, UsdShade
 
-stage: Usd.Stage = Usd.Stage.Open("assets/many_prims.usda")
+file_path = "assets/distant_light.usda"
+stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
 
 world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
-stage.SetDefaultPrim(world.GetPrim())
-
-box: UsdGeom.Xform = UsdGeom.Xform.Define(stage, world.GetPath().AppendPath("Box"))
-geo_scope: UsdGeom.Scope = UsdGeom.Scope.Define(stage, box.GetPath().AppendPath("Geometry"))
+geo_scope: UsdGeom.Scope = UsdGeom.Scope.Define(stage, world.GetPath().AppendPath("Geometry"))
 box_geo: UsdGeom.Cube = UsdGeom.Cube.Define(stage, geo_scope.GetPath().AppendPath("Cube"))
 
-mat_scope: UsdGeom.Scope = UsdGeom.Scope.Define(stage, box.GetPath().AppendPath("Materials"))
-box_mat: UsdShade.Material = UsdShade.Material.Define(stage, mat_scope.GetPath().AppendPath("BoxMat"))
+# Define a new Scope primitive at the path "/World/Lights" on the current stage:
+lights_scope: UsdGeom.Scope = UsdGeom.Scope.Define(stage, world.GetPath().AppendPath("Lights"))
 
-# ADD CODE BELOW HERE
-# vvvvvvvvvvvvvvvvvvv
-
-# [...]
-
-# ^^^^^^^^^^^^^^^^^^^^
-# ADD CODE ABOVE HERE
+# Define a new DistantLight primitive at the path "/World/Lights/SunLight" on the current stage:
+distant_light: UsdLux.DistantLight = UsdLux.DistantLight.Define(stage, lights_scope.GetPath().AppendPath("SunLight"))
 
 stage.Save()
-DisplayUSD("assets/many_prims.usda", show_usd_code=True)
+```
+```{note}
+The SunLight will not show up in the scene visually but it is displayed in the hierarchy.
+```
+```{code-cell}
+:tags: [remove-input]
+DisplayUSD(file_path, show_usd_code=True)
 ```
 
-### Example 2: Lighting a Stage
 
-So far we have created prims using [`UsdGeom`](https://openusd.org/release/api/usd_geom_page_front.html). This is a [`schema`](https://openusd.org/release/glossary.html#usdglossary-schema) that defines 3D graphics-related prim and property schemas. USD also comes with other schemas, like [`UsdLux`](https://openusd.org/release/api/usd_lux_page_front.html) which provides a representation for lights and related components.
+### Example 2: Setting Light Properties
 
-We're going to define two new prims: [`SphereLight`](https://openusd.org/dev/api/class_usd_lux_sphere_light.html) and [`DistantLight`](https://openusd.org/release/api/class_usd_lux_distant_light.html)
+We're going to define two new prims, [`SphereLight`](https://openusd.org/dev/api/class_usd_lux_sphere_light.html) and [`DistantLight`](https://openusd.org/release/api/class_usd_lux_distant_light.html), and set a few properties for them.
 
-**Add the following code to the cell below, then run the cell:**
-   
-```python
+
+```{code-cell}
+:emphasize-lines: 12-32
+
+from math import pi
+from pxr import Gf, Usd, UsdGeom, UsdLux
+
+file_path = "assets/light_props.usda"
+stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+geom_scope: UsdGeom.Scope = UsdGeom.Scope.Define(stage, "/Geometry")
+cube: UsdGeom.Cube = UsdGeom.Cube.Define(stage, geom_scope.GetPath().AppendPath("Box"))
+
 # Define a `Scope` Prim in stage at `/Lights`:
 lights_scope: UsdGeom.Scope = UsdGeom.Scope.Define(stage, "/Lights")
+
 # Define a `Sun` prim in stage as a child of `lights_scope`, called `Sun`:
 distant_light = UsdLux.DistantLight.Define(stage, lights_scope.GetPath().AppendPath("Sun"))
 # Define a `SphereLight` prim in stage as a child of lights_scope called `SphereLight`:
@@ -120,57 +122,29 @@ sphere_light = UsdLux.SphereLight.Define(stage, lights_scope.GetPath().AppendPat
 # Configure the distant light's emissive attributes:
 distant_light.GetColorAttr().Set(Gf.Vec3f(1.0, 0.0, 0.0)) # Light color (red)
 distant_light.GetIntensityAttr().Set(120.0) # Light intensity
-# Position the distant light in the 3D scene:
-distant_light_transform = distant_light.GetTransformOp()
-if not distant_light_transform:
-    distant_light_transform = distant_light.AddTransformOp()
-distant_light_transform.Set(Gf.Matrix4d((pi/4, 0, -pi/4, 0), (0, 1, 0, 0), (pi/4, 0, pi/4, 0), (10, 0, 10, 1)))
-distant_light.GetXformOpOrderAttr().Set([distant_light_transform.GetName()])
+# Lights are Xformable
+if not (xform_api := UsdGeom.XformCommonAPI(distant_light)):
+    raise Exception("Prim not compatible with XformCommonAPI")
+xform_api.SetRotate((45.0, 0.0, 0.0))
+xform_api = None
 
 # Configure the sphere light's emissive attributes:
 sphere_light.GetColorAttr().Set(Gf.Vec3f(0.0, 0.0, 1.0)) # Light color (blue)
 sphere_light.GetIntensityAttr().Set(50000.0) # Light intensity
-# Position the sphere light in the 3D scene:
-sphere_light_transform = sphere_light.GetTransformOp()
-if not sphere_light_transform:
-    sphere_light_transform = sphere_light.AddTransformOp()
-sphere_light_transform.Set(Gf.Matrix4d((pi/4, 0, pi/4, 0), (0, 1, 0, 0), (-pi/4, 0, pi/4, 0), (-10, 0, 10, 1)))
-sphere_light.GetXformOpOrderAttr().Set([sphere_light_transform.GetName()])
-```
-
-```{code-cell}
-
-from math import pi
-from pxr import Gf, Usd, UsdGeom, UsdLux
-
-file_path = "assets/second_stage.usda"
-stage: Usd.Stage = Usd.Stage.Open(file_path)
-geom_scope: UsdGeom.Scope = UsdGeom.Scope.Define(stage, "/Geometry")
-xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, geom_scope.GetPath().AppendPath("GroupTransform"))
-cube: UsdGeom.Cube = UsdGeom.Cube.Define(stage, xform.GetPath().AppendPath("Box"))
-
-# ADD CODE BELOW HERE
-# vvvvvvvvvvvvvvvvvvv
-
-# [...]
-
-# ^^^^^^^^^^^^^^^^^^^^
-# ADD CODE ABOVE HERE
+# Lights are Xformable
+if not (xform_api := UsdGeom.XformCommonAPI(sphere_light)):
+    raise Exception("Prim not compatible with XformCommonAPI")
+xform_api.SetTranslate((5.0, 10.0, 0.0))
 
 stage.Save()
+```
+```{note}
+The lights will not show up in the scene visually but it is displayed in the hierarchy.
+```
+```{code-cell}
+:tags: [remove-input]
 DisplayUSD(file_path, show_usd_code=True, show_usd_lights=True)
 ```
-
-Now our hierarchy looks like the following:
-
-- Geometry
-    - GroupTransform
-        - Box
-- Lights
-    - Sun
-    - SphereLight
-
-We have introduced two new prims: [`UsdLux.SphereLight`](https://openusd.org/dev/api/class_usd_lux_sphere_light.html) and [`UsdLux.DistantLight`](https://openusd.org/release/api/class_usd_lux_distant_light.html).
 
 ## Key Takeaways
 

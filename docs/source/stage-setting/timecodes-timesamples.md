@@ -33,7 +33,7 @@ these as frames whose units are derived from the stage.
 TimeSample refers to the individual time-varying values associated with an
 attribute in USD. Each attribute can have a collection of timeSamples that map
 timeCode to the attribute's data type values, allowing for animation over
-time.
+time. For a reminder of the purpose of attributes, please review the introductory {doc}`lesson on attributes <properties/attributes>`.
 
 ### How Does It Work?
 

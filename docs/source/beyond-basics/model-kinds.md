@@ -1,9 +1,11 @@
 # Model Kinds
 
+In this lesson, we'll explore the concept of kinds in OpenUSD.
+
+## What are Model Kinds?
 ![Kind Definition](../images/Kind_Definition.webm)
 
-In this lesson, we'll explore the concept of kinds in OpenUSD. Model kinds are
-a piece of metadata that provide a way to organize and categorize different
+Model kinds are a piece of metadata that provide a way to organize and categorize different
 types of scene elements or prims into a hierarchical structure.
 
 Understanding kinds enables the creation of modular, reusable assets, and
@@ -21,7 +23,7 @@ assembly, and component. The base class for group and component kinds is
 
 ![Kind Components](../images/Kind_Component.webm)
 
-![A diagram depicting a house icon and a pen icon.](../../images/Artboard_27_1.png)
+![A diagram depicting a house icon and a pen icon.](../images/Artboard_27_1.png)
 
 #### Component
 
@@ -39,8 +41,7 @@ sense, but they are a way to identify that some prim within a component might
 be important.
 
 
-![a diagram representing a
-nieghborhood](../images/Artboard_28_1.png)
+![a diagram representing a neighborhood](../images/Artboard_28_1.png)
 
 #### Groups and Assemblies
 
@@ -54,8 +55,7 @@ might be assembly models. The assembly model may contain multiple group
 scopes, such as trees and street lights in the neighborhood.
 
 
-![Diagram showing model hierarchy of the neighborhood
-example](../images/Artboard_47.png)
+![Diagram showing model hierarchy of the neighborhood example](../images/Artboard_47.png)
 
 #### Model Hierarchy
 
@@ -89,7 +89,7 @@ prim_model_api.SetKind(kind)
 prim_model_api.IsModel()  
 ```
 
-### Key Takeaways
+## Key Takeaways
 
 Model kinds in OpenUSD provide a structured way to organize and manage complex
 3D scenes. By defining and adhering to these kinds, artists, designers, and

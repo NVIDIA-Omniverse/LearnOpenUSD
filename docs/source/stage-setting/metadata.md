@@ -1,3 +1,15 @@
+---
+kernelspec:
+  name: python3
+  display_name: python3
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: '0.13'
+    jupytext_version: 1.17.2
+---
+
 # Metadata
 
 
@@ -51,7 +63,7 @@ stage.SetMetadata('key', value)
 GetMetadataByDictKey()
 ```
 
-It’s worth noting that `key` will typically be either `assetInfo`, which can be used to set asset related data or `customData`, which can be used for everything else. We can only create custom metadata keys by adding a new schema.
+It’s worth noting that `key` will typically be either `assetInfo`, which can be used to set asset related data or `customData`, which can be used for everything else. We can also create additional metadata keys by adding a new schema.
 
 ## Key Takeaways
 

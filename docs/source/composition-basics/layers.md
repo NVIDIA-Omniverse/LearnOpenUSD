@@ -1,5 +1,6 @@
 # Layers
 
+## What are Layers?
 ![](../images/layer_Definition.webm)
 
 OpenUSD scenes are organized into layers, whose contents can be combined or overridden to create a composed scene, with each layer containing a subset of the complete scene data (such as geometry, materials, or animations).
@@ -24,7 +25,7 @@ The true power of layers lies in their ability to be composed together into a si
 
 ![](../images/layer_USDvsPhotoshop.webm)
 
-While Photoshop composes its final product by compiling each layer on top of the one below it, USD's composition engine combines the data across composition arcs according to a specific strength ordering, resolving conflicts based on the arcs’ relative strengths. This strength ordering is referred to as LIVRPS (pronounced "liver peas") – an acronym we’ll explain in future sessions.
+While Photoshop composes its final product by compiling each layer on top of the one below it, USD's composition engine combines the data across composition arcs according to a specific strength ordering, resolving conflicts based on the arcs’ relative strengths. This strength ordering is referred to as LIVRPS (pronounced "liver peas") – an acronym we'll explain in later lessons.
 
 There are a few practical ways we leverage layers in OpenUSD for collaborative and non-destructive workflows. Layers are used for:
 
@@ -32,7 +33,7 @@ There are a few practical ways we leverage layers in OpenUSD for collaborative a
 * Creating reusable asset libraries that can be referenced across multiple scenes.
 * Enabling collaborative workflows where different teams or artists can work on separate layers concurrently.
 * Structuring scene data for efficient loading and instancing (such as using payloads or references).
-* Versioning and non-destructive editing by introducing new layers for changes.
+* Non-destructive editing by introducing new layers for changes.
 
 ### Working With Python
 
@@ -44,7 +45,7 @@ The following are common functions we use when interacting with layers in USD.
 * `layer.Save()` - Saves content from that layer to disk
 
 
-### Key Takeaways
+## Key Takeaways
 
 Layers are a fundamental concept in USD, enabling modular scene description, efficient collaboration, and non-destructive editing. Understanding how layers are composed and their strength ordering is important for effectively working with USD scenes.
 

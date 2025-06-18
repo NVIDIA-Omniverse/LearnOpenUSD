@@ -1,4 +1,5 @@
 ---
+orphan: true
 jupytext:
   text_representation:
     extension: .md
@@ -20,6 +21,14 @@ kernelspec:
 
 ## Examples
 
++++ {"tags": ["remove-cell"]}
+>**NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook.
++++
+```{code-cell}
+:tags: [remove-input]
+from utils.visualization import DisplayUSD, DisplayCode
+```
+
 ### Example 1: UsdShade and Material
 
 [`UsdShade`](https://openusd.org/release/api/usd_shade_page_front.html) is a schema for creating and binding materials.
@@ -28,26 +37,13 @@ kernelspec:
 
 `UsdShade` and `Materials` will be covered in later topics and are only covered here to show another use case for schema-specific APIs.
 
-**Add the following code to the cell below, then run the cell:**
-
-```python
-# Define a new Scope primitive at the path "/World/Box/Materials" on the current stage:
-mat_scope: UsdGeom.Scope = UsdGeom.Scope.Define(stage, box.GetPath().AppendPath("Materials"))
-
-# Define a new Material primitive at the path "/World/Box/Materials/BoxMat" on the current stage:
-box_mat: UsdShade.Material = UsdShade.Material.Define(stage, mat_scope.GetPath().AppendPath("BoxMat"))
-```
-
 > **NOTE:** The material is not applied to the cube so it will not show up in the scene visually, but it is displayed in the hierarchy.
 
-```{code-cell} ipython3
-:cell_id: 6b923060dcb648f49f41a9f1f9545650
-:deepnote_cell_type: code
-:id: 5UsGOdLYNDbO
+```{code-cell}
 
 from pxr import Usd, UsdGeom, UsdShade
 
-stage: Usd.Stage = Usd.Stage.Open("assets/many_prims.usda")
+stage: Usd.Stage = Usd.Stage.CreateNew("assets/materials.usda")
 
 world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 stage.SetDefaultPrim(world.GetPrim())
@@ -59,14 +55,18 @@ box_geo: UsdGeom.Cube = UsdGeom.Cube.Define(stage, geo_scope.GetPath().AppendPat
 # ADD CODE BELOW HERE
 # vvvvvvvvvvvvvvvvvvv
 
-# [...]
+# Define a new Scope primitive at the path "/World/Box/Materials" on the current stage:
+mat_scope: UsdGeom.Scope = UsdGeom.Scope.Define(stage, box.GetPath().AppendPath("Materials"))
+
+# Define a new Material primitive at the path "/World/Box/Materials/BoxMat" on the current stage:
+box_mat: UsdShade.Material = UsdShade.Material.Define(stage, mat_scope.GetPath().AppendPath("BoxMat"))
 
 # ^^^^^^^^^^^^^^^^^^^^
 # ADD CODE ABOVE HERE
 
 
 stage.Save()
-DisplayUSD("assets/many_prims.usda", show_usd_code=True)
+DisplayUSD("assets/materials.usda", show_usd_code=True)
 ```
 
 

@@ -1,5 +1,6 @@
 # Value Resolution
 
+## What is Value Resolution?
 ![Value Resolution Definition](../images/ValueResolution_Defintion.webm)
 
 Value resolution is the algorithm by which final values for properties or metadata are compiled from all sources. The algorithm consumes an ordered list of values including default values, timeSamples, and fallback values from the composition and returns the resolved value.  
@@ -17,8 +18,7 @@ Additionally, composition is cached, while value resolution is not. Composition 
 
 ### Working With Python
 
-You can use value resolution for resolving metadata using
-`UsdObject::GetMetadata`, where the general rule is that the strongest opinion wins. When resolving relationships, all opinions are combined, not just the strongest opinion.
+You can use value resolution for resolving metadata using `UsdObject::GetMetadata`, where the general rule is that the strongest opinion wins. When resolving relationships, all opinions are combined, not just the strongest opinion.
 
 Meanwhile, you can compute value resolution for attributes by using `UsdAttribute::Get()`.
 
@@ -31,7 +31,7 @@ Attribute value resolution is unique.
 * Time offsets: Queries are affected by time-scaling operators like `SetTimeSamples`
 * If time falls between samples, interpolation is performed before falling back to the earlier sample. This is how the value resolution calculates specific timeSample data 
 
-### Key Takeaways
+## Key Takeaways
 
 Value resolution allows OpenUSD to provide a rich set of composition semantics, while keeping the core lightweight and performant for random access to composed data.
 

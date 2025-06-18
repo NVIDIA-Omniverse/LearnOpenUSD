@@ -1,6 +1,7 @@
 # Primvars 
 
-Primvars enable efficient management and manipulation of hierarchical object data in complex 3D scenes. Continue on with this lesson to learn more.
+
+## What are Primvars?
 
 ```{kaltura} 1_pqmuz40u
 ```
@@ -46,10 +47,9 @@ primvar.Set([Gf.Vec3f(0.0, 1.0, 0.0)])
 values = primvar.Get()
 ```
 
-### Key Takeaways
+## Key Takeaways
 
-The ability to store and manipulate hierarchical object data using primvars is a powerful feature that enables advanced 3D workflows and facilitates interoperability between different tools and applications. By leveraging
-primvars effectively, we’ll be able to efficiently manage and manipulate per-object data in complex 3D scenes, enabling advanced workflows and facilitating interoperability between different tools and applications.
+The ability to store and manipulate hierarchical object data using primvars is a powerful feature that enables advanced 3D workflows and facilitates interoperability between different tools and applications. By leveraging primvars effectively, we’ll be able to efficiently manage and manipulate per-object data in complex 3D scenes, enabling advanced workflows and facilitating interoperability between different tools and applications.
 
 
 

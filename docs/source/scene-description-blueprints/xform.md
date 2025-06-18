@@ -57,11 +57,12 @@ Some things to know about `UsdGeom`:
 ```{code-cell}
 :emphasize-lines: 7-8
 
-# Import the necessary modules from the `pxr`` package:
+# Import the necessary modules from the pxr package:
 from pxr import Usd, UsdGeom
 
 # Create a new USD stage with root layer named "xform_prim.usda":
-stage: Usd.Stage = Usd.Stage.CreateNew("assets/xform_prim.usda")
+file_path = "assets/xform_prim.usda"
+stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
 
 # Define a new Xform primitive at the path "/World" on the current stage:
 world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")

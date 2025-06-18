@@ -32,6 +32,7 @@ myst_all_links_external = True
 myst_title_to_header = True
 myst_number_code_blocks = ['python']
 nb_number_source_lines = True
+nb_execution_mode = "cache"
 # nb_render_markdown_format = "myst"
 
 quizdown_config = {

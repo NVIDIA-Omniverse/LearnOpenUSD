@@ -164,7 +164,7 @@ By nesting prims in this way, a hierarchical scenegraph begins to take shape. In
 
 ### Example 4: Does the Prim Exist?
 
-When working with large amounts of data it is key to make sure that a prim exists before trying to override it. We can get the child of a prim using [`GetChild()`](https://openusd.org/release/api/class_usd_prim.html#a8c0974bbd49570564f0096ce982ff64a). If it was unable to find the child, it will return an invalid `UsdPrim`. You can use [`Usd.Object.IsValid()`](https://openusd.org/release/api/class_usd_object.html#ac532c4b500b1a85ea22217f2c65a70ed) to check if the prim is valid or exists. 
+When working with large amounts of data it is key to make sure that a prim exists before trying to override it. We can get the child of a prim using [`GetChild()`](https://openusd.org/release/api/class_usd_prim.html#a8c0974bbd49570564f0096ce982ff64a). If it was unable to find the child, it will return an invalid `UsdPrim`. An invalid prim will evaluate as `False` when treated as a boolean. You can use [`Usd.Object.IsValid()`](https://openusd.org/release/api/class_usd_object.html#ac532c4b500b1a85ea22217f2c65a70ed) to check if the prim is valid or exists. 
 
 ```{code-cell}
 :emphasize-lines: 6-11
@@ -187,6 +187,27 @@ Here is the USDA output of `assets/prim_hierarchy.usda` to verify.
 DisplayCode(file_path)
 ```
 `Box` is not a child of `Geometry`. If we change `Box` to `GroupTransform` then it will print out "Child prim exists". That is because `GetChild()` only returns the direct child of the prim, not nested children.
+
+```{code-cell}
+:emphasize-lines: 8-8
+
+from pxr import Usd
+
+file_path = "assets/prim_hierarchy.usda"
+stage: Usd.Stage = Usd.Stage.Open(file_path)
+
+prim: Usd.Prim = stage.GetPrimAtPath("/Geometry")
+child_prim: Usd.Prim
+if child_prim := prim.GetChild("GroupTransform"):
+    print("Child prim exists")
+else:
+    print("Child prim DOES NOT exist")
+```
+Here is the USDA output of `assets/prim_hierarchy.usda` to verify.
+```{code-cell}
+:tags: [remove-input]
+DisplayCode(file_path)
+```
 
 ## Key Takeaways
 

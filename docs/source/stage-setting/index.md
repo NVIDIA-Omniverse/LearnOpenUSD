@@ -7,7 +7,6 @@ stage
 prims
 properties/index
 timecodes-timesamples
-relationships
 prim-property-paths
 usd-file-formats
 usd-modules
