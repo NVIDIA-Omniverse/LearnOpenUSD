@@ -17,8 +17,6 @@ release = '0.1.0'
 extensions = [
     'sphinx.ext.intersphinx',
     'sphinxcontrib.doxylink',
-    # 'myst_parser',
-    'sphinxcontrib.quizdown',
     'myst_nb',
     'sphinx_design',
     'directives'

@@ -5,7 +5,7 @@ uv run sphinx-build -M html docs/source/ docs/build/
 ```
 
 ```
-uv run python -m http.server -d docs/build/html/
+uv run python -m http.server 8000 -d docs/build/html/
 ```
 
 ## Getting started
