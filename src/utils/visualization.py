@@ -1,35 +1,17 @@
-# Copyright (c) 2024, NVIDIA CORPORATION. All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 """Visualization tools for displaying USD content within Jupyter Notebooks."""
 
-from http.server import HTTPServer, SimpleHTTPRequestHandler
 import logging
-import logging.handlers
 import os
-from pathlib import Path
-import requests
 from string import Template
 import subprocess
-from threading import Thread
 from typing import Any, List, Optional, Union
 from uuid import uuid4
 
 from IPython.display import DisplayHandle, display, HTML
 from pxr import Gf, Usd, UsdGeom, UsdLux, Vt
-
-from .setup import get_content_directory, get_content_output_directory
 
 log = logging.getLogger(__name__)
 
@@ -869,15 +851,3 @@ def _convert_geometry_primitives(source_file_path: str, destination_file_path: s
         destination_stage.GetRootLayer().Save()
     cache.Clear()
 
-
-def initialize_notebook() -> None:
-    """
-    Initialize the Jupyter Notebook, so all the required components can be shared between multiple Notebooks and
-    authored within a single Python module.
-    """
-    # Create file structure where sample assets and converted USD content can reside:
-    os.makedirs(name=get_content_directory(), exist_ok=True)
-    os.makedirs(name=get_content_output_directory(), exist_ok=True)
-
-    # Launch an instance of the web server hosting the conversion web service:
-    start_server()

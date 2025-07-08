@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
@@ -9,7 +12,7 @@
 project = 'Learn OpenUSD'
 copyright = '2025, NVIDIA'
 author = 'NVIDIA'
-release = '0.1.0'
+release = '1.0.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -32,15 +35,6 @@ myst_number_code_blocks = ['python']
 nb_number_source_lines = True
 nb_execution_mode = "cache"
 # nb_render_markdown_format = "myst"
-
-quizdown_config = {
-    'start_on_load': True,			# detect and convert all divs with class quizdown
-    'shuffle_answers': True,		# shuffle answers for each question
-    'primary_color': '#76b900',     # primary CSS color
-    'secondary_color': '#F0F0F0',   # secondary CSS color
-    'text_color': 'black',          # text color of interactive elements
-    'locale': 'en'                  # language of text in user interface
-}
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
@@ -116,12 +110,6 @@ class LOUSDHTMLTranslatorMixin:
         else:
             super().visit_image(node)
 
-class VideoTransform(SphinxTransform):
-    default_priority = 100
-
-    def apply(self):
-        pass
-
 def setup_translators(app: Sphinx):
     """
     This re-uses the pre-existing Sphinx translator and adds extra functionality
@@ -175,4 +163,3 @@ def setup(app):
     # Wait for the builder to be initialized
     app.connect('builder-inited', setup_translators)
     app.connect('build-finished', copy_asset_folders)
-    # app.add_transform(VideoTransform)
