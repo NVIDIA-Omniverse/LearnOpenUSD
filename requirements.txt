@@ -31,7 +31,7 @@ jsonschema==4.23.0
 jsonschema-specifications==2025.4.1
 jupyter-cache==1.0.1
 jupyter-client==8.6.3
-jupyter-core==5.7.2
+jupyter-core==5.8.1
 jupytext==1.17.2
 markdown-it-py==3.0.0
 markupsafe==3.0.2
@@ -82,7 +82,7 @@ sphinxcontrib-serializinghtml==2.0.0
 sqlalchemy==2.0.40
 stack-data==0.6.3
 tabulate==0.9.0
-tornado==6.4.2
+tornado==6.5
 traitlets==5.14.3
 types-usd==24.5.2
 typing-extensions==4.13.2

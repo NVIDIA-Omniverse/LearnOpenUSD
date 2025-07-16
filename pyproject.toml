@@ -1,6 +1,6 @@
 [project]
 name = "lousd"
-version = "1.0.2"
+version = "1.0.3"
 description = "Learn OpenUSD sphinx-based website and tools."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -15,8 +15,11 @@ dependencies = [
     "usd2gltf>=0.3.5",
     "jupytext>=1.17.2",
     "types-usd>=24.5.2",
+    # pinned
     "requests==2.32.4",
     "urllib3==2.5.0",
+    "tornado==6.5.0",
+    "jupyter-core==5.8.1",
 ]
 
 [build-system]
