@@ -10,7 +10,7 @@ This repository uses [uv](https://docs.astral.sh/uv/) for dependency management.
 1. In a web browser, open `http://localhost:8000`
 
 ### Export requirements.lock
-`uv export --no-hashes --no-header --no-editable --no-emit-project --locked --format requirements-txt > requirements.lock`
+`uv export --no-hashes --no-header --no-editable --no-emit-project --locked --format requirements-txt > requirements.txt`
 
 ## Have an Idea for a New Example or new content?
 Ideas for new content to can help other developers are always welcome. Please [create a new issue](https://github.com/NVIDIA-Omniverse/LearnOpenUSD/issues) requesting a new code sample and put [New Request] at the end of your title. Someone from the NVIDIA team or OpenUSD community will pick it up. If you can contribute it yourself, even better!
