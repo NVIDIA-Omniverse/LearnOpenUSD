@@ -1,0 +1,94 @@
+accessible-pygments==0.0.5
+alabaster==1.0.0
+appnope==0.1.4 ; platform_system == 'Darwin'
+asttokens==3.0.0
+attrs==25.3.0
+babel==2.17.0
+beautifulsoup4==4.13.4
+certifi==2025.4.26
+cffi==1.17.1 ; implementation_name == 'pypy'
+charset-normalizer==3.4.2
+click==8.2.0
+colorama==0.4.6 ; sys_platform == 'win32' or platform_system == 'Windows'
+comm==0.2.2
+dataclasses-json==0.6.7
+debugpy==1.8.14
+decorator==5.2.1
+docutils==0.21.2
+executing==2.2.0
+fastjsonschema==2.21.1
+gltflib==1.0.13
+greenlet==3.2.2 ; (python_full_version < '3.14' and platform_machine == 'AMD64') or (python_full_version < '3.14' and platform_machine == 'WIN32') or (python_full_version < '3.14' and platform_machine == 'aarch64') or (python_full_version < '3.14' and platform_machine == 'amd64') or (python_full_version < '3.14' and platform_machine == 'ppc64le') or (python_full_version < '3.14' and platform_machine == 'win32') or (python_full_version < '3.14' and platform_machine == 'x86_64')
+idna==3.10
+imagesize==1.4.1
+importlib-metadata==8.7.0
+ipykernel==6.29.5
+ipython==9.2.0
+ipython-pygments-lexers==1.1.1
+jedi==0.19.2
+jinja2==3.1.6
+jsonschema==4.23.0
+jsonschema-specifications==2025.4.1
+jupyter-cache==1.0.1
+jupyter-client==8.6.3
+jupyter-core==5.7.2
+jupytext==1.17.2
+markdown-it-py==3.0.0
+markupsafe==3.0.2
+marshmallow==3.26.1
+matplotlib-inline==0.1.7
+mdit-py-plugins==0.4.2
+mdurl==0.1.2
+mypy-extensions==1.1.0
+myst-nb==1.2.0
+myst-parser==4.0.1
+nbclient==0.10.2
+nbformat==5.10.4
+nest-asyncio==1.6.0
+numpy==2.2.5
+nvidia-sphinx-theme==0.0.8
+packaging==25.0
+parso==0.8.4
+pexpect==4.9.0 ; sys_platform != 'emscripten' and sys_platform != 'win32'
+platformdirs==4.3.8
+prompt-toolkit==3.0.51
+psutil==7.0.0
+ptyprocess==0.7.0 ; sys_platform != 'emscripten' and sys_platform != 'win32'
+pure-eval==0.2.3
+pycparser==2.22 ; implementation_name == 'pypy'
+pydata-sphinx-theme==0.16.1
+pygments==2.19.1
+pyparsing==3.2.3
+python-dateutil==2.9.0.post0
+pywin32==310 ; platform_python_implementation != 'PyPy' and sys_platform == 'win32'
+pyyaml==6.0.2
+pyzmq==26.4.0
+referencing==0.36.2
+requests==2.32.4
+roman-numerals-py==3.1.0
+rpds-py==0.24.0
+six==1.17.0
+snowballstemmer==3.0.1
+soupsieve==2.7
+sphinx==8.2.3
+sphinx-design==0.6.1
+sphinxcontrib-applehelp==2.0.0
+sphinxcontrib-devhelp==2.0.0
+sphinxcontrib-doxylink==1.13.0
+sphinxcontrib-htmlhelp==2.1.0
+sphinxcontrib-jsmath==1.0.1
+sphinxcontrib-qthelp==2.0.0
+sphinxcontrib-serializinghtml==2.0.0
+sqlalchemy==2.0.40
+stack-data==0.6.3
+tabulate==0.9.0
+tornado==6.4.2
+traitlets==5.14.3
+types-usd==24.5.2
+typing-extensions==4.13.2
+typing-inspect==0.9.0
+urllib3==2.5.0
+usd-core==25.5
+usd2gltf==0.3.5
+wcwidth==0.2.13
+zipp==3.21.0
