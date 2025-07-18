@@ -2,6 +2,11 @@
 
 OpenUSD (Universal Scene Description) is an open-source framework developed by Pixar for describing, composing, simulating, and collaborating in 3D scenes. While originally created for Pixar's animation pipeline, OpenUSD has evolved into a standard across industries to enable the development of digital twins and AI in 3D worlds. 
 
+## Why Industries are Adopting OpenUSD
+
+```{kaltura} 1_vtnis0wv
+```
+
 ## Core Purpose
 
 OpenUSD addresses the fundamental challenge of managing complex 3D scenes in collaborative environments by providing a unified framework that allows multiple teams to work on different aspects of a scene simultaneously without destructive conflicts. 
@@ -16,8 +21,6 @@ Scenes can be built from reusable components that can be referenced, instanced, 
 
 ### Cross-Application Interoperability
 OpenUSD acts as a common language between different 3D applications, allowing data to flow seamlessly between modeling, animation, lighting, and rendering tools.
-
-**Learn about [why industries are adopting OpenUSD](https://www.youtube.com/watch?v=riqp4_eZa2Y).**
 
 ## Getting Started
 
