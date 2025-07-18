@@ -9,7 +9,7 @@ By the end of this module, you'll be able to:
 - **Define USD schemas** - understand how IsA and API schemas define what prims are and what they can do
 - **Organize scenes with Scopes and Xforms** - use these organizational containers to structure complex hierarchies
 - **Simplify transforms with XformCommonAPI** - use the streamlined API for common transformation workflows
-- **Apply lighting, materials, and shaders** - work with the UsdLux schema domain and understand how USD handles surface appearance and rendering
+- **Apply lighting schemas** - work with the UsdLux schema domain to light your scenes
 
 ## Why This Matters
 
@@ -27,5 +27,4 @@ scope
 xform
 xformcommonapi
 lights
-materials-shaders
 :::

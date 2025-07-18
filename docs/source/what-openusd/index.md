@@ -17,9 +17,10 @@ Scenes can be built from reusable components that can be referenced, instanced, 
 ### Cross-Application Interoperability
 OpenUSD acts as a common language between different 3D applications, allowing data to flow seamlessly between modeling, animation, lighting, and rendering tools.
 
+**Learn about [why industries are adopting OpenUSD](https://www.youtube.com/watch?v=riqp4_eZa2Y).**
 
 ## Getting Started
 
 This course will guide you through OpenUSD's concepts step by step, starting with the fundamental building blocks and progressing to advanced composition techniques. Each lesson includes practical examples and Python code samples to help you apply these concepts in your own projects.
 
-Ready to dive in? Let's start by [setting the stage](../stage-setting/index) with OpenUSD's core components.
+Ready to dive in? Let's start by setting the stage with OpenUSD's core components.
