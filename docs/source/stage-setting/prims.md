@@ -27,7 +27,7 @@ kernelspec:
 ---
 # Prims
 
-Welcome to this lesson OpenUSD prims. In this prim, we will:
+Welcome to this lesson on OpenUSD prims. In this lesson, we will:
 
 * Identify the role of prims, including what a prim is and its role within a OpenUSD stage.
 
