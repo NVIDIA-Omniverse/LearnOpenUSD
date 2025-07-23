@@ -1,6 +1,8 @@
 # Learn OpenUSD
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+Learn OpenUSD is a full learning path to prepare developers for the OpenUSD Development Certification. This open source repository is open to contributions to improve the learning experience for everyone and so that teachers and trainers can take it and adapt it for their audiences.
+
 ## Configuration
 This repository uses [uv](https://docs.astral.sh/uv/) for dependency management. If you're new to uv, you don't need to know much more than the commands we use in the [build instructions](#How-to-Build). We recommend [installing uv](https://docs.astral.sh/uv/getting-started/installation/).
 
