@@ -9,10 +9,12 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import importlib.metadata
+
 project = 'Learn OpenUSD'
-copyright = '2025, NVIDIA'
+copyright = '2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved'
 author = 'NVIDIA'
-release = '1.0.6'
+release = importlib.metadata.version("lousd")
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
