@@ -1,0 +1,15 @@
+#usda 1.0
+
+def Xform "World"
+{
+    def Sphere "Sphere"
+    {
+    }
+
+    def Cube "Cube"
+    {
+        double3 xformOp:translate = (5, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+}
+

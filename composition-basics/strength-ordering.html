@@ -1,0 +1,558 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Composition Arcs and Strength Ordering &#8212; Learn OpenUSD</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=df3ac72c" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/lousd_custom.css?v=261c3e2f" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=46dfa7f5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'composition-basics/strength-ordering';</script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Specifiers" href="specifiers.html" />
+    <link rel="prev" title="Layers" href="layers.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Learn OpenUSD - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Learn OpenUSD - Home"/>
+  
+  
+    <p class="title logo__title">Learn OpenUSD</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Learn OpenUSD - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Learn OpenUSD - Home"/>
+  
+  
+    <p class="title logo__title">Learn OpenUSD</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../what-openusd/index.html">What is OpenUSD?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../stage-setting/index.html">Setting the Stage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/stage.html">Stage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/prims.html">Prims</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../stage-setting/properties/index.html">Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stage-setting/properties/attributes.html">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stage-setting/properties/relationships.html">Relationships</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/timecodes-timesamples.html">TimeCodes and TimeSamples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/prim-property-paths.html">Prim and Property Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/usd-file-formats.html">OpenUSD File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/usd-modules.html">OpenUSD Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/metadata.html">Metadata</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../scene-description-blueprints/index.html">Scene Description Blueprints</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/schemas.html">Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/scope.html">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/xform.html">Xform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/xformcommonapi.html">XformCommonAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/lights.html">Lights</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Composition Basics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layers.html">Layers</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Composition Arcs and Strength Ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specifiers.html">Specifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="references.html">Referencing Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="default-prim.html">Default Prim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variant-sets.html">Variant Sets Basics</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../beyond-basics/index.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/primvars.html">Primvars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/value-resolution.html">Value Resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/custom-properties.html">Custom Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/active-inactive-prims.html">Active and Inactive Prims</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/model-kinds.html">Model Kinds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/stage-traversal.html">Stage Traversal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/hydra.html">Hydra</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Composition Basics</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Composition Arcs and Strength Ordering</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="composition-arcs-and-strength-ordering">
+<h1>Composition Arcs and Strength Ordering<a class="headerlink" href="#composition-arcs-and-strength-ordering" title="Link to this heading">#</a></h1>
+<section id="what-is-strength-ordering">
+<h2>What is Strength Ordering?<a class="headerlink" href="#what-is-strength-ordering" title="Link to this heading">#</a></h2>
+<p><video controls autoplay loop width="100%"><source src="../_images/StrengthOrdering_Definition.webm" type="video/webm">Your browser does not support the video tag.</video></p>
+<p>Now let’s jump into strength ordering. Before we begin, it’s important to note that strength ordering is a complex concept, one that will take further study and hands-on practice to fully comprehend. However, it’s something we need to be aware of as we work with OpenUSD scenes, so we’ll introduce the concept in this lesson.</p>
+<p>Strength ordering governs how opinions and namespaces from multiple layers (or scene sub-hierarchies) are combined, and how conflicts are resolved during scene composition. From the composition, the opinions will be ordered based on their strength and the strongest opinion will take priority.</p>
+<p>Strength ordering is the ordered list of composition arcs that determines the precedence of data during composition. When conflicting opinions (data values) exist across layers, the stronger layer’s opinion takes precedence, allowing for non-destructive overrides and layering of scene data.</p>
+<section id="how-does-it-work">
+<h3>How Does It Work?<a class="headerlink" href="#how-does-it-work" title="Link to this heading">#</a></h3>
+<p>During scene composition, USD’s composition engine builds a graph of the layers in the specified strength order. That order is affectionately referred to as the acronym LIVRPS, which stands for the list of composition operations, ordered from strongest to weakest: local, inherits, variant sets, references, payloads, and specializes.</p>
+<p>Let’s review these terms from strongest to weakest.</p>
+<section id="local">
+<h4>Local<a class="headerlink" href="#local" title="Link to this heading">#</a></h4>
+<p>First, local. The algorithm iterates through the local opinions. Local opinions are any opinion authored directly on a layer or a sublayer of a
+layer, without any additional composition.</p>
+</section>
+<section id="inherits">
+<h4>Inherits<a class="headerlink" href="#inherits" title="Link to this heading">#</a></h4>
+<p>Second, it looks for any inherits arcs in the scenegraph. Inherits allows opinions authored on one source prim in the scenegraph to affect all prims in the scenegraph that author an inherits arc to that source prim. In this way, for example, you can make changes to all pine trees in a forest without changing the source of the pine tree itself.</p>
+</section>
+<section id="variant-sets">
+<h4>Variant Sets<a class="headerlink" href="#variant-sets" title="Link to this heading">#</a></h4>
+<p>Third, variant sets. Variant sets, as the name implies, defines one or more scenegraph hierarchies for a prim (called variants), and composes one of them. In this way, for example, an object can have multiple geometric representations.</p>
+</section>
+<section id="references-and-payloads">
+<h4>References and Payloads<a class="headerlink" href="#references-and-payloads" title="Link to this heading">#</a></h4>
+<p>The next strongest opinions are references, and then payloads. References compose the contents of a separate layer as a scenegraph. Payloads are
+similar, but have the ability to load or unload the layer from the stage at runtime. A typical use of references and payloads would be to modularly bring assets into a scene (e.g. furniture in a room).</p>
+</section>
+<section id="specializes">
+<h4>Specializes<a class="headerlink" href="#specializes" title="Link to this heading">#</a></h4>
+<p>Finally, we have specializes. Specializes is essentially authoring a new fallback value for a property; so if all the other compositional choices result in no value, the specializes value will win. This is commonly used with material libraries - for example, a basic Plastic material may be specialized by a RoughPlastic material which reduces the value on the glossiness property. Any subsequent opinion on the RoughPlastic material will take precedence, because specializes is the weakest composition arc.</p>
+<hr class="docutils" />
+<p>For each prim and property, the engine evaluates the opinions from the layers according to LIVRPS, giving precedence to the stronger layer’s opinion when conflicts arise. Stronger layers can override or add to the data defined in weaker layers, enabling non-destructive editing and overrides. LIVRPS is applied recursively - for example, when composing a reference, local opinions within the reference are strongest, followed by inherits, followed by variant sets, etc.</p>
+<p>The final composed scene, what we refer to as the USD stage, represents the combined data from all layers, with conflicts resolved according to the strength ordering.</p>
+<p><img alt="LIVRPS diagram" src="../_images/strength_ordering.png" /></p>
+</section>
+</section>
+</section>
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<p>Composition is one of the powers of OpenUSD, and when used properly we can leverage it to enable non-destructive editing by using stronger opinions to intentionally override weaker ones, without having to modify the original data. It can also be used to structure scene data for efficient loading and instancing, leveraging payloads and references.</p>
+<p>When understood and used properly, it provides a clear and predictable way to combine data from multiple sources, enabling efficient collaboration and scene management. We’ll cover this concept again in more depth in later lessons.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="layers.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Layers</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="specifiers.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Specifiers</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-strength-ordering">What is Strength Ordering?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-it-work">How Does It Work?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#local">Local</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inherits">Inherits</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-sets">Variant Sets</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-payloads">References and Payloads</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#specializes">Specializes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025 NVIDIA CORPORATION &amp; AFFILIATES. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

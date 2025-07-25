@@ -1,0 +1,1066 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Stage Traversal &#8212; Learn OpenUSD</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=df3ac72c" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/lousd_custom.css?v=261c3e2f" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=46dfa7f5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'beyond-basics/stage-traversal';</script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Hydra" href="hydra.html" />
+    <link rel="prev" title="Model Kinds" href="model-kinds.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Learn OpenUSD - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Learn OpenUSD - Home"/>
+  
+  
+    <p class="title logo__title">Learn OpenUSD</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Learn OpenUSD - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Learn OpenUSD - Home"/>
+  
+  
+    <p class="title logo__title">Learn OpenUSD</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../what-openusd/index.html">What is OpenUSD?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../stage-setting/index.html">Setting the Stage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/stage.html">Stage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/prims.html">Prims</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../stage-setting/properties/index.html">Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stage-setting/properties/attributes.html">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stage-setting/properties/relationships.html">Relationships</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/timecodes-timesamples.html">TimeCodes and TimeSamples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/prim-property-paths.html">Prim and Property Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/usd-file-formats.html">OpenUSD File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/usd-modules.html">OpenUSD Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/metadata.html">Metadata</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../scene-description-blueprints/index.html">Scene Description Blueprints</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/schemas.html">Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/scope.html">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/xform.html">Xform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/xformcommonapi.html">XformCommonAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/lights.html">Lights</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../composition-basics/index.html">Composition Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/layers.html">Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/strength-ordering.html">Composition Arcs and Strength Ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/specifiers.html">Specifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/references.html">Referencing Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/default-prim.html">Default Prim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/variant-sets.html">Variant Sets Basics</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Beyond the Basics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="primvars.html">Primvars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="value-resolution.html">Value Resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-properties.html">Custom Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="active-inactive-prims.html">Active and Inactive Prims</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model-kinds.html">Model Kinds</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Stage Traversal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hydra.html">Hydra</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Beyond the Basics</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Stage Traversal</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="stage-traversal">
+<h1>Stage Traversal<a class="headerlink" href="#stage-traversal" title="Link to this heading">#</a></h1>
+<section id="what-is-stage-traversal">
+<h2>What is Stage Traversal?<a class="headerlink" href="#what-is-stage-traversal" title="Link to this heading">#</a></h2>
+<p>Stage traversal is the process of traversing the scenegraph of a stage with the purpose of querying or editing the scene data. We can traverse the scenegraph by iterating through child prims, accessing parent prims, and traversing the hierarchy to find specific prims of interest.</p>
+<p>Traversing stages works via the <code class="docutils literal notranslate"><span class="pre">Usd.PrimRange</span></code> class. Other methods like <code class="docutils literal notranslate"><span class="pre">stage.Traverse</span></code> use <code class="docutils literal notranslate"><span class="pre">Usd.PrimRange</span></code> as a base class.</p>
+<p>Let’s review the Python functions we learned in the previous course that are relevant to traversal:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Open a USD file and create a Stage object</span>
+<span class="linenos"> 2</span><span class="n">stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s1">&#39;car.usda&#39;</span><span class="p">)</span> 
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Traverses the stage of prims that are active</span>
+<span class="linenos"> 5</span><span class="n">stage</span><span class="o">.</span><span class="n">Traverse</span><span class="p">()</span> 
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># Define a predicate to filter prims that are active and loaded</span>
+<span class="linenos"> 8</span><span class="n">predicate</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">PrimIsActive</span> <span class="o">&amp;</span> <span class="n">Usd</span><span class="o">.</span><span class="n">PrimIsLoaded</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Traverse starting from the given prim and based on the predicate for filtering the traversal</span>
+<span class="linenos">11</span><span class="n">Usd</span><span class="o">.</span><span class="n">PrimRange</span><span class="p">(</span><span class="n">prim</span><span class="p">,</span> <span class="n">predicate</span><span class="o">=</span><span class="n">predicate</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This module focuses on improving efficiency by limiting the number of prims that the process visits while traversing the stage.</p>
+<section id="how-does-it-work">
+<h3>How Does It Work?<a class="headerlink" href="#how-does-it-work" title="Link to this heading">#</a></h3>
+<p>As a first step toward optimizing the traversal process, we can filter it based on the type of the prim, such as Scope or Xform. This enables us to be more efficient and targeted when we take the next step of traversing through the children of a prim.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Usd.PrimRange</span></code> is another traversal method that, unlike <code class="docutils literal notranslate"><span class="pre">Traverse()</span></code>, can traverse through a pseudo root prim.</p>
+</section>
+<section id="working-with-python">
+<h3>Working With Python<a class="headerlink" href="#working-with-python" title="Link to this heading">#</a></h3>
+<p>For filtering prims during traversal, some Python functions are particularly useful:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Check whether the prim is of type Scope</span>
+<span class="linenos">2</span><span class="k">if</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Scope</span><span class="p">(</span><span class="n">prim</span><span class="p">)</span>
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="c1"># Get a specific child prim named &quot;Environment&quot; under the default prim</span>
+<span class="linenos">5</span><span class="n">default_prim</span><span class="o">.</span><span class="n">GetChild</span><span class="p">(</span><span class="s2">&quot;Environment&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<div class="cell tag_remove-input docutils container">
+</div>
+<section id="setup">
+<h3>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h3>
+<p><strong>Run the cell below to create the file that will be used for this lesson:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span><span class="p">,</span> <span class="n">UsdLux</span><span class="p">,</span> <span class="n">UsdShade</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;assets/tons_of_prims.usda&quot;</span>
+<span class="linenos"> 4</span><span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">CreateNew</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="n">world</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="s2">&quot;/World&quot;</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">stage</span><span class="o">.</span><span class="n">SetDefaultPrim</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">GetPrim</span><span class="p">())</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="n">box</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;Box&quot;</span><span class="p">))</span>
+<span class="linenos">10</span><span class="n">geo_scope</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Scope</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Scope</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;Geometry&quot;</span><span class="p">))</span>
+<span class="linenos">11</span><span class="n">box_geo</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Cube</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Cube</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">geo_scope</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;Cube&quot;</span><span class="p">))</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="n">mat_scope</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Scope</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Scope</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;Materials&quot;</span><span class="p">))</span>
+<span class="linenos">14</span><span class="n">box_mat</span><span class="p">:</span> <span class="n">UsdShade</span><span class="o">.</span><span class="n">Material</span> <span class="o">=</span> <span class="n">UsdShade</span><span class="o">.</span><span class="n">Material</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">mat_scope</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;BoxMat&quot;</span><span class="p">))</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="c1"># Define a new Scope primitive at the path &quot;/World/Environment&quot; on the current stage</span>
+<span class="linenos">17</span><span class="n">env</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Scope</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Scope</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;Environment&quot;</span><span class="p">))</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="c1"># Define a new DistantLight primitive at the path &quot;/World/Environment/SkyLight&quot; on the current stage</span>
+<span class="linenos">20</span><span class="n">distant_light</span><span class="p">:</span> <span class="n">UsdLux</span><span class="o">.</span><span class="n">DistantLight</span> <span class="o">=</span> <span class="n">UsdLux</span><span class="o">.</span><span class="n">DistantLight</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;SkyLight&quot;</span><span class="p">))</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="n">stage</span><span class="o">.</span><span class="n">Save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html">
+<style type="text/css">
+    .wrapper, #model-viewer-892cd6a3-5256-487f-9491-9c0d5b65bd76-wrapper {
+        width: auto;
+        height: 400px;
+    }
+
+    model-viewer {
+        height: 100%;
+        width: 100%;
+        --progress-bar-color: darkgrey;
+    }
+    model-viewer .loading-annotation {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--progress-bar-color);
+        display: flex;
+        flex-direction: column;
+    }
+    model-viewer .loading-annotation .message {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    model-viewer .loading-annotation .spinner-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    model-viewer .loading-annotation .spinner {
+        transform: translate(-50%, -50%);
+        width: 48px;
+        height: 48px;
+        border: 5px solid var(--progress-bar-color);
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+                        
+    .container-usd-render {
+        background-color: var(--pst-color-surface);
+    }
+</style>
+
+<!-- Import the `<model-viewer>` component: -->
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+
+<!-- Import Bootstrap for layout: -->
+<!--
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+-->
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+        
+
+<div class="container-usd-render">
+    <div id="model-viewer-892cd6a3-5256-487f-9491-9c0d5b65bd76-wrapper" class="visualization-column">
+        <model-viewer id="model-viewer-892cd6a3-5256-487f-9491-9c0d5b65bd76" src="assets/tons_of_prims.glb" autoplay ar shadow-intensity="1" camera-controls touch-action="pan-y" disable-zoom>
+            <div class="loading-annotation">
+                <div class="message">Loading your model...</div>
+                <div class="asset-id">assets/tons_of_prims.usda</div>
+                <div class="spinner-container">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </model-viewer>
+    </div>
+                
+    
+<div class="text-left ">
+    <pre>
+        <code id="code-content-892cd6a3-5256-487f-9491-9c0d5b65bd76" class="language-python" style="display: none;">#usda 1.0
+(
+    defaultPrim = "World"
+)
+
+def Xform "World"
+{
+    def Xform "Box"
+    {
+        def Scope "Geometry"
+        {
+            def Cube "Cube"
+            {
+            }
+        }
+
+        def Scope "Materials"
+        {
+            def Material "BoxMat"
+            {
+            }
+        }
+    }
+
+    def Scope "Environment"
+    {
+        def DistantLight "SkyLight"
+        {
+        }
+    }
+}
+
+</code>
+    </pre>
+</div>
+
+<script type="application/javascript">
+    (() => {
+        function onDocumentReady(callback) {
+            if (document.readyState !== 'loading') {
+                callback();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback);
+            }
+        }
+
+        function doHighlight() {
+            const snippetToHighlight = document.getElementById('code-content-892cd6a3-5256-487f-9491-9c0d5b65bd76');
+            if (snippetToHighlight !== null) {
+                hljs.highlightElement(snippetToHighlight);
+                snippetToHighlight.style.display = 'block';
+            }                  
+        }
+        
+        function main() {
+            if (window.hljs) {
+                doHighlight();              
+            } else {
+                setTimeout(main, 250);
+            }
+        }
+
+        onDocumentReady(main);
+    })();
+</script>
+</div>
+
+<script type="module">
+    (() => {
+        function onDocumentReady(callback) {
+            if (document.readyState !== 'loading') {
+                callback();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback);
+            }
+        }
+
+        /**
+         * Hide the progress indicator of the `<model-viewer />` element once loading of the associated 3D asset is
+         * complete.
+         */
+        function handleViewerProgress() {
+            // Handles loading the events for <model-viewer>'s slotted progress bar:
+            const onProgress = (event) => {
+                const loadingAnnotation = event.target.querySelector('.loading-annotation');
+
+                if (event.detail.totalProgress === 0) {
+                    loadingAnnotation.style.display = 'block';
+                } else {
+                    if (event.detail.totalProgress === 1) {
+                        setTimeout(() => {
+                            loadingAnnotation.style.display = 'none';
+                        }, 500);
+                    }
+                }
+            };
+
+            const modelViewer = document.getElementById('model-viewer-892cd6a3-5256-487f-9491-9c0d5b65bd76');
+            if (modelViewer !== null) {
+                modelViewer.addEventListener('progress', onProgress);
+            }
+        }
+
+        /**
+         * Display the names of the animations baked into the model, once it is loaded.
+         */
+        function displayAnimationNames() {
+            const modelViewer = document.getElementById('model-viewer-892cd6a3-5256-487f-9491-9c0d5b65bd76');
+            if (modelViewer !== null) {
+                modelViewer.addEventListener('load', () => {
+                    const animationNames = modelViewer.availableAnimations;
+                    console.log('Available animation names for "model-viewer-892cd6a3-5256-487f-9491-9c0d5b65bd76": ' + animationNames.join(', '));
+                });
+            }
+        }
+
+        /**
+         * Prevent displaying the default Jupyter context menu when right-clicking on the 3D visualization element, as
+         * this causes the context menu to be displayed when right-clicking to pan around the 3D world, causing an
+         * undesirable User experience as the context menu then obscures part of the element.
+         */
+        function handleRightClick() {
+            const viewerWrapper = document.getElementById('model-viewer-892cd6a3-5256-487f-9491-9c0d5b65bd76-wrapper');
+            if (viewerWrapper !== null) {
+                viewerWrapper.addEventListener('contextmenu', e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            }
+        }
+        
+        function main() {
+            displayAnimationNames();
+            handleViewerProgress();
+            handleRightClick();
+        }
+
+        onDocumentReady(main);
+    })();
+</script>
+</div></div>
+</div>
+</section>
+<section id="example-1-traversing-through-the-stage">
+<h3>Example 1: Traversing Through the Stage<a class="headerlink" href="#example-1-traversing-through-the-stage" title="Link to this heading">#</a></h3>
+<p>To traverse through the stage, we can use the <a class="reference external" href="https://openusd.org/release/api/class_usd_stage.html#adba675b55f41cc1b305bed414fc4f178"><code class="docutils literal notranslate"><span class="pre">Traverse()</span></code></a> method. This traversal will yield prims from the current stage in depth-first-traversal order.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Import the Usd module from the pxr package</span>
+<span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Open the USD stage from the specified file</span>
+<span class="linenos"> 5</span><span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&quot;assets/tons_of_prims.usda&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># ADD CODE BELOW HERE</span>
+<span class="linenos"> 8</span><span class="c1"># vvvvvvvvvvvvvvvvvvv</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Traverse through each prim (primitive) in the stage</span>
+<span class="linenos">11</span><span class="k">for</span> <span class="n">prim</span> <span class="ow">in</span> <span class="n">stage</span><span class="o">.</span><span class="n">Traverse</span><span class="p">():</span>
+<span class="linenos">12</span>    <span class="c1"># Print the path of each prim</span>
+<span class="linenos">13</span>    <span class="nb">print</span><span class="p">(</span><span class="n">prim</span><span class="o">.</span><span class="n">GetPath</span><span class="p">())</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="c1"># ^^^^^^^^^^^^^^^^^^^^</span>
+<span class="linenos">16</span><span class="c1"># ADD CODE ABOVE HERE</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/World
+/World/Box
+/World/Box/Geometry
+/World/Box/Geometry/Cube
+/World/Box/Materials
+/World/Box/Materials/BoxMat
+/World/Environment
+/World/Environment/SkyLight
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-2-traversing-usd-content-for-specific-prim-types">
+<h3>Example 2: Traversing USD Content for Specific Prim Types<a class="headerlink" href="#example-2-traversing-usd-content-for-specific-prim-types" title="Link to this heading">#</a></h3>
+<p>Using <a class="reference external" href="https://openusd.org/release/api/class_usd_stage.html#adba675b55f41cc1b305bed414fc4f178"><code class="docutils literal notranslate"><span class="pre">Traverse()</span></code></a> can get costly as the stage scales.</p>
+<p>We can filter based on the type of the prim. For example, we can check if the prim is of type <code class="docutils literal notranslate"><span class="pre">scope</span></code> or <code class="docutils literal notranslate"><span class="pre">xform</span></code>. To do this we pass the prim into the constructor method for the prim type we are interested in. For example,<code class="docutils literal notranslate"><span class="pre">UsdGeom.Scope(prim)</span></code> is equivalent to <a class="reference external" href="https://openusd.org/release/api/class_usd_geom_scope.html#a538339c2aa462ebcf1eb07fed16f9be4"><code class="docutils literal notranslate"><span class="pre">UsdGeom.Scope.Get(prim.GetStage(),</span> <span class="pre">prim.GetPath())</span></code></a> for a valid prim. If the prim’s type does not match, it will return an invalid prim.</p>
+<p><strong>Add the following code to the cell below, then run the cell:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Import necessary modules from the pxr package</span>
+<span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Open the USD stage from the specified file</span>
+<span class="linenos"> 5</span><span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&quot;assets/tons_of_prims.usda&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># ADD CODE BELOW HERE</span>
+<span class="linenos"> 9</span><span class="c1"># vvvvvvvvvvvvvvvvvvv</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># Traverse through each prim (primitive) in the stage</span>
+<span class="linenos">12</span><span class="k">for</span> <span class="n">prim</span> <span class="ow">in</span> <span class="n">stage</span><span class="o">.</span><span class="n">Traverse</span><span class="p">():</span>
+<span class="linenos">13</span>    <span class="c1"># Check if the prim is of type Scope</span>
+<span class="linenos">14</span>    <span class="nb">print</span><span class="p">(</span><span class="n">UsdGeom</span><span class="o">.</span><span class="n">Scope</span><span class="p">(</span><span class="n">prim</span><span class="p">))</span>
+<span class="linenos">15</span>    <span class="k">if</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Scope</span><span class="p">(</span><span class="n">prim</span><span class="p">):</span>
+<span class="linenos">16</span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scope Type: &quot;</span><span class="p">,</span> <span class="n">prim</span><span class="o">.</span><span class="n">GetName</span><span class="p">())</span>
+<span class="linenos">17</span>    <span class="c1"># Check if the prim is of type Xform</span>
+<span class="linenos">18</span>    <span class="k">elif</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span><span class="p">(</span><span class="n">prim</span><span class="p">):</span>
+<span class="linenos">19</span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Xform Type: &quot;</span><span class="p">,</span> <span class="n">prim</span><span class="o">.</span><span class="n">GetName</span><span class="p">())</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="c1"># ^^^^^^^^^^^^^^^^^^^^</span>
+<span class="linenos">22</span><span class="c1"># ADD CODE ABOVE HERE</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>UsdGeom.Scope(Usd.Prim(&lt;/World&gt;))
+Xform Type:  World
+UsdGeom.Scope(Usd.Prim(&lt;/World/Box&gt;))
+Xform Type:  Box
+UsdGeom.Scope(Usd.Prim(&lt;/World/Box/Geometry&gt;))
+Scope Type:  Geometry
+UsdGeom.Scope(Usd.Prim(&lt;/World/Box/Geometry/Cube&gt;))
+UsdGeom.Scope(Usd.Prim(&lt;/World/Box/Materials&gt;))
+Scope Type:  Materials
+UsdGeom.Scope(Usd.Prim(&lt;/World/Box/Materials/BoxMat&gt;))
+UsdGeom.Scope(Usd.Prim(&lt;/World/Environment&gt;))
+Scope Type:  Environment
+UsdGeom.Scope(Usd.Prim(&lt;/World/Environment/SkyLight&gt;))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-3-traversing-through-the-children-of-a-prim">
+<h3>Example 3: Traversing Through the Children of a Prim<a class="headerlink" href="#example-3-traversing-through-the-children-of-a-prim" title="Link to this heading">#</a></h3>
+<p>Another way to be more efficient and targeted is to traverse through the children of a prim.</p>
+<p>If you need to work within a specific scope or hierarchy in the stage, you can perform a traversal starting from a particular prim. Below shows a simple example on how to do this.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s1">&#39;path/to/your.usda&#39;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">root_prim</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">GetPrimAtPath</span><span class="p">(</span><span class="s2">&quot;/root/path&quot;</span><span class="p">)</span>
+<span class="linenos">5</span>
+<span class="linenos">6</span><span class="k">for</span> <span class="n">prim</span> <span class="ow">in</span> <span class="n">root_prim</span><span class="o">.</span><span class="n">GetChildren</span><span class="p">():</span>
+<span class="linenos">7</span>    <span class="c1"># Perform operations on children of the root prim</span>
+<span class="linenos">8</span>    <span class="nb">print</span><span class="p">(</span><span class="n">prim</span><span class="o">.</span><span class="n">GetPath</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Using <a class="reference external" href="https://openusd.org/release/api/class_usd_stage.html#adba675b55f41cc1b305bed414fc4f178"><code class="docutils literal notranslate"><span class="pre">Traverse()</span></code></a> can be a powerful tool, but for large stages, more efficient and targeted methods should be considered.</p>
+<p>Let’s take a look at how we can traverse through the children of the default prim.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Import the `Usd` module from the `pxr` package:</span>
+<span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Open the USD stage from the specified file:</span>
+<span class="linenos"> 5</span><span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&quot;assets/tons_of_prims.usda&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># Get the default prim (primitive) of the stage:</span>
+<span class="linenos"> 8</span><span class="n">default_prim</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Prim</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">GetDefaultPrim</span><span class="p">()</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># ADD CODE BELOW HERE</span>
+<span class="linenos">11</span><span class="c1"># vvvvvvvvvvvvvvvvvvv</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="c1"># Iterate through all children of the default prim</span>
+<span class="linenos">14</span><span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">default_prim</span><span class="o">.</span><span class="n">GetAllChildren</span><span class="p">():</span>
+<span class="linenos">15</span>    <span class="c1"># Print the path of each child prim</span>
+<span class="linenos">16</span>    <span class="nb">print</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">GetPath</span><span class="p">())</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="c1"># Get a specific child prim named &quot;Environment&quot; under the default prim</span>
+<span class="linenos">19</span><span class="n">child_prim</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Prim</span> <span class="o">=</span> <span class="n">default_prim</span><span class="o">.</span><span class="n">GetChild</span><span class="p">(</span><span class="s2">&quot;Environment&quot;</span><span class="p">)</span>
+<span class="linenos">20</span><span class="c1"># Print the details of the child prim</span>
+<span class="linenos">21</span><span class="nb">print</span><span class="p">(</span><span class="n">child_prim</span><span class="p">)</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="c1"># ^^^^^^^^^^^^^^^^^^^^</span>
+<span class="linenos">24</span><span class="c1"># ADD CODE ABOVE HERE</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/World/Box
+/World/Environment
+Usd.Prim(&lt;/World/Environment&gt;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-4-traversing-using-usd-primrange">
+<h3>Example 4: Traversing using <code class="docutils literal notranslate"><span class="pre">Usd.PrimRange</span></code><a class="headerlink" href="#example-4-traversing-using-usd-primrange" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://openusd.org/release/api/class_usd_stage.html#adba675b55f41cc1b305bed414fc4f178"><code class="docutils literal notranslate"><span class="pre">Traverse()</span></code></a> will return a <a class="reference external" href="https://openusd.org/release/api/class_usd_prim_range.html"><code class="docutils literal notranslate"><span class="pre">UsdPrimRange</span></code></a> object. <code class="docutils literal notranslate"><span class="pre">UsdPrimRange</span></code> exposes pre- and post-order prim visitations allowing for a more involved traversals. It can also be used to perform actions such as pruning subtrees. <a class="reference external" href="https://openusd.org/release/api/class_usd_stage.html#adba675b55f41cc1b305bed414fc4f178"><code class="docutils literal notranslate"><span class="pre">Traverse()</span></code></a> is a convenience method that performs visitations on all prims in the composed scenegraph that are active, defined, loaded, and concrete. It is recommended to use <a class="reference external" href="https://openusd.org/release/api/class_usd_prim_range.html"><code class="docutils literal notranslate"><span class="pre">UsdPrimRange</span></code></a> over <a class="reference external" href="https://openusd.org/release/api/class_usd_stage.html#adba675b55f41cc1b305bed414fc4f178"><code class="docutils literal notranslate"><span class="pre">Traverse()</span></code></a> for traversals.</p>
+<p>Let’s see an example of <a class="reference external" href="https://openusd.org/release/api/class_usd_prim_range.html"><code class="docutils literal notranslate"><span class="pre">UsdPrimRange</span></code></a> in use.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Import the Usd module from the pxr package</span>
+<span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Open the USD stage from the specified file</span>
+<span class="linenos"> 5</span><span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&quot;assets/tons_of_prims.usda&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># ADD CODE BELOW HERE</span>
+<span class="linenos"> 9</span><span class="c1"># vvvvvvvvvvvvvvvvvvv</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="n">prim_range</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">PrimRange</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">GetDefaultPrim</span><span class="p">())</span>
+<span class="linenos">12</span><span class="k">for</span> <span class="n">prim</span> <span class="ow">in</span> <span class="n">prim_range</span><span class="p">:</span>
+<span class="linenos">13</span>    <span class="nb">print</span><span class="p">(</span><span class="n">prim</span><span class="o">.</span><span class="n">GetPath</span><span class="p">())</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="c1"># ^^^^^^^^^^^^^^^^^^^^</span>
+<span class="linenos">16</span><span class="c1"># ADD CODE ABOVE HERE</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/World
+/World/Box
+/World/Box/Geometry
+/World/Box/Geometry/Cube
+/World/Box/Materials
+/World/Box/Materials/BoxMat
+/World/Environment
+/World/Environment/SkyLight
+</pre></div>
+</div>
+</div>
+</div>
+<p><a class="reference external" href="https://openusd.org/release/api/class_usd_stage.html#adba675b55f41cc1b305bed414fc4f178"><code class="docutils literal notranslate"><span class="pre">Traverse()</span></code></a> will go through the entire stage. Unlike <a class="reference external" href="https://openusd.org/release/api/class_usd_stage.html#adba675b55f41cc1b305bed414fc4f178"><code class="docutils literal notranslate"><span class="pre">Traverse()</span></code></a>, <a class="reference external" href="https://openusd.org/release/api/class_usd_prim_range.html"><code class="docutils literal notranslate"><span class="pre">UsdPrimRange</span></code></a> can also traverse through a pseudo root prim. To do this, we’d pass the prim in question as an argument to the function. The code below demonstrates this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Import the Usd module from the pxr package</span>
+<span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Open the USD stage from the specified file</span>
+<span class="linenos"> 5</span><span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&quot;assets/tons_of_prims.usda&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># ADD CODE BELOW HERE</span>
+<span class="linenos"> 8</span><span class="c1"># vvvvvvvvvvvvvvvvvvv</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="n">prim_range</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">PrimRange</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">GetPrimAtPath</span><span class="p">(</span><span class="s2">&quot;/World/Environment&quot;</span><span class="p">))</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="c1"># ^^^^^^^^^^^^^^^^^^^^</span>
+<span class="linenos">13</span><span class="c1"># ADD CODE ABOVE HERE</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="k">for</span> <span class="n">prim</span> <span class="ow">in</span> <span class="n">prim_range</span><span class="p">:</span>
+<span class="linenos">16</span>    <span class="nb">print</span><span class="p">(</span><span class="n">prim</span><span class="o">.</span><span class="n">GetPath</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/World/Environment
+/World/Environment/SkyLight
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are other ways to use <a class="reference external" href="https://openusd.org/release/api/class_usd_prim_range.html"><code class="docutils literal notranslate"><span class="pre">UsdPrimRange</span></code></a> such as passing in <a class="reference external" href="https://openusd.org/release/api/prim_flags_8h.html#Usd_PrimFlags"><code class="docutils literal notranslate"><span class="pre">predicates</span></code></a>, you can find more information in the <a class="reference external" href="https://openusd.org/release/api/class_usd_prim_range.html#details">Using <code class="docutils literal notranslate"><span class="pre">Usd.PrimRange</span></code> in Python</a> section of <code class="docutils literal notranslate"><span class="pre">UsdPrimRange</span></code>.</p>
+</section>
+<section id="example-5-traversing-a-stage">
+<h3>Example 5: Traversing a Stage<a class="headerlink" href="#example-5-traversing-a-stage" title="Link to this heading">#</a></h3>
+<p>We can traverse a USD stage using <a class="reference external" href="https://openusd.org/release/api/class_usd_stage.html#adba675b55f41cc1b305bed414fc4f178"><code class="docutils literal notranslate"><span class="pre">Usd.Stage.Traverse()</span></code></a>. This is fundamental when working with USD files, especially in complex 3D scenes and pipelines.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;assets/second_stage.usda&quot;</span>
+<span class="linenos"> 4</span><span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># ADD CODE BELOW HERE</span>
+<span class="linenos"> 7</span><span class="c1"># vvvvvvvvvvvvvvvvvvv</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="k">for</span> <span class="n">prim</span> <span class="ow">in</span> <span class="n">stage</span><span class="o">.</span><span class="n">Traverse</span><span class="p">():</span>
+<span class="linenos">10</span>    <span class="nb">print</span><span class="p">(</span><span class="n">prim</span><span class="o">.</span><span class="n">GetPath</span><span class="p">())</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="c1"># ^^^^^^^^^^^^^^^^^^^^</span>
+<span class="linenos">13</span><span class="c1"># ADD CODE ABOVE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Traversing is done depth-first search and can be used to not just go throught the whole stage but a branch of the whole tree.</p>
+</section>
+</section>
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<p>Traversal is how we navigate the scenegraph and query scene data. Traversal can be made more efficient by limiting the number of prims it visits.</p>
+<p>Let’s try out some traversal functions in the next activity.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="model-kinds.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Model Kinds</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="hydra.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Hydra</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-stage-traversal">What is Stage Traversal?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-it-work">How Does It Work?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-python">Working With Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-traversing-through-the-stage">Example 1: Traversing Through the Stage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-traversing-usd-content-for-specific-prim-types">Example 2: Traversing USD Content for Specific Prim Types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-traversing-through-the-children-of-a-prim">Example 3: Traversing Through the Children of a Prim</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-traversing-using-usd-primrange">Example 4: Traversing using <code class="docutils literal notranslate"><span class="pre">Usd.PrimRange</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-traversing-a-stage">Example 5: Traversing a Stage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025 NVIDIA CORPORATION &amp; AFFILIATES. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

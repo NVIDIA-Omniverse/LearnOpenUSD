@@ -1,0 +1,84 @@
+Traceback (most recent call last):
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+from pxr import Usd, UsdGeom
+
+file_path = "assets/custom_attributes2.usda"
+stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+
+
+world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
+geometry_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, world_xform.GetPath().AppendPath("Geometry"))
+
+box_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, geometry_xform.GetPath().AppendPath("Box"))
+box_prim: Usd.Prim = box_xform.GetPrim()
+box_prim.GetReferences().AddReference("box/cubebox_a02_distilled/cubebox_a02_distilled.usd")
+
+# ADD CODE BELOW HERE
+# vvvvvvvvvvvvvvvvvvv
+
+# Get the children of the box prim
+box_prim_children = box_prim.GetChildren()
+box_inst_children = box_prim_children[0].GetChildren()
+
+# Create a Xform object from the second child of the box prim
+box_xform: UsdGeom.Xform = UsdGeom.Xform(box_inst_children[2].GetChildren()[0])
+
+# Add/Get Scale Op
+if box_xform.GetScaleOp():
+    box_scale_attr = box_xform.GetScaleOp()
+else:
+    box_scale_attr = box_xform.AddScaleOp()
+
+# Set Scale Op
+box_scale_attr.Set((2.0, 1.0, 1.0))
+
+# ^^^^^^^^^^^^^^^^^^^^
+# ADD CODE ABOVE HERE
+
+
+stage.Save()
+------------------
+
+----- stderr -----
+Warning: in _ReportErrors at line 3309 of /opt/USD/pxr/usd/usd/stage.cpp -- In </World/Geometry/Box>: Could not open asset @box/cubebox_a02_distilled/cubebox_a02_distilled.usd@ for reference introduced by @/home/runner/work/LearnOpenUSD/LearnOpenUSD/docs/source/composition-basics/assets/custom_attributes2.usda@</World/Geometry/Box>. (recomposing stage on stage @/home/runner/work/LearnOpenUSD/LearnOpenUSD/docs/source/composition-basics/assets/custom_attributes2.usda@ <0x56529999fad0>)
+------------------
+
+[31m---------------------------------------------------------------------------[39m
+[31mIndexError[39m                                Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[9][39m[32m, line 19[39m
+[32m     14[39m [38;5;66;03m# ADD CODE BELOW HERE[39;00m
+[32m     15[39m [38;5;66;03m# vvvvvvvvvvvvvvvvvvv[39;00m
+[32m     16[39m 
+[32m     17[39m [38;5;66;03m# Get the children of the box prim[39;00m
+[32m     18[39m box_prim_children = box_prim.GetChildren()
+[32m---> [39m[32m19[39m box_inst_children = [43mbox_prim_children[49m[43m[[49m[32;43m0[39;49m[43m][49m.GetChildren()
+[32m     21[39m [38;5;66;03m# Create a Xform object from the second child of the box prim[39;00m
+[32m     22[39m box_xform: UsdGeom.Xform = UsdGeom.Xform(box_inst_children[[32m2[39m].GetChildren()[[32m0[39m])
+
+[31mIndexError[39m: list index out of range
+

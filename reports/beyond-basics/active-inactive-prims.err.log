@@ -1,0 +1,71 @@
+Traceback (most recent call last):
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.11/x64/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/runner/work/LearnOpenUSD/LearnOpenUSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+from pxr import Usd
+
+# Open the USD stage from the specified file
+file_path = "assets/active-inactive.usda"
+stage = Usd.Stage.Open(file_path)
+
+# Get the default prim (primitive) of the stage
+default_prim: Usd.Prim = stage.GetDefaultPrim()
+
+# ADD CODE BELOW HERE
+# vvvvvvvvvvvvvvvvvvv
+
+# Get the child prim named "Box" under the default prim and deactivate it
+box = default_prim.GetChild("Box")
+# Passing in False to SetActive() will set the prim as Inactive and passing in True will set the prim as active
+box.SetActive(False)
+
+# ^^^^^^^^^^^^^^^^^^^^
+# ADD CODE ABOVE HERE
+
+# Iterate through all children of the default prim
+for child in default_prim.GetAllChildren():
+    # Print the name of each child and their children (if any)
+    print(child.GetName(), child.GetAllChildren())
+
+# Get a specific child prim named "Environment" under the default prim
+child_prim: Usd.Prim = default_prim.GetChild("Environment")
+# Print the details of the child prim
+print(child_prim)
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mErrorException[39m                            Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 5[39m
+[32m      3[39m [38;5;66;03m# Open the USD stage from the specified file[39;00m
+[32m      4[39m file_path = [33m"[39m[33massets/active-inactive.usda[39m[33m"[39m
+[32m----> [39m[32m5[39m stage = [43mUsd[49m[43m.[49m[43mStage[49m[43m.[49m[43mOpen[49m[43m([49m[43mfile_path[49m[43m)[49m
+[32m      7[39m [38;5;66;03m# Get the default prim (primitive) of the stage[39;00m
+[32m      8[39m default_prim: Usd.Prim = stage.GetDefaultPrim()
+
+[31mErrorException[39m: 
+	Error in 'pxrInternal_v0_25_5__pxrReserved__::UsdStage::Open' at line 1094 in file /opt/USD/pxr/usd/usd/stage.cpp : 'Failed to open layer @assets/active-inactive.usda@'
+
