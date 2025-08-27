@@ -1,0 +1,20 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+)
+
+def Xform "World"
+{
+    def Xform "Box"
+    {
+        def Scope "Geometry" (
+            variants = {
+                string shapes = "Cube"
+            }
+            prepend variantSets = "shapes"
+        )
+        {
+        }
+    }
+}
+

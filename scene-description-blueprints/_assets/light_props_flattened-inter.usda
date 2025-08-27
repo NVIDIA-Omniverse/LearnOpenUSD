@@ -1,0 +1,28 @@
+#usda 1.0
+
+def Scope "Geometry"
+{
+    def Cube "Box"
+    {
+    }
+}
+
+def Scope "Lights"
+{
+    def DistantLight "Sun"
+    {
+        color3f inputs:color = (1, 0, 0)
+        float inputs:intensity = 120
+        float3 xformOp:rotateXYZ = (45, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:rotateXYZ"]
+    }
+
+    def SphereLight "SphereLight"
+    {
+        color3f inputs:color = (0, 0, 1)
+        float inputs:intensity = 50000
+        double3 xformOp:translate = (5, 10, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+}
+
