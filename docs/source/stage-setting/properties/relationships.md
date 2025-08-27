@@ -71,7 +71,7 @@ Relationships enable robust encoding of dependencies and associations between sc
 * Binding geometry to materials
 * Grouping prims into collections
 * Establishing connections in shading networks
-* Modeling hierarchical relationships (e.g. parent-child)
+* Associating scene elements with non-hierarchical links (e.g. material binding)
 
 Using relationships instead of hard paths enhances:
 
