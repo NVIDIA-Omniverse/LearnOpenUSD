@@ -137,7 +137,7 @@ stage.Save()
 DisplayUSD(file_path, show_usd_code=True)
 ```
 
-In this example, we used the `UsdGeom.Sphere` class to create a Sphere type prim and set some data about that sphere. We set there sphere's `radius` to `5`. Using the `UsdGeom.Sphere` class provides a more transparent interface for the Sphere prim type.
+In this example, we used the `UsdGeom.Sphere` class to create a Sphere type prim and set some data about that sphere. We set there sphere's `radius` to `2`. Using the `UsdGeom.Sphere` class provides a more transparent interface for the Sphere prim type.
 
 ### Example 3: Creating a Prim Hierarchy
 
@@ -171,7 +171,7 @@ The prim hierarchy that we have created is:
     - *GroupTransform*
         - *Cube*
 
-By nesting prims in this way, a hierarchical scenegraph begins to take shape. In this example, "Geometry" is the root prim. We are also defining three different types of prims here: [`Scope`](https://openusd.org/release/api/class_usd_geom_scope.html), [`Xform`](https://openusd.org/release/api/class_usd_geom_xform.html), and [`Cube`](https://openusd.org/release/api/class_usd_geom_cube.html). We will look at these prim types more closely in other lessons, but for a brief description:
+By nesting prims in this way, a hierarchical scenegraph begins to take shape. In this example, "Geometry" is the root prim. In other words, "Geometry" is a direct child of the pseudo-root `/`. We are also defining three different types of prims here: [`Scope`](https://openusd.org/release/api/class_usd_geom_scope.html), [`Xform`](https://openusd.org/release/api/class_usd_geom_xform.html), and [`Cube`](https://openusd.org/release/api/class_usd_geom_cube.html). We will look at these prim types more closely in other lessons, but for a brief description:
 
 - **Xform**: Defines a transform (translate, rotation, scale)
 - **Scope**: Is a simple container that does not hold transform data
