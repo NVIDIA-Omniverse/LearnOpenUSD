@@ -1,15 +1,13 @@
 
-## OpenUSD Code Samples OSS Contribution Rules
+## Learn OpenUSD OSS Contribution Rules
 
 #### Issue Tracking
 
-* All enhancement, bugfix, or change requests must begin with the creation of a [OpenUSD Code Samples Issue Request](https://github.com/NVIDIA-Omniverse/OpenUSD-Code-Samples/issues).
-  * The issue request must be reviewed by OpenUSD Code Samples engineers and approved prior to code review.
+* All enhancement, bugfix, or change requests must begin with the creation of a [Learn OpenUSD Issue Request](https://github.com/NVIDIA-Omniverse/LearnOpenUSD/issues).
+  * The issue request must be reviewed by Learn OpenUSD engineers and approved prior to code review.
 
 
 #### Coding Guidelines
-
-- All source code contributions must strictly adhere to the [OpenUSD Code Samples Guidelines](CODE-SAMPLE-GUIDELINES.md).
 
 - In addition, please follow the existing conventions in the relevant file, submodule, module, and project when you add new code or when you extend/fix existing functionality.
 
@@ -32,14 +30,6 @@
 
 - Ensure that all code blocks execute correctly prior to submitting your code.
 
-- All OSS components must contain accompanying documentation (READMEs) describing the functionality, dependencies, and known issues.
-
-  - See `README.md` for existing samples and plugins for reference.
-
-- All OSS components must have an accompanying test.
-
-  - If introducing a new component, such as a plugin, provide a test sample to verify the functionality.
-
 - Make sure that you can contribute your work to open source (no license and/or patent conflict is introduced by your code). You will need to [`sign-off`](#signing-your-work) your commit.
 
 - Thanks in advance for your patience as we review your contributions; we do appreciate them!
@@ -48,11 +38,11 @@
 #### Pull Requests
 Developer workflow for code contributions is as follows:
 
-1. Developers must first [fork](https://help.github.com/en/articles/fork-a-repo) the [upstream](https://github.com/NVIDIA-Omniverse/OpenUSD-Code-Samples) OpenUSD Code Samples repository.
+1. Developers must first [fork](https://help.github.com/en/articles/fork-a-repo) the [upstream](https://github.com/NVIDIA-Omniverse/LearnOpenUSD) LearnOpenUSD repository.
 
 2. Git clone the forked repository.
   ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_FORK.git OpenUSD-Code-Samples
+git clone https://github.com/YOUR_USERNAME/YOUR_FORK.git LearnOpenUSD
   ```
 
 3. Create a branch off of the "main" branch and commit changes. See [Coding Guidelines](#coding-guidelines) for commit formatting rules.
@@ -77,10 +67,10 @@ git push -u origin <local-branch>:<remote-branch>
     * Exercise caution when selecting the source and target branches for the PR.
     * If you haven't included a link to the Issue you are addressing in your commit message, add it now to the PR description.
     * Creation of a PR creation kicks off the code review process.
-    * At least one OpenUSD Code Samples engineer will be assigned for the review.
+    * At least one Learn OpenUSD engineer will be assigned for the review.
     * While under review, mark your PRs as work-in-progress by prefixing the PR title with [WIP].
 
-7. Since there is no CI/CD process in place yet, the PR will be accepted and the corresponding issue closed only after adequate testing has been completed, manually, by the developer and/or OpenUSD Code Samples engineer reviewing the code.
+7. Since there is no CI/CD process in place yet, the PR will be accepted and the corresponding issue closed only after adequate testing has been completed, manually, by the developer and/or Learn OpenUSD engineer reviewing the code.
 
 
 #### Signing Your Work
