@@ -1,0 +1,14 @@
+#usda 1.0
+
+def Xform "World"
+{
+    def Xform "Geometry"
+    {
+        def Xform "Box" (
+            prepend references = @./cubebox_a02/cubebox_a02.usd@
+        )
+        {
+        }
+    }
+}
+

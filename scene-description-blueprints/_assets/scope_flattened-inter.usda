@@ -1,0 +1,15 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+)
+
+def Xform "World"
+{
+    def Scope "Geometry"
+    {
+        def Cube "Cube"
+        {
+        }
+    }
+}
+
