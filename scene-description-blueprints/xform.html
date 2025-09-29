@@ -1,0 +1,798 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Xform &#8212; Learn OpenUSD</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=df3ac72c" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/lousd_custom.css?v=9deb43b2" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'scene-description-blueprints/xform';</script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="XformCommonAPI" href="xformcommonapi.html" />
+    <link rel="prev" title="Scope" href="scope.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Learn OpenUSD - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Learn OpenUSD - Home"/>
+  
+  
+    <p class="title logo__title">Learn OpenUSD</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/LearnOpenUSD" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Learn OpenUSD - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Learn OpenUSD - Home"/>
+  
+  
+    <p class="title logo__title">Learn OpenUSD</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/LearnOpenUSD" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what-openusd/index.html">What Is OpenUSD?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../why-openusd-developer-certification.html">Why Get Certified</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../stage-setting/index.html">Setting the Stage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/stage.html">Stage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/prims.html">Prims</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../stage-setting/properties/index.html">Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stage-setting/properties/attributes.html">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stage-setting/properties/relationships.html">Relationships</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/timecodes-timesamples.html">TimeCodes and TimeSamples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/prim-property-paths.html">Prim and Property Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/usd-file-formats.html">OpenUSD File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/usd-modules.html">OpenUSD Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stage-setting/metadata.html">Metadata</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Scene Description Blueprints</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schemas.html">Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scope.html">Scope</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Xform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xformcommonapi.html">XformCommonAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lights.html">Lights</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../composition-basics/index.html">Composition Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/layers.html">Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/strength-ordering.html">Composition Arcs and Strength Ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/specifiers.html">Specifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/references.html">Referencing Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/default-prim.html">Default Prim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/variant-sets.html">Variant Sets Basics</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../beyond-basics/index.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/primvars.html">Primvars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/value-resolution.html">Value Resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/custom-properties.html">Custom Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/active-inactive-prims.html">Active and Inactive Prims</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/model-kinds.html">Model Kinds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/stage-traversal.html">Stage Traversal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/hydra.html">Hydra</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../creating-composition-arcs/index.html">Creating Composition Arcs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../creating-composition-arcs/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../creating-composition-arcs/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../creating-composition-arcs/prim-composition.html">What Is Prim Composition?</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../creating-composition-arcs/sublayers/index.html">Sublayers</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/sublayers/what-are-sublayers.html">What Are Sublayers?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/sublayers/working-with-sublayers.html">Exercise: Working with Sublayers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/sublayers/sublayers-faq.html">Sublayers FAQ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../creating-composition-arcs/references-payloads/index.html">References and Payloads</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/references-payloads/what-are-references.html">What Are References?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/references-payloads/working-with-references.html">Exercise: Working With References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/references-payloads/references-faq.html">References FAQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/references-payloads/what-are-payloads.html">What Are Payloads?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/references-payloads/working-with-payloads.html">Exercise: Working With Payloads</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../creating-composition-arcs/encapsulation/index.html">Encapsulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/encapsulation/what-is-encapsulation.html">What Is Encapsulation?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/encapsulation/experimenting-with-encapsulation.html">Exercise: Experimenting With Encapsulation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../creating-composition-arcs/variant-sets/index.html">Variant Sets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/variant-sets/what-are-variant-sets.html">What Are Variant Sets?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/variant-sets/working-with-variant-sets.html">Exercise: Working With Variant Sets</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/index.html">Inherits and Specializes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/what-is-inherits.html">What Is Inherits?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/experimenting-with-inherits.html">Exercise: Experimenting With Inherits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/what-is-specializes.html">What Is Specializes?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/experimenting-with-specializes.html">Exercise: Experimenting With Specializes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/encapsulation-refinement.html">Encapsulation and Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/experimenting-with-encapsulation-refinement.html">Exercise: Experimenting With Encapsulation and Refinement</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../creating-composition-arcs/strength-ordering/index.html">LIVERPS Strenth Ordering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/strength-ordering/what-is-liverps.html">What Is LIVERPS?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/strength-ordering/tracing-through-liverps.html">Tracing Through LIVERPS</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../asset-structure/index.html">Asset Structure Principles and Content Aggregation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../asset-structure/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../asset-structure/setup.html">Setup</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-structure/asset-structure-principles/index.html">Principles of Asset Structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/why-necessary.html">Why Is an Asset Structure Necessary?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/asset-interface-pt1.html">What Is an Asset Interface?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/your-first-asset.html">Exercise: Your First Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/asset-interface-pt2.html">What Is an Asset Interface? (Part 2)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/encapsulating-your-asset.html">Exercise: Encapsulating Your Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/asset-interface-pt3.html">What Is an Asset Interface? (Part 3)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/organizing-prim-hierarchy.html">Exercise: Organizing Prim Hierarchy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-structure/workstreams/index.html">Workstreams</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/workstreams/modeling-workstreams.html">Modeling Workstreams With Layer Stacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/workstreams/adding-user-workstreams.html">Exercise: Adding User Workstreams</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-structure/asset-parameterization/index.html">Asset Parameterization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-parameterization/what-is-asset-parameterization.html">What Is Asset Parameterization?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-parameterization/exercise-asset-parameterization.html">Exercise: Asset Parameterization</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-structure/reference-payload-pattern/index.html">Reference/Payload Pattern</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/reference-payload-pattern/what-is-ref-payload-pattern.html">What Is Reference/Payload Pattern?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/reference-payload-pattern/exercise-ref-payload-pattern.html">Exercise: Reference/Payload Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/reference-payload-pattern/lofting-primvars.html">Exercise: Lofting Primvars</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/reference-payload-pattern/lofting-variant-sets.html">Exercise: Lofting Variant Sets</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-structure/model-hierarchy/index.html">Model Hierarchy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/model-hierarchy/what-are-model-kinds.html">What Are Model Kinds?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/model-hierarchy/exercise-components.html">Exercise: Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/model-hierarchy/exercise-assemblies.html">Exercise: Assemblies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/model-hierarchy/model-hierarchy-considerations.html">Model Hierarchy Considerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/model-hierarchy/exercise-groups.html">Exercise: Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/model-hierarchy/exercise-variation-workstream.html">Exercise: Variation Workstream</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data-exchange/index.html">Developing Data Exchange Pipelines</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../data-exchange/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data-exchange/setup.html">Setup</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data-exchange/data-exchange/index.html">Data Exchange</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-exchange/what-is-data-exchange.html">What Is Data Exchange?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-exchange/exercise.html">Exercise: Anatomy of a Converter</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data-exchange/data-extraction/index.html">Data Extraction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-extraction/what-is-data-extraction.html">What Is Data Extraction?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-extraction/exercise-extracting-geometry.html">Exercise: Extracting Geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-extraction/exercise-extracting-materials.html">Exercise: Extracting Materials</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data-exchange/asset-validation/index.html">Asset Validation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/asset-validation/what-is-asset-validation.html">What Is Asset Validation?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/asset-validation/exercise-asset-validation-testing.html">Exercise: Asset Validation and Testing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data-exchange/data-transformation/index.html">Data Transformation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-transformation/what-is-data-transformation.html">What Is Data Transformation?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-transformation/transformation-hierarchy.html">Exercise: Transforming the Prim Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-transformation/exercise-export-option.html">Exercise: Adding an Export Option</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../asset-modularity-instancing/index.html">Asset Modularity and Instancing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../asset-modularity-instancing/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../asset-modularity-instancing/setup.html">Setup</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-modularity-instancing/asset-modularity/index.html">Asset Modularity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/asset-modularity/what-is-asset-modularity.html">What Is Asset Modularity?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/asset-modularity/exercise-assets-overview.html">Exercise: Assets Overview</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../asset-modularity-instancing/what-is-instancing.html">What Is Instancing?</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-modularity-instancing/authoring-scenegraph-instancing/index.html">Authoring Scenegraph Instancing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/authoring-scenegraph-instancing/scenegraph-instancing-intro.html">Introduction to Scenegraph Instancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/authoring-scenegraph-instancing/exercise-authoring-scenegraph-instancing.html">Exercise: Author Scenegraph Instancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/authoring-scenegraph-instancing/nested-instancing.html">Nested Instancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/authoring-scenegraph-instancing/exercise-nested-instancing.html">Exercise: Nested Scenegraph Instancing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/index.html">Refining Scenegraph Instances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-instance-refinement.html">Introduction to Scenegraph Instance Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-deinstance-refinement.html">Deinstancing Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-variant-set-refinement.html">Refinement Using Variant Sets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-hierarchical-refinement.html">Hierarchical Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-ad-hoc-arcs-refinement.html">Ad Hoc Arcs Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-broadcasted-refinement.html">Broadcasted Refinement</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-modularity-instancing/authoring-point-instancing/index.html">Authoring Point Instancing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/authoring-point-instancing/point-instancing-intro.html">Introduction to Point Instancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/authoring-point-instancing/exercise-authoring-point-instancing.html">Exercise: Authoring Point Instancing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../asset-modularity-instancing/refining-point-instances.html">Refining Point Instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../asset-modularity-instancing/instancing-faq.html">Instancing FAQ</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Common Resources</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../usdview-install-instructions.html">Installing usdview and Setting Up Python</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Involved</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://github.com/NVIDIA-Omniverse/LearnOpenUSD">Contribute</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/NVIDIA-Omniverse/LearnOpenUSD/issues/new">Report an Issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.aousd.org">Join the Community</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Scene Description Blueprints</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Xform</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="xform">
+<h1>Xform<a class="headerlink" href="#xform" title="Link to this heading">#</a></h1>
+<p>In Universal Scene Description, Xforms play a key role in defining the spatial transformations of objects in a scene.</p>
+<section id="what-is-an-xform">
+<h2>What Is an Xform?<a class="headerlink" href="#what-is-an-xform" title="Link to this heading">#</a></h2>
+<p>In OpenUSD, an Xform is a type of prim that stores transformation data, such as translation, rotation, and scaling, which apply to its child prims. This makes Xforms a powerful tool for grouping and manipulating the spatial arrangement of objects in a 3D scene. Xform stands for ‘transform’, reflecting its role in transforming the space in which its children reside.</p>
+<div class="video-container">
+  <iframe
+	src="https://cdnapisec.kaltura.com/p/2935771/embedPlaykitJs/uiconf_id/53712482?iframeembed=true&entry_id=1_1bbmv128"
+	title="video"
+	allowfullscreen
+	webkitallowfullscreen
+	mozAllowFullScreen
+	allow="autoplay *; fullscreen *; encrypted-media *"
+	frameborder="0">
+  </iframe>
+</div><section id="how-does-it-work">
+<h3>How Does It Work?<a class="headerlink" href="#how-does-it-work" title="Link to this heading">#</a></h3>
+<p>Xform prims allow for hierarchical transformations, meaning that
+transformations applied to a parent Xform affect all of its child prims. This is essential in complex scenes where multiple objects need to move or scale relative to the parent. Typical use cases include animating characters or robotic arms, where different parts are children of an Xform prim, or arranging furniture in architectural visualization, where all items in a room might be scaled or rotated together.</p>
+</section>
+<section id="working-with-python">
+<h3>Working With Python<a class="headerlink" href="#working-with-python" title="Link to this heading">#</a></h3>
+<p>Working with Xform in USD via Python involves several functions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Used to define a new Xform prim at a specified path on a given stage</span>
+<span class="linenos">2</span><span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="c1"># Retrieves the order of transformation operations, which is crucial for understanding how multiple transformations are combined. Different orders can yield different results, so understanding XformOpOrder is important. </span>
+<span class="linenos">5</span><span class="n">xform</span><span class="o">.</span><span class="n">GetXformOpOrderAttr</span><span class="p">()</span>
+<span class="linenos">6</span>	
+<span class="linenos">7</span><span class="c1"># Adds a new transform operation to the Xform prim, such as translation or rotation, with specified value   </span>
+<span class="linenos">8</span><span class="n">xform</span><span class="o">.</span><span class="n">AddXformOp</span><span class="p">(</span><span class="n">opType</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<section id="example-1-usdgeom-and-xform">
+<h3>Example 1: UsdGeom and Xform<a class="headerlink" href="#example-1-usdgeom-and-xform" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://openusd.org/release/api/usd_geom_page_front.html" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">UsdGeom</span></code></a> defines the 3D graphics-related prim and property schemas that together form a basis for interchanging geometry between Digital Content Creation (DCC) tools in a graphics pipeline.</p>
+<p>Some things to know about <code class="docutils literal notranslate"><span class="pre">UsdGeom</span></code>:</p>
+<ul class="simple">
+<li><p>All classes in <code class="docutils literal notranslate"><span class="pre">UsdGeom</span></code> inherit from <a class="reference external" href="https://openusd.org/release/api/class_usd_geom_imageable.html" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">UsdGeomImageable</span></code></a>, whose intent is to capture any prim type that might want to be rendered or visualized.</p></li>
+<li><p>All geometry prims are directly transformable. <a class="reference external" href="https://openusd.org/release/api/class_usd_geom_xformable.html" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">UsdGeomXformable</span></code></a> encapsulates the schema for a prim that is transformable.</p></li>
+</ul>
+<p><a class="reference external" href="https://openusd.org/release/api/class_usd_geom_xform.html" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">UsdGeomXform</span></code></a> is a concrete prim schema for a transform, which is transformable and can transform other child prims as a group.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Import the necessary modules from the pxr package:</span>
+<span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Create a new USD stage with root layer named &quot;xform_prim.usda&quot;:</span>
+<span class="linenos"> 5</span><span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;_assets/xform_prim.usda&quot;</span>
+<span class="linenos"> 6</span><span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">CreateNew</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<span class="hll"><span class="linenos"> 7</span>
+</span><span class="hll"><span class="linenos"> 8</span><span class="c1"># Define a new Xform primitive at the path &quot;/World&quot; on the current stage:</span>
+</span><span class="linenos"> 9</span><span class="n">world</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="s2">&quot;/World&quot;</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># Save changes to the current stage to its root layer:</span>
+<span class="linenos">12</span><span class="n">stage</span><span class="o">.</span><span class="n">Save</span><span class="p">()</span>
+<span class="linenos">13</span><span class="nb">print</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">ExportToString</span><span class="p">(</span><span class="n">addSourceFileComment</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>#usda 1.0
+
+def Xform &quot;World&quot;
+{
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<p>Now, we’ve explored what Xform prims are and how they function within the USD framework. We’ve seen how Xform prims are essential for defining and managing spatial transformations in a scene, making them indispensable for any 3D content creation workflow.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="scope.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Scope</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="xformcommonapi.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">XformCommonAPI</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-xform">What Is an Xform?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-it-work">How Does It Work?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-python">Working With Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-usdgeom-and-xform">Example 1: UsdGeom and Xform</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025 NVIDIA CORPORATION &amp; AFFILIATES. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+  
+    <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

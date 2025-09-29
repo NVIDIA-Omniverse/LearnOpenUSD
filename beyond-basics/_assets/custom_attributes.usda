@@ -1,0 +1,23 @@
+#usda 1.0
+
+def Xform "World"
+{
+    def Xform "Packages"
+    {
+        def Xform "Box" (
+            prepend references = @./cubebox_a02/cubebox_a02.usd@
+        )
+        {
+            custom string acme:category = "Cosmetics" (
+                doc = "The shopping category for the products this package contains."
+            )
+            custom bool acme:hazardous_material = 0 (
+                doc = "Whether this package contains hazard materials."
+            )
+            custom float acme:weight = 4.25 (
+                doc = "The weight of the package in kilograms."
+            )
+        }
+    }
+}
+

@@ -1,0 +1,1848 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TimeCodes and TimeSamples &#8212; Learn OpenUSD</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=df3ac72c" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/lousd_custom.css?v=9deb43b2" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'stage-setting/timecodes-timesamples';</script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Prim and Property Paths" href="prim-property-paths.html" />
+    <link rel="prev" title="Relationships" href="properties/relationships.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Learn OpenUSD - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Learn OpenUSD - Home"/>
+  
+  
+    <p class="title logo__title">Learn OpenUSD</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/LearnOpenUSD" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Learn OpenUSD - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Learn OpenUSD - Home"/>
+  
+  
+    <p class="title logo__title">Learn OpenUSD</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/LearnOpenUSD" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what-openusd/index.html">What Is OpenUSD?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../why-openusd-developer-certification.html">Why Get Certified</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Setting the Stage</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stage.html">Stage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prims.html">Prims</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="properties/index.html">Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="properties/attributes.html">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="properties/relationships.html">Relationships</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">TimeCodes and TimeSamples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prim-property-paths.html">Prim and Property Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usd-file-formats.html">OpenUSD File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usd-modules.html">OpenUSD Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html">Metadata</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../scene-description-blueprints/index.html">Scene Description Blueprints</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/schemas.html">Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/scope.html">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/xform.html">Xform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/xformcommonapi.html">XformCommonAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene-description-blueprints/lights.html">Lights</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../composition-basics/index.html">Composition Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/layers.html">Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/strength-ordering.html">Composition Arcs and Strength Ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/specifiers.html">Specifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/references.html">Referencing Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/default-prim.html">Default Prim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../composition-basics/variant-sets.html">Variant Sets Basics</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../beyond-basics/index.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/primvars.html">Primvars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/value-resolution.html">Value Resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/custom-properties.html">Custom Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/active-inactive-prims.html">Active and Inactive Prims</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/model-kinds.html">Model Kinds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/stage-traversal.html">Stage Traversal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../beyond-basics/hydra.html">Hydra</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../creating-composition-arcs/index.html">Creating Composition Arcs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../creating-composition-arcs/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../creating-composition-arcs/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../creating-composition-arcs/prim-composition.html">What Is Prim Composition?</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../creating-composition-arcs/sublayers/index.html">Sublayers</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/sublayers/what-are-sublayers.html">What Are Sublayers?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/sublayers/working-with-sublayers.html">Exercise: Working with Sublayers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/sublayers/sublayers-faq.html">Sublayers FAQ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../creating-composition-arcs/references-payloads/index.html">References and Payloads</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/references-payloads/what-are-references.html">What Are References?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/references-payloads/working-with-references.html">Exercise: Working With References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/references-payloads/references-faq.html">References FAQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/references-payloads/what-are-payloads.html">What Are Payloads?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/references-payloads/working-with-payloads.html">Exercise: Working With Payloads</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../creating-composition-arcs/encapsulation/index.html">Encapsulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/encapsulation/what-is-encapsulation.html">What Is Encapsulation?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/encapsulation/experimenting-with-encapsulation.html">Exercise: Experimenting With Encapsulation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../creating-composition-arcs/variant-sets/index.html">Variant Sets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/variant-sets/what-are-variant-sets.html">What Are Variant Sets?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/variant-sets/working-with-variant-sets.html">Exercise: Working With Variant Sets</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/index.html">Inherits and Specializes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/what-is-inherits.html">What Is Inherits?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/experimenting-with-inherits.html">Exercise: Experimenting With Inherits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/what-is-specializes.html">What Is Specializes?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/experimenting-with-specializes.html">Exercise: Experimenting With Specializes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/encapsulation-refinement.html">Encapsulation and Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/inherits-specializes/experimenting-with-encapsulation-refinement.html">Exercise: Experimenting With Encapsulation and Refinement</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../creating-composition-arcs/strength-ordering/index.html">LIVERPS Strenth Ordering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/strength-ordering/what-is-liverps.html">What Is LIVERPS?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../creating-composition-arcs/strength-ordering/tracing-through-liverps.html">Tracing Through LIVERPS</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../asset-structure/index.html">Asset Structure Principles and Content Aggregation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../asset-structure/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../asset-structure/setup.html">Setup</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-structure/asset-structure-principles/index.html">Principles of Asset Structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/why-necessary.html">Why Is an Asset Structure Necessary?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/asset-interface-pt1.html">What Is an Asset Interface?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/your-first-asset.html">Exercise: Your First Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/asset-interface-pt2.html">What Is an Asset Interface? (Part 2)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/encapsulating-your-asset.html">Exercise: Encapsulating Your Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/asset-interface-pt3.html">What Is an Asset Interface? (Part 3)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-structure-principles/organizing-prim-hierarchy.html">Exercise: Organizing Prim Hierarchy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-structure/workstreams/index.html">Workstreams</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/workstreams/modeling-workstreams.html">Modeling Workstreams With Layer Stacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/workstreams/adding-user-workstreams.html">Exercise: Adding User Workstreams</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-structure/asset-parameterization/index.html">Asset Parameterization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-parameterization/what-is-asset-parameterization.html">What Is Asset Parameterization?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/asset-parameterization/exercise-asset-parameterization.html">Exercise: Asset Parameterization</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-structure/reference-payload-pattern/index.html">Reference/Payload Pattern</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/reference-payload-pattern/what-is-ref-payload-pattern.html">What Is Reference/Payload Pattern?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/reference-payload-pattern/exercise-ref-payload-pattern.html">Exercise: Reference/Payload Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/reference-payload-pattern/lofting-primvars.html">Exercise: Lofting Primvars</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/reference-payload-pattern/lofting-variant-sets.html">Exercise: Lofting Variant Sets</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-structure/model-hierarchy/index.html">Model Hierarchy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/model-hierarchy/what-are-model-kinds.html">What Are Model Kinds?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/model-hierarchy/exercise-components.html">Exercise: Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/model-hierarchy/exercise-assemblies.html">Exercise: Assemblies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/model-hierarchy/model-hierarchy-considerations.html">Model Hierarchy Considerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/model-hierarchy/exercise-groups.html">Exercise: Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-structure/model-hierarchy/exercise-variation-workstream.html">Exercise: Variation Workstream</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data-exchange/index.html">Developing Data Exchange Pipelines</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../data-exchange/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data-exchange/setup.html">Setup</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data-exchange/data-exchange/index.html">Data Exchange</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-exchange/what-is-data-exchange.html">What Is Data Exchange?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-exchange/exercise.html">Exercise: Anatomy of a Converter</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data-exchange/data-extraction/index.html">Data Extraction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-extraction/what-is-data-extraction.html">What Is Data Extraction?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-extraction/exercise-extracting-geometry.html">Exercise: Extracting Geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-extraction/exercise-extracting-materials.html">Exercise: Extracting Materials</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data-exchange/asset-validation/index.html">Asset Validation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/asset-validation/what-is-asset-validation.html">What Is Asset Validation?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/asset-validation/exercise-asset-validation-testing.html">Exercise: Asset Validation and Testing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data-exchange/data-transformation/index.html">Data Transformation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-transformation/what-is-data-transformation.html">What Is Data Transformation?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-transformation/transformation-hierarchy.html">Exercise: Transforming the Prim Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-exchange/data-transformation/exercise-export-option.html">Exercise: Adding an Export Option</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../asset-modularity-instancing/index.html">Asset Modularity and Instancing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../asset-modularity-instancing/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../asset-modularity-instancing/setup.html">Setup</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-modularity-instancing/asset-modularity/index.html">Asset Modularity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/asset-modularity/what-is-asset-modularity.html">What Is Asset Modularity?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/asset-modularity/exercise-assets-overview.html">Exercise: Assets Overview</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../asset-modularity-instancing/what-is-instancing.html">What Is Instancing?</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-modularity-instancing/authoring-scenegraph-instancing/index.html">Authoring Scenegraph Instancing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/authoring-scenegraph-instancing/scenegraph-instancing-intro.html">Introduction to Scenegraph Instancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/authoring-scenegraph-instancing/exercise-authoring-scenegraph-instancing.html">Exercise: Author Scenegraph Instancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/authoring-scenegraph-instancing/nested-instancing.html">Nested Instancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/authoring-scenegraph-instancing/exercise-nested-instancing.html">Exercise: Nested Scenegraph Instancing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/index.html">Refining Scenegraph Instances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-instance-refinement.html">Introduction to Scenegraph Instance Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-deinstance-refinement.html">Deinstancing Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-variant-set-refinement.html">Refinement Using Variant Sets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-hierarchical-refinement.html">Hierarchical Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-ad-hoc-arcs-refinement.html">Ad Hoc Arcs Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-broadcasted-refinement.html">Broadcasted Refinement</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-modularity-instancing/authoring-point-instancing/index.html">Authoring Point Instancing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/authoring-point-instancing/point-instancing-intro.html">Introduction to Point Instancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-modularity-instancing/authoring-point-instancing/exercise-authoring-point-instancing.html">Exercise: Authoring Point Instancing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../asset-modularity-instancing/refining-point-instances.html">Refining Point Instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../asset-modularity-instancing/instancing-faq.html">Instancing FAQ</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Common Resources</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../usdview-install-instructions.html">Installing usdview and Setting Up Python</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Involved</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://github.com/NVIDIA-Omniverse/LearnOpenUSD">Contribute</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/NVIDIA-Omniverse/LearnOpenUSD/issues/new">Report an Issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.aousd.org">Join the Community</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Setting the Stage</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">TimeCodes and TimeSamples</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="timecodes-and-timesamples">
+<h1>TimeCodes and TimeSamples<a class="headerlink" href="#timecodes-and-timesamples" title="Link to this heading">#</a></h1>
+<p>This lesson, <em>TimeCode and TimeSample</em>, shows us how to set up animation in a stage using OpenUSD.</p>
+<p>In this lesson, we will:</p>
+<ul class="simple">
+<li><p><strong>Set start and end timeCodes for a stage</strong>. Learn how to set start and end timeCode metadata for a USD stage, establishing a timeline that forms the foundation for animated scenes.</p></li>
+<li><p><strong>Set timeSamples on attributes</strong>. Gain the skills to set timeSamples on individual attributes, allowing us to animate specific properties of prims over time.</p></li>
+</ul>
+<section id="what-are-timecodes-and-timesamples">
+<h2>What are TimeCodes and TimeSamples?<a class="headerlink" href="#what-are-timecodes-and-timesamples" title="Link to this heading">#</a></h2>
+<p><video controls autoplay loop width="100%"><source src="../_images/TimeCodeTimeSample_Definition.webm" type="video/webm">Your browser does not support the video tag.</video></p>
+<p>In OpenUSD, timeCode and timeSample are two important concepts that enable us
+to work with animations and simulation in USD scenes.</p>
+<p>TimeCode is a point in time with no unit assigned to it. You can think of
+these as frames whose units are derived from the stage.</p>
+<p>TimeSample refers to the individual time-varying values associated with an
+attribute in USD. Each attribute can have a collection of timeSamples that map
+timeCode to the attribute’s data type values, allowing for animation over
+time. For a reminder of the purpose of attributes, please review the introductory <a class="reference internal" href="properties/attributes.html"><span class="doc">lesson on attributes</span></a>.</p>
+<section id="how-does-it-work">
+<h3>How Does It Work?<a class="headerlink" href="#how-does-it-work" title="Link to this heading">#</a></h3>
+<p>In a USD scene, the timeCode ordinates of all timeSamples are scaled to
+seconds based on the <code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code> metadata value defined in the root
+layer.</p>
+<p>This allows flexibility in encoding timeSamples within a range and scale
+suitable for the application, while maintaining a robust mapping to real-world
+time for playback and decoding.</p>
+<p>For example, if the root layer has <code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond=24</span></code>, a timeCode value
+of <code class="docutils literal notranslate"><span class="pre">48.0</span></code> would correspond to 2 seconds (48/24) of real time after the
+timeCode <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<p>TimeSamples are used to store time-varying data for attributes, such as
+positions, rotations, or material properties. When an attribute is evaluated
+at a specific timeCode, the value is linearly interpolated from the
+surrounding timeSamples, allowing for smooth animation playback.</p>
+</section>
+<section id="working-with-python">
+<h3>Working With Python<a class="headerlink" href="#working-with-python" title="Link to this heading">#</a></h3>
+<p><video controls autoplay loop width="100%"><source src="../_images/TimeCodeTimeSample_Python.webm" type="video/webm">Your browser does not support the video tag.</video></p>
+<p>Below is an example of how we can get or set timeSamples in Python. First,
+we’re getting the timeSamples of the <code class="docutils literal notranslate"><span class="pre">displayColor</span></code> on a cube prim. This
+method returns a vector of timeCode ordinates at which time samples are
+authored for the given attribute.</p>
+<p>Lastly, we’re setting a translation value of a sphere at a specified timeCode.
+This method sets the timeSample value of the attribute at the specified
+timeCode.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Returns authored TimeSamples</span>
+<span class="linenos">2</span><span class="n">cube</span><span class="o">.</span><span class="n">GetDisplayColorAttr</span><span class="p">()</span><span class="o">.</span><span class="n">GetTimeSamples</span><span class="p">()</span>
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="c1"># Sets TimeSample Value (Gf.Vec3d(0,-4.5,0)) at a specified TimeCode (30)</span>
+<span class="linenos">5</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">4.5</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="n">Usd</span><span class="o">.</span><span class="n">TimeCode</span><span class="p">(</span><span class="mi">30</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<div class="cell tag_remove-input docutils container">
+</div>
+<p>Let’s create a USD stage to serve as the starting point for the example in this lesson. We will create a simple stage with a sphere and a blue cube as a backdrop.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Import the necessary modules from the `pxr` library:</span>
+<span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span><span class="p">,</span> <span class="n">Gf</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Create a new USD stage file named &quot;timecode_sample.usda&quot;:</span>
+<span class="linenos"> 5</span><span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">=</span> <span class="n">create_new_stage</span><span class="p">(</span><span class="s2">&quot;_assets/timecode_sample.usda&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># Define a transform (&quot;Xform&quot;) primitive at the &quot;/World&quot; path:</span>
+<span class="linenos"> 8</span><span class="n">world</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="s2">&quot;/World&quot;</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Define a Sphere primitive as a child of the transform at &quot;/World/Sphere&quot; path:</span>
+<span class="linenos">11</span><span class="n">sphere</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Sphere</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Sphere</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;Sphere&quot;</span><span class="p">))</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="c1"># Define a blue Cube as a background prim:</span>
+<span class="linenos">14</span><span class="n">box</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Cube</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Cube</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;Backdrop&quot;</span><span class="p">))</span>
+<span class="linenos">15</span><span class="n">box</span><span class="o">.</span><span class="n">GetDisplayColorAttr</span><span class="p">()</span><span class="o">.</span><span class="n">Set</span><span class="p">([(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)])</span>
+<span class="linenos">16</span><span class="n">cube_xform_api</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">XformCommonAPI</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+<span class="linenos">17</span><span class="n">cube_xform_api</span><span class="o">.</span><span class="n">SetScale</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3f</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="linenos">18</span><span class="n">cube_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="c1"># Save the stage to the file:</span>
+<span class="linenos">21</span><span class="n">stage</span><span class="o">.</span><span class="n">Save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html">
+<style type="text/css">
+    .wrapper, #model-viewer-633a48d6-cae4-4305-b743-3bcb9e7c48de-wrapper {
+        width: auto;
+        height: 400px;
+    }
+
+    model-viewer {
+        height: 100%;
+        width: 100%;
+        --progress-bar-color: darkgrey;
+    }
+    model-viewer .loading-annotation {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--progress-bar-color);
+        display: flex;
+        flex-direction: column;
+    }
+    model-viewer .loading-annotation .message {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    model-viewer .loading-annotation .spinner-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    model-viewer .loading-annotation .spinner {
+        transform: translate(-50%, -50%);
+        width: 48px;
+        height: 48px;
+        border: 5px solid var(--progress-bar-color);
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+                        
+    .container-usd-render {
+        background-color: var(--pst-color-surface);
+    }
+</style>
+
+<!-- Import the `<model-viewer>` component: -->
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+
+<!-- Import Bootstrap for layout: -->
+<!--
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+-->
+
+
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/atom-one-dark.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/languages/python.min.js"></script>
+        
+
+<div class="container-usd-render">
+    <div id="model-viewer-633a48d6-cae4-4305-b743-3bcb9e7c48de-wrapper" class="visualization-column">
+        <model-viewer id="model-viewer-633a48d6-cae4-4305-b743-3bcb9e7c48de" src="_assets/timecode_sample.glb" autoplay ar shadow-intensity="1" camera-controls touch-action="pan-y" disable-zoom>
+            <div class="loading-annotation">
+                <div class="message">Loading your model...</div>
+                <div class="asset-id">_assets/timecode_sample.usda</div>
+                <div class="spinner-container">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </model-viewer>
+    </div>
+                
+    
+<div class="text-left ">
+    <pre>
+        <code id="code-content-633a48d6-cae4-4305-b743-3bcb9e7c48de" class="language-python" style="display: none;">#usda 1.0
+
+def Xform "World"
+{
+    def Sphere "Sphere"
+    {
+    }
+
+    def Cube "Backdrop"
+    {
+        color3f[] primvars:displayColor = [(0, 0, 1)]
+        float3 xformOp:scale = (5, 5, 0.1)
+        double3 xformOp:translate = (0, 0, -2)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+}
+
+</code>
+    </pre>
+</div>
+
+<script type="application/javascript">
+    (() => {
+        function onDocumentReady(callback) {
+            if (document.readyState !== 'loading') {
+                callback();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback);
+            }
+        }
+
+        function doHighlight() {
+            const snippetToHighlight = document.getElementById('code-content-633a48d6-cae4-4305-b743-3bcb9e7c48de');
+            if (snippetToHighlight !== null) {
+                hljs.highlightElement(snippetToHighlight);
+                snippetToHighlight.style.display = 'block';
+            }                  
+        }
+        
+        function main() {
+            if (window.hljs) {
+                doHighlight();              
+            } else {
+                setTimeout(main, 250);
+            }
+        }
+
+        onDocumentReady(main);
+    })();
+</script>
+</div>
+
+<script type="module">
+    (() => {
+        function onDocumentReady(callback) {
+            if (document.readyState !== 'loading') {
+                callback();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback);
+            }
+        }
+
+        /**
+         * Hide the progress indicator of the `<model-viewer />` element once loading of the associated 3D asset is
+         * complete.
+         */
+        function handleViewerProgress() {
+            // Handles loading the events for <model-viewer>'s slotted progress bar:
+            const onProgress = (event) => {
+                const loadingAnnotation = event.target.querySelector('.loading-annotation');
+
+                if (event.detail.totalProgress === 0) {
+                    loadingAnnotation.style.display = 'block';
+                } else {
+                    if (event.detail.totalProgress === 1) {
+                        setTimeout(() => {
+                            loadingAnnotation.style.display = 'none';
+                        }, 500);
+                    }
+                }
+            };
+
+            const modelViewer = document.getElementById('model-viewer-633a48d6-cae4-4305-b743-3bcb9e7c48de');
+            if (modelViewer !== null) {
+                modelViewer.addEventListener('progress', onProgress);
+            }
+        }
+
+        /**
+         * Display the names of the animations baked into the model, once it is loaded.
+         */
+        function displayAnimationNames() {
+            const modelViewer = document.getElementById('model-viewer-633a48d6-cae4-4305-b743-3bcb9e7c48de');
+            if (modelViewer !== null) {
+                modelViewer.addEventListener('load', () => {
+                    const animationNames = modelViewer.availableAnimations;
+                    console.log('Available animation names for "model-viewer-633a48d6-cae4-4305-b743-3bcb9e7c48de": ' + animationNames.join(', '));
+                });
+            }
+        }
+
+        /**
+         * Prevent displaying the default Jupyter context menu when right-clicking on the 3D visualization element, as
+         * this causes the context menu to be displayed when right-clicking to pan around the 3D world, causing an
+         * undesirable User experience as the context menu then obscures part of the element.
+         */
+        function handleRightClick() {
+            const viewerWrapper = document.getElementById('model-viewer-633a48d6-cae4-4305-b743-3bcb9e7c48de-wrapper');
+            if (viewerWrapper !== null) {
+                viewerWrapper.addEventListener('contextmenu', e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            }
+        }
+        
+        function main() {
+            displayAnimationNames();
+            handleViewerProgress();
+            handleRightClick();
+        }
+
+        onDocumentReady(main);
+    })();
+</script>
+</div></div>
+</div>
+<section id="example-1-setting-start-and-end-timecodes">
+<h3>Example 1: Setting Start and End TimeCodes<a class="headerlink" href="#example-1-setting-start-and-end-timecodes" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://openusd.org/release/glossary.html#usdglossary-timecode" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">TimeCode</span></code></a> specifies an exact frame or moment in the animation timeline. It allows for precise control over the timing of changes to properties, enabling smooth and accurate animation of 3D objects.</p>
+<p>A <a class="reference external" href="https://openusd.org/release/api/class_usd_time_code.html" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">Usd.TimeCode</span></code></a> is therefore a unitless, generic time measurement that serves as the ordinate for time-sampled data in USD files. <a class="reference external" href="https://openusd.org/release/api/class_usd_stage.html" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">Usd.Stage</span></code></a> defines the mapping of <code class="docutils literal notranslate"><span class="pre">TimeCode</span></code>s to units like seconds and frames.</p>
+<p>To set the stage’s <code class="docutils literal notranslate"><span class="pre">start</span></code> TimeCode and <code class="docutils literal notranslate"><span class="pre">end</span></code> TimeCode metadata, use the <a class="reference external" href="https://openusd.org/release/api/class_usd_stage.html#aef35e121cd9662129b6e338e85ceab44" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">SetStartTimeCode()</span></code></a> and <a class="reference external" href="https://openusd.org/release/api/class_usd_stage.html#a05e5e8a51041bc7f9b7f1165ccec9fa4" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">SetEndTimeCode()</span></code></a> methods.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span><span class="p">,</span> <span class="n">Gf</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&quot;_assets/timecode_sample.usda&quot;</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">world</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="s2">&quot;/World&quot;</span><span class="p">)</span>
+<span class="linenos"> 5</span><span class="n">sphere</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Sphere</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Sphere</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;Sphere&quot;</span><span class="p">))</span>
+<span class="linenos"> 6</span><span class="n">box</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Cube</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Cube</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;Backdrop&quot;</span><span class="p">))</span>
+<span class="linenos"> 7</span><span class="n">box</span><span class="o">.</span><span class="n">GetDisplayColorAttr</span><span class="p">()</span><span class="o">.</span><span class="n">Set</span><span class="p">([(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)])</span>
+<span class="linenos"> 8</span><span class="n">cube_xform_api</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">XformCommonAPI</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="n">cube_xform_api</span><span class="o">.</span><span class="n">SetScale</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3f</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="linenos">10</span><span class="n">cube_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+<span class="linenos">11</span>
+<span class="hll"><span class="linenos">12</span><span class="c1"># Set the `start` and `end` timecodes for the stage:</span>
+</span><span class="hll"><span class="linenos">13</span><span class="n">stage</span><span class="o">.</span><span class="n">SetStartTimeCode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class="hll"><span class="linenos">14</span><span class="n">stage</span><span class="o">.</span><span class="n">SetEndTimeCode</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+</span><span class="linenos">15</span>
+<span class="linenos">16</span><span class="c1"># Export to a new flattened layer for this example.</span>
+<span class="linenos">17</span><span class="n">stage</span><span class="o">.</span><span class="n">Export</span><span class="p">(</span><span class="s2">&quot;_assets/timecode_ex1.usda&quot;</span><span class="p">,</span> <span class="n">addSourceFileComment</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note the stage metadata at the top of the layer.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html">
+<style type="text/css">
+    .wrapper, #model-viewer-0943863f-b846-4e68-bd4a-c56a47876543-wrapper {
+        width: auto;
+        height: 400px;
+    }
+
+    model-viewer {
+        height: 100%;
+        width: 100%;
+        --progress-bar-color: darkgrey;
+    }
+    model-viewer .loading-annotation {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--progress-bar-color);
+        display: flex;
+        flex-direction: column;
+    }
+    model-viewer .loading-annotation .message {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    model-viewer .loading-annotation .spinner-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    model-viewer .loading-annotation .spinner {
+        transform: translate(-50%, -50%);
+        width: 48px;
+        height: 48px;
+        border: 5px solid var(--progress-bar-color);
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+                        
+    .container-usd-render {
+        background-color: var(--pst-color-surface);
+    }
+</style>
+
+<!-- Import the `<model-viewer>` component: -->
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+
+<!-- Import Bootstrap for layout: -->
+<!--
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+-->
+
+
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/atom-one-dark.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/languages/python.min.js"></script>
+        
+
+<div class="container-usd-render">
+    <div id="model-viewer-0943863f-b846-4e68-bd4a-c56a47876543-wrapper" class="visualization-column">
+        <model-viewer id="model-viewer-0943863f-b846-4e68-bd4a-c56a47876543" src="_assets/timecode_ex1.glb" autoplay ar shadow-intensity="1" camera-controls touch-action="pan-y" disable-zoom>
+            <div class="loading-annotation">
+                <div class="message">Loading your model...</div>
+                <div class="asset-id">_assets/timecode_ex1.usda</div>
+                <div class="spinner-container">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </model-viewer>
+    </div>
+                
+    
+<div class="text-left ">
+    <pre>
+        <code id="code-content-0943863f-b846-4e68-bd4a-c56a47876543" class="language-python" style="display: none;">#usda 1.0
+(
+    endTimeCode = 60
+    startTimeCode = 1
+)
+
+def Xform "World"
+{
+    def Sphere "Sphere"
+    {
+    }
+
+    def Cube "Backdrop"
+    {
+        color3f[] primvars:displayColor = [(0, 0, 1)]
+        float3 xformOp:scale = (5, 5, 0.1)
+        double3 xformOp:translate = (0, 0, -2)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+}
+
+</code>
+    </pre>
+</div>
+
+<script type="application/javascript">
+    (() => {
+        function onDocumentReady(callback) {
+            if (document.readyState !== 'loading') {
+                callback();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback);
+            }
+        }
+
+        function doHighlight() {
+            const snippetToHighlight = document.getElementById('code-content-0943863f-b846-4e68-bd4a-c56a47876543');
+            if (snippetToHighlight !== null) {
+                hljs.highlightElement(snippetToHighlight);
+                snippetToHighlight.style.display = 'block';
+            }                  
+        }
+        
+        function main() {
+            if (window.hljs) {
+                doHighlight();              
+            } else {
+                setTimeout(main, 250);
+            }
+        }
+
+        onDocumentReady(main);
+    })();
+</script>
+</div>
+
+<script type="module">
+    (() => {
+        function onDocumentReady(callback) {
+            if (document.readyState !== 'loading') {
+                callback();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback);
+            }
+        }
+
+        /**
+         * Hide the progress indicator of the `<model-viewer />` element once loading of the associated 3D asset is
+         * complete.
+         */
+        function handleViewerProgress() {
+            // Handles loading the events for <model-viewer>'s slotted progress bar:
+            const onProgress = (event) => {
+                const loadingAnnotation = event.target.querySelector('.loading-annotation');
+
+                if (event.detail.totalProgress === 0) {
+                    loadingAnnotation.style.display = 'block';
+                } else {
+                    if (event.detail.totalProgress === 1) {
+                        setTimeout(() => {
+                            loadingAnnotation.style.display = 'none';
+                        }, 500);
+                    }
+                }
+            };
+
+            const modelViewer = document.getElementById('model-viewer-0943863f-b846-4e68-bd4a-c56a47876543');
+            if (modelViewer !== null) {
+                modelViewer.addEventListener('progress', onProgress);
+            }
+        }
+
+        /**
+         * Display the names of the animations baked into the model, once it is loaded.
+         */
+        function displayAnimationNames() {
+            const modelViewer = document.getElementById('model-viewer-0943863f-b846-4e68-bd4a-c56a47876543');
+            if (modelViewer !== null) {
+                modelViewer.addEventListener('load', () => {
+                    const animationNames = modelViewer.availableAnimations;
+                    console.log('Available animation names for "model-viewer-0943863f-b846-4e68-bd4a-c56a47876543": ' + animationNames.join(', '));
+                });
+            }
+        }
+
+        /**
+         * Prevent displaying the default Jupyter context menu when right-clicking on the 3D visualization element, as
+         * this causes the context menu to be displayed when right-clicking to pan around the 3D world, causing an
+         * undesirable User experience as the context menu then obscures part of the element.
+         */
+        function handleRightClick() {
+            const viewerWrapper = document.getElementById('model-viewer-0943863f-b846-4e68-bd4a-c56a47876543-wrapper');
+            if (viewerWrapper !== null) {
+                viewerWrapper.addEventListener('contextmenu', e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            }
+        }
+        
+        function main() {
+            displayAnimationNames();
+            handleViewerProgress();
+            handleRightClick();
+        }
+
+        onDocumentReady(main);
+    })();
+</script>
+</div></div>
+</div>
+</section>
+<section id="example-2-setting-timesamples-for-attributes">
+<h3>Example 2: Setting TimeSamples for Attributes<a class="headerlink" href="#example-2-setting-timesamples-for-attributes" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://openusd.org/release/glossary.html#usdglossary-timesample" rel="noreferer noopener" target="_blank">TimeSamples</a> represent a collection of attribute values at various points in time, allowing OpenUSD to interpolate between these values for animation purposes.</p>
+<p>When animating an attribute, you define a timeCode at which the value should be applied. These values are then interpolated between the timeSamples to get the value that should be applied at the current <a class="reference external" href="https://openusd.org/release/glossary.html#usdglossary-timecode" rel="noreferer noopener" target="_blank">timeCode</a>.</p>
+<p>To assign a value at a particular timeCode, use the <a class="reference external" href="https://openusd.org/release/api/class_usd_attribute.html#a7fd0957eecddb7cfcd222cccd51e23e6" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">Set()</span></code></a> method.</p>
+<p><a class="reference external" href="https://openusd.org/release/api/class_usd_attribute.html#a7fd0957eecddb7cfcd222cccd51e23e6" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">Set()</span></code></a> takes two arguments: the timeCode and the value to assign.</p>
+<p>For example, if you want to set the size of a cube to <code class="docutils literal notranslate"><span class="pre">1</span></code> at timeCode <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">10</span></code> at timeCode <code class="docutils literal notranslate"><span class="pre">60</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Get the size attribute of the cube</span>
+<span class="linenos">2</span><span class="n">cube_size_attr</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Attribute</span> <span class="o">=</span> <span class="n">cube_prim</span><span class="o">.</span><span class="n">GetSizeAttr</span><span class="p">()</span>
+<span class="linenos">3</span><span class="c1"># Set the size of the cube at time=1 to 1</span>
+<span class="linenos">4</span><span class="n">cube_size_attr</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">5</span><span class="c1"># Set the size of the cube at time=60 to 10</span>
+<span class="linenos">6</span><span class="n">cube_size_attr</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>USD will interpolate the values for the cube’s size attribute between set timeSamples.</p>
+<p>Let’s create a sphere that moves up and down using the <a class="reference external" href="https://openusd.org/release/api/class_usd_geom_xform_common_a_p_i.html" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">XformCommonAPI</span></code></a>.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&quot;_assets/timecode_sample.usda&quot;</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">world</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="s2">&quot;/World&quot;</span><span class="p">)</span>
+<span class="linenos"> 5</span><span class="n">sphere</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Sphere</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Sphere</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;Sphere&quot;</span><span class="p">))</span>
+<span class="linenos"> 6</span><span class="n">box</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Cube</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Cube</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;Backdrop&quot;</span><span class="p">))</span>
+<span class="linenos"> 7</span><span class="n">box</span><span class="o">.</span><span class="n">GetDisplayColorAttr</span><span class="p">()</span><span class="o">.</span><span class="n">Set</span><span class="p">([(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)])</span>
+<span class="linenos"> 8</span><span class="n">cube_xform_api</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">XformCommonAPI</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="n">cube_xform_api</span><span class="o">.</span><span class="n">SetScale</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3f</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="linenos">10</span><span class="n">cube_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="n">stage</span><span class="o">.</span><span class="n">SetStartTimeCode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">stage</span><span class="o">.</span><span class="n">SetEndTimeCode</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="c1"># Grab the translate </span>
+<span class="linenos">16</span><span class="k">if</span> <span class="n">translate_attr</span> <span class="o">:=</span> <span class="n">sphere</span><span class="o">.</span><span class="n">GetTranslateOp</span><span class="p">()</span><span class="o">.</span><span class="n">GetAttr</span><span class="p">():</span>
+<span class="linenos">17</span>    <span class="n">translate_attr</span><span class="o">.</span><span class="n">Clear</span><span class="p">()</span>
+<span class="linenos">18</span>
+<span class="hll"><span class="linenos">19</span><span class="c1"># Create XformCommonAPI object for the sphere</span>
+</span><span class="hll"><span class="linenos">20</span><span class="n">sphere_xform_api</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">XformCommonAPI</span><span class="p">(</span><span class="n">sphere</span><span class="p">)</span>
+</span><span class="hll"><span class="linenos">21</span>
+</span><span class="hll"><span class="linenos">22</span><span class="c1"># Set translation of the sphere at time 1</span>
+</span><span class="hll"><span class="linenos">23</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>  <span class="mf">5.50</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
+</span><span class="hll"><span class="linenos">24</span><span class="c1"># Set translation of the sphere at time 30</span>
+</span><span class="hll"><span class="linenos">25</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.50</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>  
+</span><span class="hll"><span class="linenos">26</span><span class="c1"># Set translation of the sphere at time 45</span>
+</span><span class="hll"><span class="linenos">27</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.00</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>  
+</span><span class="hll"><span class="linenos">28</span><span class="c1"># Set translation of the sphere at time 50</span>
+</span><span class="hll"><span class="linenos">29</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>  
+</span><span class="hll"><span class="linenos">30</span><span class="c1"># Set translation of the sphere at time 60</span>
+</span><span class="hll"><span class="linenos">31</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>  <span class="mf">5.50</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>  
+</span><span class="linenos">32</span>
+<span class="linenos">33</span><span class="c1"># Export to a new flattened layer for this example.</span>
+<span class="linenos">34</span><span class="n">stage</span><span class="o">.</span><span class="n">Export</span><span class="p">(</span><span class="s2">&quot;_assets/timecode_ex2a.usda&quot;</span><span class="p">,</span> <span class="n">addSourceFileComment</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html">
+<style type="text/css">
+    .wrapper, #model-viewer-3dc56d58-7edc-4b13-83b5-41dad70dcbac-wrapper {
+        width: auto;
+        height: 400px;
+    }
+
+    model-viewer {
+        height: 100%;
+        width: 100%;
+        --progress-bar-color: darkgrey;
+    }
+    model-viewer .loading-annotation {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--progress-bar-color);
+        display: flex;
+        flex-direction: column;
+    }
+    model-viewer .loading-annotation .message {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    model-viewer .loading-annotation .spinner-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    model-viewer .loading-annotation .spinner {
+        transform: translate(-50%, -50%);
+        width: 48px;
+        height: 48px;
+        border: 5px solid var(--progress-bar-color);
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+                        
+    .container-usd-render {
+        background-color: var(--pst-color-surface);
+    }
+</style>
+
+<!-- Import the `<model-viewer>` component: -->
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+
+<!-- Import Bootstrap for layout: -->
+<!--
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+-->
+
+
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/atom-one-dark.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/languages/python.min.js"></script>
+        
+
+<div class="container-usd-render">
+    <div id="model-viewer-3dc56d58-7edc-4b13-83b5-41dad70dcbac-wrapper" class="visualization-column">
+        <model-viewer id="model-viewer-3dc56d58-7edc-4b13-83b5-41dad70dcbac" src="_assets/timecode_ex2a.glb" autoplay ar shadow-intensity="1" camera-controls touch-action="pan-y" disable-zoom>
+            <div class="loading-annotation">
+                <div class="message">Loading your model...</div>
+                <div class="asset-id">_assets/timecode_ex2a.usda</div>
+                <div class="spinner-container">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </model-viewer>
+    </div>
+                
+    
+<div class="text-left ">
+    <pre>
+        <code id="code-content-3dc56d58-7edc-4b13-83b5-41dad70dcbac" class="language-python" style="display: none;">#usda 1.0
+(
+    endTimeCode = 60
+    startTimeCode = 1
+)
+
+def Xform "World"
+{
+    def Sphere "Sphere"
+    {
+        double3 xformOp:translate.timeSamples = {
+            1: (0, 5.5, 0),
+            30: (0, -4.5, 0),
+            45: (0, -5, 0),
+            50: (0, -3.25, 0),
+            60: (0, 5.5, 0),
+        }
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cube "Backdrop"
+    {
+        color3f[] primvars:displayColor = [(0, 0, 1)]
+        float3 xformOp:scale = (5, 5, 0.1)
+        double3 xformOp:translate = (0, 0, -2)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+}
+
+</code>
+    </pre>
+</div>
+
+<script type="application/javascript">
+    (() => {
+        function onDocumentReady(callback) {
+            if (document.readyState !== 'loading') {
+                callback();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback);
+            }
+        }
+
+        function doHighlight() {
+            const snippetToHighlight = document.getElementById('code-content-3dc56d58-7edc-4b13-83b5-41dad70dcbac');
+            if (snippetToHighlight !== null) {
+                hljs.highlightElement(snippetToHighlight);
+                snippetToHighlight.style.display = 'block';
+            }                  
+        }
+        
+        function main() {
+            if (window.hljs) {
+                doHighlight();              
+            } else {
+                setTimeout(main, 250);
+            }
+        }
+
+        onDocumentReady(main);
+    })();
+</script>
+</div>
+
+<script type="module">
+    (() => {
+        function onDocumentReady(callback) {
+            if (document.readyState !== 'loading') {
+                callback();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback);
+            }
+        }
+
+        /**
+         * Hide the progress indicator of the `<model-viewer />` element once loading of the associated 3D asset is
+         * complete.
+         */
+        function handleViewerProgress() {
+            // Handles loading the events for <model-viewer>'s slotted progress bar:
+            const onProgress = (event) => {
+                const loadingAnnotation = event.target.querySelector('.loading-annotation');
+
+                if (event.detail.totalProgress === 0) {
+                    loadingAnnotation.style.display = 'block';
+                } else {
+                    if (event.detail.totalProgress === 1) {
+                        setTimeout(() => {
+                            loadingAnnotation.style.display = 'none';
+                        }, 500);
+                    }
+                }
+            };
+
+            const modelViewer = document.getElementById('model-viewer-3dc56d58-7edc-4b13-83b5-41dad70dcbac');
+            if (modelViewer !== null) {
+                modelViewer.addEventListener('progress', onProgress);
+            }
+        }
+
+        /**
+         * Display the names of the animations baked into the model, once it is loaded.
+         */
+        function displayAnimationNames() {
+            const modelViewer = document.getElementById('model-viewer-3dc56d58-7edc-4b13-83b5-41dad70dcbac');
+            if (modelViewer !== null) {
+                modelViewer.addEventListener('load', () => {
+                    const animationNames = modelViewer.availableAnimations;
+                    console.log('Available animation names for "model-viewer-3dc56d58-7edc-4b13-83b5-41dad70dcbac": ' + animationNames.join(', '));
+                });
+            }
+        }
+
+        /**
+         * Prevent displaying the default Jupyter context menu when right-clicking on the 3D visualization element, as
+         * this causes the context menu to be displayed when right-clicking to pan around the 3D world, causing an
+         * undesirable User experience as the context menu then obscures part of the element.
+         */
+        function handleRightClick() {
+            const viewerWrapper = document.getElementById('model-viewer-3dc56d58-7edc-4b13-83b5-41dad70dcbac-wrapper');
+            if (viewerWrapper !== null) {
+                viewerWrapper.addEventListener('contextmenu', e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            }
+        }
+        
+        function main() {
+            displayAnimationNames();
+            handleViewerProgress();
+            handleRightClick();
+        }
+
+        onDocumentReady(main);
+    })();
+</script>
+</div></div>
+</div>
+<p><a class="reference external" href="https://openusd.org/release/glossary.html#usdglossary-timesample" rel="noreferer noopener" target="_blank">TimeSamples</a> can be used for baked, per-frame animation and it is good for interchange that is reproducible. However, <a class="reference external" href="https://openusd.org/release/glossary.html#usdglossary-timesample" rel="noreferer noopener" target="_blank">timeSamples</a> are not a replacement for animation curves.</p>
+<p>For more complex animation it is not recommended to define the animation using scripting but rather in other Digital Content Creation (DCC) Applications.</p>
+<hr class="docutils" />
+<p>It is possible to set timeSamples for different attributes. We can demonstrate this with the scale of the sphere.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&quot;_assets/timecode_sample.usda&quot;</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">world</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Xform</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="s2">&quot;/World&quot;</span><span class="p">)</span>
+<span class="linenos"> 5</span><span class="n">sphere</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Sphere</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Sphere</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;Sphere&quot;</span><span class="p">))</span>
+<span class="linenos"> 6</span><span class="n">box</span><span class="p">:</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Cube</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Cube</span><span class="o">.</span><span class="n">Define</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">AppendPath</span><span class="p">(</span><span class="s2">&quot;Backdrop&quot;</span><span class="p">))</span>
+<span class="linenos"> 7</span><span class="n">box</span><span class="o">.</span><span class="n">GetDisplayColorAttr</span><span class="p">()</span><span class="o">.</span><span class="n">Set</span><span class="p">([(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)])</span>
+<span class="linenos"> 8</span><span class="n">cube_xform_api</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">XformCommonAPI</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="n">cube_xform_api</span><span class="o">.</span><span class="n">SetScale</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3f</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="linenos">10</span><span class="n">cube_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="n">stage</span><span class="o">.</span><span class="n">SetStartTimeCode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">stage</span><span class="o">.</span><span class="n">SetEndTimeCode</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="k">if</span> <span class="n">translate_attr</span> <span class="o">:=</span> <span class="n">sphere</span><span class="o">.</span><span class="n">GetTranslateOp</span><span class="p">()</span><span class="o">.</span><span class="n">GetAttr</span><span class="p">():</span>
+<span class="linenos">16</span>    <span class="n">translate_attr</span><span class="o">.</span><span class="n">Clear</span><span class="p">()</span>
+<span class="linenos">17</span><span class="k">if</span> <span class="n">scale_attr</span> <span class="o">:=</span> <span class="n">sphere</span><span class="o">.</span><span class="n">GetScaleOp</span><span class="p">()</span><span class="o">.</span><span class="n">GetAttr</span><span class="p">():</span>
+<span class="linenos">18</span>    <span class="n">scale_attr</span><span class="o">.</span><span class="n">Clear</span><span class="p">()</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="n">sphere_xform_api</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">XformCommonAPI</span><span class="p">(</span><span class="n">sphere</span><span class="p">)</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>  <span class="mf">5.50</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
+<span class="linenos">23</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.50</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>  
+<span class="linenos">24</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.00</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>  
+<span class="linenos">25</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>  
+<span class="linenos">26</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetTranslate</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>  <span class="mf">5.50</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>  
+<span class="linenos">27</span>
+<span class="hll"><span class="linenos">28</span><span class="c1"># Set scale of the sphere at time 1</span>
+</span><span class="hll"><span class="linenos">29</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetScale</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3f</span><span class="p">(</span><span class="mf">1.00</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
+</span><span class="hll"><span class="linenos">30</span><span class="c1"># Set scale of the sphere at time 30</span>
+</span><span class="hll"><span class="linenos">31</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetScale</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3f</span><span class="p">(</span><span class="mf">1.00</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>   
+</span><span class="hll"><span class="linenos">32</span><span class="c1"># Set scale of the sphere at time 45</span>
+</span><span class="hll"><span class="linenos">33</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetScale</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3f</span><span class="p">(</span><span class="mf">1.00</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>   
+</span><span class="hll"><span class="linenos">34</span><span class="c1"># Set scale of the sphere at time 50</span>
+</span><span class="hll"><span class="linenos">35</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetScale</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3f</span><span class="p">(</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">2.00</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>  
+</span><span class="hll"><span class="linenos">36</span><span class="c1"># Set scale of the sphere at time 60</span>
+</span><span class="hll"><span class="linenos">37</span><span class="n">sphere_xform_api</span><span class="o">.</span><span class="n">SetScale</span><span class="p">(</span><span class="n">Gf</span><span class="o">.</span><span class="n">Vec3f</span><span class="p">(</span><span class="mf">1.00</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">),</span> <span class="n">time</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>  
+</span><span class="linenos">38</span>
+<span class="linenos">39</span><span class="c1"># Export to a new flattened layer for this example.</span>
+<span class="linenos">40</span><span class="n">stage</span><span class="o">.</span><span class="n">Export</span><span class="p">(</span><span class="s2">&quot;_assets/timecode_ex2b.usda&quot;</span><span class="p">,</span> <span class="n">addSourceFileComment</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html">
+<style type="text/css">
+    .wrapper, #model-viewer-2608b71d-abd6-4eda-ba79-a97d3e7194b2-wrapper {
+        width: auto;
+        height: 400px;
+    }
+
+    model-viewer {
+        height: 100%;
+        width: 100%;
+        --progress-bar-color: darkgrey;
+    }
+    model-viewer .loading-annotation {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--progress-bar-color);
+        display: flex;
+        flex-direction: column;
+    }
+    model-viewer .loading-annotation .message {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    model-viewer .loading-annotation .spinner-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    model-viewer .loading-annotation .spinner {
+        transform: translate(-50%, -50%);
+        width: 48px;
+        height: 48px;
+        border: 5px solid var(--progress-bar-color);
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+                        
+    .container-usd-render {
+        background-color: var(--pst-color-surface);
+    }
+</style>
+
+<!-- Import the `<model-viewer>` component: -->
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+
+<!-- Import Bootstrap for layout: -->
+<!--
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+-->
+
+
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/atom-one-dark.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/languages/python.min.js"></script>
+        
+
+<div class="container-usd-render">
+    <div id="model-viewer-2608b71d-abd6-4eda-ba79-a97d3e7194b2-wrapper" class="visualization-column">
+        <model-viewer id="model-viewer-2608b71d-abd6-4eda-ba79-a97d3e7194b2" src="_assets/timecode_ex2b.glb" autoplay ar shadow-intensity="1" camera-controls touch-action="pan-y" disable-zoom>
+            <div class="loading-annotation">
+                <div class="message">Loading your model...</div>
+                <div class="asset-id">_assets/timecode_ex2b.usda</div>
+                <div class="spinner-container">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </model-viewer>
+    </div>
+                
+    
+<div class="text-left ">
+    <pre>
+        <code id="code-content-2608b71d-abd6-4eda-ba79-a97d3e7194b2" class="language-python" style="display: none;">#usda 1.0
+(
+    endTimeCode = 60
+    startTimeCode = 1
+)
+
+def Xform "World"
+{
+    def Sphere "Sphere"
+    {
+        float3 xformOp:scale.timeSamples = {
+            1: (1, 1, 1),
+            30: (1, 1, 1),
+            45: (1, 0.2, 1.25),
+            50: (0.75, 2, 0.75),
+            60: (1, 1, 1),
+        }
+        double3 xformOp:translate.timeSamples = {
+            1: (0, 5.5, 0),
+            30: (0, -4.5, 0),
+            45: (0, -5, 0),
+            50: (0, -3.25, 0),
+            60: (0, 5.5, 0),
+        }
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "Backdrop"
+    {
+        color3f[] primvars:displayColor = [(0, 0, 1)]
+        float3 xformOp:scale = (5, 5, 0.1)
+        double3 xformOp:translate = (0, 0, -2)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+}
+
+</code>
+    </pre>
+</div>
+
+<script type="application/javascript">
+    (() => {
+        function onDocumentReady(callback) {
+            if (document.readyState !== 'loading') {
+                callback();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback);
+            }
+        }
+
+        function doHighlight() {
+            const snippetToHighlight = document.getElementById('code-content-2608b71d-abd6-4eda-ba79-a97d3e7194b2');
+            if (snippetToHighlight !== null) {
+                hljs.highlightElement(snippetToHighlight);
+                snippetToHighlight.style.display = 'block';
+            }                  
+        }
+        
+        function main() {
+            if (window.hljs) {
+                doHighlight();              
+            } else {
+                setTimeout(main, 250);
+            }
+        }
+
+        onDocumentReady(main);
+    })();
+</script>
+</div>
+
+<script type="module">
+    (() => {
+        function onDocumentReady(callback) {
+            if (document.readyState !== 'loading') {
+                callback();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback);
+            }
+        }
+
+        /**
+         * Hide the progress indicator of the `<model-viewer />` element once loading of the associated 3D asset is
+         * complete.
+         */
+        function handleViewerProgress() {
+            // Handles loading the events for <model-viewer>'s slotted progress bar:
+            const onProgress = (event) => {
+                const loadingAnnotation = event.target.querySelector('.loading-annotation');
+
+                if (event.detail.totalProgress === 0) {
+                    loadingAnnotation.style.display = 'block';
+                } else {
+                    if (event.detail.totalProgress === 1) {
+                        setTimeout(() => {
+                            loadingAnnotation.style.display = 'none';
+                        }, 500);
+                    }
+                }
+            };
+
+            const modelViewer = document.getElementById('model-viewer-2608b71d-abd6-4eda-ba79-a97d3e7194b2');
+            if (modelViewer !== null) {
+                modelViewer.addEventListener('progress', onProgress);
+            }
+        }
+
+        /**
+         * Display the names of the animations baked into the model, once it is loaded.
+         */
+        function displayAnimationNames() {
+            const modelViewer = document.getElementById('model-viewer-2608b71d-abd6-4eda-ba79-a97d3e7194b2');
+            if (modelViewer !== null) {
+                modelViewer.addEventListener('load', () => {
+                    const animationNames = modelViewer.availableAnimations;
+                    console.log('Available animation names for "model-viewer-2608b71d-abd6-4eda-ba79-a97d3e7194b2": ' + animationNames.join(', '));
+                });
+            }
+        }
+
+        /**
+         * Prevent displaying the default Jupyter context menu when right-clicking on the 3D visualization element, as
+         * this causes the context menu to be displayed when right-clicking to pan around the 3D world, causing an
+         * undesirable User experience as the context menu then obscures part of the element.
+         */
+        function handleRightClick() {
+            const viewerWrapper = document.getElementById('model-viewer-2608b71d-abd6-4eda-ba79-a97d3e7194b2-wrapper');
+            if (viewerWrapper !== null) {
+                viewerWrapper.addEventListener('contextmenu', e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            }
+        }
+        
+        function main() {
+            displayAnimationNames();
+            handleViewerProgress();
+            handleRightClick();
+        }
+
+        onDocumentReady(main);
+    })();
+</script>
+</div></div>
+</div>
+</section>
+</section>
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<p>To sum it up, timeCode provides a unitless time ordinate scaled to real-world
+time, while timeSample stores the actual attribute values at specific timeCode
+ordinates. Understanding these concepts unlocks a way for creating, manipulating, and rendering dynamic scenes and simulations in OpenUSD-based workflows across various industries.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="properties/relationships.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Relationships</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="prim-property-paths.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Prim and Property Paths</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-timecodes-and-timesamples">What are TimeCodes and TimeSamples?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-it-work">How Does It Work?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-python">Working With Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-setting-start-and-end-timecodes">Example 1: Setting Start and End TimeCodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-setting-timesamples-for-attributes">Example 2: Setting TimeSamples for Attributes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025 NVIDIA CORPORATION &amp; AFFILIATES. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+  
+    <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

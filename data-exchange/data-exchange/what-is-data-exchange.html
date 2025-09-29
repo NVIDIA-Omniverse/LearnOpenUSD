@@ -1,0 +1,809 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>What Is Data Exchange? &#8212; Learn OpenUSD</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css?v=df3ac72c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/lousd_custom.css?v=9deb43b2" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'data-exchange/data-exchange/what-is-data-exchange';</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Exercise: Anatomy of a Converter" href="exercise.html" />
+    <link rel="prev" title="Data Exchange" href="index.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Learn OpenUSD - Home"/>
+    <img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Learn OpenUSD - Home"/>
+  
+  
+    <p class="title logo__title">Learn OpenUSD</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/LearnOpenUSD" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Learn OpenUSD - Home"/>
+    <img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Learn OpenUSD - Home"/>
+  
+  
+    <p class="title logo__title">Learn OpenUSD</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/LearnOpenUSD" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../what-openusd/index.html">What Is OpenUSD?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../why-openusd-developer-certification.html">Why Get Certified</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../stage-setting/index.html">Setting the Stage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../stage-setting/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stage-setting/stage.html">Stage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stage-setting/prims.html">Prims</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../stage-setting/properties/index.html">Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../stage-setting/properties/attributes.html">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stage-setting/properties/relationships.html">Relationships</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stage-setting/timecodes-timesamples.html">TimeCodes and TimeSamples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stage-setting/prim-property-paths.html">Prim and Property Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stage-setting/usd-file-formats.html">OpenUSD File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stage-setting/usd-modules.html">OpenUSD Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stage-setting/metadata.html">Metadata</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../scene-description-blueprints/index.html">Scene Description Blueprints</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../scene-description-blueprints/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../scene-description-blueprints/schemas.html">Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../scene-description-blueprints/scope.html">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../scene-description-blueprints/xform.html">Xform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../scene-description-blueprints/xformcommonapi.html">XformCommonAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../scene-description-blueprints/lights.html">Lights</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../composition-basics/index.html">Composition Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../composition-basics/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../composition-basics/layers.html">Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../composition-basics/strength-ordering.html">Composition Arcs and Strength Ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../composition-basics/specifiers.html">Specifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../composition-basics/references.html">Referencing Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../composition-basics/default-prim.html">Default Prim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../composition-basics/variant-sets.html">Variant Sets Basics</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../beyond-basics/index.html">Beyond the Basics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../beyond-basics/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../beyond-basics/primvars.html">Primvars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../beyond-basics/value-resolution.html">Value Resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../beyond-basics/custom-properties.html">Custom Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../beyond-basics/active-inactive-prims.html">Active and Inactive Prims</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../beyond-basics/model-kinds.html">Model Kinds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../beyond-basics/stage-traversal.html">Stage Traversal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../beyond-basics/hydra.html">Hydra</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../creating-composition-arcs/index.html">Creating Composition Arcs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../creating-composition-arcs/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../creating-composition-arcs/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../creating-composition-arcs/prim-composition.html">What Is Prim Composition?</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../creating-composition-arcs/sublayers/index.html">Sublayers</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/sublayers/what-are-sublayers.html">What Are Sublayers?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/sublayers/working-with-sublayers.html">Exercise: Working with Sublayers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/sublayers/sublayers-faq.html">Sublayers FAQ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../creating-composition-arcs/references-payloads/index.html">References and Payloads</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/references-payloads/what-are-references.html">What Are References?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/references-payloads/working-with-references.html">Exercise: Working With References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/references-payloads/references-faq.html">References FAQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/references-payloads/what-are-payloads.html">What Are Payloads?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/references-payloads/working-with-payloads.html">Exercise: Working With Payloads</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../creating-composition-arcs/encapsulation/index.html">Encapsulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/encapsulation/what-is-encapsulation.html">What Is Encapsulation?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/encapsulation/experimenting-with-encapsulation.html">Exercise: Experimenting With Encapsulation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../creating-composition-arcs/variant-sets/index.html">Variant Sets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/variant-sets/what-are-variant-sets.html">What Are Variant Sets?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/variant-sets/working-with-variant-sets.html">Exercise: Working With Variant Sets</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../creating-composition-arcs/inherits-specializes/index.html">Inherits and Specializes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/inherits-specializes/what-is-inherits.html">What Is Inherits?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/inherits-specializes/experimenting-with-inherits.html">Exercise: Experimenting With Inherits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/inherits-specializes/what-is-specializes.html">What Is Specializes?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/inherits-specializes/experimenting-with-specializes.html">Exercise: Experimenting With Specializes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/inherits-specializes/encapsulation-refinement.html">Encapsulation and Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/inherits-specializes/experimenting-with-encapsulation-refinement.html">Exercise: Experimenting With Encapsulation and Refinement</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../creating-composition-arcs/strength-ordering/index.html">LIVERPS Strenth Ordering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/strength-ordering/what-is-liverps.html">What Is LIVERPS?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../creating-composition-arcs/strength-ordering/tracing-through-liverps.html">Tracing Through LIVERPS</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../asset-structure/index.html">Asset Structure Principles and Content Aggregation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../asset-structure/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../asset-structure/setup.html">Setup</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../asset-structure/asset-structure-principles/index.html">Principles of Asset Structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/asset-structure-principles/why-necessary.html">Why Is an Asset Structure Necessary?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/asset-structure-principles/asset-interface-pt1.html">What Is an Asset Interface?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/asset-structure-principles/your-first-asset.html">Exercise: Your First Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/asset-structure-principles/asset-interface-pt2.html">What Is an Asset Interface? (Part 2)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/asset-structure-principles/encapsulating-your-asset.html">Exercise: Encapsulating Your Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/asset-structure-principles/asset-interface-pt3.html">What Is an Asset Interface? (Part 3)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/asset-structure-principles/organizing-prim-hierarchy.html">Exercise: Organizing Prim Hierarchy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../asset-structure/workstreams/index.html">Workstreams</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/workstreams/modeling-workstreams.html">Modeling Workstreams With Layer Stacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/workstreams/adding-user-workstreams.html">Exercise: Adding User Workstreams</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../asset-structure/asset-parameterization/index.html">Asset Parameterization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/asset-parameterization/what-is-asset-parameterization.html">What Is Asset Parameterization?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/asset-parameterization/exercise-asset-parameterization.html">Exercise: Asset Parameterization</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../asset-structure/reference-payload-pattern/index.html">Reference/Payload Pattern</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/reference-payload-pattern/what-is-ref-payload-pattern.html">What Is Reference/Payload Pattern?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/reference-payload-pattern/exercise-ref-payload-pattern.html">Exercise: Reference/Payload Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/reference-payload-pattern/lofting-primvars.html">Exercise: Lofting Primvars</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/reference-payload-pattern/lofting-variant-sets.html">Exercise: Lofting Variant Sets</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../asset-structure/model-hierarchy/index.html">Model Hierarchy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/model-hierarchy/what-are-model-kinds.html">What Are Model Kinds?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/model-hierarchy/exercise-components.html">Exercise: Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/model-hierarchy/exercise-assemblies.html">Exercise: Assemblies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/model-hierarchy/model-hierarchy-considerations.html">Model Hierarchy Considerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/model-hierarchy/exercise-groups.html">Exercise: Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-structure/model-hierarchy/exercise-variation-workstream.html">Exercise: Variation Workstream</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Developing Data Exchange Pipelines</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Data Exchange</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">What Is Data Exchange?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exercise.html">Exercise: Anatomy of a Converter</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data-extraction/index.html">Data Extraction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data-extraction/what-is-data-extraction.html">What Is Data Extraction?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-extraction/exercise-extracting-geometry.html">Exercise: Extracting Geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-extraction/exercise-extracting-materials.html">Exercise: Extracting Materials</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../asset-validation/index.html">Asset Validation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../asset-validation/what-is-asset-validation.html">What Is Asset Validation?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../asset-validation/exercise-asset-validation-testing.html">Exercise: Asset Validation and Testing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../data-transformation/index.html">Data Transformation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data-transformation/what-is-data-transformation.html">What Is Data Transformation?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-transformation/transformation-hierarchy.html">Exercise: Transforming the Prim Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data-transformation/exercise-export-option.html">Exercise: Adding an Export Option</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../asset-modularity-instancing/index.html">Asset Modularity and Instancing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../asset-modularity-instancing/index.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../asset-modularity-instancing/setup.html">Setup</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../asset-modularity-instancing/asset-modularity/index.html">Asset Modularity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/asset-modularity/what-is-asset-modularity.html">What Is Asset Modularity?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/asset-modularity/exercise-assets-overview.html">Exercise: Assets Overview</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../asset-modularity-instancing/what-is-instancing.html">What Is Instancing?</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../asset-modularity-instancing/authoring-scenegraph-instancing/index.html">Authoring Scenegraph Instancing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/authoring-scenegraph-instancing/scenegraph-instancing-intro.html">Introduction to Scenegraph Instancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/authoring-scenegraph-instancing/exercise-authoring-scenegraph-instancing.html">Exercise: Author Scenegraph Instancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/authoring-scenegraph-instancing/nested-instancing.html">Nested Instancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/authoring-scenegraph-instancing/exercise-nested-instancing.html">Exercise: Nested Scenegraph Instancing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../asset-modularity-instancing/refining-scenegraph-instances/index.html">Refining Scenegraph Instances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-instance-refinement.html">Introduction to Scenegraph Instance Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-deinstance-refinement.html">Deinstancing Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-variant-set-refinement.html">Refinement Using Variant Sets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-hierarchical-refinement.html">Hierarchical Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-ad-hoc-arcs-refinement.html">Ad Hoc Arcs Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/refining-scenegraph-instances/scenegraph-broadcasted-refinement.html">Broadcasted Refinement</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../asset-modularity-instancing/authoring-point-instancing/index.html">Authoring Point Instancing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/authoring-point-instancing/point-instancing-intro.html">Introduction to Point Instancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../asset-modularity-instancing/authoring-point-instancing/exercise-authoring-point-instancing.html">Exercise: Authoring Point Instancing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../asset-modularity-instancing/refining-point-instances.html">Refining Point Instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../asset-modularity-instancing/instancing-faq.html">Instancing FAQ</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Common Resources</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../usdview-install-instructions.html">Installing usdview and Setting Up Python</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Involved</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://github.com/NVIDIA-Omniverse/LearnOpenUSD">Contribute</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/NVIDIA-Omniverse/LearnOpenUSD/issues/new">Report an Issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.aousd.org">Join the Community</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Developing Data Exchange Pipelines</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Data Exchange</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">What Is Data Exchange?</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="what-is-data-exchange">
+<h1>What Is Data Exchange?<a class="headerlink" href="#what-is-data-exchange" title="Link to this heading">#</a></h1>
+<section id="brief-review-what-is-openusd">
+<h2>Brief Review: What Is OpenUSD?<a class="headerlink" href="#brief-review-what-is-openusd" title="Link to this heading">#</a></h2>
+<p><img alt="" src="../../_images/image331.png" /></p>
+<p>Before we get started with the lesson, let’s briefly review what OpenUSD is, and how it relates to data interoperability and data exchange.</p>
+<p>OpenUSD is commonly referred to as USD, which stands for Universal Scene Description. What makes OpenUSD universal?</p>
+<p>OpenUSD was developed by Pixar Animation Studios to address the complex 3D workflow challenges common in assembling and animating virtual worlds, where dozens of studios and specialties have to come together and collaborate on a single 3D scene.</p>
+<p><img alt="" src="../../_images/image172.png" /></p>
+<p>To solve these problems, Pixar built USD with a core set of schemas to effectively describe 3D scenes, including meshes, materials, lights, and cameras. These data models describe many of the elements you would need to be able to make a 3D scene, such as those seen in an animated film, and have been used successfully by many studios as a common interchange format to pass the data between applications.</p>
+<p><img alt="" src="../../_images/image352.png" /></p>
+<p>It gets better. OpenUSD can also be extended with new schemas to describe the data models for any domain including physics, robotics, synthetic data generation, and more.</p>
+<p>OpenUSD was designed to be able to interchange data between digital content creation software. First for media and entertainment, but now for all industries.</p>
+</section>
+<section id="what-do-we-mean-by-data-exchange">
+<h2>What Do We Mean by Data Exchange?<a class="headerlink" href="#what-do-we-mean-by-data-exchange" title="Link to this heading">#</a></h2>
+<p><img alt="" src="../../_images/image301.png" /></p>
+<p>When we talk about OpenUSD data exchange, we’re asking, “How do I get my data into USD?” and “How do I get my data out of USD?”. We may want it out in the same format it came in, or we may want it in a different format. For example, we could import an STL asset and export it to glTF.</p>
+<p>We also want to discuss what kinds of implementations exist or can be developed for translating between OpenUSD and other data formats.</p>
+<p>Lastly, effective data mapping must be part of that conversation. For example, we could model a neural radiance field (NeRF) as a polygonal mesh in USD. Is that the best way to encode our NeRF? Probably not, so we should discuss these issues if and when they arise and see if we should develop a better way to model our data in USD.</p>
+<p><img alt="" src="../../_images/image311.png" /></p>
+<p>There are four common implementations for adding OpenUSD support for your data format or application:</p>
+<ul class="simple">
+<li><p>Importers</p></li>
+<li><p>Exporters</p></li>
+<li><p>Standalone converters</p></li>
+<li><p>File format plugins</p></li>
+</ul>
+<p>At a high-level, whether your data is represented as a file format or runtime format may dictate the type of implementation, but there are other factors to consider as well.</p>
+<section id="importers-and-exporters">
+<h3>Importers and Exporters<a class="headerlink" href="#importers-and-exporters" title="Link to this heading">#</a></h3>
+<p>You may have experienced an importer or exporter in the past via <strong>File &gt; Import</strong> or <strong>File &gt; Export</strong> menus.</p>
+<p>To clarify inputs and outputs for our purposes:</p>
+<ul class="simple">
+<li><p><strong>Importers</strong> translate data from OpenUSD to the runtime format of the application.</p></li>
+<li><p><strong>Exporters</strong> translate data from the runtime format of the application to OpenUSD.</p></li>
+</ul>
+<p><img alt="" src="../../_images/image132.png" /></p>
+<p>These are implemented as a part of a digital content creation (DCC) application for translating to and from the application’s runtime format.</p>
+<p>Depending on the application, it might be a native feature of the application or implemented as a plugin. Plugins might take the form of first-party or third-party development.</p>
+</section>
+<section id="standalone-converters">
+<h3>Standalone Converters<a class="headerlink" href="#standalone-converters" title="Link to this heading">#</a></h3>
+<p>A standalone converter is a script, executable or microservice dedicated to translating to and from another file format.</p>
+<p><img alt="" src="../../_images/image210.png" /></p>
+<p>Unlike importers and exporters that have a clear translation directionality, a converter could be one-way or two-way. It’s important for developers to document what their converter does.</p>
+</section>
+<section id="file-format-plugins">
+<h3>File Format Plugins<a class="headerlink" href="#file-format-plugins" title="Link to this heading">#</a></h3>
+<p>File format plugins are a unique feature of OpenUSD. They allow OpenUSD to compose with additional file formats and even non-file-based sources, such as databases and procedurally generated content. Here are some key points about file format plugins:</p>
+<ul class="simple">
+<li><p>An OpenUSD stage can include a source file format directly as a reference, payload or sublayer. The source file format is translated on the fly, while it is read as a USD document (layer, in USD parlance).</p></li>
+<li><p>The source file format can remain the source of truth.</p></li>
+<li><p>File format plugins can be bidirectional, supporting both reading from and writing to the source file format.</p></li>
+<li><p>They can be used as standalone converters with tools like <a class="reference external" href="https://openusd.org/release/toolset.html#usdcat" rel="noreferer noopener" target="_blank">usdcat</a>.</p></li>
+</ul>
+<p><img alt="" src="../../_images/image110.png" /></p>
+<p>This functionality enables seamless integration of various data sources into OpenUSD workflows, allowing for greater flexibility and interoperability in 3D content creation and management.</p>
+</section>
+</section>
+<section id="challenges">
+<h2>Challenges<a class="headerlink" href="#challenges" title="Link to this heading">#</a></h2>
+<p><img alt="" src="../../_images/image272.png" /></p>
+<p>OpenUSD’s flexibility and modularity make it suitable for a wide range of applications and industries. These features and its universality make the challenges of data exchange very apparent:</p>
+<ul class="simple">
+<li><p>Data exchange is typically lossy. Not every data model can be mapped directly.</p></li>
+<li><p>Not every consumer may be interested in all the data exported by a digital content creation (DCC) tool. For example, a CAD application may not need animation data.</p></li>
+<li><p>The content structure exported by a DCC tool may not be suitable for every organization and its workflows. There is no single content structure suitable for all end clients and organizations.</p></li>
+<li><p>Not every client can handle the same content fidelity (e.g., high-quality offline renderer vs. real-time 3D app on a phone).</p></li>
+</ul>
+</section>
+<section id="two-phase-data-exchange">
+<h2>Two-Phase Data Exchange<a class="headerlink" href="#two-phase-data-exchange" title="Link to this heading">#</a></h2>
+<p><img alt="" src="../../_images/image281.png" /></p>
+<p>To help with these data exchange challenges, we propose a two-phase approach: extract and transform. This is loosely inspired by Extract-Transform-Load (ETL) used in data analytics and machine learning. By following this two-phase data exchange approach, your implementation will solve many of today’s data exchange challenges and help you serve the widest range of customers.</p>
+<p>Data exchange to OpenUSD should start with the extract phase. The goal is to translate the data to OpenUSD as directly as possible to maintain fidelity to the source format. Try to map concepts from the source format to concepts in OpenUSD as much as possible to preserve the integrity and structure of the source data.</p>
+<p>The transform phase consists of one or more optional steps added to better meet end client and user needs. This includes:</p>
+<ul class="simple">
+<li><p>Applying user export options.</p></li>
+<li><p>Making changes to the content structure that deviate from the source format.</p></li>
+<li><p>Implementing optimizations for better end client and workflow performance.</p></li>
+</ul>
+</section>
+<section id="openusd-exchange-sdk">
+<h2>OpenUSD Exchange SDK<a class="headerlink" href="#openusd-exchange-sdk" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://docs.omniverse.nvidia.com/usd/code-docs/usd-exchange-sdk" rel="noreferer noopener" target="_blank">OpenUSD Exchange SDK</a> helps developers design and develop their own USD I/O solutions that produce consistent and correct USD assets across diverse 3D ecosystems.</p>
+<p>It provides higher-level convenience functions on top of lower-level USD concepts, so developers can quickly adopt OpenUSD best practices when mapping their native data sources to OpenUSD-legible data models.</p>
+<p>All of the concepts covered in this module can be applied to working with OpenUSD Exchange SDK for developing data exchange implementations.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Exchange</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="exercise.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Exercise: Anatomy of a Converter</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#brief-review-what-is-openusd">Brief Review: What Is OpenUSD?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-do-we-mean-by-data-exchange">What Do We Mean by Data Exchange?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importers-and-exporters">Importers and Exporters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standalone-converters">Standalone Converters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-format-plugins">File Format Plugins</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-phase-data-exchange">Two-Phase Data Exchange</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#openusd-exchange-sdk">OpenUSD Exchange SDK</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025 NVIDIA CORPORATION &amp; AFFILIATES. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+  
+    <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>
