@@ -58,7 +58,7 @@ extensions = [
 ]
 
 templates_path = ['_templates']
-exclude_patterns = ['_includes/**']
+exclude_patterns = ['_includes/**', '_build', 'Thumbs.db', '.DS_Store']
 myst_enable_extensions = ['colon_fence', 'html_image', 'attrs_inline', 'attrs_block']
 myst_title_to_header = True
 myst_number_code_blocks = ['python', 'py', 'usda', 'usd']
@@ -196,6 +196,13 @@ def copy_asset_folders(app, exception):
     
     for assets_path in source_dir.rglob('_assets'):
         if assets_path.is_dir():
+            # Skip if the assets path is within _build directory
+            try:
+                assets_path.relative_to(source_dir / '_build')
+                continue  # Skip this path as it's in _build
+            except ValueError:
+                pass  # Not in _build, continue processing
+            
             # Get the relative path from source directory
             rel_path = assets_path.relative_to(source_dir)
             dst_assets = build_dir / rel_path
