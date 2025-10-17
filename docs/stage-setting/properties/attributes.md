@@ -158,7 +158,7 @@ The attribute values will not show up in `.usda`, however the values are coming 
 ```{code-cell}
 :emphasize-lines: 12-24
 
-from pxr import Usd, UsdGeom
+from pxr import Usd, UsdGeom, Gf
 
 file_path = "_assets/attributes_ex2.usda"
 stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
@@ -217,7 +217,7 @@ Now let's modify the `radius`, `displayColor`, and `extent` attributes of the sp
 ```{code-cell}
 :emphasize-lines: 17-20
 
-from pxr import Usd, UsdGeom
+from pxr import Usd, UsdGeom, Gf
 
 file_path = "_assets/attributes_ex3.usda"
 stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
