@@ -63,6 +63,138 @@ UsdRelationship.AddTarget()
 # Remove a target path from a relationship
 UsdRelationship.RemoveTarget()
 ```
+## Examples
+
++++ {"tags": ["remove-cell"]}
+>**NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook.
++++
+```{code-cell}
+:tags: [remove-input]
+from utils.visualization import DisplayUSD, DisplayCode
+from utils.helperfunctions import create_new_stage
+```
+
+### Example 1: Prim Collections with Relationships
+[`Relationships`](https://openusd.org/release/glossary.html#usdglossary-relationship) are properties that store one or more target paths. You can author a relationship with `CreateRelationship`, then later retrieve it with `GetRelationship` and inspect the targets with `GetTargets`.
+```{code-cell}
+:emphasize-lines: 15-25
+
+from pxr import Usd, UsdGeom, Gf
+
+file_path = "_assets/relationships_ex1.usda"
+stage = Usd.Stage.CreateNew(file_path)
+
+world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
+
+# Define a sphere under the World xForm:
+sphere: UsdGeom.Sphere = UsdGeom.Sphere.Define(stage, world_xform.GetPath().AppendPath("Sphere"))
+
+# Define a cube under the World xForm and set it to be 5 units away from the sphere:
+cube: UsdGeom.Cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendPath("Cube"))
+UsdGeom.XformCommonAPI(cube).SetTranslate(Gf.Vec3d(5, 0, 0))
+
+# typeless container
+group = stage.DefinePrim("/World/Group") 
+
+# Define the relationship
+group.CreateRelationship("members", custom=True).SetTargets(
+    [sphere.GetPath(), cube.GetPath()]
+)
+
+# List relationship targets
+members_rel = group.GetRelationship("members")
+print("Group members:", [str(p) for p in members_rel.GetTargets()])
+
+stage.Save()
+```
+```{code-cell}
+:tags: [remove-input]
+DisplayUSD(file_path, show_usd_code=True)
+```
+
+### Example 2: Using a Built‑in Relationship (proxyPrim)
+Many built‑in schemas expose `Relationships`. `UsdGeom.Imageable` has `proxyPrim`, which points a high cost prim to a lightweight proxy.
+```{code-cell}
+:emphasize-lines: 14-22
+
+from pxr import Usd, UsdGeom
+
+file_path = "_assets/relationships_ex2.usda"
+stage = Usd.Stage.CreateNew(file_path)
+
+world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
+
+# Define a "high cost" Sphere prim under the World Xform:
+high: UsdGeom.Sphere = UsdGeom.Sphere.Define(stage, world_xform.GetPath().AppendPath("HiRes"))
+
+# Define a "low cost" Cube prim under World Xfrom
+low: UsdGeom.Cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendPath("Proxy"))
+
+UsdGeom.Imageable(high).GetPurposeAttr().Set("render")
+UsdGeom.Imageable(low).GetPurposeAttr().Set("proxy")
+
+# Author the proxy link on the render prim
+UsdGeom.Imageable(high).GetProxyPrimRel().SetTargets([low.GetPath()])
+
+# Tools that honor proxyPrim should draw the proxy in preview
+draw_prim = UsdGeom.Imageable(high).ComputeProxyPrim()  # returns Usd.Prim
+print("Preview should draw:", str(draw_prim[0].GetPath() if draw_prim else high.GetPath()))
+
+stage.Save()
+```
+```{code-cell}
+:tags: [remove-input]
+DisplayUSD(file_path, show_usd_code=True)
+```
+
+### Example 3: Bind Materials to Prims
+Material binding is encoded as a relationship named `material:binding` that targets a `UsdShade.Material`. The `UsdShade.MaterialBindingAPI` authors and reads this relationship. Here two cubes bind to GreenMat and one cube binds to RedMat.
+```{code-cell}
+:emphasize-lines: 15-36
+
+from pxr import Usd, UsdGeom, UsdShade, Gf, Sdf
+
+file_path = "_assets/relationships_ex3.usda"
+stage = Usd.Stage.CreateNew(file_path)
+
+world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
+
+
+cube_1: UsdGeom.Cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendPath("Cube_1"))
+cube_2: UsdGeom.Cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendPath("Cube_2"))
+UsdGeom.XformCommonAPI(cube_2).SetTranslate(Gf.Vec3d(5, 0, 0))
+cube_3: UsdGeom.Cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendPath("Cube_3"))
+UsdGeom.XformCommonAPI(cube_3).SetTranslate(Gf.Vec3d(10, 0, 0))
+
+looks = stage.DefinePrim("/World/Looks")
+
+green: UsdShade.Material = UsdShade.Material.Define(stage, looks.GetPath().AppendPath("GreenMat"))
+green_ps = UsdShade.Shader.Define(stage, green.GetPath().AppendPath("PreviewSurface"))
+green_ps.CreateIdAttr("UsdPreviewSurface")
+green_ps.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f(0.0, 1.0, 0.0))
+green.CreateSurfaceOutput().ConnectToSource(green_ps.ConnectableAPI(), "surface")
+
+red: UsdShade.Material = UsdShade.Material.Define(stage, looks.GetPath().AppendPath("RedMat"))
+red_ps = UsdShade.Shader.Define(stage, red.GetPath().AppendPath("PreviewSurface"))
+red_ps.CreateIdAttr("UsdPreviewSurface")
+red_ps.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f(1.0, 0.0, 0.0))
+red.CreateSurfaceOutput().ConnectToSource(red_ps.ConnectableAPI(), "surface")
+
+UsdShade.MaterialBindingAPI.Apply(cube_1.GetPrim()).Bind(green)
+UsdShade.MaterialBindingAPI.Apply(cube_2.GetPrim()).Bind(green)
+UsdShade.MaterialBindingAPI.Apply(cube_3.GetPrim()).Bind(red)
+
+# Verify by reading the direct binding
+for prim in [cube_1, cube_2, cube_3]:
+    mat = UsdShade.MaterialBindingAPI(prim).GetDirectBinding().GetMaterial()
+    print(f"{prim.GetPath()} -> {mat.GetPath() if mat else 'None'}")
+
+stage.Save()
+```
+```{code-cell}
+:tags: [remove-input]
+DisplayUSD(file_path, show_usd_code=True)
+```
 
 ## Key Takeaways
 

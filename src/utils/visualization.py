@@ -15,6 +15,7 @@
 
 """Visualization tools for displaying USD content within Jupyter Notebooks."""
 
+import html
 import logging
 import os
 from string import Template
@@ -69,12 +70,16 @@ def _render_html_code_visualizer(
 
     usd_content = f'# Could not display file "{usd_filename}".' + "\n"
     if usd_filename.lower().endswith(".usda"):
-        target_file_path = f"{usd_filename}"
-        if os.path.exists(target_file_path) and os.path.isfile(target_file_path):
-            with open(target_file_path, "r") as target_file:
-                usd_content = target_file.read()
-        else:
-            log.debug(msg=f'Could not read file "{target_file_path}" for code visualization.')
+        try:
+            with open(usd_filename, 'r') as f:
+                usd_content = f.read()
+        except FileNotFoundError:
+            log.warning(f'USD file "{usd_filename}" not found.')
+        except Exception as e:
+            log.error(f'Error reading USD file "{usd_filename}": {e}')
+
+    # HTML-encode the content to prevent HTML interpretation of < and > characters
+    usd_content = html.escape(usd_content)
 
     code_output_template = Template("""
 <div class="text-left ${extra_code_css_class}">
@@ -115,7 +120,7 @@ def _render_html_code_visualizer(
     
     extra_code_css_classes: List[str] = []
     if full_width:
-        extra_code_css_classes.append("full-width")
+        extra_code_css_classes.append("col-12")
 
     templated_code_output_html = code_output_template.substitute(
         code=usd_content,

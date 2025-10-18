@@ -88,7 +88,7 @@ To retrieve the properties of a prim, we would use the [`GetProperties`](https:/
 
 
 ```{note}
-Relationships are only lightly discussed in this less. We'll talk about relationships again in the {doc}`relationships` lesson.
+Relationships are only lightly discussed in this lesson. We'll talk about relationships again in the {doc}`relationships` lesson.
 ```
 
 ```{code-cell}
