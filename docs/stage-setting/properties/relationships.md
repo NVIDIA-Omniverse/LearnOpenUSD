@@ -86,14 +86,14 @@ stage = Usd.Stage.CreateNew(file_path)
 
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 
-# Define a sphere under the World xForm:
+# Define a sphere under the World Xform:
 sphere: UsdGeom.Sphere = UsdGeom.Sphere.Define(stage, world_xform.GetPath().AppendPath("Sphere"))
 
-# Define a cube under the World xForm and set it to be 5 units away from the sphere:
+# Define a cube under the World Xform and set it to be 5 units away from the sphere:
 cube: UsdGeom.Cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendPath("Cube"))
 UsdGeom.XformCommonAPI(cube).SetTranslate(Gf.Vec3d(5, 0, 0))
 
-# typeless container
+# Create typeless container for the group
 group = stage.DefinePrim("/World/Group") 
 
 # Define the relationship
@@ -124,16 +124,16 @@ stage = Usd.Stage.CreateNew(file_path)
 
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 
-# Define a "high cost" Sphere prim under the World Xform:
+# Define a "high cost" Sphere Prim under the World Xform:
 high: UsdGeom.Sphere = UsdGeom.Sphere.Define(stage, world_xform.GetPath().AppendPath("HiRes"))
 
-# Define a "low cost" Cube prim under World Xfrom
+# Define a "low cost" Cube Prim under World Xfrom
 low: UsdGeom.Cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendPath("Proxy"))
 
 UsdGeom.Imageable(high).GetPurposeAttr().Set("render")
 UsdGeom.Imageable(low).GetPurposeAttr().Set("proxy")
 
-# Author the proxy link on the render prim
+# Author the proxy link on the render Prim
 UsdGeom.Imageable(high).GetProxyPrimRel().SetTargets([low.GetPath()])
 
 # Tools that honor proxyPrim should draw the proxy in preview
@@ -150,7 +150,7 @@ DisplayUSD(file_path, show_usd_code=True)
 ### Example 3: Bind Materials to Prims
 Material binding is encoded as a relationship named `material:binding` that targets a `UsdShade.Material`. The `UsdShade.MaterialBindingAPI` authors and reads this relationship. Here two cubes bind to GreenMat and one cube binds to RedMat.
 ```{code-cell}
-:emphasize-lines: 15-36
+:emphasize-lines: 15-40
 
 from pxr import Usd, UsdGeom, UsdShade, Gf, Sdf
 
@@ -166,20 +166,24 @@ UsdGeom.XformCommonAPI(cube_2).SetTranslate(Gf.Vec3d(5, 0, 0))
 cube_3: UsdGeom.Cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendPath("Cube_3"))
 UsdGeom.XformCommonAPI(cube_3).SetTranslate(Gf.Vec3d(10, 0, 0))
 
+# Create typeless container for the materials
 looks = stage.DefinePrim("/World/Looks")
 
+# Create simple green material for preview
 green: UsdShade.Material = UsdShade.Material.Define(stage, looks.GetPath().AppendPath("GreenMat"))
 green_ps = UsdShade.Shader.Define(stage, green.GetPath().AppendPath("PreviewSurface"))
 green_ps.CreateIdAttr("UsdPreviewSurface")
 green_ps.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f(0.0, 1.0, 0.0))
 green.CreateSurfaceOutput().ConnectToSource(green_ps.ConnectableAPI(), "surface")
 
+# Create simple red material for preview
 red: UsdShade.Material = UsdShade.Material.Define(stage, looks.GetPath().AppendPath("RedMat"))
 red_ps = UsdShade.Shader.Define(stage, red.GetPath().AppendPath("PreviewSurface"))
 red_ps.CreateIdAttr("UsdPreviewSurface")
 red_ps.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f(1.0, 0.0, 0.0))
 red.CreateSurfaceOutput().ConnectToSource(red_ps.ConnectableAPI(), "surface")
 
+# Bind materials to Prims
 UsdShade.MaterialBindingAPI.Apply(cube_1.GetPrim()).Bind(green)
 UsdShade.MaterialBindingAPI.Apply(cube_2.GetPrim()).Bind(green)
 UsdShade.MaterialBindingAPI.Apply(cube_3.GetPrim()).Bind(red)
