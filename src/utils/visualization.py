@@ -120,7 +120,7 @@ def _render_html_code_visualizer(
     
     extra_code_css_classes: List[str] = []
     if full_width:
-        extra_code_css_classes.append("col-12")
+        extra_code_css_classes.append("full-width")
 
     templated_code_output_html = code_output_template.substitute(
         code=usd_content,
