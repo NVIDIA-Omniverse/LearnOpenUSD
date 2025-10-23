@@ -7,6 +7,9 @@ dist/
 wheels/
 *.egg-info
 
+# System files
+.DS_Store
+
 # Added
 .venv/
 _assets/

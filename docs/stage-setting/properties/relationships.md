@@ -147,8 +147,8 @@ stage.Save()
 DisplayUSD(file_path, show_usd_code=True)
 ```
 
-### Example 3: Bind Materials to Prims
-Material binding is encoded as a relationship named `material:binding` that targets a `UsdShade.Material`. The `UsdShade.MaterialBindingAPI` authors and reads this relationship. Here two cubes bind to GreenMat and one cube binds to RedMat.
+### Example 3: Material Binding Relationships
+Material binding is encoded as a relationship named `material:binding` that targets a `UsdShade.Material`. The `UsdShade.MaterialBindingAPI` authors and reads this relationship. Here GreenMat is bound to two cubes and RedMat is bound to one cube.
 ```{code-cell}
 :emphasize-lines: 15-40
 
