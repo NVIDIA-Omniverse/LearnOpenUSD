@@ -32,7 +32,7 @@ In this lesson, we’ll explore the concept of default prims in Universal Scene 
 ## What Is a Default Prim?
 
 ![Default Prim Definition](../images/foundations/DefaultPrim_Definition.webm)
-A default prim in OpenUSD is a top-level prim, or primitive, that is part of the layer metadata and serves as the primary entry point or root for a stage. Ihelps other parts of the system know where to start or what to focus on.
+A default prim in OpenUSD is a top-level prim, or primitive, that is part of the layer metadata and serves as the primary entry point or root for a stage. It helps other parts of the system know where to start or what to focus on.
 
 
 ### How Does It Work?
