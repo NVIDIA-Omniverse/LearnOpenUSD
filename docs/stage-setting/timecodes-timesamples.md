@@ -197,7 +197,7 @@ Let's create a sphere that moves up and down using the [`XformCommonAPI`](https:
 :tags: [remove-output]
 :emphasize-lines: 19-31
 
-from pxr import Usd, UsdGeom
+from pxr import Usd, UsdGeom, Gf
 
 stage: Usd.Stage = Usd.Stage.Open("_assets/timecode_sample.usda")
 world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
