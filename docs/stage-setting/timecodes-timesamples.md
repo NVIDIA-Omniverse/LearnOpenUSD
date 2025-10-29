@@ -108,7 +108,8 @@ Let's create a USD stage to serve as the starting point for the example in this 
 from pxr import Usd, UsdGeom, Gf
 
 # Create a new USD stage file named "timecode_sample.usda":
-stage: Usd.Stage = create_new_stage("_assets/timecode_sample.usda")
+file_path = "_assets/timecode_sample.usda"
+stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
 
 # Define a transform ("Xform") primitive at the "/World" path:
 world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
