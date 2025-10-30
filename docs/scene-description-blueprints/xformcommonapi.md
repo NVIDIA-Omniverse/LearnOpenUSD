@@ -44,7 +44,7 @@ There’s another way to author and retrieve translations – through the `UsdGe
 
 ### Working With Python
 
-Below is an example of how to work with the `XformCommonAPI` in a USD environment.
+This example verifies prim compatibility with `XformCommonAPI` and demonstrates its use.
 
 ``` python 
 from pxr import Usd, UsdGeom
@@ -106,7 +106,7 @@ stage.Save()
 DisplayUSD(file_path, show_usd_code=True)
 ```
 
-`XformCommonAPI` is used to set and get transform components such as scale, rotation, scale-rotate pivot and translation. Even though these are considered attributes, it is best to go through `XformCommonAPI` when editting transformation values. `XformCommonAPI` is a great way to bootstrap setting up new transformations. Future modules will dive into advanced usage of xformOps. Below is an example to check if `XformCommonAPI` is compatible with the prim.
+`XformCommonAPI` is used to set and get transform components such as scale, rotation, scale-rotate pivot and translation. Even though these are considered attributes, it is best to go through `XformCommonAPI` when editting transformation values. `XformCommonAPI` is a great way to bootstrap setting up new transformations. Future modules will dive into advanced usage of xformOps. 
 
 
 ## Key Takeaways
