@@ -68,21 +68,38 @@ from utils.visualization import DisplayUSD, DisplayCode
 We can define `Scope`using [`UsdGeom.Scope.Define()`](https://openusd.org/release/api/class_usd_geom_scope.html#acdb17fed396719a9a21294ebca0116ae).
 
 ```{code-cell}
-:emphasize-lines: 9-10
+:emphasize-lines: 12-30
 
-from pxr import Usd, UsdGeom
+from pxr import Usd, UsdGeom, Gf
 
 file_path = "_assets/scope.usda"
 stage = Usd.Stage.CreateNew(file_path)
 
-world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
-stage.SetDefaultPrim(world.GetPrim())
+# World container (transformable)
+world = UsdGeom.Xform.Define(stage, "/World")
 
-# Define a new Scope primitive at the path "/World/Geometry" on the current stage:
-geo_scope: UsdGeom.Scope = UsdGeom.Scope.Define(stage, world.GetPath().AppendPath("Geometry"))
+num_a_prims = 2
+num_b_prims = 2
 
-# Define a new Cube primitive at the path "/World/Geometry/Cube" on the current stage:
-box_geo: UsdGeom.Cube = UsdGeom.Cube.Define(stage, geo_scope.GetPath().AppendPath("Cube"))
+# Two organizational Scopes (non-transformable grouping prims)
+a_scope = UsdGeom.Scope.Define(stage, world.GetPath().AppendPath("A_Scope"))
+b_scope = UsdGeom.Scope.Define(stage, world.GetPath().AppendPath("B_Scope"))
+
+# Populate the scopes with some geometry
+for a in range(num_a_prims):
+    sphere = UsdGeom.Sphere.Define(stage, a_scope.GetPath().AppendPath(f"A_Sphere_{a}"))
+    UsdGeom.XformCommonAPI(sphere).SetTranslate(Gf.Vec3d(a*2.5, 0, 0))
+
+for b in range(num_b_prims):
+    cube = UsdGeom.Cube.Define(stage, b_scope.GetPath().AppendPath(f"B_Cube_{b}"))
+    UsdGeom.XformCommonAPI(cube).SetTranslate(Gf.Vec3d(b*2.5, -2.5, 0))
+
+# Attach once, apply everywhere: branch metadata on the Scope
+a_scope.GetPrim().SetCustomDataByKey("all_a_prims_config", True)
+b_scope.GetPrim().SetCustomDataByKey("all_b_prims_config", False)
+
+# Deactivate the A_Scope
+a_scope.GetPrim().SetActive(False)
 
 stage.Save()
 ```
