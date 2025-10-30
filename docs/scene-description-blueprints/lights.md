@@ -84,7 +84,7 @@ One of the schemas in `UsdLux` is [`DistantLight`](https://openusd.org/release/a
 
 ```{code-cell}
 :emphasize-lines: 13-14
-from pxr import Usd, UsdGeom, UsdLux, UsdShade
+from pxr import Usd, UsdGeom, UsdLux
 
 file_path = "_assets/distant_light.usda"
 stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
@@ -117,8 +117,6 @@ We're going to define two new prims, [`SphereLight`](https://openusd.org/dev/api
 
 ```{code-cell}
 :emphasize-lines: 12-32
-
-from math import pi
 from pxr import Gf, Usd, UsdGeom, UsdLux
 
 file_path = "_assets/light_props.usda"
