@@ -69,9 +69,6 @@ API schemas can be classified as non-applied or applied schemas, and single-appl
 
 Unlike IsA schemas, API schemas do not assign a typeName to a prim. Instead, are list-edited in the `apiSchemas` metadata and queryable via the `HasAPI` method. API schemas are assigned to already-typed prims to annotate them with additional properties that govern behaviors.
 
-The following is a key example of an API Schemas.
-
-
 
 
 ### Working With Python
