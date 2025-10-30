@@ -33,7 +33,13 @@ Each USD file format can be created through Python bindings in the OpenUSD libra
 In these lessons, we primarily use USDA files because they are human-readable, making them ideal for learning and accessibility. As you advance in your OpenUSD work, you may prefer to use USDC or USD formats instead.
 
 ```{note}
-The file format choices in these lessons prioritize learning over production best practices. For real-world projects, we recommend following the file format guidelines outlined in the official documentation rather than simply copying our approach in these lessons.
+The file formats used in these lessons are chosen for clarity. In production, follow the OpenUSD guidance for production use cases, which includes:
+* Prefer the binary usdc format (often saved with the .usd extension) for layers that contain real content such as geometry or shading, because it opens faster and uses less memory.
+* Reserve usda text for small, human‑readable “interface” layers that mostly reference or sublayer other files, and for debugging or diffing.
+* In general, “prefer crate files” for big data, and keep text to lightweight aggregators.
+
+[See Maximizing USD Performance for the full recommendations](https://openusd.org/release/maxperf.html).
+
 ```
 
 ## Key Takeaways
