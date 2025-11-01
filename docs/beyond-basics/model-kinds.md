@@ -86,7 +86,7 @@ prim_model_api.GetKind()
 # Set the kind of a prim to component
 prim_model_api.SetKind(Kind.Tokens.component) 
 
-# Return "true" if the prim repersents a model based on its kind metadata
+# Return "true" if the prim represents a model based on its kind metadata
 prim.IsModel()  
 ```
 
