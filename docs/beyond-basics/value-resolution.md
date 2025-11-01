@@ -1,3 +1,31 @@
+---
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.17.2
+kernelspec:
+  display_name: Python 3 (ipykernel)
+  language: python
+  name: python3
+---
+
 # Value Resolution
 
 ## What Is Value Resolution?
@@ -74,6 +102,159 @@ value = attr.Get(Usd.TimeCode.EarliestTime())
 
 When you get an attribute value without an explicit time code, the default time code (`UsdTimeCode::Default()`) is usually not what you want if your stage has animation. Instead, use `UsdTimeCode::EarliestTime()` to make sure you get the actual animated values rather than just the default value.
 
+## Examples
+
++++ {"tags": ["remove-cell"]}
+>**NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook.
++++
+```{code-cell}
+:tags: [remove-input]
+from utils.visualization import DisplayUSD, DisplayCode
+from utils.helperfunctions import create_new_stage
+```
+
+### Example 1: Attribute Value Resolution and Animation
+
+This example demonstrates how attribute (size) values are resolved across schema defined defaults, user defined defaults, and user defined time sampled values.
+
+```{code-cell}
+:emphasize-lines: 28-53
+from pxr import Usd, UsdGeom
+
+# Time settings
+start_tc = 1
+end_tc = 120
+cube_anim_start_tc = 60
+time_code_per_second = 30
+
+# Stage and interpolation
+stage = Usd.Stage.CreateNew("_assets/value_resolution_attr.usda")
+stage.SetTimeCodesPerSecond(time_code_per_second)
+stage.SetStartTimeCode(start_tc)
+stage.SetEndTimeCode(end_tc)
+
+# World and a simple world rotation over time (children inherit transforms)
+world_xform = UsdGeom.Xform.Define(stage, "/World")
+stage.SetDefaultPrim(world_xform.GetPrim())
+UsdGeom.XformCommonAPI(world_xform).SetRotate((-75, 0, 0))
+
+# Create Ground cube
+background = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendChild("Ground"))
+UsdGeom.XformCommonAPI(background).SetScale((10, 5, 0.1))
+UsdGeom.XformCommonAPI(background).SetTranslate((0, 0, -0.1))
+
+
+# Static cube with default (schema defined) size
+static_default_cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendChild("StaticDefaultCube"))
+static_default_cube.GetDisplayColorAttr().Set([(0.2, 0.2, 0.8)])
+UsdGeom.XformCommonAPI(static_default_cube).SetTranslate((8, 0, 1))
+
+# select a non-default cube size value
+cube_set_size = 3
+
+# Static cube with cube_set_size size set
+static_cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendChild("StaticCube"))
+static_cube.GetDisplayColorAttr().Set([(0.8, 0.2, 0.2)])
+static_cube.GetSizeAttr().Set(cube_set_size)  # set static_cube size
+UsdGeom.XformCommonAPI(static_cube).SetTranslate((-8, 0, 1.5))
+
+# Animated cube with cube_set_size size set
+anim_cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendChild("AnimCube"))
+anim_cube.GetDisplayColorAttr().Set([(0.2, 0.8, 0.2)])
+anim_cube.GetSizeAttr().Set(cube_set_size)  # SAME as static_cube
+UsdGeom.XformCommonAPI(anim_cube).SetTranslate((0, 0, 1.5))
+
+# Set size with specified Usd.TimeCode values
+# anim_cube.GetSizeAttr().Set(cube_set_size, Usd.TimeCode(start_tc))
+anim_cube.GetSizeAttr().Set(5.0, Usd.TimeCode(cube_anim_start_tc))  # first animated sample
+anim_cube.GetSizeAttr().Set(10.0, Usd.TimeCode(end_tc))  # last sample
+UsdGeom.XformCommonAPI(anim_cube).SetTranslate((0, 0, 2.5), Usd.TimeCode(cube_anim_start_tc))
+UsdGeom.XformCommonAPI(anim_cube).SetTranslate((0, 0, 5.0), Usd.TimeCode(end_tc))
+
+# Print resolved values
+print("Default Size on anim_cube:", anim_cube.GetSizeAttr().Get())  # returns the user defined default value.
+print(f"Size of anim_cube at EarliestTime t={cube_anim_start_tc}:", anim_cube.GetSizeAttr().Get(Usd.TimeCode.EarliestTime()))  # first authored sample
+
+stage.Save()
+```
+```{code-cell}
+:tags: [remove-input]
+DisplayUSD(file_path)
+```
+Notice that values are resolved differently when `Usd.TimeCode` is used, including at times before the first authored `Usd.TimeCode`.
+
+### Example 2: Custom Data and Relationship Value Resolution
+
+This example demonstrates how custom data and relationship values are resolved across multiple layers. Custom data dictionaries are resolved per key and based on layer order. Relationships are list edited and not dependent on layer order.
+
+```{code-cell}
+:emphasize-lines: 34-57
+from pxr import Usd, UsdGeom
+import os
+
+# --- Layer 1 (weaker)
+layer_1_path = "_assets/value_resolution_layer_1.usda"
+layer_1_stage = Usd.Stage.CreateNew(layer_1_path)
+
+layer_1_xform = UsdGeom.Xform.Define(layer_1_stage, "/World/XformPrim")
+layer_1_xform_prim = layer_1_xform.GetPrim()
+
+# "/World/XformPrim" customData
+layer_1_xform_prim.SetCustomDataByKey("source",  "layer_1")
+layer_1_xform_prim.SetCustomDataByKey("opinion",  "weak")
+layer_1_xform_prim.SetCustomDataByKey("unique_layer_value", "layer_1_unique_value")  # only authored in layer_1
+
+# Relationship contribution from base
+look_a = UsdGeom.Xform.Define(layer_1_stage, "/World/Looks/LookA")
+layer_1_xform_prim.CreateRelationship("look:targets").AddTarget(look_a.GetPath())
+layer_1_stage.Save()
+
+# --- Layer 2 (stronger)
+layer_2_path = "_assets/value_resolution_layer_2.usda"
+layer_2_stage = Usd.Stage.CreateNew(layer_2_path)
+
+layer_2_xform = UsdGeom.Xform.Define(layer_2_stage, "/World/XformPrim")
+layer_2_xform_prim = layer_2_xform.GetPrim()
+
+# "/World/XformPrim" customData
+layer_2_xform_prim.SetCustomDataByKey("source",  "layer_2")
+layer_2_xform_prim.SetCustomDataByKey("opinion",  "strong")
+
+# Relationship contribution from override
+look_b = UsdGeom.Xform.Define(layer_2_stage, "/World/Looks/LookB")
+layer_2_xform_prim.CreateRelationship("look:targets").AddTarget(look_b.GetPath())
+layer_2_stage.Save()
+
+# --- Composed stage. First sublayer listed (layer_2) is strongest
+composed_path = "_assets/value_resolution_composed.usda"
+composed_stage = Usd.Stage.CreateNew(composed_path)
+composed_stage.GetRootLayer().subLayerPaths = [os.path.basename(layer_2_path), os.path.basename(layer_1_path)]
+
+xform_prim = composed_stage.GetPrimAtPath("/World/XformPrim")
+resolved_custom_data = xform_prim.GetCustomData() 
+
+# resolved custom data:
+print("Resolved CustomData:")
+for key, value in resolved_custom_data.items():
+    print(f"- '{key}': '{value}'")
+
+# resolved relationship targets:
+targets = xform_prim.GetRelationship("look:targets").GetTargets()
+print(f"\nResolved relationship targets: {[str(t) for t in targets]}")  # both LookA and LookB
+
+composed_stage.Save()
+
+# Write out the composed stage to a single file for inspection
+explicit_composed_path = '_assets/value_resolution_composed_explicit.usda'
+txt = composed_stage.ExportToString(addSourceFileComment=False)
+with open(explicit_composed_path, "w") as f:
+    f.write(txt)
+```
+```{code-cell}
+:tags: [remove-input]
+DisplayCode(explicit_composed_path)
+```
+
 ## Key Takeaways
 
 Value resolution gives OpenUSD its powerful ability to combine data from multiple sources while keeping the system fast and efficient.
@@ -88,6 +269,3 @@ Here's a concrete example with a robot arm:
 During value resolution, OpenUSD combines these layers, resulting in the robot arm being positioned at `(5, 0, 0)` while keeping all other unchanged properties from the base layer.
 
 Understanding value resolution is key to working effectively with OpenUSD's non-destructive workflow and getting the best performance in multi-threaded applications.
-
-
-
