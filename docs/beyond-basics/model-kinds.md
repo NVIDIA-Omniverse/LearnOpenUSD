@@ -6,7 +6,7 @@ In this lesson, we'll explore the concept of kinds in OpenUSD.
 ![Kind Definition](../images/foundations/Kind_Definition.webm)
 
 Model kinds are a piece of metadata that provide a way to organize and categorize different
-types of scene elements or prims into a hierarchical structure.
+types of scene elements or prims into a hierarchical structure. Kind is prim-level metadata that establishes a **standardized, queryable model hierarchy across tools and pipelines**, independent of prim type. It is not another container type (like `Scope` or `Prim`); it's a set of rules for organization that other tools can rely upon. With kinds authored, you can traverse only “models” using built-in UsdPrim helpers such as IsModel, IsGroup, IsComponent, and IsSubComponent.
 
 Understanding kinds enables the creation of modular, reusable assets, and employing them effectively can have a significant impact on how well we can manage complex 3D scenes.
 
