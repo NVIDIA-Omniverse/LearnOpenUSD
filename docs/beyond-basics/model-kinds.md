@@ -179,7 +179,7 @@ stage.Save()
 ```
 ```{code-cell}
 :tags: [remove-input]
-DisplayUSD(file_path)
+DisplayUSD(file_path, show_usd_code=True)
 ```
 
 ## Key Takeaways
