@@ -115,10 +115,10 @@ from utils.helperfunctions import create_new_stage
 
 ### Example 1: Attribute Value Resolution and Animation
 
-This example demonstrates how attribute (size) values are resolved across schema defined defaults, user defined defaults, and user defined time sampled values.
+This example demonstrates how attribute (scale) values are resolved across schema defined defaults, user defined defaults, and user defined time sampled values.
 
 ```{code-cell}
-:emphasize-lines: 28-53
+:emphasize-lines: 27-60
 from pxr import Usd, UsdGeom
 
 # Time settings
@@ -128,7 +128,8 @@ cube_anim_start_tc = 60
 time_code_per_second = 30
 
 # Stage and interpolation
-stage = Usd.Stage.CreateNew("_assets/value_resolution_attr.usda")
+file_path = "_assets/value_resolution_attr.usda"
+stage = Usd.Stage.CreateNew(file_path)
 stage.SetTimeCodesPerSecond(time_code_per_second)
 stage.SetStartTimeCode(start_tc)
 stage.SetEndTimeCode(end_tc)
@@ -144,36 +145,40 @@ UsdGeom.XformCommonAPI(background).SetScale((10, 5, 0.1))
 UsdGeom.XformCommonAPI(background).SetTranslate((0, 0, -0.1))
 
 
-# Static cube with default (schema defined) size
+# Static cube with default (schema defined) scale
 static_default_cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendChild("StaticDefaultCube"))
 static_default_cube.GetDisplayColorAttr().Set([(0.2, 0.2, 0.8)])
 UsdGeom.XformCommonAPI(static_default_cube).SetTranslate((8, 0, 1))
 
-# select a non-default cube size value
-cube_set_size = 3
+# select a non-default cube scale value
+cube_set_scale = (1.5, 1.5, 1.5)
 
-# Static cube with cube_set_size size set
+# Static cube with cube_set_scale scale set
 static_cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendChild("StaticCube"))
 static_cube.GetDisplayColorAttr().Set([(0.8, 0.2, 0.2)])
-static_cube.GetSizeAttr().Set(cube_set_size)  # set static_cube size
-UsdGeom.XformCommonAPI(static_cube).SetTranslate((-8, 0, 1.5))
+static_cube_xform_api = UsdGeom.XformCommonAPI(static_cube)
+static_cube_xform_api.SetScale(cube_set_scale)  # set static_cube scale
+static_cube_xform_api.SetTranslate((-8, 0, 1.5))
 
-# Animated cube with cube_set_size size set
+# Animated cube with cube_set_scale set
 anim_cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendChild("AnimCube"))
 anim_cube.GetDisplayColorAttr().Set([(0.2, 0.8, 0.2)])
-anim_cube.GetSizeAttr().Set(cube_set_size)  # SAME as static_cube
-UsdGeom.XformCommonAPI(anim_cube).SetTranslate((0, 0, 1.5))
+anim_cube_xform_api = UsdGeom.XformCommonAPI(anim_cube)
+anim_cube_xform_api.SetScale(cube_set_scale)  # SAME as static_cube
+anim_cube_xform_api.SetTranslate((0, 0, 1.5))
 
-# Set size with specified Usd.TimeCode values
-# anim_cube.GetSizeAttr().Set(cube_set_size, Usd.TimeCode(start_tc))
-anim_cube.GetSizeAttr().Set(5.0, Usd.TimeCode(cube_anim_start_tc))  # first animated sample
-anim_cube.GetSizeAttr().Set(10.0, Usd.TimeCode(end_tc))  # last sample
-UsdGeom.XformCommonAPI(anim_cube).SetTranslate((0, 0, 2.5), Usd.TimeCode(cube_anim_start_tc))
-UsdGeom.XformCommonAPI(anim_cube).SetTranslate((0, 0, 5.0), Usd.TimeCode(end_tc))
+# Set scale with specified Usd.TimeCode values
+# anim_cube_xform_api.SetScale(cube_set_scale, Usd.TimeCode(start_tc))
+anim_cube_xform_api.SetScale((2.5, 2.5, 2.5), Usd.TimeCode(cube_anim_start_tc))  # first animated sample
+anim_cube_xform_api.SetScale((5, 5, 5), Usd.TimeCode(end_tc))  # last sample
+anim_cube_xform_api.SetTranslate((0, 0, 2.5), Usd.TimeCode(cube_anim_start_tc))
+anim_cube_xform_api.SetTranslate((0, 0, 5.0), Usd.TimeCode(end_tc))
 
 # Print resolved values
-print("Default Size on anim_cube:", anim_cube.GetSizeAttr().Get())  # returns the user defined default value.
-print(f"Size of anim_cube at EarliestTime t={cube_anim_start_tc}:", anim_cube.GetSizeAttr().Get(Usd.TimeCode.EarliestTime()))  # first authored sample
+_, _, anim_cube_default_scale, _, _ = anim_cube_xform_api.GetXformVectors(Usd.TimeCode.Default())
+_, _, anim_cube_earliest_scale, _, _ = anim_cube_xform_api.GetXformVectors(Usd.TimeCode.EarliestTime())
+print("Default Scale on anim_cube:", anim_cube_default_scale)  # returns the user defined default value.
+print(f"Scale for anim_cube at EarliestTime t={cube_anim_start_tc}:", anim_cube_earliest_scale)  # first authored sample
 
 stage.Save()
 ```
@@ -188,7 +193,7 @@ Notice that values are resolved differently when `Usd.TimeCode` is used, includi
 This example demonstrates how custom data and relationship values are resolved across multiple layers. Custom data dictionaries are resolved per key and based on layer order. Relationships are list edited and not dependent on layer order.
 
 ```{code-cell}
-:emphasize-lines: 34-57
+:emphasize-lines: 37-60
 from pxr import Usd, UsdGeom
 import os
 
