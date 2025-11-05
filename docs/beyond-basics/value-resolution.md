@@ -115,10 +115,10 @@ from utils.helperfunctions import create_new_stage
 
 ### Example 1: Attribute Value Resolution and Animation
 
-This example demonstrates how attribute (scale) values are resolved across schema defined defaults, user defined defaults, and user defined time sampled values.
+This example shows how a transform attribute (the `xformOp:scale` authored by `XformCommonAPI`) resolves from three sources: the implicitly when no scale op exists, an authored default value, and authored time samples.
 
 ```{code-cell}
-:emphasize-lines: 27-60
+:emphasize-lines: 27-62
 from pxr import Usd, UsdGeom
 
 # Time settings
@@ -177,8 +177,10 @@ anim_cube_xform_api.SetTranslate((0, 0, 5.0), Usd.TimeCode(end_tc))
 # Print resolved values
 _, _, anim_cube_default_scale, _, _ = anim_cube_xform_api.GetXformVectors(Usd.TimeCode.Default())
 _, _, anim_cube_earliest_scale, _, _ = anim_cube_xform_api.GetXformVectors(Usd.TimeCode.EarliestTime())
-print("Default Scale on anim_cube:", anim_cube_default_scale)  # returns the user defined default value.
-print(f"Scale for anim_cube at EarliestTime t={cube_anim_start_tc}:", anim_cube_earliest_scale)  # first authored sample
+_, _, anim_cube_tc1_scale, _, _ = anim_cube_xform_api.GetXformVectors(Usd.TimeCode(start_tc))
+print("Scale for anim_cube at `Usd.TimeCode.Default`:", anim_cube_default_scale)  # returns the user defined default value.
+print(f"Scale for anim_cube at first authored time (`EarliestTime`) t={cube_anim_start_tc}:", anim_cube_earliest_scale)  # first authored sample
+print(f"Scale for anim_cube at time prior to earliest authored sample t={start_tc}:", anim_cube_tc1_scale)  # resolved value prior to authored value.
 
 stage.Save()
 ```
@@ -186,11 +188,11 @@ stage.Save()
 :tags: [remove-input]
 DisplayUSD(file_path)
 ```
-Notice that values are resolved differently when `Usd.TimeCode` is used, including at times before the first authored `Usd.TimeCode`.
+Notice `Get(..., Usd.TimeCode.Default())` returns the user defined default (non‑time‑sampled) value, `Get(..., Usd.TimeCode.EarliestTime())` returns the first time sampled value, and if a **time before the first sample is queried USD also returns the first sampled value**.
 
 ### Example 2: Custom Data and Relationship Value Resolution
 
-This example demonstrates how custom data and relationship values are resolved across multiple layers. Custom data dictionaries are resolved per key and based on layer order. Relationships are list edited and not dependent on layer order.
+This example composes two layers to show two resolution rules for dictionary metadata like `customData` (per key by strength) as well as relationships `list‑editing semantics`.
 
 ```{code-cell}
 :emphasize-lines: 37-60
@@ -259,6 +261,7 @@ with open(explicit_composed_path, "w") as f:
 :tags: [remove-input]
 DisplayCode(explicit_composed_path)
 ```
+Here `source` and `opinion` resolve from the stronger layer, while `unique_layer_value` persists from the weaker layer since the stronger layer did not author that key. The resolved relationship includes both `LookA` and `LookB` because list‑editing merged the targets.
 
 ## Key Takeaways
 
