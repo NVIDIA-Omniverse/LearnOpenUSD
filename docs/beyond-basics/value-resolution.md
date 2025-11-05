@@ -186,7 +186,7 @@ stage.Save()
 ```
 ```{code-cell}
 :tags: [remove-input]
-DisplayUSD(file_path)
+DisplayUSD(file_path, show_usd_code=True)
 ```
 Notice `Get(..., Usd.TimeCode.Default())` returns the user defined default (non‑time‑sampled) value, `Get(..., Usd.TimeCode.EarliestTime())` returns the first time sampled value, and if a **time before the first sample is queried USD also returns the first sampled value**.
 
