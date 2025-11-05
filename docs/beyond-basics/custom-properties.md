@@ -173,7 +173,7 @@ Try applying the same logic to the other attributes.
 ```{code-cell} 
 :emphasize-lines: 7-10
 
-from pxr import Usd, UsdGeom, Sdf
+from pxr import Usd
 
 file_path = "_assets/custom_attributes.usda"
 stage: Usd.Stage = Usd.Stage.Open(file_path)
