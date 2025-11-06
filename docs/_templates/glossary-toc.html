@@ -1,0 +1,21 @@
+{# Template for glossary terms in the secondary sidebar #}
+{%- if glossary_terms | length >= 1 %}
+{%- set page_navigation_heading_id = unique_html_id("pst-page-navigation-heading") -%}
+  <div
+    id="{{ page_navigation_heading_id }}"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> {{ _('On this page') }}
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="{{ page_navigation_heading_id }}">
+    <ul class="visible nav section-nav flex-column">
+      {% for term in glossary_terms %}
+      <li class="toc-h2 nav-item toc-entry">
+        <a class="nav-link" href="#{{ term.id }}">
+          {{ term.text }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </nav>
+{%- endif %}
+

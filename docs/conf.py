@@ -90,6 +90,10 @@ html_theme = 'nvidia_sphinx_theme'
 html_static_path = ['_static']
 html_css_files = ['css/lousd_custom.css']
 html_theme_options = {
+    "secondary_sidebar_items": {
+        "**": ["page-toc"],
+        "glossary": ["glossary-toc"],
+    },
     "icon_links": [
         {
             "name": "GitHub",
@@ -238,10 +242,46 @@ def monkey_patch_doxylink(app: Sphinx):
         app.env.doxylink_cache['usdcpp']['mapping']._entries.sort()
     except Exception as e:
         print(f"Warning: Failed to patch doxylink entries: {e}")
+
+def add_glossary_toc(app, pagename, templatename, context, doctree):
+    """Extract glossary terms and add them to the template context for the sidebar."""
+    if doctree is None:
+        return
+    
+    glossary_terms = []
+    
+    # Find all definition lists that are glossaries (they have 'glossary' class)
+    for deflist in doctree.traverse(nodes.definition_list):
+        # Check if this is a glossary (has the 'glossary' class)
+        if 'glossary' in deflist.get('classes', []):
+            # Iterate through definition list items
+            for deflist_item in deflist:
+                if isinstance(deflist_item, nodes.definition_list_item):
+                    # Get the term node (first child is the term)
+                    for term_node in deflist_item.traverse(nodes.term):
+                        term_text = term_node.astext()
+                        # Look for the target node with the ID
+                        term_id = None
+                        for target in term_node.traverse(nodes.target):
+                            if 'ids' in target and target['ids']:
+                                term_id = target['ids'][0]
+                                break
+                        # If no explicit ID, generate one
+                        if not term_id:
+                            term_id = 'term-' + term_text.replace(' ', '-')
+                        glossary_terms.append({
+                            'text': term_text,
+                            'id': term_id
+                        })
+    
+    # Add glossary terms to the context
+    context['glossary_terms'] = glossary_terms
+
 def setup(app):
     # Wait for the builder to be initialized
     app.connect('builder-inited', setup_translators)
     app.connect('builder-inited', monkey_patch_doxylink)
+    app.connect('html-page-context', add_glossary_toc)
     app.connect('build-finished', create_exercises_archives)
     app.connect('build-finished', copy_asset_folders)
     

@@ -80,6 +80,7 @@ asset-modularity-instancing/index
 :maxdepth: 2
 :hidden:
 
+Glossary <glossary>
 usdview-install-instructions
 :::
 
