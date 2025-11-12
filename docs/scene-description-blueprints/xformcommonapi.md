@@ -44,7 +44,7 @@ There’s another way to author and retrieve translations – through the `UsdGe
 
 ### Working With Python
 
-Below is an example of how to work with the `XformCommonAPI` in a USD environment.
+This example verifies prim compatibility with `XformCommonAPI` and demonstrates its use.
 
 ``` python 
 from pxr import Usd, UsdGeom
@@ -76,28 +76,47 @@ from the xformable prim that works with any `xformOp` order using the [`GetLocal
 from utils.visualization import DisplayUSD, DisplayCode
 ```
 
-### Example 1: Setting a Cone on a Cube
+### Example 1: XformCommonAPI - Transforms and Inheritance
 
-In this example, we will use the [`XformCommonAPI`](https://openusd.org/release/api/class_usd_geom_xform_common_a_p_i.html) and a combination of transformations to set a Cone on top of a Cube.
+In this example, we will use the [`XformCommonAPI`](https://openusd.org/release/api/class_usd_geom_xform_common_a_p_i.html) to translate, rotate, and scale a parent Xform, then show how a child under that parent inherits those transforms while a similar child under a separate prim hierarchy does not.
 
 ```{code-cell}
-:emphasize-lines: 10-15
+:emphasize-lines: 10-34
 
-from pxr import Usd, UsdGeom
+from pxr import Usd, UsdGeom, Gf
 
 file_path = "_assets/xformcommonapi.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage = Usd.Stage.CreateNew(file_path)
 
-cone: UsdGeom.Cone = UsdGeom.Cone.Define(stage, "/Cone")
-box: UsdGeom.Cube = UsdGeom.Cube.Define(stage, "/Cube")
+# A root transform group we will move and rotate
+world = UsdGeom.Xform.Define(stage, "/World")
+parent = UsdGeom.Xform.Define(stage, world.GetPath().AppendPath("Parent_Prim"))
 
-cone.GetDisplayColorAttr().Set([(1.0, 0.5, 0.25)])
-# Create an API object for the prim we want to manipulate
-cone_xform_api = UsdGeom.XformCommonAPI(cone)
-# Scale the cone to half its original size about the center of the cone.
-cone_xform_api.SetScale((0.5, 0.5, 0.5))
-# Move the cone up 1.5 meters: (half the cube's size + half the scaled cone's height) = (1.0 + 0.5)
-cone_xform_api.SetTranslate((0.0, 1.5, 0.0))
+# Parent Translate, Rotate, Scale using XformCommonAPI
+parent_xform_api = UsdGeom.XformCommonAPI(parent)
+parent_xform_api.SetTranslate(Gf.Vec3d(5, 0, 3))
+parent_xform_api.SetRotate(Gf.Vec3f(90, 0, 0))
+parent_xform_api.SetScale(Gf.Vec3f(3.0, 3.0, 3.0))
+
+
+child_translation = Gf.Vec3d(2, 0, 0)
+
+# Child A - inherits parent transforms
+child_a_cone = UsdGeom.Cone.Define(stage, parent.GetPath().AppendChild("Child_A"))
+child_a_xform_api = UsdGeom.XformCommonAPI(child_a_cone)
+child_a_xform_api.SetTranslate(child_translation)  # Parent_Prim transform + local placement
+
+# Child B - "/World/Alt_Parent/Child_B" does NOT inherit Parent_Prim transforms
+alt_parent = UsdGeom.Xform.Define(stage, world.GetPath().AppendChild("Alt_Parent"))
+child_b_cone = UsdGeom.Cone.Define(stage, alt_parent.GetPath().AppendChild("Child_B"))
+child_b_xform_api = UsdGeom.XformCommonAPI(child_b_cone)
+child_b_xform_api.SetTranslate(child_translation)  # local placement only
+
+# Inspect the authored Xform Operation Order
+print("Parent xformOpOrder:", UsdGeom.Xformable(parent).GetXformOpOrderAttr().Get())
+print("Alt_Parent xformOpOrder:", UsdGeom.Xformable(alt_parent).GetXformOpOrderAttr().Get())
+print("Child A xformOpOrder:", UsdGeom.Xformable(child_a_cone).GetXformOpOrderAttr().Get())
+print("Child B xformOpOrder:", UsdGeom.Xformable(child_b_cone).GetXformOpOrderAttr().Get())
 
 stage.Save()
 ```
@@ -106,7 +125,7 @@ stage.Save()
 DisplayUSD(file_path, show_usd_code=True)
 ```
 
-`XformCommonAPI` is used to set and get transform components such as scale, rotation, scale-rotate pivot and translation. Even though these are considered attributes, it is best to go through `XformCommonAPI` when editting transformation values. `XformCommonAPI` is a great way to bootstrap setting up new transformations. Future modules will dive into advanced usage of xformOps. Below is an example to check if `XformCommonAPI` is compatible with the prim.
+`XformCommonAPI` is used to set and get transform components such as scale, rotation, scale-rotate pivot and translation. Even though these are considered attributes, it is best to go through `XformCommonAPI` when editting transformation values. `XformCommonAPI` is a great way to bootstrap setting up new transformations. Future modules will dive into advanced usage of xformOps. 
 
 
 ## Key Takeaways
