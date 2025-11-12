@@ -34,7 +34,7 @@ In these lessons, we primarily use USDA files because they are human-readable, m
 
 ```{note}
 The file formats used in these lessons are chosen for clarity. In production, follow the OpenUSD guidance for production use cases, which includes:
-* Prefer the binary usdc format (often saved with the .usd extension) for layers that contain real content such as geometry or shading, because it opens faster and uses less memory.
+* Prefer the binary usdc format (often saved with the .usd extension) for layers that contain data-heavy content such as geometry or shading networks, because it opens faster and uses less memory.
 * Reserve usda text for small, human‑readable “interface” layers that mostly reference or sublayer other files, and for debugging or diffing.
 * In general, “prefer crate files” for big data, and keep text to lightweight aggregators.
 

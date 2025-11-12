@@ -142,7 +142,7 @@ To set the stage's `start` TimeCode and `end` TimeCode metadata, use the [`SetSt
 
 ```{code-cell}
 :tags: [remove-output]
-:emphasize-lines: 12-14
+:emphasize-lines: 6-8
 
 from pxr import Usd
 
@@ -190,7 +190,7 @@ Let's create a sphere that moves up and down using the [`XformCommonAPI`](https:
 
 ```{code-cell}
 :tags: [remove-output]
-:emphasize-lines: 19-31
+:emphasize-lines: 8-24
 
 from pxr import Usd, UsdGeom, Gf
 
@@ -199,7 +199,7 @@ stage: Usd.Stage = Usd.Stage.Open("_assets/timecode_ex1.usda")
 
 sphere: UsdGeom.Sphere = UsdGeom.Sphere.Get(stage, "/World/Sphere")
 
-# Grab the translate 
+# Clear any existing translation
 if translate_attr := sphere.GetTranslateOp().GetAttr():
     translate_attr.Clear()
 
@@ -235,7 +235,7 @@ It is possible to set timeSamples for different attributes. We can demonstrate t
 
 ```{code-cell}
 :tags: [remove-output]
-:emphasize-lines: 28-37
+:emphasize-lines: 8-22
 
 from pxr import Usd, UsdGeom, Gf
 

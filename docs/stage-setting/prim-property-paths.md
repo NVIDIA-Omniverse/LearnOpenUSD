@@ -124,31 +124,36 @@ DisplayCode("_assets/paths.usda")
 ```
 
 ### Example 2: Build and navigate prim paths with Sdf.Path
-Construct prim paths with AppendChild and AppendPath, then validate and navigate them with IsPrimPath and GetParentPath
+Construct prim paths with AppendChild, then validate and navigate them with IsPrimPath and GetParentPath
 
 ```{code-cell}
-:emphasize-lines: 5-21
+:emphasize-lines: 5-26
 from pxr import Usd, UsdGeom, Sdf
 
 stage = Usd.Stage.CreateNew("_assets/paths_build_and_nav.usda")
 
 # Build prim paths via Sdf.Path
 world_path = Sdf.Path("/World")
-geometry_path = world_path.AppendChild("Geometry") # /World/Geometry
-sphere_path = geometry_path.AppendChild("Sphere") # /World/Geometry/Sphere
-looks_path = world_path.AppendPath("Looks/Material") # /World/Looks/Material
+geometry_path = world_path.AppendChild("Geometry")  # /World/Geometry
+sphere_path = geometry_path.AppendChild("Sphere")  # /World/Geometry/Sphere
+
+looks_path = world_path.AppendChild("Looks")  # /World/Looks
+material_path = looks_path.AppendChild("Material")  # /World/Looks/Material
 
 # Define prims at those paths
 stage.DefinePrim(world_path)
 stage.DefinePrim(geometry_path)
 UsdGeom.Sphere.Define(stage, sphere_path)
 stage.DefinePrim(looks_path)
+stage.DefinePrim(material_path)
 
 # Path checks and basic navigation
 print("sphere_path IsPrimPath:", sphere_path.IsPrimPath())
 print("sphere_path parent:",    sphere_path.GetParentPath())
 print("Geometry prim valid:",   stage.GetPrimAtPath(geometry_path).IsValid())
-print("Material prim valid:",   stage.GetPrimAtPath(looks_path).IsValid())
+print("\nmaterial_path IsPrimPath:", material_path.IsPrimPath())
+print("material_path parent:",    material_path.GetParentPath())
+print("Looks prim valid:",   stage.GetPrimAtPath(looks_path).IsValid())
 
 stage.Save()
 
@@ -162,7 +167,7 @@ DisplayCode("_assets/paths_build_and_nav.usda")
 A property path identifies a property location but does not create anything by itself. You use AppendProperty to build the path, then author the spec with CreateAttribute or CreateRelationship
 
 ```{code-cell}
-:emphasize-lines: 8-37
+:emphasize-lines: 8-38
 
 from pxr import Usd, UsdGeom, Sdf
 
@@ -170,12 +175,13 @@ stage = Usd.Stage.CreateNew("_assets/paths_property_authoring.usda")
 
 # A prim to work with
 sphere = UsdGeom.Sphere.Define(stage, "/World/Geom/Sphere")
-# Create a property path for the attribute /World/Geom/Sphere.user:tag
-attr_property_path = sphere.GetPath().AppendProperty("user:tag")
+
+# Create a property path for the attribute /World/Geom/Sphere.userProperties:tag
+attr_property_path = sphere.GetPath().AppendProperty("userProperties:tag")
 
 # Working with the property path for the attribute
 owner_prim = stage.GetPrimAtPath(attr_property_path.GetPrimPath())
-attr_name = stage.GetPropertyAtPath(attr_property_path).GetPath().name  # "user:tag"
+attr_name = stage.GetPropertyAtPath(attr_property_path).GetPath().name  # "userProperties:tag"
 print(f"Attribute property '{attr_name}' has been defined on {owner_prim.GetPath()} after AppendProperty: {owner_prim.GetAttribute(attr_name).IsDefined()}")
 
 # Define the attribute on the owner prim
