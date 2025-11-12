@@ -78,10 +78,10 @@ from utils.visualization import DisplayUSD, DisplayCode
 
 ### Example 1: XformCommonAPI - Transforms and Inheritance
 
-In this example, we will use the [`XformCommonAPI`](https://openusd.org/release/api/class_usd_geom_xform_common_a_p_i.html) to translate, rotate, and scale a parent Xform, then show how a child under that parent inherits those transforms while a similar child under a separate branch does not.
+In this example, we will use the [`XformCommonAPI`](https://openusd.org/release/api/class_usd_geom_xform_common_a_p_i.html) to translate, rotate, and scale a parent Xform, then show how a child under that parent inherits those transforms while a similar child under a separate prim hierarchy does not.
 
 ```{code-cell}
-:emphasize-lines: 10-33
+:emphasize-lines: 10-34
 
 from pxr import Usd, UsdGeom, Gf
 
@@ -107,13 +107,14 @@ child_a_xform_api = UsdGeom.XformCommonAPI(child_a_cone)
 child_a_xform_api.SetTranslate(child_translation)  # Parent_Prim transform + local placement
 
 # Child B - "/World/Alt_Parent/Child_B" does NOT inherit Parent_Prim transforms
-child_b_cone = UsdGeom.Cone.Define(stage, world.GetPath().AppendPath("Alt_Parent/Child_B"))
+alt_parent = UsdGeom.Xform.Define(stage, world.GetPath().AppendChild("Alt_Parent"))
+child_b_cone = UsdGeom.Cone.Define(stage, alt_parent.GetPath().AppendChild("Child_B"))
 child_b_xform_api = UsdGeom.XformCommonAPI(child_b_cone)
 child_b_xform_api.SetTranslate(child_translation)  # local placement only
 
 # Inspect the authored Xform Operation Order
 print("Parent xformOpOrder:", UsdGeom.Xformable(parent).GetXformOpOrderAttr().Get())
-print("Alt_Parent xformOpOrder:", UsdGeom.Xformable(child_b_cone.GetPrim().GetParent()).GetXformOpOrderAttr().Get())
+print("Alt_Parent xformOpOrder:", UsdGeom.Xformable(alt_parent).GetXformOpOrderAttr().Get())
 print("Child A xformOpOrder:", UsdGeom.Xformable(child_a_cone).GetXformOpOrderAttr().Get())
 print("Child B xformOpOrder:", UsdGeom.Xformable(child_b_cone).GetXformOpOrderAttr().Get())
 

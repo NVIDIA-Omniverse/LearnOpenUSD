@@ -68,7 +68,7 @@ from utils.visualization import DisplayUSD, DisplayCode
 We can define `Scope`using [`UsdGeom.Scope.Define()`](https://openusd.org/release/api/class_usd_geom_scope.html#acdb17fed396719a9a21294ebca0116ae).
 
 ```{code-cell}
-:emphasize-lines: 12-30
+:emphasize-lines: 12-28
 
 from pxr import Usd, UsdGeom, Gf
 
@@ -94,10 +94,6 @@ for b in range(num_b_prims):
     cube = UsdGeom.Cube.Define(stage, b_scope.GetPath().AppendPath(f"B_Cube_{b}"))
     UsdGeom.XformCommonAPI(cube).SetTranslate(Gf.Vec3d(b*2.5, -2.5, 0))
 
-# Attach once, apply everywhere: branch metadata on the Scope
-a_scope.GetPrim().SetCustomDataByKey("all_a_prims_config", True)
-b_scope.GetPrim().SetCustomDataByKey("all_b_prims_config", False)
-
 # Deactivate the A_Scope
 a_scope.GetPrim().SetActive(False)
 
@@ -107,6 +103,8 @@ stage.Save()
 :tags: [remove-input]
 DisplayUSD(file_path, show_usd_code=True)
 ```
+For more information on active vs. inactive prims see {doc}`../beyond-basics/active-inactive-prims` lesson.
+
 
 ## Key Takeaways
 
