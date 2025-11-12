@@ -108,7 +108,8 @@ Let's create a USD stage to serve as the starting point for the example in this 
 from pxr import Usd, UsdGeom, Gf
 
 # Create a new USD stage file named "timecode_sample.usda":
-stage: Usd.Stage = create_new_stage("_assets/timecode_sample.usda")
+file_path = "_assets/timecode_sample.usda"
+stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
 
 # Define a transform ("Xform") primitive at the "/World" path:
 world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
@@ -141,18 +142,12 @@ To set the stage's `start` TimeCode and `end` TimeCode metadata, use the [`SetSt
 
 ```{code-cell}
 :tags: [remove-output]
-:emphasize-lines: 12-14
+:emphasize-lines: 6-8
 
-from pxr import Usd, UsdGeom, Gf
+from pxr import Usd
 
+# Open stage from starting point usda
 stage: Usd.Stage = Usd.Stage.Open("_assets/timecode_sample.usda")
-world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
-sphere: UsdGeom.Sphere = UsdGeom.Sphere.Define(stage, world.GetPath().AppendPath("Sphere"))
-box: UsdGeom.Cube = UsdGeom.Cube.Define(stage, world.GetPath().AppendPath("Backdrop"))
-box.GetDisplayColorAttr().Set([(0.0, 0.0, 1.0)])
-cube_xform_api = UsdGeom.XformCommonAPI(box)
-cube_xform_api.SetScale(Gf.Vec3f(5, 5, 0.1))
-cube_xform_api.SetTranslate(Gf.Vec3d(0, 0, -2))
 
 # Set the `start` and `end` timecodes for the stage:
 stage.SetStartTimeCode(1)
@@ -195,23 +190,16 @@ Let's create a sphere that moves up and down using the [`XformCommonAPI`](https:
 
 ```{code-cell}
 :tags: [remove-output]
-:emphasize-lines: 19-31
+:emphasize-lines: 8-24
 
-from pxr import Usd, UsdGeom
+from pxr import Usd, UsdGeom, Gf
 
-stage: Usd.Stage = Usd.Stage.Open("_assets/timecode_sample.usda")
-world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
-sphere: UsdGeom.Sphere = UsdGeom.Sphere.Define(stage, world.GetPath().AppendPath("Sphere"))
-box: UsdGeom.Cube = UsdGeom.Cube.Define(stage, world.GetPath().AppendPath("Backdrop"))
-box.GetDisplayColorAttr().Set([(0.0, 0.0, 1.0)])
-cube_xform_api = UsdGeom.XformCommonAPI(box)
-cube_xform_api.SetScale(Gf.Vec3f(5, 5, 0.1))
-cube_xform_api.SetTranslate(Gf.Vec3d(0, 0, -2))
+# Open stage from example 1
+stage: Usd.Stage = Usd.Stage.Open("_assets/timecode_ex1.usda")
 
-stage.SetStartTimeCode(1)
-stage.SetEndTimeCode(60)
+sphere: UsdGeom.Sphere = UsdGeom.Sphere.Get(stage, "/World/Sphere")
 
-# Grab the translate 
+# Clear any existing translation
 if translate_attr := sphere.GetTranslateOp().GetAttr():
     translate_attr.Clear()
 
@@ -219,15 +207,15 @@ if translate_attr := sphere.GetTranslateOp().GetAttr():
 sphere_xform_api = UsdGeom.XformCommonAPI(sphere)
 
 # Set translation of the sphere at time 1
-sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=1)  
+sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=1)
 # Set translation of the sphere at time 30
-sphere_xform_api.SetTranslate(Gf.Vec3d(0, -4.50, 0), time=30)  
+sphere_xform_api.SetTranslate(Gf.Vec3d(0, -4.50, 0), time=30)
 # Set translation of the sphere at time 45
-sphere_xform_api.SetTranslate(Gf.Vec3d(0, -5.00, 0), time=45)  
+sphere_xform_api.SetTranslate(Gf.Vec3d(0, -5.00, 0), time=45)
 # Set translation of the sphere at time 50
-sphere_xform_api.SetTranslate(Gf.Vec3d(0, -3.25, 0), time=50)  
+sphere_xform_api.SetTranslate(Gf.Vec3d(0, -3.25, 0), time=50)
 # Set translation of the sphere at time 60
-sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=60)  
+sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=60)
 
 # Export to a new flattened layer for this example.
 stage.Export("_assets/timecode_ex2a.usda", addSourceFileComment=False)
@@ -247,34 +235,19 @@ It is possible to set timeSamples for different attributes. We can demonstrate t
 
 ```{code-cell}
 :tags: [remove-output]
-:emphasize-lines: 28-37
+:emphasize-lines: 8-22
 
-from pxr import Usd, UsdGeom
+from pxr import Usd, UsdGeom, Gf
 
-stage: Usd.Stage = Usd.Stage.Open("_assets/timecode_sample.usda")
-world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
-sphere: UsdGeom.Sphere = UsdGeom.Sphere.Define(stage, world.GetPath().AppendPath("Sphere"))
-box: UsdGeom.Cube = UsdGeom.Cube.Define(stage, world.GetPath().AppendPath("Backdrop"))
-box.GetDisplayColorAttr().Set([(0.0, 0.0, 1.0)])
-cube_xform_api = UsdGeom.XformCommonAPI(box)
-cube_xform_api.SetScale(Gf.Vec3f(5, 5, 0.1))
-cube_xform_api.SetTranslate(Gf.Vec3d(0, 0, -2))
+# Open stage from example 2a
+stage: Usd.Stage = Usd.Stage.Open("_assets/timecode_ex2a.usda")
 
-stage.SetStartTimeCode(1)
-stage.SetEndTimeCode(60)
+sphere: UsdGeom.Sphere = UsdGeom.Sphere.Get(stage, "/World/Sphere")
 
-if translate_attr := sphere.GetTranslateOp().GetAttr():
-    translate_attr.Clear()
 if scale_attr := sphere.GetScaleOp().GetAttr():
     scale_attr.Clear()
 
 sphere_xform_api = UsdGeom.XformCommonAPI(sphere)
-
-sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=1)  
-sphere_xform_api.SetTranslate(Gf.Vec3d(0, -4.50, 0), time=30)  
-sphere_xform_api.SetTranslate(Gf.Vec3d(0, -5.00, 0), time=45)  
-sphere_xform_api.SetTranslate(Gf.Vec3d(0, -3.25, 0), time=50)  
-sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=60)  
 
 # Set scale of the sphere at time 1
 sphere_xform_api.SetScale(Gf.Vec3f(1.00, 1.00, 1.00), time=1)  
