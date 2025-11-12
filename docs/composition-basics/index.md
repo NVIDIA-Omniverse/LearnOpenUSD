@@ -36,4 +36,5 @@ strength-ordering
 specifiers
 references
 default-prim
+variant-sets
 :::
