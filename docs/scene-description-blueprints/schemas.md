@@ -69,9 +69,6 @@ API schemas can be classified as non-applied or applied schemas, and single-appl
 
 Unlike IsA schemas, API schemas do not assign a typeName to a prim. Instead, are list-edited in the `apiSchemas` metadata and queryable via the `HasAPI` method. API schemas are assigned to already-typed prims to annotate them with additional properties that govern behaviors.
 
-The following is a key example of an API Schemas.
-
-
 
 
 ### Working With Python
@@ -117,7 +114,7 @@ sphere.GetRadiusAttr().Set(10)
 
 `UsdLux` defines schemas for representing light sources in a scene. It includes schemas such as sphere lights, disk lights, and distant lights, which were discussed in the lesson on USD lights.
 
-Examples include `UsdLuxDiskLight`, `UsdLuxRectLight`, and `UsdLuxSphereLight`.
+Examples include `UsdLuxDiskLight`, `UsdLuxRectLight`, and `UsdLuxSphereLight`. These schemas bring properties relevant to each light type (e.g. radius for UsdLuxDiskLight). These attributes in combination with the attributes defined by the LightAPI schema (e.g. Intensity) allow us to fully define a light.
 
 ```python
 # Import related classes
@@ -129,8 +126,9 @@ disk_light = UsdLux.DiskLight.Define(stage, "/World/Lights/DiskLight")
 # Get all Attribute names that are a part of the DiskLight schema
 dl_attribute_names = disk_light.GetSchemaAttributeNames()
 	
-# Get and Set the intensity attribute of the disk light prim
-disk_light.GetIntensityAttr().Set(1000)
+# Get and Set the radius and intensity of the disk light prim
+disk_light.GetRadiusAttr().Set(0.4)  # from DiskLight typed schema
+disk_light.GetIntensityAttr().Set(1000)  # from LightAPI
 ```
 
 #### API Schemas
