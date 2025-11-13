@@ -1,3 +1,31 @@
+---
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.17.2
+kernelspec:
+  display_name: Python 3 (ipykernel)
+  language: python
+  name: python3
+---
+
 # Value Resolution
 
 ## What Is Value Resolution?
@@ -74,6 +102,181 @@ value = attr.Get(Usd.TimeCode.EarliestTime())
 
 When you get an attribute value without an explicit time code, the default time code (`UsdTimeCode::Default()`) is usually not what you want if your stage has animation. Instead, use `UsdTimeCode::EarliestTime()` to make sure you get the actual animated values rather than just the default value.
 
+## Examples
+
++++ {"tags": ["remove-cell"]}
+>**NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook.
++++
+```{code-cell}
+:tags: [remove-input]
+from utils.visualization import DisplayUSD, DisplayCode
+from utils.helperfunctions import create_new_stage
+```
+
+### Example 1: Attribute Value Resolution and Animation
+
+This example shows how a transform attribute (the `xformOp:scale` authored by `XformCommonAPI`) resolves from four sources: a fallback value when no authored value exists, an authored default value, authored time sample values, and interpolated values between time samples.
+
+```{code-cell}
+:emphasize-lines: 27-67
+from pxr import Usd, UsdGeom
+
+# Time settings
+start_tc = 1
+end_tc = 120
+cube_anim_start_tc = 60
+mid_t = (cube_anim_start_tc + end_tc) // 2
+time_code_per_second = 30
+
+# Stage setup
+file_path = "_assets/value_resolution_attr.usda"
+stage = Usd.Stage.CreateNew(file_path)
+stage.SetTimeCodesPerSecond(time_code_per_second)
+stage.SetStartTimeCode(start_tc)
+stage.SetEndTimeCode(end_tc)
+
+# World, Default Prim, and Ground
+world_xform = UsdGeom.Xform.Define(stage, "/World")
+stage.SetDefaultPrim(world_xform.GetPrim())
+UsdGeom.XformCommonAPI(world_xform).SetRotate((-75, 0, 0))
+
+# Create Ground Cube
+ground = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendChild("Ground"))
+UsdGeom.XformCommonAPI(ground).SetScale((10, 5, 0.1))
+UsdGeom.XformCommonAPI(ground).SetTranslate((0, 0, -0.1))
+
+# Static cube with schema-defined default scale (no scale op authored)
+static_default_cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendChild("StaticDefaultCube"))
+static_default_cube.GetDisplayColorAttr().Set([(0.2, 0.2, 0.8)])
+static_default_cube_xform_api = UsdGeom.XformCommonAPI(static_default_cube)
+static_default_cube_xform_api.SetTranslate((8, 0, 1))
+UsdGeom.Xformable(static_default_cube).AddScaleOp()  # add scale op but do not author a value
+
+# select a non-default cube scale value
+cube_set_scale = (1.5, 1.5, 1.5)
+
+# Static cube with an authored default scale (no time samples)
+static_cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendChild("StaticCube"))
+static_cube.GetDisplayColorAttr().Set([(0.8, 0.2, 0.2)])
+static_cube_xform_api = UsdGeom.XformCommonAPI(static_cube)
+static_cube_xform_api.SetScale(cube_set_scale)  # set static_cube scale
+static_cube_xform_api.SetTranslate((-8, 0, 1.5))
+
+# Animated cube: same default as StaticCube plus time samples
+anim_cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendChild("AnimCube"))
+anim_cube.GetDisplayColorAttr().Set([(0.2, 0.8, 0.2)])
+anim_cube_xform_api = UsdGeom.XformCommonAPI(anim_cube)
+anim_cube_xform_api.SetScale(cube_set_scale)  # SAME as static_cube
+anim_cube_xform_api.SetTranslate((0, 0, 1.5))
+
+# Author time samples for scale and translate
+# anim_cube_xform_api.SetScale(cube_set_scale, Usd.TimeCode(start_tc))
+anim_cube_xform_api.SetScale((2.5, 2.5, 2.5), Usd.TimeCode(cube_anim_start_tc))  # first animated sample
+anim_cube_xform_api.SetScale((5, 5, 5), Usd.TimeCode(end_tc))  # last sample
+anim_cube_xform_api.SetTranslate((0, 0, 2.5), Usd.TimeCode(cube_anim_start_tc))
+anim_cube_xform_api.SetTranslate((0, 0, 5.0), Usd.TimeCode(end_tc))
+
+# Read back using resolved scale values
+_, _, default_cube_fallback_scale, _, _ = UsdGeom.XformCommonAPI(static_default_cube).GetXformVectors(Usd.TimeCode.Default())
+_, _, static_cube_default_scale, _, _ = static_cube_xform_api.GetXformVectors(Usd.TimeCode.Default())
+_, _, anim_cube_default_scale, _, _ = anim_cube_xform_api.GetXformVectors(Usd.TimeCode.Default())
+_, _, anim_cube_earliest_scale, _, _ = anim_cube_xform_api.GetXformVectors(Usd.TimeCode.EarliestTime())
+_, _, anim_cube_tc1_scale, _, _ = anim_cube_xform_api.GetXformVectors(Usd.TimeCode(start_tc))
+_, _, scale_mid, _, _ = anim_cube_xform_api.GetXformVectors(Usd.TimeCode(mid_t))
+
+# Illustrate that Get() is the same as Get(Usd.TimeCode.Default())
+no_time_code_is_default = static_cube.GetSizeAttr().Get() == static_cube.GetSizeAttr().Get(Usd.TimeCode.Default())
+
+print(f"When querying a value Get() is the same as Get(Usd.TimeCode.Default()): {no_time_code_is_default}\n")
+
+print(f"Scale - StaticDefaultCube (no authored xformOp:scale -> schema fallback):  {default_cube_fallback_scale}")  # returns identity fallback value.
+print(f"Scale - StaticCube (authored default at Default time):  {static_cube_default_scale}")  # returns the user authored default value.
+print(f"Scale - AnimCube (authored default at Default time):  {anim_cube_default_scale}")  # returns the user authored default value.
+print(f"Scale - AnimCube at EarliestTime t={cube_anim_start_tc}:  {anim_cube_earliest_scale}")  # first authored time sample value
+print(f"Scale - AnimCube at t={start_tc} (before first sample, clamped):  {anim_cube_tc1_scale}")  # resolved value prior to authored value.
+print(f"Scale - AnimCube at mid_t={mid_t} (interpolated):  {scale_mid}")  # interpolated between samples
+
+stage.Save()
+```
+```{code-cell}
+:tags: [remove-input]
+DisplayUSD(file_path, show_usd_code=True)
+```
+Notice `Get(..., Usd.TimeCode.Default())` returns the user defined default (non‑time‑sampled) value, `Get(..., Usd.TimeCode.EarliestTime())` returns the first time sampled value, and if a **time before the first sample is queried USD also returns the first sampled value**.
+
+### Example 2: Custom Data and Relationship Value Resolution
+
+This example composes two layers to show two resolution rules for dictionary metadata like `customData` (per key by strength) as well as relationships `list‑editing semantics`.
+
+```{code-cell}
+:emphasize-lines: 37-60
+from pxr import Usd, UsdGeom
+import os
+
+# --- Layer 1 (weaker)
+layer_1_path = "_assets/value_resolution_layer_1.usda"
+layer_1_stage = Usd.Stage.CreateNew(layer_1_path)
+
+layer_1_xform = UsdGeom.Xform.Define(layer_1_stage, "/World/XformPrim")
+layer_1_xform_prim = layer_1_xform.GetPrim()
+
+# "/World/XformPrim" customData
+layer_1_xform_prim.SetCustomDataByKey("source",  "layer_1")
+layer_1_xform_prim.SetCustomDataByKey("opinion",  "weak")
+layer_1_xform_prim.SetCustomDataByKey("unique_layer_value", "layer_1_unique_value")  # only authored in layer_1
+
+# Relationship contribution from base
+look_a = UsdGeom.Xform.Define(layer_1_stage, "/World/Looks/LookA")
+layer_1_xform_prim.CreateRelationship("look:targets").AddTarget(look_a.GetPath())
+layer_1_stage.Save()
+
+# --- Layer 2 (stronger)
+layer_2_path = "_assets/value_resolution_layer_2.usda"
+layer_2_stage = Usd.Stage.CreateNew(layer_2_path)
+
+layer_2_xform = UsdGeom.Xform.Define(layer_2_stage, "/World/XformPrim")
+layer_2_xform_prim = layer_2_xform.GetPrim()
+
+# "/World/XformPrim" customData
+layer_2_xform_prim.SetCustomDataByKey("source",  "layer_2")
+layer_2_xform_prim.SetCustomDataByKey("opinion",  "strong")
+
+# Relationship contribution from override
+look_b = UsdGeom.Xform.Define(layer_2_stage, "/World/Looks/LookB")
+layer_2_xform_prim.CreateRelationship("look:targets").AddTarget(look_b.GetPath())
+layer_2_stage.Save()
+
+# --- Composed stage. First sublayer listed (layer_2) is strongest
+composed_path = "_assets/value_resolution_composed.usda"
+composed_stage = Usd.Stage.CreateNew(composed_path)
+composed_stage.GetRootLayer().subLayerPaths = [os.path.basename(layer_2_path), os.path.basename(layer_1_path)]
+
+xform_prim = composed_stage.GetPrimAtPath("/World/XformPrim")
+resolved_custom_data = xform_prim.GetCustomData() 
+
+# resolved custom data:
+print("Resolved CustomData:")
+for key, value in resolved_custom_data.items():
+    print(f"- '{key}': '{value}'")
+
+# resolved relationship targets:
+targets = xform_prim.GetRelationship("look:targets").GetTargets()
+print(f"\nResolved relationship targets: {[str(t) for t in targets]}")  # both LookA and LookB
+
+composed_stage.Save()
+
+# Write out the composed stage to a single file for inspection
+explicit_composed_path = '_assets/value_resolution_composed_explicit.usda'
+txt = composed_stage.ExportToString(addSourceFileComment=False)
+with open(explicit_composed_path, "w") as f:
+    f.write(txt)
+```
+```{code-cell}
+:tags: [remove-input]
+DisplayCode(explicit_composed_path)
+```
+Here `source` and `opinion` resolve from the stronger layer, while `unique_layer_value` persists from the weaker layer since the stronger layer did not author that key. The resolved relationship includes both `LookA` and `LookB` because list‑editing merged the targets.
+
 ## Key Takeaways
 
 Value resolution gives OpenUSD its powerful ability to combine data from multiple sources while keeping the system fast and efficient.
@@ -88,6 +291,3 @@ Here's a concrete example with a robot arm:
 During value resolution, OpenUSD combines these layers, resulting in the robot arm being positioned at `(5, 0, 0)` while keeping all other unchanged properties from the base layer.
 
 Understanding value resolution is key to working effectively with OpenUSD's non-destructive workflow and getting the best performance in multi-threaded applications.
-
-
-

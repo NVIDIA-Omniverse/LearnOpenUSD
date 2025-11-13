@@ -50,7 +50,7 @@ On the other hand, custom schemas allow us to define a group of data in a more s
 
 With that, let’s get back to our lesson on custom properties.
 
-Custom properties are created and managed using the USD API. They can work just like schema attributes and relationships. Custom attributes are more common because they can hold various types of data, such as numeric values, strings, or arrays, and can be sampled over time.This flexibility makes them useful for a wide range of applications, from simple metadata storage to complex animations.
+Custom properties are created and managed using the USD API. They can work just like schema attributes and relationships. Custom attributes are more common because they can hold various types of data, such as numeric values, strings, or arrays, and can be sampled over time. This flexibility makes them useful for a wide range of applications, from simple metadata storage to complex animations.
 
 Here are a few ways we can use custom properties to enhance our OpenUSD workflows:
 
@@ -173,7 +173,7 @@ Try applying the same logic to the other attributes.
 ```{code-cell} 
 :emphasize-lines: 7-10
 
-from pxr import Usd, UsdGeom, Sdf
+from pxr import Usd
 
 file_path = "_assets/custom_attributes.usda"
 stage: Usd.Stage = Usd.Stage.Open(file_path)
