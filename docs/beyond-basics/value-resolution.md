@@ -115,7 +115,7 @@ from utils.helperfunctions import create_new_stage
 
 ### Example 1: Attribute Value Resolution and Animation
 
-This example shows how a transform attribute (the `xformOp:scale` authored by `XformCommonAPI`) resolves from four sources: the implicitly when no scale op value exists, an authored default value, authored time samples, and interpolated values between time samples.
+This example shows how a transform attribute (the `xformOp:scale` authored by `XformCommonAPI`) resolves from four sources: a fallback value when no authored value exists, an authored default value, authored time sample values, and interpolated values between time samples.
 
 ```{code-cell}
 :emphasize-lines: 27-67
