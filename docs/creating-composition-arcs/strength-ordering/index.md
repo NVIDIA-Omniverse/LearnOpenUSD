@@ -1,4 +1,4 @@
-# LIVERPS Strenth Ordering
+# LIVERPS Strength Ordering
 
 ```{include} ../../_includes/LIVRPSvLIVERPS.md
 ```
