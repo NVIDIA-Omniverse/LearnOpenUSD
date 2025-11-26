@@ -71,3 +71,9 @@ table.venv-setup .highlight-shell, .table.venv-setup .highlight-powershell {
     padding-right: 50%;
     color: black;
 }
+
+/* Swap hero image/text when the theme toggle sets data-theme="dark" */
+html[data-theme="dark"] .home-header > h1 {
+    background-image: url(../learn-openusd-bbm-dark.jpg);
+    color: white;
+}
