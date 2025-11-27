@@ -212,7 +212,7 @@ Based on our last modification, if we were to use [`Get()`](https://openusd.org/
 
 When getting attribute values, USD will apply [value resolution](https://openusd.org/release/glossary.html#usdglossary-valueresolution), since we authored a default value. The [`Get()`](https://openusd.org/release/api/class_usd_attribute.html#a9d41bc223be86408ba7d7f74df7c35a9) method will retrieve the value of the attribute. To set the values, we use the [`Set()`](https://openusd.org/release/api/class_usd_attribute.html#a151e6fde58bbd911da8322911a3c0079) method. This will resolve to the authored value rather than the fallback value from the sphere schema.
 
-Now let's modify the `radius`, `displayColor`, and `extent` attributes of the sphere by using [`Set()`](https://openusd.org/release/api/class_usd_attribute.html#a151e6fde58bbd911da8322911a3c0079).
+Now let's modify the `size`, `displayColor`, and `extent` attributes of the cube by using [`Set()`](https://openusd.org/release/api/class_usd_attribute.html#a151e6fde58bbd911da8322911a3c0079).
 
 ```{code-cell}
 :emphasize-lines: 17-20
@@ -228,12 +228,12 @@ sphere: UsdGeom.Sphere = UsdGeom.Sphere.Define(stage, world_xform.GetPath().Appe
 cube: UsdGeom.Cube = UsdGeom.Cube.Define(stage, world_xform.GetPath().AppendPath("Cube"))
 UsdGeom.XformCommonAPI(cube).SetTranslate(Gf.Vec3d(5,0,0))
 
-# Get the size, display color, and extent attributes of the sphere
+# Get the size, display color, and extent attributes of the cube
 cube_size: Usd.Attribute = cube.GetSizeAttr()
 cube_displaycolor: Usd.Attribute = cube.GetDisplayColorAttr()
 cube_extent: Usd.Attribute = cube.GetExtentAttr()
 
-# Modify the radius, extent, and display color attributes:
+# Modify the size, extent, and display color attributes:
 cube_size.Set(cube_size.Get() * 2)
 cube_extent.Set(cube_extent.Get() * 2)
 cube_displaycolor.Set([(0.0, 1.0, 0.0)])
