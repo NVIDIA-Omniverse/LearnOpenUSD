@@ -68,7 +68,7 @@ We can also see the composition of `blue_cube_02` when selected.
 
 Going back to the questions we asked before and some new questions:
 
-Looking at these `PropertySpecs`, how do these affect the layer?
+Looking at these property specs, how do these affect the layer?
 
 Does it also affect `red_cube.usd`?
 

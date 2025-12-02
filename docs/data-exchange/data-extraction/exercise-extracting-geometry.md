@@ -70,7 +70,7 @@ It’s worth noting here that we’re setting the attribute values in two differ
 - The points attribute is set by passing a default value in the `CreatePointsAttr()`.
 - `faceVertexCounts` is set by calling `Set()` using the `UsdAttribute` object returned by `CreateFaceVertexCountsAttr()`.
 
-Both ways are available and valid. Calling `Set()` opens up the opportunity to set {term}`timeSamples <Time Sample>` if you need to. Also note that we are setting the subdivision scheme to `UsdGeom.Tokens.none` so that these meshes are explicitly treated as polygonal meshes, not SubD meshes, as OBJ doesn’t support SubD meshes.
+Both ways are available and valid. Calling `Set()` opens up the opportunity to set {term}`time samples <Time Sample>` if you need to. Also note that we are setting the subdivision scheme to `UsdGeom.Tokens.none` so that these meshes are explicitly treated as polygonal meshes, not SubD meshes, as OBJ doesn’t support SubD meshes.
 
 ``````{dropdown} Click to reveal our Python code up to this point.
 :animate: fade-in

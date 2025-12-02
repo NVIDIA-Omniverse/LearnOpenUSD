@@ -72,11 +72,11 @@ Some metadata like prim {term}`specifier <Specifier>`, {term}`attribute <Attribu
 
 Attributes are special because they have three possible sources of values at each location:
 
-1. **{term}`Value Clips <Value Clips>`** - Animation data stored in separate files
-2. **{term}`TimeSamples <Time Sample>`** - Specific values at specific times
-3. **{term}`Default Value <Default Value>`** - A non-time-varying value
+1. **{term}`Value clips <Value Clips>`** - Animation data stored in separate files
+2. **{term}`Time samples <Time Sample>`** - Specific values at specific times
+3. **{term}`Default value <Default Value>`** - A non-time-varying value
 
-Value resolution of attributes in the first two cases also account for time scaling and offset operators (e.g. {term}`Layer offsets <Layer Offset>`) and {term}`interpolation <Interpolation>` for {term}`time codes <Time Code>` that fall between two explicit timeSamples.
+Value resolution of attributes in the first two cases also account for time scaling and offset operators (e.g. {term}`Layer offsets <Layer Offset>`) and {term}`interpolation <Interpolation>` for {term}`time codes <Time Code>` that fall between two explicit time samples.
 
 ## Working With Python
 
@@ -205,7 +205,7 @@ Notice `Get(..., Usd.TimeCode.Default())` returns the user defined default (non�
 
 ### Example 2: Custom Data and Relationship Value Resolution
 
-This example composes {term}`layers <Layer>` to show two resolution rules for dictionary metadata like `customData` (per key by strength) as well as relationships `list‑editing semantics`.
+This example composes {term}`layers <Layer>` to show two resolution rules for dictionary metadata like `customData` (per key by strength) as well as relationships `list editing semantics`.
 
 ```{code-cell}
 :emphasize-lines: 37-60
@@ -274,7 +274,7 @@ with open(explicit_composed_path, "w") as f:
 :tags: [remove-input]
 DisplayCode(explicit_composed_path)
 ```
-Here `source` and `opinion` resolve from the stronger layer, while `unique_layer_value` persists from the weaker layer since the stronger layer did not author that key. The resolved relationship includes both `LookA` and `LookB` because {term}`list‑editing <List Editing>` merged the targets.
+Here `source` and `opinion` resolve from the stronger layer, while `unique_layer_value` persists from the weaker layer since the stronger layer did not author that key. The resolved relationship includes both `LookA` and `LookB` because {term}`list editing <List Editing>` merged the targets.
 
 ## Key Takeaways
 

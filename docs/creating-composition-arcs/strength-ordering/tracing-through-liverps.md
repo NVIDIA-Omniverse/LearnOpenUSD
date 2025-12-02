@@ -13,12 +13,12 @@ Let's take a look at LIVRPS in action through a series of examples. The followin
 
 One interesting thing to note from this example is that even though `workstreamA.usd` has a weaker {term}`sublayer <Sublayer>` strength than `workstreamB.usd` because it comes later in the order, `workstreamA.usd` still contains the winning opinion because it has a Local opinion where the root layer and other sublayer do not.
 
-## Composition Involving Two LayerStacks via References
+## Composition Involving Two Layer Stacks via References
 
 ```{kaltura} 1_syc3urwy
 ```
 
-## Composition Involving More Nested LayerStacks
+## Composition Involving More Nested Layer Stacks
 
 ```{kaltura} 1_ea08m71w
 ```
