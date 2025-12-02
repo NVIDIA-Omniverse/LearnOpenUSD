@@ -6,14 +6,14 @@
 Scenegraph instances cannot be directly overridden on the local layer stack.
 ```
 
-The key to increased performance via instancing comes from the fact that instances can't be edited. You are choosing to limit OpenUSD's super power of sparse overrides to get the performance improvement.
+The key to increased performance via instancing comes from the fact that instances can't be edited. You are choosing to limit OpenUSD's super power of sparse {term}`overrides <Over>` to get the performance improvement.
 
 Here are the three rules to remember about instance editability:
 * Prototypes are a runtime data model and are **not editable**.​
 * Instance proxies are **not editable**. Local opinions are discarded.​
 * Instanceable prims *are* **editable**.
 
-The following USDA layer shows valid and invalid overrides you might try to perform to demonstrate those rules.
+The following USDA {term}`layer <Layer>` shows valid and invalid overrides you might try to perform to demonstrate those rules.
 
 `````{tab-set}
 ````{tab-item} Prototype Override
@@ -119,8 +119,8 @@ In the following lessons we will explore some common techniques for downstream r
 * Hierarchical Refinement
     * Primvars
     * Transformation Operations (xformOps)
-    * Visibility
-* Refinement Using Variant Sets
+    * {term}`Visibility <Visibility>`
+* Refinement Using {term}`Variant Sets <Variant Set>`
 * Ad Hoc Arcs Refinement
 * Broadcasted Refinement
 

@@ -2,7 +2,7 @@
 
 This module, *Developing Data Exchange Pipelines* is designed to equip you with the knowledge and skills necessary to effectively implement data exchange processes using OpenUSD.
 
-Throughout this module, you’ll explore the fundamentals of OpenUSD data exchange, learn techniques for data extraction and transformation, and gain hands-on experience in asset validation. This interoperable nature of OpenUSD is what allows you to leverage your existing 3D tools while developing data exchange pipelines, enabling seamless integration of OpenUSD workflows into your current production environment.
+Throughout this module, you’ll explore the fundamentals of OpenUSD data exchange, learn techniques for data extraction and transformation, and gain hands‑on experience in {term}`asset <Asset>` validation. This interoperable nature of OpenUSD is what allows you to leverage your existing 3D tools while developing data exchange pipelines, enabling seamless integration of OpenUSD workflows into your current production environment.
 
 This module is designed for those with experience in 3D graphics and OpenUSD, providing you with the knowledge and skills to effectively use OpenUSD in your workflows and improve interoperability between different 3D applications and formats. We encourage you to actively participate in the exercises and quizzes to enhance your learning experience.
 

@@ -32,25 +32,23 @@ jupytext:
 ```{kaltura} 1_u0uzffig
 ```
 
-Attributes are the most common type of property that you'll work with when creating scenes. An attribute can have one specific data type, such as a number, text, or a vector. Each attribute can have a default value, and it can
-also have different values at different points in time, called timeSamples.
+{term}`Attributes <Attribute>` are the most common type of {term}`property <Property>` that you'll work with when creating scenes. An attribute can have one specific data type, such as a number, text, or a vector. Each attribute can have a {term}`default value <Default Value>`, and it can also have different values at different points in time, called {term}`timeSamples <Time Sample>`.
 
 ### How Does It Work?
 
-Attributes are name-value pairs (often referred to as key-value pairs) that store data associated with a prim.
+Attributes are name-value pairs (often referred to as key-value pairs) that store data associated with a {term}`prim <Prim>`.
 
 Any given attribute has a single, defined data type associated with it. Each attribute is defined with the type of data that it can hold. A single attribute can represent various types of properties, such as the vertices of a piece of geometry, the diffuse color of a material, or the mass of an object. These are typically defined through the `Sdf` library.
 
 Some common examples of attributes include:
 
-* **Visibility** - Controls the visibility of a prim in the scene.
+* **{term}`Visibility <Visibility>`** - Controls the visibility of a prim in the scene.
 * **Display color** - Specifies the display color applied to a geometric prim.
 * **Extent** - Defines the boundaries of a geometric prim. 
 
-Attributes can be authored and stored within USD layers, which are files that describe different aspects of a scene. When a USD stage is composed, the attribute values from various layers are combined according to specific
-composition rules, allowing for flexible scene assembly.
+Attributes can be authored and stored within USD {term}`layers <Layer>`, which are files that describe different aspects of a scene. When a USD {term}`stage <Stage>` is composed, the attribute values from various layers are combined according to specific {term}`composition <Composition>` rules, allowing for flexible scene assembly.
 
-Attributes can be animated by providing multiple keyframed values over time. OpenUSD's timeSampling model ensures efficient storage and interpretation of animated data. We will learn more about timeSamples in the {doc}`../timecodes-timesamples` lesson.
+Attributes can be {term}`animated <Animated Value>` by providing multiple keyframed values over time. OpenUSD's timeSampling model ensures efficient storage and interpretation of animated data. We will learn more about timeSamples in the {doc}`../timecodes-timesamples` lesson.
 
 ### Working With Python
 
@@ -80,9 +78,9 @@ from utils.helperfunctions import create_new_stage
 
 ### Example 1: Retrieving Properties of a Prim 
 
-[`Properties`](https://openusd.org/release/glossary.html#usdglossary-property) are the other kind of namespace object in OpenUSD. Whereas prims provide the organization and indexing for a composed scene, properties contain the "real data". 
+Properties are the other kind of namespace object in OpenUSD. Whereas prims provide the organization and indexing for a composed scene, properties contain the "real data". 
 
-There are two types of properties: [`attributes`](https://openusd.org/release/glossary.html#usdglossary-attribute) and [`relationships`](https://openusd.org/release/glossary.html#usdglossary-relationship). 
+There are two types of properties: attributes and relationships.
 
 To retrieve the properties of a prim, we would use the [`GetProperties`](https://openusd.org/release/api/class_usd_prim.html#aa3d8915481ff6280c22c60de4a833423) method. For this demonstration we will be using [`GetPropertyNames()`](https://openusd.org/release/api/class_usd_prim.html#a24377e6ababf44be9534a68046ebb7b8) instead to retrieve the names of the properties. This will not grab the properties themselves, but a list of the names of the properties. Use [`GetProperties`](https://openusd.org/release/api/class_usd_prim.html#aa3d8915481ff6280c22c60de4a833423) to retrieve the properties themselves.
 
@@ -125,7 +123,7 @@ DisplayUSD(file_path, show_usd_code=True)
 
 ### Example 2: Getting Attribute Values
 
-[`Attributes`](https://openusd.org/release/glossary.html#usdglossary-attribute) are the most common type of property authored in most USD scenes. 
+Attributes are the most common type of property authored in most USD scenes. 
 
 An example of a simple attribute that describes the radius of a sphere:
 
@@ -152,7 +150,7 @@ Let's use the [`Get()`](https://openusd.org/release/api/class_usd_attribute.html
 Since we have not explicitly authored any attribute values, [`Get()`](https://openusd.org/release/api/class_usd_attribute.html#a9d41bc223be86408ba7d7f74df7c35a9) will return the fallback value that was defined in the schema. 
 
 ```{note}
-The attribute values will not show up in `.usda`, however the values are coming from the fallback value defined in the sphere schema. USD is applying [value resolution](https://openusd.org/release/glossary.html#usdglossary-valueresolution) to retrieve the values.
+The attribute values will not show up in `.usda`, however the values are coming from the fallback value defined in the sphere schema. USD is applying {term}`value resolution <Value Resolution>` to retrieve the values.
 ```
 
 ```{code-cell}
@@ -210,7 +208,7 @@ def Sphere "Sphere"{
 
 Based on our last modification, if we were to use [`Get()`](https://openusd.org/release/api/class_usd_attribute.html#a9d41bc223be86408ba7d7f74df7c35a9) it would return `100`.
 
-When getting attribute values, USD will apply [value resolution](https://openusd.org/release/glossary.html#usdglossary-valueresolution), since we authored a default value. The [`Get()`](https://openusd.org/release/api/class_usd_attribute.html#a9d41bc223be86408ba7d7f74df7c35a9) method will retrieve the value of the attribute. To set the values, we use the [`Set()`](https://openusd.org/release/api/class_usd_attribute.html#a151e6fde58bbd911da8322911a3c0079) method. This will resolve to the authored value rather than the fallback value from the sphere schema.
+When getting attribute values, USD will apply {term}`value resolution <Value Resolution>` since we authored a default value. The [`Get()`](https://openusd.org/release/api/class_usd_attribute.html#a9d41bc223be86408ba7d7f74df7c35a9) method will retrieve the value of the attribute. To set the values, we use the [`Set()`](https://openusd.org/release/api/class_usd_attribute.html#a151e6fde58bbd911da8322911a3c0079) method. This will resolve to the authored value rather than the fallback value from the sphere schema.
 
 Now let's modify the `radius`, `displayColor`, and `extent` attributes of the sphere by using [`Set()`](https://openusd.org/release/api/class_usd_attribute.html#a151e6fde58bbd911da8322911a3c0079).
 

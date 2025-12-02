@@ -1,6 +1,6 @@
 # Exercise: Reference/Payload Pattern
 
-In this exercise, we will add a reference/payload pattern to our asset. First, we'll export the asset root layer (`lrg_bldF.usd`) and rename it to `contents.usd` to serve as our payload. Next, we'll recreate the asset root layer, omitting the sublayers that have been moved behind the payload. This new root layer will also include the payload arc.
+In this exercise, we will add a reference/payload pattern to our {term}`asset <Asset>` . First, we'll export the asset root {term}`layer <Layer>` (`lrg_bldF.usd`) and rename it to `contents.usd` to serve as our payload. Next, we'll recreate the asset root layer, omitting the {term}`sublayers <Sublayer>` that have been moved behind the payload. This new root layer will also include the payload arc.
 
 1.  In Visual Studio Code, **open** the following file: `asset_structure/exercise_06/create_payload.py`
 

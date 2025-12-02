@@ -29,15 +29,15 @@ jupytext:
 
 ![Schema Definition](../images/foundations/Schema_Definition.webm)
 
-Schemas give meaning to prims in OpenUSD, i.e., “What is this element? What capabilities does it have?”. Schemas define the data models and optional API for encoding and interchanging 3D and non-3D concepts through OpenUSD.
+{term}`Schemas <Schema>` give meaning to {term}`prims <Prim>` in OpenUSD, i.e., “What is this element? What capabilities does it have?”. Schemas define the data models and optional API for encoding and interchanging 3D and non-3D concepts through OpenUSD.
 
 We'll explore the different types of schemas, their characteristics, and how they enable the creation of sophisticated virtual worlds and digital twins.
 
 ## What Are Schemas?
 
-Schemas serve as blueprints that author and retrieve data, like attributes and relationships that govern behaviors of elements in a USD scene. They provide a consistent and extensible way to define and interpret data, ensuring data interoperability between different software tools and applications.
+Schemas serve as blueprints that author and retrieve data, like {term}`attributes <Attribute>` and {term}`relationships <Relationship>` that govern behaviors of elements in a USD scene.
 
-Each prim in a scene is an element that implicitly contains the properties and fallback values of the typed schema that’s telling the prim what it is. For example, the `radius` attribute for the `Sphere` schema is defined as `double radius = 1` meaning that all Sphere prims have a radius represented by a double-precision floating point number with a value of `1` by default.
+Each prim in a scene is an element that implicitly contains the {term}`properties <Property>` and {term}`fallback <Fallback>` values of the typed schema that’s telling the prim what it is. For example, the `radius` attribute for the `Sphere` schema is defined as `double radius = 1` meaning that all Sphere prims have a radius represented by a double-precision floating point number with a value of `1` by default.
 
 Schemas are primarily data models with documented rules on how the data should be interpreted. While schemas define the structure and rules, they do not necessarily include the implementation of behaviors. For example, the `UsdPhysics` schemas does not come with a physics engine. Developers may provide behaviors in the schema API, but this is not a requirement.
 
@@ -45,7 +45,7 @@ There is a trend toward codeless schemas for easier distribution, suggesting tha
 
 Actual behavior enforcement can be managed by other subsystems within the runtime ecosystem. This allows for flexibility and performance optimization based on different use cases.
 
-There are two types of schemas used with OpenUSD: IsA schemas and API schemas. Let’s talk about IsA schemas first.
+There are two types of schemas used with OpenUSD: {term}`IsA schemas <IsA Schema>` and {term}`API schemas <API Schema>`. Let’s talk about IsA schemas first.
 
 ### IsA Schemas
 
@@ -85,7 +85,7 @@ Usd.SchemaRegistry.FindSchemaInfo()
 Usd.SchemaRegistry.GetSchemaTypeName()
 ```
 
-These methods allow us to interact with and manipulate schemas programmatically, enabling us to create, modify, and validate USD assets based on predefined rules and conventions.
+These methods allow us to interact with and manipulate schemas programmatically, enabling us to create, modify, and validate USD {term}`assets <Asset>` based on predefined rules and conventions.
 
 Let’s look at some common built-in schemas that will come up as we are learning about OpenUSD.
 
@@ -95,7 +95,7 @@ Let’s look at some common built-in schemas that will come up as we are learnin
 
 ![Schema USDGeom](../images/foundations/Schema_UsdGeom.webm)
 
-`UsdGeom` defines schemas for representing geometric objects, such as meshes, cameras, and curves as mentioned above. It also includes schemas for transformations, visibility, and other common properties.
+`UsdGeom` defines schemas for representing geometric objects, such as meshes, cameras, and curves as mentioned above. It also includes schemas for transformations, {term}`visibility <Visibility>`, and other common {term}`properties <Property>`.
 
 ```python
 # Import related classes

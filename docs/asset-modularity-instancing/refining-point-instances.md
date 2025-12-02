@@ -2,9 +2,9 @@
 
 ## Refinement Using Primvars
 
-Primvars using `vertex` interpolation will be applied per instance. Like scenegraph instancing, you can introduce a lot of diversity in your point instances by using prototypes that read primvars.
+{term}`Primvars <Primvar>` using `vertex` interpolation will be applied per instance. Like scenegraph instancing, you can introduce a lot of diversity in your point instances by using prototypes that read primvars.
 
-In the case of our packing peanut example, our packing peanut asset's material network may read from a `primvars:peanut_color` primvar. Authoring this primvar on our PointInstancer could enable us to make each peanut a different color if we wanted to.
+In the case of our packing peanut example, our packing peanut {term}`asset <Asset>`'s material network may read from a `primvars:peanut_color` primvar. Authoring this primvar on our PointInstancer could enable us to make each peanut a different color if we wanted to.
 ```{code-block} usda
 
 #usda 1.0
@@ -25,13 +25,13 @@ over "PackingPeanuts"
 
 If you want to introduce more variety into a PointInstancer with additional prototypes, point instancing's explicit prototype pattern requires a bit more work than scenegraph instancing. You will need to:
 
-1. Define an additional prim hierarchy for the new prototype.
-2. Add the new prototype to the `prototypes` relationship.
+1. Define an additional {term}`prim hierarchy <Namespace>` for the new prototype.
+2. Add the new prototype to the `prototypes` {term}`relationship <Relationship>`.
 3. Update `protoIndices` to specify which instances should use the new prototype.
 
 ## Refinement Using Visibility and Deactivation
 
-At any point downstream, you can refine your PointInstancer by pruning or hiding instances using `inactiveIds` metadata and `invisibleIds` attribute respectively.
+At any point downstream, you can refine your PointInstancer by pruning or hiding instances using `inactiveIds` {term}`metadata <Metadata>` and `invisibleIds` {term}`attribute <Attribute>` respectively.
 
 ```{figure} ../images/asset-modularity-instancing/inactiveids.mp4
 Deactivating packing peanuts that fell out of the box after the physics simulation process.
@@ -41,12 +41,12 @@ A good rule of thumb is that if you need to animate an instance on and off over 
 
 ## Refinement Using Promotion
 
-Promotion in this case is what we call turning a point instance into a full-fledged subgraph on the stage so you can override it more intuitively.
+Promotion in this case is what we call turning a point instance into a full-fledged subgraph on the {term}`stage <Stage>` so you can override it more intuitively.
 
 ```{figure} ../images/asset-modularity-instancing/point-instance-promotion.mp4
 Promoting a point instance.
 ```
-In this example, maybe we're creating a commercial and we want to turn a packing peanut into an animated character. We can use `inactiveIds` to deactivate the point instance that will be replaced by the character and then reference the character into the same position. Now we can animate and override the referenced character as we see fit.
+In this example, maybe we're creating a commercial and we want to turn a packing peanut into an animated character. We can use `inactiveIds` to deactivate the point instance that will be replaced by the character and then {term}`reference <Reference>` the character into the same position. Now we can animate and override the referenced character as we see fit.
 
 ## Exercise: Refining Point Instances
 
@@ -92,7 +92,7 @@ You should notice that the box we called out disappeared. This code deactivates 
 
 ### Promoting Point Instances
 
-What if we didn't want to prune this point, but wanted to promote it instead into a fully editable asset. Promotion starts with pruning, but then you replace the pruned point with the full asset. Let's run some code to reference a new asset and place it in the same place as our pruned point. We will continue with point `1228` for this part.
+What if we didn't want to prune this point, but wanted to promote it instead into a fully editable asset. Promotion starts with pruning, but then you replace the pruned point with the full asset. Let's run some code to {term}`reference <Reference>` a new asset and place it in the same place as our pruned point. We will continue with point `1228` for this part.
 
 4. **Run** the following code in the Interpreter window:
 ```python
@@ -106,7 +106,7 @@ box_xform.GetTranslateOp().Set(pi.GetPositionsAttr().Get()[1228])
 box_xform.AddOrientOp(precision=UsdGeom.XformOp.PrecisionHalf).Set(pi.GetOrientationsAttr().Get()[1228])
 ```
 
-The box looks just like it did before in the Viewport, but now we have a new prim hierarchy in the scenegraph where we can author new opinions to manipulate this asset.
+The box looks just like it did before in the Viewport, but now we have a new prim hierarchy in the scenegraph where we can author new {term}`opinions <Opinions>` to manipulate this asset.
 
 ![](../images/asset-modularity-instancing/promotion.png)
 

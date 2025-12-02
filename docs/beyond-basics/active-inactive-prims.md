@@ -31,7 +31,7 @@ kernelspec:
 
 ![](../images/foundations/ActiveInactive_Definition.webm)
 
-In OpenUSD, all prims are active by default. Making a prim inactive is effectively a non-destructive deletion of a prim from a stage. Deactivating a prim provides a way to temporarily remove, or prune, prims and their descendants from being composed and processed on the stage, which can make traversals more efficient.
+In OpenUSD, all {term}`prims <Prim>` are {term}`active <Active and Inactive>` by default. Making a prim inactive is effectively a non-destructive deletion of a prim from a {term}`stage <Stage>`. Deactivating a prim provides a way to temporarily remove, or prune, prims and their descendants from being composed and processed on the stage, which can make traversals more efficient.
 
 An active prim and its active child prims will be visited and processed during stage traversals and operations. However, by making a prim inactive by setting its "active" metadata to _false_, we prevent that prim itself from being visited. This also prevents its descendant prims from being composed onto the stage.
 
@@ -51,7 +51,7 @@ When a prim is deactivated, it has the following effects:
 * The prim itself will be excluded from default [stage traversals](./stage-traversal.md) as determined by the `UsdPrimDefaultPredicate`.
 * All scene description for the deactivated prim's descendants will not be composed onto the stage.
 
-However, the inactive state can be overridden by stronger layer opinions that set the "active" metadata to _true_ for that prim. This allows selective reactivation of pruned subtrees.
+However, the inactive state can be overridden by stronger {term}`layer <Layer>` opinions that set the "active" metadata to _true_ for that prim. This allows selective reactivation of pruned subtrees.
 
 ![ActiveInactivePython](../images/foundations/ActiveInactive_Python.webm)
 

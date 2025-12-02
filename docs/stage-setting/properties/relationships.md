@@ -28,23 +28,19 @@ jupytext:
 # Relationships
 
 ## What Is a Relationship?
-Relationships establish connections between prims, acting as pointers or links between objects in the scene hierarchy. A relationship allows a prim to target
-or reference other prims, attributes, or even other relationships. This establishes dependencies between scenegraph objects.
-
-```{kaltura} 1_3tz14vzm
-```
+{term}`Relationships <Relationship>` establish connections between {term}`prims <Prim>`, acting as pointers or links between objects in the scene hierarchy. A relationship allows a prim to target or refer to other prims, {term}`attributes <Attribute>`, or even other relationships. This establishes dependencies between scenegraph objects.
 
 ### How Does It Work?
 
-Relationships store path values that point to other scene elements. When you query a relationship's targets, OpenUSD performs path translations to map the authored target paths to the corresponding objects in the composed scene
+Relationships store {term}`path <Path>` values that point to other scene elements. When you query a relationship's targets, OpenUSD performs {term}`path translations <Path Translation>` to map the authored target paths to the corresponding objects in the composed scene
 prims.
 
 Relationships are robust against path translations, a key advantage over hard-coded paths. If a target prim's path changes due to editing or referencing, the relationship automatically remaps to the new location.
 
 Relationships can have multiple targets, making them useful for grouping or collecting objects together. For example, a material relationship might target all geometry prims that should use that material.
 
-Note that a relationship is an alternative type of property to an attribute. Unlike an attribute, it has no data type. It is a way of declaring, at creation time, that the only use for a property is to record linkage
-information. Conceptually, it is like an attribute whose data type is a "link". This means you can _not_ use a relationship to connect two already-existing attributes--for that, you can use attribute connections.
+Note that a relationship is an alternative type of {term}`property <Property>` to an attribute. Unlike an attribute, it has no data type. It is a way of declaring, at creation time, that the only use for a property is to record linkage
+information. Conceptually, it is like an attribute whose data type is a "link". This means you can _not_ use a relationship to connect two already-existing attributes--for that, you can use {term}`attribute connections <Connection>`.
 
 ### Working With Python
 

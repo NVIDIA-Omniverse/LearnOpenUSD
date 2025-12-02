@@ -1,6 +1,6 @@
 # Exercise: Lofting Variant Sets
 
-For this exercise, we added a variant set called `exteriorType` to control the main exterior color. This is defined on the "**Looks**" Scope. We will loft the variant set so that it will be accessible as a new asset parameter and make sure it's available even with the payload unloaded.
+For this exercise, we added a {term}`variant set <Variant Set>` called `exteriorType` to control the main exterior color. This is defined on the "**Looks**" Scope. We will loft the variant set so that it will be accessible as a new {term}`asset <Asset>` parameter and make sure it's available even with the {term}`payload <Payload>` unloaded.
 
 1. **Open** the output `lrg_bldgF` in usdview by **running** the following command in Visual Studio Code:
 
@@ -38,7 +38,7 @@ for variant in variants:
 lofted_vset.SetVariantSelection(default)
 ```
 
-Here, we’re lofting the `exteriorType` variant set by creating a matching variant set on the asset entry point. Each variant on the new variant set has just one opinion, it selects its matching variant from the `exteriorType` variant set on the “**Looks**” prim.
+Here, we’re lofting the `exteriorType` variant set by creating a matching variant set on the asset entry point. Each {term}`variant <Variant>` on the new variant set has just one opinion, it selects its matching variant from the `exteriorType` variant set on the “Looks” {term}`prim <Prim>`.
 
 6. **Save** the file and then **execute** the script using the following command:
 

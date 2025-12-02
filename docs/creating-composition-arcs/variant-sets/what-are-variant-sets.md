@@ -6,15 +6,15 @@
 
 ![](../../images/composition-arcs/image43.png)
 
-Variant sets allow you to define variations or alternative representations of the same dataset that can be switched at runtime. The most common use case for this is to be able to define a singular asset, while enabling multiple representations of that asset.
+{term}`Variant sets <Variant Set>` allow you to define variations or alternative representations of the same dataset that can be switched at runtime. The most common use case for this is to be able to define a singular asset, while enabling multiple representations of that asset.
 
 For example, a character that has multiple outfits could be authored with a variant set that controls which outfit should be used for a given shot or scenario. This greatly reduces the complexity of managing such a character. Without a mechanism like variant sets, you would need to track the character and the clothing separately, and assemble them on-demand whenever a particular character and outfit combination is needed.
 
-A variant set serves as a controller of variations. We call the variations “variants” in OpenUSD. Only opinions of the selected variant are composed on the stage. All other variants are effectively not traversed or included.
+A variant set serves as a controller of variations. We call the variations “{term}`variants <Variant>`” in OpenUSD. Only {term}`opinions <Opinions>` of the selected variant are composed on the {term}`stage <Stage>`.
 
 It’s up to the author to decide what “type” of variations a variant set controls. There are no rules for what a variant set can add or modify, but it is helpful to limit the scope of a variant set so that the results are more predictable when users are blindly selecting a variant.
 
-A variant set is added to a prim and its variants can manipulate the prim and any of its descendants. Let’s go through a few things a variant can do within its hierarchy.
+A variant set is added to a {term}`prim <Prim>` and its variants can manipulate the prim and any of its descendants. Let’s go through a few things a variant can do within its hierarchy.
 
 ---
 
@@ -38,7 +38,7 @@ Here we have two variants, where one variant defines one cube and the other defi
 
 ![](../../images/composition-arcs/image96.png)
 
-We can author new composition arcs that would only exist in the variant. For example, one variant can reference a blue material from a materials layer, and another variant can reference a green material from the same layer.
+We can author new composition arcs that would only exist in the variant. For example, one variant can {term}`reference <Reference>` a blue material from a materials {term}`layer <Layer>`, and another variant can reference a green material from the same layer.
 
 ## When and Why Do You Use Them?
 

@@ -27,7 +27,7 @@ kernelspec:
 ---
 # Lights
 
-In this lesson, we'll explore lights in OpenUSD, schemas belonging to the `UsdLux` domain. Understanding lights in OpenUSD allows for accurate and realistic lighting in 3D scenes.
+In this lesson, we'll explore lights in OpenUSD, {term}`schemas <Schema>` belonging to the `UsdLux` domain. Understanding lights in OpenUSD allows for accurate and realistic lighting in 3D scenes.
 
 ## What Is UsdLux?
 
@@ -47,7 +47,7 @@ In this lesson, we'll explore lights in OpenUSD, schemas belonging to the `UsdLu
 
 ### How Does It Work?
 
-Start by defining light prims within a USD scene. These light primitives consist of scene description for specific light types (e.g., `UsdLuxDistantLight` for directional lights) and contain attributes that provide comprehensive control over the light's properties, such as intensity, color, and falloff. These light primitives allow for accurate lighting calculations during rendering.
+Start by defining light {term}`prims <Prim>` within a USD scene. These light primitives consist of scene description for specific light types (e.g., `UsdLuxDistantLight` for directional lights) and contain {term}`attributes <Attribute>` that provide comprehensive control over the light's {term}`properties <Property>`, such as intensity, color, and falloff. These light primitives allow for accurate lighting calculations during rendering.
 
 ### Working With Python
 
@@ -64,7 +64,7 @@ UsdLux.SphereLight.Define(stage, '/path/to/light')
 light_prim.GetIntensityAttr().Set(500)
 ```
 
-`UsdLux` has API schemas that allow you to add light behavior to prims in your scene, so you can also add light properties to meshes and volumes.
+`UsdLux` has {term}`API schemas <API Schema>` that allow you to add light behavior to prims in your scene, so you can also add light properties to meshes and volumes.
 
 ## Examples
 
@@ -161,8 +161,7 @@ DisplayUSD(file_path, show_usd_code=True, show_usd_lights=True)
 
 ## Key Takeaways
 
-OpenUSD provides a standardized way to represent various types of lights in a USD scene to ensure consistent light behavior across different applications and renderers. They support different properties and attributes, and advanced
-features like light filters, IES profiles and linking. Renderers can utilize USD’s lights and materials for accurate lighting calculations.
+OpenUSD provides a standardized way to represent various types of lights in a USD scene to ensure consistent light behavior across different applications and renderers. They support different properties and attributes, and advanced features like light filters, IES profiles and linking. Renderers can utilize USD’s lights and materials for accurate lighting calculations.
 
 By understanding how to define and control lights within OpenUSD, developers and 3D practitioners can achieve realistic lighting, enhance visual quality, and unlock new possibilities in their projects.
 

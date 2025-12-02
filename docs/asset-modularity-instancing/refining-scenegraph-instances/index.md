@@ -7,8 +7,8 @@ In this lesson, you'll learn various techniques for refining scenegraph instance
 By the end of this lesson, you'll be able to:
 
 * **Understand** the fundamental rules of instance editability and why they exist
-* **Apply** different refinement techniques including deinstancing, refinement using variant sets, and hierarchical refinement
-* **Evaluate** the performance impact of each refinement approach using stage statistics
+* **Apply** different refinement techniques including deinstancing, refinement using {term}`variant sets <Variant Set>`, and hierarchical refinement
+* **Evaluate** the performance impact of each refinement approach using {term}`stage <Stage>` statistics
 * **Choose** the most appropriate refinement technique for specific use cases
 * **Implement** complex refinement workflows that balance performance with authoring flexibility
 

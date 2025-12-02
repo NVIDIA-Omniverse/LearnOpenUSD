@@ -1,6 +1,6 @@
 # Hydra
 
-In this lesson, we'll explore Hydra, a powerful rendering architecture within OpenUSD. Understanding Hydra enables efficient and flexible rendering of complex 3D scenes.
+In this lesson, we'll explore {term}`Hydra <Hydra>`, a powerful rendering architecture within OpenUSD. Understanding Hydra enables efficient and flexible rendering of complex 3D scenes.
 
 ## What Is Hydra?
 
@@ -14,7 +14,7 @@ The open and extensible nature of Hydra means it supports many different rendere
 Hydra has three main parts:
 
 * A scene delegate, which provides the scene information
-* The render index, which keeps track of changes and manages the scene
+* The render {term}`index <Index>`, which keeps track of changes and manages the scene
 * The render delegate, which uses the render index and scene delegate to visualize scene information to create the final image.
 
 ### How Does It Work?

@@ -28,23 +28,21 @@ kernelspec:
 # Referencing Basics
 
 ## What Are References?
-This lesson talks briefly about references. The word may seem familiar – we introduced the concept in the previous lesson on composition and strength ordering, where "references" represents the R in LIVRPS.
+This lesson talks briefly about {term}`references <Reference>`. The word may seem familiar – we introduced the concept in the previous lesson on {term}`composition <Composition>` and {term}`strength ordering <LIVERPS Strength Ordering>`, where "references" represents the R in LIVRPS.
 
-A reference in Universal Scene Description is a composition arc that enables the composition of prims and their descendants onto other prims – this allows us to use references to aggregate larger scenes from smaller, modular units of scene description. This can be done with external references, which graft data from other files, or internal references, which graft data from other parts of the hierarchy.
+A reference in Universal Scene Description is a composition arc that enables the composition of {term}`prims <Prim>` and their descendants onto other prims – this allows us to use references to aggregate larger scenes from smaller, modular units of scene description. This can be done with external references, which graft data from other files, or internal references, which graft data from other parts of the hierarchy.
 
-They are fundamental in USD's composition system, enabling modular and reusable scene description, and they are the second most important composition arc in USD, after sublayers.
+They are fundamental in USD's composition system, enabling modular and reusable scene description, and they are the second most important composition arc in USD, after {term}`sublayers <Sublayer>`.
 
 ![](../images/foundations/References_Definition.webm)
 
 ### How Does It Work?
 
-A reference arc includes the identifier of or path to the layer to reference from (which can be omitted for internal references) and the prim path to reference (which can be omitted if you want to load an entire external layer which has a default prim defined).
+A reference arc includes the identifier of or path to the {term}`layer <Layer>` to reference from (which can be omitted for internal references) and the prim {term}`path <Path>` to reference (which can be omitted if you want to load an entire external layer which has a default prim defined).
 
-When a prim is composed via a reference arc, USD first composes the layer stack of the referenced prim, then adds the resulting prim spec to the destination prim. Then, it applies any overrides or additional composition arcs from the destination prim.
+When a prim is composed via a reference arc, USD first composes the {term}`layer stack <Layer Stack>` of the referenced prim, then adds the resulting {term}`prim spec <Prim Spec>` to the destination prim. Then, it applies any overrides or additional {term}`composition arcs <Composition Arcs>` from the destination prim.
 
 ### Working With Python
-
-![References Python](../images/foundations/References_Python.webm)
 
 Here are a few ways you can work with references using the Python API:
 
@@ -128,12 +126,12 @@ stage.Save()
 DisplayUSD(second_file_path, show_usd_code=True)
 ```
 
-Here we created a stage representing a Cube prim and then used a reference arc to incorporate it into a new stage, `shapes.usda` that also defined a Sphere prim. The result is a stage with a Sphere and a Cube.
+Here we created a {term}`stage <Stage>` representing a Cube prim and then used a reference arc to incorporate it into a new stage, `shapes.usda` that also defined a Sphere prim.
 
 
 ### Example 2: Referencing an External Asset
 
-[References](https://openusd.org/release/glossary.html#usdglossary-reference) in OpenUSD allow for the inclusion of external assets or sub-scene data into a scene. This mechanism helps in modularizing and reusing assets across different scenes and projects, enabling efficient management of large-scale 3D environments.
+[References](https://openusd.org/release/glossary.html#usdglossary-reference) in OpenUSD allow for the inclusion of external {term}`assets <Asset>` or sub-scene data into a scene. This mechanism helps in modularizing and reusing assets across different scenes and projects, enabling efficient management of large-scale 3D environments.
 
 Here, we'll add a reference to a shipping box asset.
 

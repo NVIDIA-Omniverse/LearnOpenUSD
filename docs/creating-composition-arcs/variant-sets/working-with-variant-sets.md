@@ -1,5 +1,5 @@
 # Exercise: Working With Variant Sets
-Let’s go through some of the variant sets discussed with a hands-on exercise in usdview.
+Let’s go through some of the {term}`variant sets <Variant Set>` discussed with a hands‑on exercise in usdview.
 
 1. In the Visual Studio Code terminal, **run** the code below to open the file in usdview:
 
@@ -62,11 +62,11 @@ Linux:
 
 ![](../../images/composition-arcs/image69.gif)
 
-What do you notice happening in the layer? Can you see the changes in the tree view?
+What do you notice happening in the {term}`layer <Layer>`? Can you see the changes in the tree view?
 
-In this example, we’re showing how one can define prims using variant sets. A use case utilizing this example is creating a shelf for your factory. You can swap between various sizes of the shelf that are defining a new row using the same prim.
+In this example, we’re showing how one can define {term}`prims <Prim>` using variant sets. A use case utilizing this example is creating a shelf for your factory. You can swap between various sizes of the shelf that are defining a new row using the same prim.
 
-Let’s take a look at our last example, where we are authoring new composition arcs that would only exist within that variant.
+Let’s take a look at our last example, where we are authoring new {term}`composition arcs <Composition Arcs>` that would only exist within that variant.
 
 10. In the Visual Studio Code terminal, **run** the code below to open the file in usdview:
 
@@ -83,7 +83,7 @@ Linux:
 
 ![](../../images/composition-arcs/image65.png)
 
-At first, this appears to be similar to our first example. However, the material is being composed through a reference.
+At first, this appears to be similar to our first example. However, the material is being composed through a {term}`reference <Reference>`.
 
 12. To see where the material is being composed from, select **CubeMaterial** in the tree view.
 

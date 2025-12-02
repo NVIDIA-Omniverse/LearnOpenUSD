@@ -1,6 +1,6 @@
 # Exercise: Assemblies
 
-In this exercise, we will create a new assembly asset called `city_blockA` that will reference `lrg_bldgF` multiple times to create a city block. We will set the model kind of the new asset to `assembly`.
+In this exercise, we will create a new {term}`assembly asset <Assembly>` called `city_blockA` that will {term}`reference <Reference>` `lrg_bldgF` multiple times to create a city block. We will set the {term}`model <Model>` {term}`kind <Kind>` of the {term}`new asset <Asset>` to `assembly`.
 
 1. In Visual Studio Code, **open** the following file: `asset_structure/exercise_10/create_assembly.py`
 
@@ -10,7 +10,7 @@ In this exercise, we will create a new assembly asset called `city_blockA` that 
 Usd.ModelAPI(world_prim).SetKind(Kind.Tokens.assembly)
 ```
 
-3. Now we will populate the asset by referencing the component assets. **Add** the code below into the designated PART 2 section:
+3. Now we will populate the asset by referencing the {term}`component assets <Component>`.
 
 ```py
 for x in range(1,7):
@@ -54,7 +54,7 @@ Linux:
 
 ![](../../images/asset-structure/image54.png)
 
-8. Note that we have created a valid model hierarchy:
+8. Note that we have created a valid {term}`model hierarchy <Model Hierarchy>`:
 
 ```sh
 World (assembly)

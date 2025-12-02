@@ -22,7 +22,7 @@ sanitized_mat_name = Tf.MakeValidIdentifier(mtl["NAME"])
 material_path = Sdf.Path(f"/{sanitized_mat_name}")
 ```
 
-3. Next, we will create the material prim in our stage that has a shader surface for the material graph. Add the following code underneath `material_path`.
+3. Next, we will create the material {term}`prim <Prim>` in our {term}`stage <Stage>` that has a shader surface for the material graph. Add the following code underneath `material_path`.
 
 ```py
 # Create the material prim

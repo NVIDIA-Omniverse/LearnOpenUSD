@@ -46,7 +46,7 @@ from utils.visualization import DisplayUSD, DisplayCode
 
 ### Example 1: UsdShade and Material
 
-[`UsdShade`](https://openusd.org/release/api/usd_shade_page_front.html) is a schema for creating and binding materials.
+[`UsdShade`](https://openusd.org/release/api/usd_shade_page_front.html) is a {term}`schema <Schema>` for creating and binding materials.
 
 [`Material`](https://openusd.org/release/api/class_usd_shade_material.html) provides a container to store data for defining a "shading material" to a renderer.
 

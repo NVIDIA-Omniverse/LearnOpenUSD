@@ -1,6 +1,6 @@
 # Workstreams
 
-In this lesson, we’ll learn about organizing asset structures into workstreams using OpenUSD layer stacks. We will:
+In this lesson, we’ll learn about organizing asset structures into workstreams using OpenUSD {term}`layer stacks <Layer Stack>`. We will:
 
 * Explain the purpose and benefits of organizing assets into workstreams.  
 * Implement a layer stack structure to model parallel workstreams.   

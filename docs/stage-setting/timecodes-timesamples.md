@@ -28,18 +28,18 @@ jupytext:
 # TimeCodes and TimeSamples
 
 
-This lesson, _TimeCode and TimeSample_, shows us how to set up animation in a stage using OpenUSD.
+This lesson, _TimeCode and TimeSample_, shows us how to set up animation in a {term}`stage <Stage>` using OpenUSD.
 
 In this lesson, we will:
 
   * **Set start and end timeCodes for a stage**. Learn how to set start and end timeCode metadata for a USD stage, establishing a timeline that forms the foundation for animated scenes.
-  * **Set timeSamples on attributes**. Gain the skills to set timeSamples on individual attributes, allowing us to animate specific properties of prims over time.
+  * **Set timeSamples on {term}`attributes <Attribute>`**. Gain the skills to set timeSamples on individual attributes, allowing us to animate specific properties of {term}`prims <Prim>` over time.
 
 ## What are TimeCodes and TimeSamples?
 
 ![TimeCode Time Sample Definition](../images/foundations/TimeCodeTimeSample_Definition.webm)
 
-In OpenUSD, timeCode and timeSample are two important concepts that enable us
+In OpenUSD, {term}`timeCode <Time Code>` and {term}`timeSample <Time Sample>` are two important concepts that enable us
 to work with animations and simulation in USD scenes.
 
 TimeCode is a point in time with no unit assigned to it. You can think of
@@ -53,8 +53,7 @@ time. For a reminder of the purpose of attributes, please review the introductor
 ### How Does It Work?
 
 In a USD scene, the timeCode ordinates of all timeSamples are scaled to
-seconds based on the `timeCodesPerSecond` metadata value defined in the root
-layer.
+seconds based on the `timeCodesPerSecond` {term}`metadata <Metadata>` value defined in the root {term}`layer <Layer>`.
 
 This allows flexibility in encoding timeSamples within a range and scale
 suitable for the application, while maintaining a robust mapping to real-world
@@ -134,7 +133,7 @@ DisplayUSD("_assets/timecode_sample.usda", show_usd_code=True)
 
 ### Example 1: Setting Start and End TimeCodes
 
-[`TimeCode`](https://openusd.org/release/glossary.html#usdglossary-timecode) specifies an exact frame or moment in the animation timeline. It allows for precise control over the timing of changes to properties, enabling smooth and accurate animation of 3D objects. 
+TimeCode specifies an exact frame or moment in the animation timeline. It allows for precise control over the timing of changes to properties, enabling smooth and accurate animation of 3D objects. 
 
 A [`Usd.TimeCode`](https://openusd.org/release/api/class_usd_time_code.html) is therefore a unitless, generic time measurement that serves as the ordinate for time-sampled data in USD files. [`Usd.Stage`](https://openusd.org/release/api/class_usd_stage.html) defines the mapping of `TimeCode`s to units like seconds and frames.
 
@@ -165,9 +164,9 @@ DisplayUSD("_assets/timecode_ex1.usda", show_usd_code=True)
 
 ### Example 2: Setting TimeSamples for Attributes
 
-[TimeSamples](https://openusd.org/release/glossary.html#usdglossary-timesample) represent a collection of attribute values at various points in time, allowing OpenUSD to interpolate between these values for animation purposes.
+TimeSamples represent a collection of attribute values at various points in time, allowing OpenUSD to interpolate between these values for animation purposes.
 
-When animating an attribute, you define a timeCode at which the value should be applied. These values are then interpolated between the timeSamples to get the value that should be applied at the current [timeCode](https://openusd.org/release/glossary.html#usdglossary-timecode).
+When animating an attribute, you define a timeCode at which the value should be applied. These values are then interpolated between the timeSamples to get the value that should be applied at the current timeCode.
 
 To assign a value at a particular timeCode, use the [`Set()`](https://openusd.org/release/api/class_usd_attribute.html#a7fd0957eecddb7cfcd222cccd51e23e6) method. 
 
@@ -225,7 +224,7 @@ stage.Export("_assets/timecode_ex2a.usda", addSourceFileComment=False)
 DisplayUSD("_assets/timecode_ex2a.usda", show_usd_code=True)
 ```
 
-[TimeSamples](https://openusd.org/release/glossary.html#usdglossary-timesample) can be used for baked, per-frame animation and it is good for interchange that is reproducible. However, [timeSamples](https://openusd.org/release/glossary.html#usdglossary-timesample) are not a replacement for animation curves.
+TimeSamples can be used for baked, per-frame animation and it is good for interchange that is reproducible. However, timeSamples are not a replacement for animation curves.
 
 For more complex animation it is not recommended to define the animation using scripting but rather in other Digital Content Creation (DCC) Applications.
 

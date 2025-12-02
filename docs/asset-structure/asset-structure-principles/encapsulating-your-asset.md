@@ -15,7 +15,7 @@ Linux:
 
 ![](../../images/asset-structure/image18.png)
 
-Take note that the roof color is a shade of green. Now we will see what happens when we reference this layer into another layer.
+Take note that the roof color is a shade of green. Now we will see what happens when we {term}`reference <Reference>` this {term}`layer <Layer>` into another layer.
 
 2. **Open** up `scene.usda` in usdview by **running** the following command in the Visual Studio Code terminal:
 
@@ -37,7 +37,7 @@ Warning: in _ReportErrors at line 3309 of C:\g\163073426\USD\pxr\usd\usd\stage.c
 Warning: in _ReportErrors at line 3309 of C:\g\163073426\USD\pxr\usd\usd\stage.cpp -- In </World/lrg_bldgF_03/large_buildingF/roof.material:binding>: The relationship target </roof> from </World/large_buildingF/roof.material:binding> in layer @asset_structure/exercise_02/lrg_bldgF.usd@ refers to a path outside the scope of the reference from </World/lrg_bldgF_03>.  Ignoring. (getting targets for relationship </World/lrg_bldgF_03/large_buildingF/roof.material:binding> on stage @asset_structure/exercise_02/scene.usda@ <000001DFF5FC1DD0>)
 ```
 
-The roof material prim was not fully encapsulated in `World`. Only prims defined beneath `World` were brought over.
+The roof material {term}`prim <Prim>` was not fully encapsulated in `World`. Only prims defined beneath `World` were brought over.
 
 How can we fix this? Very similar to how we created an entry point in the first exercise, let’s re-parent our roof so it is encapsulated underneath `World`.
 

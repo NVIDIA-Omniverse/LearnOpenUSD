@@ -1,14 +1,14 @@
 # Introduction to Scenegraph Instancing
 
-Now, let’s talk about how to author scenegraph instancing in OpenUSD, including:
+Now, let’s talk about how to author scenegraph instancing in OpenUSD, including:
 * What is scenegraph instancing?
-* The meaning of instanceable metadata
+* The meaning of {term}`instanceable <Instanceable>` {term}`metadata <Metadata>`
 * Explicit Instances & Implicit Prototypes
-* Composition arcs and how they enable scene graph instancing
+* {term}`Composition arcs <Composition Arcs>` and how they enable scene graph instancing
 
 ## What Is Scenegraph Instancing?
 
-Scenegraph--or native--instancing is the first implementation of instancing in OpenUSD that we will look at. Scenegraph instancing is a core feature of OpenUSD that turns prim hierarchies or subgraphs into prototypes that can then be shared by multiple copies within a scene. 
+Scenegraph--or native--instancing is the first implementation of instancing in OpenUSD that we will look at. Scenegraph instancing is a core feature of OpenUSD that turns {term}`prim hierarchies <Namespace>` or subgraphs into prototypes that can then be shared by multiple copies within a scene. 
 
 This approach is particularly valuable for large-scale scenes like digital twins, architectural visualizations, and any scenario where you need to represent many identical objects efficiently.
 
@@ -28,7 +28,7 @@ Above we have a robot which has a gripper, an arm, and a base. We may have an in
 
 To enable scenegraph instancing in USD, you need to set one value, the `instanceable` prim metadata. Setting `instanceable = true` tells OpenUSD to create one shared version (prototype) of an object that many instances can use as long as they share composition arcs.
 
-Our warehouse has two references to "RobotArm" with instancing enabled.
+Our warehouse has two {term}`references <Reference>` to "RobotArm" with instancing enabled.
 To use the terminology we just introduced, this should generate one prototype and two instances of that prototype because the two robot arms are using the same reference.
 
 
@@ -135,7 +135,7 @@ Additionally, a script or a tool that reads OpenUSD data and is not performance 
 
 ### Example 1: How Many Prototypes?
 
-To drive home the points of how instancing works in OpenUSD here is a quick puzzle. How many prototypes and instances would be generated when you load the stage?
+To drive home the points of how instancing works in OpenUSD here is a quick puzzle. How many prototypes and instances would be generated when you load the {term}`stage <Stage>`?
 
 ``` usda 
 

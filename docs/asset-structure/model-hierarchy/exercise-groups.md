@@ -1,6 +1,6 @@
 # Exercise: Groups
 
-In this exercise, we recreated the `city_blockA` assembly asset, but we will show the use of the `group` kind to section our buildings in the model hierarchy into the north and south sides of the street.
+In this exercise, we recreated the `city_blockA` {term}`assembly asset <Assembly>`, but we will show the use of the `group` kind to section our buildings in the {term}`model hierarchy <Model Hierarchy>` into the north and south sides of the street.
 
 1. In Visual Studio Code, **open** the following file: `asset_structure/exercise_11/create_assembly_with_groups.py`
 
@@ -20,7 +20,7 @@ for side in Side:
 
 ```
 
-Here we create two `group` kind prims, `North` and `South`. We’ve updated the code to reference three buildings under each group. The `position_bldg()` function has also been updated to accommodate for this.
+Here we create two `group` kind prims, `North` and `South`. We’ve updated the code to {term}`reference <Reference>` three buildings under each group. The `position_bldg()` function has also been updated to accommodate for this.
 
 3. **Save** the file and then **execute** the script using the following command:
 

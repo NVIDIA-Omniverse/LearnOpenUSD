@@ -30,7 +30,7 @@ kernelspec:
 In Universal Scene Description, Xforms play a key role in defining the spatial transformations of objects in a scene.
 
 ## What Is an Xform?
-In OpenUSD, an Xform is a type of prim that stores transformation data, such as translation, rotation, and scaling, which apply to its child prims. This makes Xforms a powerful tool for grouping and manipulating the spatial arrangement of objects in a 3D scene. Xform stands for 'transform', reflecting its role in transforming the space in which its children reside.
+In OpenUSD, an Xform is a type of {term}`prim <Prim>` that stores transformation data, such as translation, rotation, and scaling, which apply to its child prims. This makes Xforms a powerful tool for grouping and manipulating the spatial arrangement of objects in a 3D scene. Xform stands for 'transform', reflecting its role in transforming the space in which its children reside.
 
 ```{kaltura} 1_1bbmv128
 ```
@@ -59,7 +59,7 @@ xform.AddXformOp(opType, value)
 
 ### Example 1: UsdGeom and Xform
 
-[`UsdGeom`](https://openusd.org/release/api/usd_geom_page_front.html) defines the 3D graphics-related prim and property schemas that together form a basis for interchanging geometry between Digital Content Creation (DCC) tools in a graphics pipeline.
+[`UsdGeom`](https://openusd.org/release/api/usd_geom_page_front.html) defines the 3D graphics-related prim and {term}`property <Property>` {term}`schemas <Schema>` that together form a basis for interchanging geometry between Digital Content Creation (DCC) tools in a graphics pipeline.
 
 Some things to know about `UsdGeom`:
 
