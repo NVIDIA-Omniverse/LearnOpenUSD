@@ -4,7 +4,8 @@
 
 Hierarchical refinement refers to the process of refining instances by authoring inherited properties on ancestor {term}`prims <Prim>`. The most common inherited properties used for this type of refinement are:
 
-* **{term}`Visibility <Visibility>`** – Moving, rotating, or scaling an ancestor prim will affect all of its descendant instances.
+* **Transformation Operations (xformOps)** – Moving, rotating, or scaling an ancestor prim will affect all of its descendant instances.
+* **{term}`Visibility <Visibility>`** – Making an ancestor invisible will also hide all of its descendant instances.
 * **{term}`Primvars <Primvar>`** – Assigning primvar values to an ancestor can create shading or material variations among its descendant instances.
 
 Importantly, these refinements do not create any new prototypes; they simply leverage inheritance to efficiently introduce variety or control across instances.
