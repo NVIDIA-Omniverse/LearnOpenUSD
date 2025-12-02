@@ -1,8 +1,8 @@
 # Exercise: Variation Workstream
 
-In this exercise, we'll simulate a surfacing artist working at the assembly level to make shading variation choices on multiple buildings in `city_blockA`. We've added a shading workstream to `city_blockA`, allowing a surfacing artist to work at the city block context and see how their variation choices on individual buildings look in context.
+In this exercise, we'll simulate a surfacing artist working at the {term}`assembly <Assembly>` level to make shading variation choices on multiple buildings in `city_blockA`. We've added a shading workstream to `city_blockA`, allowing a surfacing artist to work at the city block context and see how their variation choices on individual buildings look in context.
 
-To simulate a surfacing artist working on `city_blockA`, you'll create a script that makes random `accentColor` and `exteriorType` choices. These choices will be authored to the `contents/shading.usd` sublayer of the `city_blockA` asset.
+To simulate a surfacing artist working on `city_blockA`, you'll create a script that makes random `accentColor` and `exteriorType` choices. These choices will be authored to the `contents/shading.usd` {term}`sublayer <Sublayer>` of the `city_blockA` {term}`asset <Asset>`.
 
 1. **Run** the following command in Visual Studio Code to open `city_blockA` in usdview:
 
@@ -31,7 +31,7 @@ for prim in stage.Traverse():
         vset.SetVariantSelection(random.choice(vset.GetVariantNames()))
 ```
 
-In this snippet, we are traversing through the stage and setting a random variant choice and accent color for every component asset that has an `exteriorType` variant set.
+In this snippet, we are traversing through the {term}`stage <Stage>` and setting a random {term}`variant <Variant>` choice and accent color for every {term}`component <Component>` asset that has an `exteriorType` {term}`variant set <Variant Set>`.
 
 4. **Save** the file and then **execute** the script using the following command:
 
@@ -64,6 +64,6 @@ You can rerun the script and view the results again in `usdview` if you want to 
 6. In Visual Studio Code, **open** the following file:   
    `asset_structure/exercise_12/contents/shading.usd` 
 
-Note the sparse overrides that our script authored in this layer.
+Note the sparse overrides that our script authored in this {term}`layer <Layer>`.
 
 ![](../../images/asset-structure/image34.png)

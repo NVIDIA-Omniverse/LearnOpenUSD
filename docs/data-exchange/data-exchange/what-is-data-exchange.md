@@ -12,7 +12,7 @@ OpenUSD was developed by Pixar Animation Studios to address the complex 3D workf
 
 ![](../../images/data-exchange/image17.png)
 
-To solve these problems, Pixar built USD with a core set of schemas to effectively describe 3D scenes, including meshes, materials, lights, and cameras. These data models describe many of the elements you would need to be able to make a 3D scene, such as those seen in an animated film, and have been used successfully by many studios as a common interchange format to pass the data between applications.
+To solve these problems, Pixar built USD with a core set of {term}`schemas <Schema>` to effectively describe 3D scenes, including meshes, materials, lights, and cameras. These data models describe many of the elements you would need to be able to make a 3D scene, such as those seen in an animated film, and have been used successfully by many studios as a common interchange format to pass the data between applications.
 
 ![](../../images/data-exchange/image35.png)
 
@@ -67,7 +67,7 @@ Unlike importers and exporters that have a clear translation directionality, a c
 
 File format plugins are a unique feature of OpenUSD. They allow OpenUSD to compose with additional file formats and even non-file-based sources, such as databases and procedurally generated content. Here are some key points about file format plugins:
 
-- An OpenUSD stage can include a source file format directly as a reference, payload or sublayer. The source file format is translated on the fly, while it is read as a USD document (layer, in USD parlance).
+- An OpenUSD {term}`stage <Stage>` can include a source file format directly as a {term}`reference <Reference>`, {term}`payload <Payload>` or {term}`sublayer <Sublayer>`. The source file format is translated on the fly, while it is read as a USD document ({term}`layer <Layer>`, in USD parlance).
 - The source file format can remain the source of truth.
 - File format plugins can be bidirectional, supporting both reading from and writing to the source file format.
 - They can be used as standalone converters with tools like [usdcat](https://openusd.org/release/toolset.html#usdcat).

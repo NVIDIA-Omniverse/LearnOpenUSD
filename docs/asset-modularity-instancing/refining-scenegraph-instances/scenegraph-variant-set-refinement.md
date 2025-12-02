@@ -2,9 +2,9 @@
 
 ## What Is Refinement Using Variant Sets?
 
-Your use case may have a common workflow pattern that could be captured as variants or states within your assets.
+Your use case may have a common workflow pattern that could be captured as {term}`variants <Variant>` or states within your {term}`assets <Asset>`.
 
-Variant sets are part of composition and your variant selections are evaluated when OpenUSD determines what implicit prototypes it needs to create. This means that you can edit the subgraphs of your instances through variant selections and OpenUSD will figure out any additional prototypes it needs based on the variants.
+{term}`Variant sets <Variant Set>` are part of {term}`composition <Composition>` and your variant selections are evaluated when OpenUSD determines what implicit prototypes it needs to create. This means that you can edit the subgraphs of your instances through variant selections and OpenUSD will figure out any additional prototypes it needs based on the variants.
 
 A useful pattern is to place your variant sets on the instanceable prim so that you can still make different variant selection even when an asset is instanced. This pattern pairs very well with the asset structure concept of [asset parameterization](../../asset-structure/asset-parameterization/what-is-asset-parameterization.md).
 
@@ -53,7 +53,7 @@ This is the box that we will be shipping.
 
 ![](../../images/asset-modularity-instancing//allocated-variant.png)
 
-This adds a shipping label to the top of the box and sets the custom `status` attribute on that prim to "ALLOCATED". The custom `status` attribute give us a convenient way to query the box's state instead of just relying on the name of the variant. We can use these variants to track the status of packages within our facility.
+This adds a shipping label to the top of the box and sets the custom `status` {term}`attribute <Attribute>` on that prim to "ALLOCATED". The custom `status` attribute give us a convenient way to query the box's state instead of just relying on the name of the variant. We can use these variants to track the status of packages within our facility.
 
 ### Applying Variants to Multiple Instances
 

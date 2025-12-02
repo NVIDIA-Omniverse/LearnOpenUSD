@@ -6,8 +6,8 @@ In this lesson, we'll talk about how USD enables modern content pipelines to be 
 
 By the end of this lesson, you'll be able to:
 
-* **Understand** the principles of asset modularity and how they apply to USD workflows
-* **Explain** how composition arcs and layer stacks enable modular scene construction
+* **Understand** the principles of {term}`asset <Asset>` modularity and how they apply to USD workflows
+* **Explain** how {term}`composition arcs <Composition Arcs>` and {term}`layer stacks <Layer Stack>` enable modular scene construction
 * **Analyze** the benefits of modular approaches including validation, standardization, and performance
 * **Evaluate** the efficiency gains of reusing assets across multiple scenarios
 

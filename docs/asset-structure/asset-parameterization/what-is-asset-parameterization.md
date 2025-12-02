@@ -19,9 +19,9 @@
 
 ::::
 
-Asset parameterization enables the reuse of content by allowing certain fields and properties to vary downstream.
+{term}`Asset <Asset>` parameterization enables the reuse of content by allowing certain fields and {term}`properties <Property>` to vary downstream.
 
-There are two primary ways to parameterize assets: **variant sets** and **primvars**.
+There are two primary ways to parameterize assets: {term}`variant sets <Variant Set>` and {term}`primvars <Primvar>`.
 
 ## Variant Sets
 
@@ -36,7 +36,7 @@ def Xform "RaceCar" (variantSets = ["color_variant"])
 }
 ```
 
-The entry point is the first place a user goes to determine if prims have discrete **variants**. Asset structures may enforce naming conventions and require the presence of specific variants. For example, it might be expected that assets provide a `color_variant` to describe supported albedo variations.
+The entry point is the first place a user goes to determine if {term}`prims <Prim>` have discrete **{term}`variants <Variant>`**. Asset structures may enforce naming conventions and require the presence of specific variants. For example, it might be expected that assets provide a `color_variant` to describe supported albedo variations.
 
 ---
 
@@ -55,7 +55,7 @@ def Xform "RaceCar" {
 
 Some variations cannot be effectively or efficiently discretized into variants. For these cases, **primvars** can be used as another form of asset parameterization. Primvars are extra parameters that can be interpolated and are primarily used to provide additional data to shading contexts. In OpenUSD, primvars are inherited down the prim hierarchy and can be authored on an ancestor prim, including the entry point of an asset.
 
-Take, for example, the snippet above. Materials can be constructed to read `primvars:asset_base_color` or other entry point primvars. If multiple prims in a hierarchy author the same primvar, remember that child opinions are stronger than parents. We use `asset_` as a prefix to avoid namespace collisions.
+Take, for example, the snippet above. Materials can be constructed to read `primvars:asset_base_color` or other entry point primvars. If multiple prims in a hierarchy author the same primvar, remember that child opinions are stronger than parents. We use `asset_` as a prefix to avoid {term}`namespace <Namespace>` collisions.
 
 ---
 
@@ -68,5 +68,4 @@ This generally makes parameterization through primvars the lighter choice for si
 
 ![](../../images/asset-structure/image20.png)  
 
-As part of the asset prim interface, collections and relationships can be used to indicate the membership and roles of certain prims. Consider a workflow centered around practical lights. By highlighting these practical lights in a collection at the asset entry point, it becomes easier for users to find and interact with them downstream. For example, they might want to control the intensity or turn the lights on and off.
-
+As part of the asset prim interface, {term}`collections <Collection>` and {term}`relationships <Relationship>` can be used to indicate the membership and roles of certain prims. Consider a workflow centered around practical lights. By highlighting these practical lights in a collection at the asset entry point, it becomes easier for users to find and interact with them downstream. For example, they might want to control the intensity or turn the lights on and off.

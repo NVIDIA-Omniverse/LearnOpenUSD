@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this exercise, you will learn how to create a PointInstancer from a JSON file that emulates exported data from a simulation application. Point instancing is a powerful technique for efficiently representing large numbers of similar objects. You'll read scatter data of boxes and pallets and create a PointInstancer prim. This technique is essential for handling massive datasets in production workflows.
+In this exercise, you will learn how to create a PointInstancer from a JSON file that emulates exported data from a simulation application. Point instancing is a powerful technique for efficiently representing large numbers of similar objects. You'll read scatter data of boxes and pallets and create a PointInstancer {term}`prim <Prim>`. This technique is essential for handling massive datasets in production workflows.
 
 ## Exploring the Point Instancer Script
 
@@ -15,7 +15,7 @@ In this exercise, you will learn how to create a PointInstancer from a JSON file
 :linenos:
 ```
 
-The script reads position, orientation, and prototype data from a JSON file, then creates a PointInstancer with two prototypes (a box and a pallet) and populates it with thousands of instances. This demonstrates how to efficiently create thousands of instances of individual assets using a PointInstancer.
+The script reads position, orientation, and prototype data from a JSON file, then creates a PointInstancer with two prototypes (a box and a pallet) and populates it with thousands of instances. This demonstrates how to efficiently create thousands of instances of individual {term}`assets <Asset>` using a PointInstancer.
 
 ## Running the Point Instancer Script
 

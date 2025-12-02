@@ -27,9 +27,9 @@ kernelspec:
 ---
 # Prims
 
-Welcome to this lesson on OpenUSD prims. In this lesson, we will:
+Welcome to this lesson on OpenUSD {term}`prims <Prim>`. In this lesson, we will:
 
-* Identify the role of prims, including what a prim is and its role within a OpenUSD stage.
+* Identify the role of prims, including what a prim is and its role within a OpenUSD {term}`stage <Stage>`.
 
 ## What Is a Prim?
 
@@ -38,15 +38,15 @@ Primitives, or prims for short, are the building blocks of any OpenUSD scene, ma
 ```{kaltura} 1_trdtyb7a
 ```
 
-A prim is the core component within the USD framework. Think of a prim as a container that holds various types of data, attributes, and relationships which define an object or entity within a scene. A prim can be a type of visual or non-visual entity, such as a mesh, a material, or a light or an xform. Prims are organized in a hierarchical structure, creating a scenegraph that represents the relationships and transformations between objects in the scene.
+A prim is the core component within the USD framework. Think of a prim as a container that holds various types of data, {term}`attributes <Attribute>`, and {term}`relationships <Relationship>` which define an object or entity within a scene. A prim can be a type of visual or non-visual entity, such as a mesh, a material, or a light or an xform. Prims are organized in a hierarchical structure, creating a scenegraph that represents the relationships and transformations between objects in the scene.
 
-Each prim has a unique identifier known as a path, which helps in locating it within the scene graph. For example, a prim’s path might be `/World/BuildingA/Geometry/building_geo`, indicating that it is a child of the `Geometry` prim, which itself is a child of the `BuildingA` prim, and so on.
+Each prim has a unique identifier known as a {term}`path <Path>`, which helps in locating it within the scenegraph. For example, a prim’s path might be `/World/BuildingA/Geometry/building_geo`, indicating that it is a child of the `Geometry` prim, which itself is a child of the `BuildingA` prim, and so on.
 
 ### How Does It Work?
 
 Prims can have various types of attributes associated with them, such as position, rotation, scale, material information, animation data, and more. These properties define the attributes and relationships of the objects they represent.
 
-A key feature of USD prims is their ability to encapsulate data, allowing them to be shared, referenced, and instanced across different scenes and files. This promotes efficient data management, modularity, and collaborative workflows. Typical use cases include defining models, cameras, lights, or even groups of other prims. The ability to efficiently manage and manipulate these prims non-destructively is what makes USD so powerful in various industries where complex scenes are the norm.
+A key feature of USD prims is their ability to encapsulate data, allowing them to be shared, referenced, and instanced across different scenes and files. Typical use cases include defining {term}`models <Model>`, cameras, lights, or even groups of other prims. The ability to efficiently manage and manipulate these prims non-destructively is what makes USD so powerful in various industries where complex scenes are the norm.
 
 
 ### Working With Python
@@ -84,7 +84,7 @@ from utils.helperfunctions import create_new_stage
 
 ### Example 1: Defining a Prim
 
-A [`prim`](https://openusd.org/release/glossary.html#usdglossary-prim) is the primary container object in USD. It can contain other prims and properties holding data.
+A prim is the primary container object in USD. It can contain other prims and properties holding data.
 
 To create a generic prim on the stage we use [`DefinePrim()`](https://openusd.org/release/api/class_usd_stage.html#a6151ae804f7145e451d9aafdde347730). By default, the prim will be typeless meaning that it's just an empty container. By introducing a prim type, we can begin to dictate what kind of data the prim contains depending on if it is a prim to represent a cube, a light, a mesh, etc.
 

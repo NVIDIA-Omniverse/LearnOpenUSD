@@ -1,6 +1,6 @@
 # Exercise: Asset Parameterization
 
-In this exercise, you’ll create a primvar as an asset parameter to control the accent color of the building's awning. Note that we have updated the `lrg_bldgF` asset so that the `roof` material now accepts a primvar for its `diffuseColor`.
+In this exercise, you’ll create a {term}`primvar <Primvar>` as an {term}`asset <Asset>` parameter to control the accent color of the building's awning. Note that we have updated the `lrg_bldgF` asset so that the `roof` material now accepts a primvar for its `diffuseColor`.
 
 1. In Visual Studio Code, **open** the following file: `asset_structure/exercise_05/contents/shading.usd`  
 2. Then, **find** the following snippet in the file (it should be around line 86).

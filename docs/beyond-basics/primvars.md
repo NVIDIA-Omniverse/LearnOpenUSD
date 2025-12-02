@@ -34,13 +34,13 @@ kernelspec:
 ```{kaltura} 1_pqmuz40u
 ```
 
-Short for primitive variables, primvars are special attributes that contain extra features. They address the following problems in computer graphics:
+Short for {term}`primitive variables <Primvar>`, primvars are special {term}`attributes <Attribute>` that contain extra features. They address the following problems in computer graphics:
 
-* The need to "bind" user data on geometric primitives that becomes available to shaders during rendering.
+* The need to "bind" user data on {term}`geometric primitives <Gprim>` that becomes available to shaders during rendering.
 * The need to specify a set of values associated with vertices or faces of a primitive that will interpolate across the primitive's surface under subdivision or shading.
-* The need to inherit attributes down namespace to allow sparse authoring of shareable data.
+* The need to inherit attributes down {term}`namespace <Namespace>` to allow sparse authoring of shareable data.
 
-Some examples include, texture coordinates, vertex colors, or custom metadata, allowing for interpolating data on individual objects.
+Some examples include, texture coordinates, vertex colors, or custom {term}`metadata <Metadata>`, allowing for interpolating data on individual objects.
 
 Primvars are essential for various tasks, including:
 
@@ -90,7 +90,7 @@ from utils.helperfunctions import create_new_stage
 
 ### Example 1: Primvar interpolation (constant, uniform, vertex)
 
-This example builds the same two‑quad mesh three times and authors the displayColor primvar with three interpolation modes: constant (one value for the whole gprim), uniform (one per face), and vertex (one per point).
+This example builds the same two‑quad mesh three times and authors the displayColor primvar with three {term}`interpolation <Interpolation>` modes: constant (one value for the whole gprim), uniform (one per face), and vertex (one per point).
 
 ```{code-cell}
 :emphasize-lines: 28-53
@@ -161,7 +161,7 @@ DisplayCode(file_path)
 
 ### Example 2: Store "rest state" and "deformation" as Primvars
 
-This example writes two vertex primvars on a quad: rest_state and deformation. It computes new points as rest_state + deformation, then time‑samples Mesh.points
+This example writes two vertex primvars on a quad: rest_state and deformation. It computes new points as rest_state + deformation, then {term}`time samples <Time Sample>` Mesh.points
 
 ```{code-cell}
 :emphasize-lines: 34-57

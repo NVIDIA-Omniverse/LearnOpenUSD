@@ -29,15 +29,15 @@ kernelspec:
 # Prim and Property Paths
 
 ## What Is a Path?
-In OpenUSD, a path represents the location of a prim or property within a scenegraph. The string representation for a prim path consists of a sequence of prim names separated by forward slashes (`/`), similar to file paths in a directory structure. The stage pseudo-root, which serves as the starting point for the hierarchy, is represented by a forward slash (`/`).
+In OpenUSD, a {term}`path <Path>` represents the location of a {term}`prim <Prim>` or {term}`property <Property>` within a scenegraph. The string representation for a prim path consists of a sequence of prim names separated by forward slashes (`/`), similar to file paths in a directory structure. The {term}`stage <Stage>` {term}`pseudo-root <Pseudo-Root>`, which serves as the starting point for the hierarchy, is represented by a forward slash (`/`).
 
 For example, the path `/World/Geometry/Box` represents a prim named `Box` that is a child of a prim named `Geometry`, which is a child of the root prim named `World`.
 
 ### How Does It Work?
 
-Paths in OpenUSD are handled through the `pxr.Sdf.Path` class to encode path data including prims, properties (both attributes and relationships), and variants.
+Paths in OpenUSD are handled through the `pxr.Sdf.Path` class to encode path data including prims, properties (both {term}`attributes <Attribute>` and {term}`relationships <Relationship>`), and {term}`variants <Variant>`.
 
-Prims are indicated by a slash separator, which indicates the namespace Child (ex: `"/geo/box"`)
+Prims are indicated by a slash separator, which indicates the {term}`namespace <Namespace>` (e.g. `"/geo/box"`)
 
 Period separators after an identifier is used to introduce a property (ex: `"/geo/box.weight"`)
 
@@ -80,7 +80,7 @@ from utils.helperfunctions import create_new_stage
 
 ### Example 1: Getting, Validating, and Defining Prims at Path  
 
-Each prim has a [path](https://openusd.org/release/glossary.html#usdglossary-path) to describe its location in [namespace](https://openusd.org/release/glossary.html#usdglossary-namespace).
+Each prim has a path to describe its location in namespace.
 
 For example, we defined a prim `hello` at path `/hello` and another prim `world` at path `/hello/world`.
 
@@ -88,9 +88,6 @@ We can retrieve prims using their path using [`GetPrimAtPath()`](https://openusd
 
 To check if a prim is valid we can use the [`IsValid()`](https://openusd.org/release/api/class_usd_object.html#ac532c4b500b1a85ea22217f2c65a70ed) method. Valid means that the prim exists in the stage. Invalid is when the prim does not exist in the stage or when the path is invalid.
 
-```{note}
-When using `GetPrimAtPath()`, it will return type `UsdPrim`. If our prim is of type `UsdGeom`, we will not be able to use `UsdGeom` API schema on it.
-```
 
 ```{code-cell}
 :emphasize-lines: 7-20

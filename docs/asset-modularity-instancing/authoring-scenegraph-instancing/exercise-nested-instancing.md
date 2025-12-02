@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this exercise, you will explore nested instancing by enabling instancing on rack assemblies that already contain instanced components. You'll witness dramatic performance improvements while understanding the trade-offs between optimization and authoring flexibility, learning when nested instancing is most beneficial for complex USD scenes.
+In this exercise, you will explore nested instancing by enabling instancing on rack {term}`assemblies <Assembly>` that already contain {term}`components <Component>`. You'll witness dramatic performance improvements while understanding the trade‑offs between optimization and authoring flexibility, learning when nested instancing is most beneficial for complex USD scenes.
 
 ## Exercise Steps
 
@@ -26,9 +26,9 @@ Linux:
 ```
 
 2. **Click** on the top left box in the Viewport.
-3. Hover your mouse over the Tree View panel and **press** the "F" key to frame the selected prim in the Tree View. 
+3. Hover your mouse over the Tree View panel and **press** the "F" key to frame the selected {term}`prim <Prim>` in the Tree View. 
 
-You should see "CubeBox_A04_26cm_18" selected in the Tree View panel. Note the light blue text indicating that we have instancing enabled for our component assets. In the next steps, we are going to utilize nested instancing and see how that impacts the stage.
+You should see "CubeBox_A04_26cm_18" selected in the Tree View panel. Note the light blue text indicating that we have instancing enabled for our component {term}`assets <Asset>`. In the next steps, we are going to utilize nested instancing and see how that impacts the {term}`stage <Stage>`.
 
 4. **Observe** the decals on the boxes. The boxes with decals showing form a T-shape on the left pallet and the boxes on the right pallet have no decals showing. This visual diversity will be important to observe later.
 ![](../../images/asset-modularity-instancing/decal-config.png)
@@ -128,9 +128,9 @@ What would happen if you disabled instancing for one Rack_BoxPallet_A01? How man
 
 ![](../../images/asset-modularity-instancing/local-opinion-lost.png)
 
-**Notice** that every pallet now has the same T-shape formation for box decals. The stage has lost a significant amount of diversity. A creator painstakingly authored local opinions in `Scenario.usd` to give unique positions and rotations to each box for added realism. These local opinions authored on prims within the rack instances are now being ignored.
+**Notice** that every pallet now has the same T-shape formation for box decals. The {term}`stage <Stage>` has lost a significant amount of diversity. A creator painstakingly authored local {term}`opinions <Opinions>` in `Scenario.usd` to give unique positions and rotations to each box for added realism. These local opinions authored on prims within the rack instances are now being ignored.
 
-**This is the key trade-off with nested instancing:** The higher you move your instancing up the prim hierarchy, the more performance improvements you gain, but at the cost of authoring flexibility. In later modules, you'll learn techniques to try to balance both of these.
+**This is the key trade-off with nested instancing:** The higher you move your instancing up the {term}`prim hierarchy <Namespace>`, the more performance improvements you gain, but at the cost of authoring flexibility. In later modules, you'll learn techniques to try to balance both of these.
 
 12. **Close** usdview.
 

@@ -12,11 +12,11 @@ We started the module refreshing the concepts of composition in OpenUSD. We have
 
 ![](../images/asset-modularity-instancing/sparse-overrides.gif)
 
-The local layer stack functions as the point of refinement for all the content you've composed. Robots can be articulated and assembly lines simulated. Materials can be modified, variants can be selected.
+The local layer stack functions as the point of refinement for all the content you've composed. Robots can be articulated and assembly lines simulated. Materials can be modified, {term}`variants <Variant>` can be selected.
 
-Sparse overrides are often referred to as OpenUSD's superpower. You can work modularly, assemble, and continue to refine downstream.
+Sparse {term}`overrides <Over>` are often referred to as OpenUSD's superpower. You can work modularly, assemble, and continue to refine downstream.
 
-Encapsulating your assets in modular layers facilitates data reuse. Reuse amortizes the cost of a layer both within a scene and across scenes. We get a lot of flexibility that supports unique overrides. Post composition, runtimes may be able to detect whether attribute values or parts are the same as a form of data deduplication.
+Encapsulating your {term}`assets <Asset>` in modular {term}`layers <Layer>` facilitates data reuse. Reuse amortizes the cost of a layer both within a scene and across scenes. We get a lot of flexibility that supports unique overrides. Post composition, runtimes may be able to detect whether {term}`attribute <Attribute>` values or parts are the same as a form of data deduplication.
 
 ```{figure} ../images/asset-modularity-instancing/just-composition.png 
 

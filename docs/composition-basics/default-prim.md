@@ -27,18 +27,17 @@ kernelspec:
 ---
 # Default Prim
 
-In this lesson, we’ll explore the concept of default prims in Universal Scene Description. Default prims are essential for scene management, especially when dealing with complex hierarchies and references. By the end of this lesson, we’ll understand what default prims are, why they are important, and how to set them using Python.
+In this lesson, we’ll explore the concept of default prims in Universal Scene Description. Default prims are essential for scene management, especially when dealing with complex hierarchies and {term}`references <Reference>`. By the end of this lesson, we’ll understand what default prims are, why they are important, and how to set them using Python.
 
 ## What Is a Default Prim?
 
 ![Default Prim Definition](../images/foundations/DefaultPrim_Definition.webm)
-A default prim in OpenUSD is a top-level prim, or primitive, that is part of the layer metadata and serves as the primary entry point or root for a stage. It helps other parts of the system know where to start or what to focus on.
+A default prim in OpenUSD is a top-level {term}`prim <Prim>`, or primitive, that is part of the {term}`layer <Layer>` {term}`metadata <Metadata>` and serves as the primary entry point or root for a {term}`stage <Stage>`. It helps other parts of the system know where to start or what to focus on.
 
 
 ### How Does It Work?
 
-It is best practice to set a default prim in our stages. This is crucial for tools and applications that read USD files, as it guides them to the primary content; for some it may even be considered invalid if the default prim is not specified for the stage. `usdchecker` checks for a default prim and reports an
-error if it is not set on a stage. A default prim is also particularly useful when the stage’s root layer is referenced in other stages (such as a reference or payload), as it eliminates the need for consumers to specify a target prim manually.
+It is best practice to set a default prim in our stages. This is crucial for tools and applications that read USD files, as it guides them to the primary content; for some it may even be considered invalid if the default prim is not specified for the stage. `usdchecker` checks for a default prim and reports an error if it is not set on a stage. A default prim is also particularly useful when the stage’s root layer is referenced in other stages (such as a reference or {term}`payload <Payload>`), as it eliminates the need for consumers to specify a target prim manually.
 
 Let’s look at this example. Let's assume we have a USD file named `simple_scene.usda` with the following content:
 ```usda

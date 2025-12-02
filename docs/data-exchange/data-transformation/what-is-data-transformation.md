@@ -14,7 +14,7 @@ As OpenUSD expands into new industries and domains, your exporter must adapt to 
 
 ## Reusability of Transformation Code
 
-Export options, optimizations and asset structure code can be shared across applications since they all operate on OpenUSD data. While extraction code from source formats to OpenUSD is largely unique, data transformation for specific clients or workflows can be designed for reuse across multiple exporters.
+Export options, optimizations and {term}`asset <Asset>` structure code can be shared across applications since they all operate on OpenUSD data. While extraction code from source formats to OpenUSD is largely unique, data transformation for specific clients or workflows can be designed for reuse across multiple exporters.
 
 
 
@@ -40,7 +40,7 @@ Transformation is also a good time to prune data that may not be relevant to a w
 
 Conversely, third-party developers may want to add more data to an export or extract additional data that is currently not supported by the extraction implementation. This could be handled in an early step in the transformation pipeline.
 
-Third-party developers can leverage the stage from the raw extraction to export the data as sparse overrides if they choose for multi-workstream workflows.
+Third-party developers can leverage the {term}`stage <Stage>` from the raw extraction to export the data as sparse {term}`overrides <Over>` if they choose for multi-workstream workflows.
 
 ![](../../images/data-exchange/image14.png)
 
@@ -52,9 +52,9 @@ Based on their experience with exporting other file formats, most end users typi
 
 In practice, most organizations have an established asset structure, and the export will need to be transformed to fit that structure.
 
-Asset structures might leverage one or more OpenUSD concepts like composition, asset parameterization and workstreams.
+Asset structures might leverage one or more OpenUSD concepts like {term}`composition <Composition>`, asset parameterization and workstreams.
 
-If the export is just one workstream of a larger asset structure, it could be additive and define new prims, apply overrides on existing prims, or both. The exporter needs to be able to take the data extraction and distill it down to that workstream's unique contributions.
+If the export is just one workstream of a larger asset structure, it could be additive and define new {term}`prims <Prim>`, apply overrides on existing prims, or both. The exporter needs to be able to take the data extraction and distill it down to that workstream's unique contributions.
 
 Many exporters include export options to provide users with greater flexibility and control over the export. Some options may consist of choices users need to make to conform to the destination format, and other options may be added to support various workflow requirements for users.
 

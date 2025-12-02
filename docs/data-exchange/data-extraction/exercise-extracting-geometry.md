@@ -1,6 +1,6 @@
 # Exercise: Extracting Geometry
 
-Now that we have a way to parse the data in our `.obj` file, we can start extracting the information and translating it into OpenUSD. When parsing through each mesh in the scene, we need to make sure the mesh name can be used as an identifier or prim name.
+Now that we have a way to parse the data in our `.obj` file, we can start extracting the information and translating it into OpenUSD. When parsing through each mesh in the scene, we need to make sure the mesh name can be used as an identifier or {term}`prim <Prim>` name.
 
 1. Let's add the Tools Foundation library to our `pxr` imports. At the top of the file, add `Tf` to the list of imports from `pxr`. It should look like this:
 
@@ -8,7 +8,7 @@ Now that we have a way to parse the data in our `.obj` file, we can start extrac
 from pxr import Tf, Usd, UsdGeom
 ```
 
-2. Next, let's add to our `extract()` method. Right underneath where we defined stage and before we call `return stage`, we'll add our initial loop to go through all meshes in the scene. In OpenUSD, we need to ensure the mesh identifier is valid before we define it in our stage.
+2. Next, let's add to our `extract()` method. Right underneath where we defined {term}`stage <Stage>` and before we call `return stage`, we'll add our initial loop to go through all meshes in the scene. In OpenUSD, we need to ensure the mesh identifier is valid before we define it in our stage.
 
 ```{attention}
 Pay attention to your indentations if you are copying and pasting.
@@ -51,7 +51,7 @@ This code accomplishes two things:
 - It flattens the per-face indices into one continuous list.
 - For each face, it counts how many indices it's made up of to populate the list of face vertex counts.
 
-4. Now, with the rest of the information from Assimp, we can create the attributes to define the points, faces and normals of the meshes in OpenUSD. Let's add the following code to create these attributes. Place the code after our last loop but not inside of it.
+4. Now, with the rest of the information from Assimp, we can create the {term}`attributes <Attribute>` to define the points, faces and normals of the meshes in OpenUSD. Let's add the following code to create these attributes. Place the code after our last loop but not inside of it.
 
 ```py
 
@@ -70,7 +70,7 @@ It’s worth noting here that we’re setting the attribute values in two differ
 - The points attribute is set by passing a default value in the `CreatePointsAttr()`.
 - `faceVertexCounts` is set by calling `Set()` using the `UsdAttribute` object returned by `CreateFaceVertexCountsAttr()`.
 
-Both ways are available and valid. Calling `Set()` opens up the opportunity to set timeSamples if you need to. Also note that we are setting the subdivision scheme to `UsdGeom.Tokens.none` so that these meshes are explicitly treated as polygonal meshes, not SubD meshes, as OBJ doesn’t support SubD meshes.
+Both ways are available and valid. Calling `Set()` opens up the opportunity to set {term}`timeSamples <Time Sample>` if you need to. Also note that we are setting the subdivision scheme to `UsdGeom.Tokens.none` so that these meshes are explicitly treated as polygonal meshes, not SubD meshes, as OBJ doesn’t support SubD meshes.
 
 ``````{dropdown} Click to reveal our Python code up to this point.
 :animate: fade-in

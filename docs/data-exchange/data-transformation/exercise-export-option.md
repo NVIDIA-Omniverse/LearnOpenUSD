@@ -1,6 +1,6 @@
 # Exercise: Adding an Export Option
 
-Previously, we added a core mandatory transformation step to our `obj2usd` converter to make it easier to reference our converted assets. End users may not want or need all of the available transformation steps. For this exercise, we will add a new transformation step in the form of an export option so that end users can choose whether to apply the transformation on conversion or not.
+Previously, we added a core mandatory transformation step to our `obj2usd` converter to make it easier to {term}`reference <Reference>` our converted {term}`assets <Asset>`. End users may not want or need all of the available transformation steps. For this exercise, we will add a new transformation step in the form of an export option so that end users can choose whether to apply the transformation on conversion or not.
 
 We will utilize the `--up-axis` command-line flag to allow end users to change the `upAxis` upon conversion to OpenUSD. This is desirable because even though OBJ is Y-up, the rest of an organization's pipeline might be Z-up, and they would prefer that the output conforms to their pipeline.
 
@@ -28,7 +28,7 @@ def set_up_axis(stage: Usd.Stage, up_axis: UpAxis):
         xformable.AddRotateXOp(opSuffix="unitsResolve").Set(90.0)
 ```
 
-This function sets the `upAxis` metadata accordingly. If the `upAxis` is not the OBJ default (Y), it will also apply a corrective on the `defaultPrim` to reorient the stage to remain face up in the new coordinate system. We suffix the X-axis rotation operation with "`unitsResolve`" by convention to explain to end users the purpose of the transformation.
+This function sets the `upAxis` {term}`metadata <Metadata>` accordingly. If the `upAxis` is not the OBJ default (Y), it will also apply a corrective on the `defaultPrim` to reorient the {term}`stage <Stage>` to remain face up in the new coordinate system. We suffix the X-axis rotation operation with "`unitsResolve`" by convention to explain to end users the purpose of the transformation.
 
 This won’t do anything until we call the new function in `transform()`.
 

@@ -22,7 +22,7 @@ Asset structure plays an important role in scaling pipelines and ecosystems. Her
 
 A well-designed, scalable asset structure should always be tailored to the needs of your clients and collaborators.
 
-If OpenUSD is an intermediate stage in generating your final deliverable, like an image or video, you'll generally have more flexibility with your structure. However, if the asset itself is the deliverable or part of an interactive experience, both the client's stated and their anticipated needs will heavily influence the structure.
+If OpenUSD is an intermediate {term}`stage <Stage>` in generating your final deliverable, like an image or video, you'll generally have more flexibility with your structure. However, if the asset itself is the deliverable or part of an interactive experience, both the client's stated and their anticipated needs will heavily influence the structure.
 
 Collaboration is core in OpenUSD. To accommodate the size, scale, and organization of various teams, a scalable asset structure should enable parallel workstreams across multiple dimensions.
 
@@ -45,7 +45,7 @@ By adhering to these principles, you can create an asset structure that is not o
 
 A legible asset structure should be easy to understand and help new users get up to speed quickly. To ensure your asset structure is legible, consider the following: *Do names effectively convey the intent and type of your asset?* 
 
-Names for prims, properties, and resources should clearly represent their purpose and nature. Since names often appear in queries, logs, arguments and warnings, their clarity can aid in troubleshooting and communication even before opening a USD stage. 
+Names for {term}`prims <Prim>`, {term}`properties <Property>`, and resources should clearly represent their purpose and nature. Since names often appear in queries, logs, arguments and warnings, their clarity can aid in troubleshooting and communication even before opening a USD stage. 
 
 Legibility can vary by domain. Sometimes, a simple visual description (e.g., `LargeCardboardBox`) is best, while in other contexts, explicit product codes (e.g., `ID_2024_5678`) might be more readable. 
 
@@ -53,7 +53,7 @@ Here are a few other tips when creating a legible asset structure:
 
 * Use naming conventions that work seamlessly in database queries, file paths, resource identifiers, and command line arguments.   
 * Opt for straightforward standards like ASCII or UTF-8 identifiers.   
-* Steer clear of overusing composition arcs and features that cause conceptual overload and complicate user understanding.   
+* Steer clear of {term}`composition arcs <Composition Arcs>` and features that cause conceptual overload and complicate user understanding.   
 * Choose naming conventions that convey importance and intent to downstream users. For example, capitalized prim names can signify "public" elements, while underscored prim names denote "internal" ones.
 
 ### **Modularity**
@@ -61,7 +61,7 @@ Here are a few other tips when creating a legible asset structure:
 ![](../../images/asset-structure/image2.png)  
 The next key principle to a scalable asset structure is modularity. Ask yourself: *Does your asset structure facilitate iterative improvement of reusable content?*
 
-Reusing assets saves users time and allows for shared storage and resources in distributed computing environments. A modular structure encourages iterative improvement and reuse of assets, and enables parallel workstreams and collaboration through the use of layer stacks.
+Reusing assets saves users time and allows for shared storage and resources in distributed computing environments. A modular structure encourages iterative improvement and reuse of assets, and enables parallel workstreams and collaboration through the use of {term}`layer stacks <Layer Stack>`.
 
 When building modular assets, you’ll want to:
 
@@ -83,14 +83,14 @@ A performant asset structure can mean different things:
 * **Setup Speed**: How fast a new asset (like a film sequence or robot training scenario) can be set up.  
 * **Deployment Speed**: How swiftly a change can be robustly deployed across various contexts.
 
-The speed of reading an asset is driven by the cost of resolving, opening and composing the set of USD layers in a stage. You can use reference/payload pairs to create boundaries between an asset’s lightweight entry point interface and the more complex prim hierarchies and properties. 
+The speed of reading an asset is driven by the cost of resolving, opening and composing the set of USD layers in a stage. You can use {term}`reference <Reference>`/{term}`payload <Payload>` pairs to create boundaries between an asset’s lightweight entry point interface and the more complex prim hierarchies and properties. 
 
 Here are some additional tips to consider: 
 
-* Crate (.usdc) files are generally I/O efficient across network and file systems. However, a mirroring asset resolver that localizes a layer before reading can undermine these optimizations.   
-* Use variants, references and payloads to avoid synchronization issues.  
+* {term}`Crate <Crate File Format>` (.usdc) files are generally I/O efficient across network and file systems. However, a mirroring asset resolver that localizes a layer before reading can undermine these optimizations.   
+* Use {term}`variants <Variant>` , references and payloads to avoid synchronization issues.  
 * Avoid using timestamps, UUIDs, and versions to layers that might complicate storage deduplication.   
-* Use instancing to keep the composed prim count manageable for clients (e.g., avoid millions of prims). 
+* Use {term}`instancing <Instancing>` to keep the composed prim count manageable for clients (e.g., avoid millions of prims). 
 
 In order to determine if your asset is performant or not, you’ll need to define measurable performance metrics based on the needs of your clients and collaborators. 
 
@@ -104,5 +104,5 @@ Assets typically involve multiple hierarchical paths–like resource identifiers
 Consider the following when creating a navigable asset structure:
 
 * Structure your prim hierarchies, resource identifies, model hierarchies and file paths in a way that promotes easy discovery.  
-* Use relationships and collections to boost discoverability without relying on rigid naming conventions.   
-* Keep boundaries of your model hierarchy components shallow and consistent to ensure ease of navigation.
+* Use {term}`relationships <Relationship>` and {term}`collections <Collection>` to boost discoverability without relying on rigid naming conventions.   
+* Keep boundaries of your {term}`model hierarchy <Model Hierarchy>` components shallow and consistent to ensure ease of navigation.

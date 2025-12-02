@@ -17,7 +17,7 @@ Take a second to look at the tree view in the top left corner.
 
 ![](../../images/asset-structure/image1.png)
 
-Notice that the mesh and material prims don't have a common ancestor prim that could be referenced to include them all together. Even though the “root” item in the tree view looks like an ancestor prim, it represents the stage’s pseudo-root and is not a defined prim. We can address this by creating an entry point prim and making all the current root prims its children.
+Notice that the mesh and material {term}`prims <Prim>` don't have a common ancestor prim that could be referenced to include them all together. Even though the “root” item in the tree view looks like an ancestor prim, it represents the {term}`stage <Stage>`’s {term}`pseudo-root <Pseudo-Root>` and is not a defined prim. We can address this by creating an entry point prim and making all the current root prims its children.
 
 2.  In Visual Studio Code, **open** the following file: `asset_structure/exercise_01/make_entry_point.py`
 
@@ -58,7 +58,7 @@ Linux:
 
 ![](../../images/asset-structure/image10.png)
 
-7. Now that we have a fully referenceable asset, we’ll create a new layer called `scene.usda` that contains three references of `lrg_bldgF.usd`. In Visual Studio Code, **run** the following command in the terminal:
+7. Now that we have a fully referenceable {term}`asset <Asset>`, we’ll create a new {term}`layer <Layer>` called `scene.usda` that contains three {term}`references <Reference>` of `lrg_bldgF.usd`. In Visual Studio Code, **run** the following command in the terminal:
 
 Windows:
 ```powershell

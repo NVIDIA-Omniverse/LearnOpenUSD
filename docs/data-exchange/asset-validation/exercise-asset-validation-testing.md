@@ -1,6 +1,6 @@
 # Exercise: Asset Validation and Testing
 
-OpenUSD is incredibly powerful and flexible. As you develop your data exchange implementation, you can test it against different test assets and also use validators like usdchecker to make sure that your implementation is authoring valid and compliant OpenUSD data. In this exercise, we will use usdchecker to find any issues with an asset output by our `obj2usd` converter and improve our code accordingly.
+OpenUSD is incredibly powerful and flexible. As you develop your data exchange implementation, you can test it against different test {term}`assets <Asset>` and also use validators like usdchecker to make sure that your implementation is authoring valid and compliant OpenUSD data. In this exercise, we will use usdchecker to find any issues with an asset output by our `obj2usd` converter and improve our code accordingly.
 
 1. Let's get a fresh conversion from `obj2usd` to validate. Execute the script by running the following in the terminal.
 

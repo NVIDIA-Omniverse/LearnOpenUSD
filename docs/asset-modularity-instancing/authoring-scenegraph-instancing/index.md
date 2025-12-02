@@ -6,9 +6,9 @@ In this lesson, you'll learn how to create and manage scenegraph instances in US
 
 By the end of this lesson, you'll be able to:
 
-* **Explain** how scenegraph instancing works in USD and its relationship to the composition system
-* **Create** scenegraph instances by enabling the `instanceable` metadata on prims
-* **Analyze** stage statistics to understand the performance impact of instancing
+* **Explain** how scenegraph instancing works in USD and its relationship to the {term}`composition <Composition>` system
+* **Create** scenegraph instances by enabling the `instanceable` {term}`metadata <Metadata>` on {term}`prims <Prim>`
+* **Analyze** {term}`stage <Stage>` statistics to understand the performance impact of instancing
 * **Implement** nested instancing hierarchies for complex scene structures
 * **Compare** the trade-offs between instancing performance and authoring flexibility
 

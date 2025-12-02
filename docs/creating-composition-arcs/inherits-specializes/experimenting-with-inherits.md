@@ -1,8 +1,8 @@
 # Exercise: Experimenting With Inherits
 
-First, we will look at a simple example of inherits using `cube.usd` and `cube_pyramid.usd`. Both can be found in `composition_arcs/inherits/simple_example`.
+First, we will look at a simple example of {term}`inherits <Inherit>` using `cube.usd` and `cube_pyramid.usd`. Both can be found in `composition_arcs/inherits/simple_example`.
 
-Our `cube.usd` is the same cube we have used in previous examples. The main difference is that there is a class called `_cube_asset` which the "World" prim is inheriting from. There are no authored opinions in `_cube_asset`.
+Our `cube.usd` is the same cube we have used in previous examples. The main difference is that there is a {term}`class <Class>` called `_cube_asset` which the "World" {term}`prim <Prim>` is inheriting from. There are no authored {term}`opinions <Opinions>` in `_cube_asset`.
 
 ![](../../images/composition-arcs/image90.png)
 
@@ -12,7 +12,7 @@ If you are trying to view the file in usdview and cannot see `_cube_asset` in th
 
 ![](../../images/composition-arcs/image101.png)
 
-The next file, `cube_pyramid.usd` references `cube.usd` three times to create a pyramid. Each cube is also a different color. Let’s get started with the exercise.
+The next file, `cube_pyramid.usd` {term}`references <Reference>` `cube.usd` three times to create a pyramid. Each cube is also a different color. Let’s get started with the exercise.
 
 ![](../../images/composition-arcs/image49.png)
 
@@ -27,7 +27,7 @@ Linux:
 ./scripts/usdview.sh ./composition_arcs/inherits/simple_example/inherits_simple.usd
 ```
 
-In this layer we are referencing `cube_pyramid.usd`, however each cube has the same color instead of different colors. Why is this?
+In this {term}`layer <Layer>` we are referencing `cube_pyramid.usd`, however each cube has the same color instead of different colors. Why is this?
 
 ![](../../images/composition-arcs/image95.png)
 
@@ -56,13 +56,13 @@ So why create an inherits arc? Let’s look at `composition_arcs/inherits/practi
 
 ![](../../images/composition-arcs/image28.png)
 
-We could directly modify the street lamp asset that is referenced, but since the director only wants to affect the context that we were looking at and not any others this isn’t the best option. A change to the referenced asset would ripple to every scene. The next obvious choice would be to just author overrides for all the referenced lights in `night_scene_01.usd`. We could do it manually or scripted. This can be labor intensive, prone to error, and potentially adds a lot of extra authored data that doesn’t need to be there.
+We could directly modify the street lamp {term}`asset <Asset>` that is referenced, but since the director only wants to affect the context that we were looking at and not any others this isn’t the best option. A change to the referenced asset would ripple to every scene. The next obvious choice would be to just author {term}`overrides <Over>` for all the referenced lights in `night_scene_01.usd`. We could do it manually or scripted. This can be labor intensive, prone to error, and potentially adds a lot of extra authored data that doesn’t need to be there.
 
 Instead, let's look at how the inherits arc can help in this scenario. If the street lamp asset has an inherits arc, we can author a new opinion on the inherits source prim in `night_scene_01.usd`. The opinion is then broadcast to all prims that inherit from the source prim, but just for that context. The other scenes will be unaffected. Let's use an inherits arc on the street lamp to change the color of the lights.
 
 3. Open the following file in Visual Studio Code: `composition_arcs/inherits/exercise/inherits_exercise_1.py`
 
-We need to create the class, `_street_lamp_dbl` in which our street lamps will inherit from. Then we'll have the default prim in our stage inherit from our newly created class.
+We need to create the class, `_street_lamp_dbl` in which our street lamps will inherit from. Then we'll have the default prim in our {term}`stage <Stage>` inherit from our newly created class.
 
 4. **Add** the following code to the script:
 

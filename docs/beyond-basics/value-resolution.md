@@ -32,7 +32,7 @@ kernelspec:
 
 ![Value Resolution Definition](../images/foundations/ValueResolution_Defintion.webm)
 
-Value resolution is how OpenUSD figures out the final value of a property or piece of metadata by looking at all the different sources that might have information about it. Think of it like solving a puzzle where you have multiple pieces of information from different places, and you need to figure out what the final answer should be.
+Value resolution is how OpenUSD figures out the final value of a {term}`property <Property>` or piece of metadata by looking at all the different sources that might have information about it. Think of it like solving a puzzle where you have multiple pieces of information from different places, and you need to figure out what the final answer should be.
 
 Even though value resolution combines many pieces of data together, it's different from composition. Understanding this difference helps you work with USD more effectively.
 
@@ -44,15 +44,15 @@ Animation splines were recently added to OpenUSD and are also part of value reso
 
 ### Key Differences Between Composition and Value Resolution
 
-1. **Composition is cached, value resolution is not**
+1. **{term}`Composition <Composition>` is cached, value resolution is not**
 
-   When you open a stage or add new scene data, USD creates an "index" of the composition logic and result at the prim-level for quick access. However, USD doesn't pre-calculate the final values of properties. This keeps the system fast and uses less memory.
+   When you open a {term}`stage <Stage>` or add new scene data, USD creates an {term}`index <Index>` of the composition logic and result at the prim-level for quick access. However, USD doesn't pre-calculate the final values of properties. This keeps the system fast and uses less memory.
 
    ```{tip}
    If you need to get the same attribute value many times, you can use special tools like `UsdAttributeQuery` to cache this information yourself.
    ```
 
-2. **Composition rules vary by composition arc, value resolution rules vary by data type**
+2. **Composition rules vary by {term}`composition arc <Composition Arcs>`, value resolution rules vary by data type**
 
    Composition figures out where all the data comes from and creates an index of sources for each prim. Value resolution then takes this ordered list (from strongest to weakest) and combines the opinion data according to what type of information it is.
 
@@ -62,22 +62,21 @@ Animation splines were recently added to OpenUSD and are also part of value reso
 
 For most metadata, the rule is simple: **the strongest opinion wins**. Think of it like a voting system where the most authoritative source gets the final say.
 
-Some metadata like prim specifier, attribute typeName, and several others have special resolution 
-rules. A common metadata type you may encount with special resolution rules are dictionaries (like `customData`). Dictionaries combine element by element, so if one layer has `customData["keyOne"]` and another has `customData["keyTwo"]`, the final result will have both keys.
+Some metadata like prim {term}`specifier <Specifier>`, {term}`attribute <Attribute>` typeName, and several others have special resolution rules. A common metadata type you may encount with special resolution rules are dictionaries (like `customData`). Dictionaries combine element by element, so if one layer has `customData["keyOne"]` and another has `customData["keyTwo"]`, the final result will have both keys.
 
 #### Resolving Relationships
 
-Relationships work differently because they can have multiple targets. Instead of just picking the strongest opinion, USD combines all the opinions about what the relationship should point to, following specific rules for how to merge lists (i.e. list ops).
+{term}`Relationships <Relationship>` work differently because they can have multiple targets. Instead of just picking the strongest opinion, USD combines all the opinions about what the relationship should point to, following specific rules for how to merge lists (i.e. list ops).
 
 #### Resolving Attributes
 
 Attributes are special because they have three possible sources of values at each location:
 
-1. **Value Clips** - Animation data stored in separate files
-2. **TimeSamples** - Specific values at specific times
-3. **Default Value** - A non-time-varying value
+1. **{term}`Value Clips <Value Clips>`** - Animation data stored in separate files
+2. **{term}`TimeSamples <Time Sample>`** - Specific values at specific times
+3. **{term}`Default Value <Default Value>`** - A non-time-varying value
 
-Value resolution of attributes in the first two cases also account for time scaling and offset operators (e.g. Layer Offsets) and interpolation for time codes that fall between two explicit timeSamples.
+Value resolution of attributes in the first two cases also account for time scaling and offset operators (e.g. {term}`Layer offsets <Layer Offset>`) and {term}`interpolation <Interpolation>` for {term}`time codes <Time Code>` that fall between two explicit timeSamples.
 
 ## Working With Python
 
@@ -115,7 +114,7 @@ from utils.helperfunctions import create_new_stage
 
 ### Example 1: Attribute Value Resolution and Animation
 
-This example shows how a transform attribute (the `xformOp:scale` authored by `XformCommonAPI`) resolves from four sources: a fallback value when no authored value exists, an authored default value, authored time sample values, and interpolated values between time samples.
+This example shows how a transform attribute (the `xformOp:scale` authored by `XformCommonAPI`) resolves from four sources: a {term}`fallback <Fallback>` value when no authored value exists, an authored default value, authored time sample values, and interpolated values between time samples.
 
 ```{code-cell}
 :emphasize-lines: 27-67
@@ -206,7 +205,7 @@ Notice `Get(..., Usd.TimeCode.Default())` returns the user defined default (non�
 
 ### Example 2: Custom Data and Relationship Value Resolution
 
-This example composes two layers to show two resolution rules for dictionary metadata like `customData` (per key by strength) as well as relationships `list‑editing semantics`.
+This example composes {term}`layers <Layer>` to show two resolution rules for dictionary metadata like `customData` (per key by strength) as well as relationships `list‑editing semantics`.
 
 ```{code-cell}
 :emphasize-lines: 37-60
@@ -275,7 +274,7 @@ with open(explicit_composed_path, "w") as f:
 :tags: [remove-input]
 DisplayCode(explicit_composed_path)
 ```
-Here `source` and `opinion` resolve from the stronger layer, while `unique_layer_value` persists from the weaker layer since the stronger layer did not author that key. The resolved relationship includes both `LookA` and `LookB` because list‑editing merged the targets.
+Here `source` and `opinion` resolve from the stronger layer, while `unique_layer_value` persists from the weaker layer since the stronger layer did not author that key. The resolved relationship includes both `LookA` and `LookB` because {term}`list‑editing <List Editing>` merged the targets.
 
 ## Key Takeaways
 

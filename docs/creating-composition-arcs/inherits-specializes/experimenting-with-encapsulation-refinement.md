@@ -1,6 +1,6 @@
 # Exercise: Experimenting With Encapsulation and Refinement
 
-For this example, we’ll be using `cube.usd` that inherits from a `_cube_asset` class prim. The following files can be found in `composition_arcs/inherits/refinement_example`.
+For this example, we’ll be using `cube.usd` that {term}`inherits <Inherit>` from a `_cube_asset` {term}`class <Class>` {term}`prim <Prim>`. The following files can be found in `composition_arcs/inherits/refinement_example`.
 
 ![](../../images/composition-arcs/image63.png)
 
@@ -23,7 +23,7 @@ Linux:
 ./scripts/usdview.sh ./composition_arcs/inherits/refinement_example/global_refinement.usd
 ```
 
-**Global refinement** takes advantage of inherit arc targets where the target path never changes. A path outside of encapsulation never gets re-pathed on reference. So for our example in `global_refinement.usd,` we override `/_cube_asset` and change the color to magenta, meaning all the cubes inheriting from `/_cube_asset` will all turn magenta.
+**Global refinement** takes advantage of inherit arc targets where the target {term}`path <Path>` never changes. A path outside of encapsulation never gets re-pathed on {term}`reference <Reference>`. So for our example in `global_refinement.usd,` we override `/_cube_asset` and change the color to magenta, meaning all the cubes inheriting from `/_cube_asset` will all turn magenta.
 
 ![](../../images/composition-arcs/image46.png)
 

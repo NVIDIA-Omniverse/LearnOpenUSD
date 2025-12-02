@@ -1,6 +1,6 @@
 # References and Payloads
 
-In this lesson, we’ll explore two composition arcs in OpenUSD that allow us to create modular, efficient and flexible scene descriptions. References and payloads are essential for managing complex scenes, reusing assets, and optimizing performance in USD workflows.
+In this lesson, we’ll explore two {term}`composition arcs <Composition Arcs>` in OpenUSD that allow us to create modular, efficient and flexible scene descriptions. {term}`References <Reference>` and {term}`payloads <Payload>` are essential for managing complex scenes, reusing {term}`assets <Asset>`, and optimizing performance in USD workflows.
 
 Throughout this lesson, we will:
 

@@ -2,7 +2,7 @@
 
 Let's take a look at two examples, one showing proper encapsulation and the other as improper encapsulation.
 
-1. First, we'll take a look at a layer with good encapsulation. In the Visual Studio Code terminal, **run** the following code:
+1. First, we'll take a look at a {term}`layer <Layer>` with good encapsulation. In the Visual Studio Code terminal, **run** the following code:
 
 Windows:
 ```powershell
@@ -19,7 +19,7 @@ Linux:
 
 Why is it good? What are the clues to show that it is good encapsulation?
 
-We can see in the tree that all prims are encapsulated under the default prim, 
+We can see in the tree that all {term}`prims <Prim>` are encapsulated under the default prim, 
 "World".
 
 3. Now let’s open an example of bad encapsulation. In the terminal in Visual Studio Code, **run** the following:

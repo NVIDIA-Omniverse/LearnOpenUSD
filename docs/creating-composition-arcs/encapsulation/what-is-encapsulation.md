@@ -1,6 +1,6 @@
 # What Is Encapsulation?
 
-Prims can be encapsulated or unencapsulated which has implications for referencing and other composition arcs. A prim is encapsulated when it is an ancestor of the referenced target prim. When a prim is encapsulated, it will be referenced along with its ancestor.
+{term}`Prims <Prim>` can be encapsulated or unencapsulated which has implications for {term}`referencing <Reference>` and other {term}`composition arcs <Composition Arcs>`. A prim is encapsulated when it is an ancestor of the referenced target prim. When a prim is encapsulated, it will be referenced along with its ancestor.
 
 ![](../../images/composition-arcs/image100.png)
 

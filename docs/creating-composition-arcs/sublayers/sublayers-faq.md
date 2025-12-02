@@ -1,11 +1,10 @@
-
 # Sublayers Frequently Asked Questions
 
-Before we continue, let’s talk about some common questions you may have about sublayers.
+Before we continue, let’s talk about some common questions you may have about {term}`sublayers <Sublayer>`.
 
 ## What Is `subLayerPaths`?
 
-`subLayerPaths` is a property within the `Sdf` API. It is a list that contains all the sublayers in a Layer.
+`subLayerPaths` is a property within the `Sdf` API. It is a list that contains all the sublayers in a {term}`Layer <Layer>`.
 
 Why can we not use the C++ `SetSubLayerPaths(const std::vector< std::string > &newPaths)` or `InsertSubLayerPath(const std::string &path, int index=-1)`. Since we are using Python, the `Sdf` APIs are pythonic so it’s a property instead. To see the full list properties for `Sdf.Layer` and other classes visit the [Sdf module Python documentation](https://docs.omniverse.nvidia.com/kit/docs/pxr-usd-api/latest/pxr/Sdf.html).
 

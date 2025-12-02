@@ -6,13 +6,13 @@
    We will also be looking into `sublayerB.usd` and `sublayers_simple.usd`.
    ![](../../images/composition-arcs/image45.png)
 
-Looking at `sublayerA.usda` we can see that a `Cube` is being defined under `Geometry` which is a child of `World`. You might have noticed that `World` and `Geometry` both have an *over* specifier.
+Looking at `sublayerA.usda` we can see that a `Cube` is being defined under `Geometry` which is a child of `World`. You might have noticed that `World` and `Geometry` both have an *{term}`over <Over>`* specifier.
 
-Now, let’s look at `sublayerB.usda`. You should notice two changes compared to `sublayerA.usda`. Those differences are a new *def* specifier for a `Sphere` and an *over* specifier for `Cube`.
+Now, let’s look at `sublayerB.usda`. You should notice two changes compared to `sublayerA.usda`. Those differences are a new *{term}`def <Def>`* specifier for a `Sphere` and an *over* specifier for `Cube`.
 
 **So why are over specifiers being used here?**
 
-Over is short for “override” or “compose over”, and its purpose is to provide a neutral prim container for overriding opinions. Even when an over appears in a stronger layer than a def or class for the same `primSpec` it does not change the resolved specifier for that prim. In the case of `sublayerB.usda`, we are authoring an overriding opinion for `Geometry` in which we have defined a `Sphere` prim.
+Over is short for “override” or “compose over”, and its purpose is to provide a neutral {term}`prim <Prim>` container for overriding {term}`opinions <Opinions>`. Even when an over appears in a stronger layer than a def or class for the same `primSpec` it does not change the resolved specifier for that prim. In the case of `sublayerB.usda`, we are authoring an overriding opinion for `Geometry` in which we have defined a `Sphere` prim.
 
 Let’s open `sublayers_simple.usda`. What do you notice? Any differences between the two USDA files we looked at previously?
 
@@ -50,7 +50,7 @@ What would happen if `sublayerB` defined a cube rather than a sphere?
 
 How can we apply this to other industries?
 
-Imagine we have received two layers, one containing the geometry of a building (`geometry.usd`) from one workstream and another containing all the materials (`shading.usd`). So how can we combine the two? By creating a new USD layer, we can add both `geometry.usd` and `shading.usd` as sublayers.
+Imagine we have received two {term}`layers <Layer>`, one containing the geometry of a building (`geometry.usd`) from one workstream and another containing all the materials (`shading.usd`). So how can we combine the two? By creating a new USD layer, we can add both `geometry.usd` and `shading.usd` as {term}`sublayers <Sublayer>`.
 
 ![](../../images/composition-arcs/image92.png)
 ![](../../images/composition-arcs/image53.png)

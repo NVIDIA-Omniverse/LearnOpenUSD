@@ -1,6 +1,6 @@
 # Exercise: Components
 
-For this exercise, we will set the model kind metadata on the default prim to make this asset a **component** asset.
+For this exercise, we will set the {term}`model kind <Model>` {term}`metadata <Metadata>` on the default prim to make this {term}`asset <Asset>` a {term}`component <Component>` asset.
 
 1. In Visual Studio Code, **open** the following file: `asset_structure/exercise_09/set_model_kind.py`
 

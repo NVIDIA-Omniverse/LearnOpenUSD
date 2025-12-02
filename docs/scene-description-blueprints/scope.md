@@ -31,7 +31,7 @@ Understanding Scopes is important as they help in organizing and managing comple
 
 ## What Is a Scope?
 
-In OpenUSD, a Scope is a special type of prim that is used primarily as a grouping mechanism in the scenegraph. It does not represent any geometry or renderable content itself but acts as a container for organizing other prims. Think of Scope as an empty folder on your computer where you organize files; similarly, Scope helps in structuring and organizing prims within a USD scene.
+In OpenUSD, a Scope is a special type of {term}`prim <Prim>` that is used primarily as a grouping mechanism in the scenegraph. It does not represent any geometry or renderable content itself but acts as a container for organizing other prims. Think of Scope as an empty folder on your computer where you organize files; similarly, Scope helps in structuring and organizing prims within a USD scene.
 
 ```{kaltura} 1_ybhfy6qq
 ```
@@ -63,7 +63,7 @@ from utils.visualization import DisplayUSD, DisplayCode
 ```
 
 ### Example 1: Define a Scope
-[`Scope`](https://openusd.org/release/api/class_usd_geom_scope.html) is a grouping primitive and does NOT have transformability. It can be used to organize libraries with large numbers of entry points. It also is best to group actors and environments under partitioning Scopes. Besides navigating, it's easy for a user to deactivate all actors or environments by deactivating the root scope.
+[`Scope`](https://openusd.org/release/api/class_usd_geom_scope.html) is a grouping primitive and does NOT have transformability. It can be used to organize libraries with large numbers of entry points. It also is best to group actors and environments under partitioning Scopes. Besides navigating, it's easy for a user to {term}`deactivate <Active and Inactive>` all actors or environments by deactivating the root scope.
 
 We can define `Scope`using [`UsdGeom.Scope.Define()`](https://openusd.org/release/api/class_usd_geom_scope.html#acdb17fed396719a9a21294ebca0116ae).
 
