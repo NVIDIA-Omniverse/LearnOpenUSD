@@ -38,7 +38,7 @@ This API facilitates the authoring and retrieval of a common set of operations w
 ### How Does It Work?
 
 The API provides methods to get and set these transformations at specific times--for instance, it allows the retrieval of transformation vectors at any
-given frame or {term}`TimeCode <Time Code>`, ensuring precise control over the simulation process.
+given frame or {term}`time code <Time Code>`, ensuring precise control over the simulation process.
 
 There’s another way to author and retrieve translations – through the `UsdGeomXformable` function. Xformable {term}`prims <Prim>` support arbitrary sequences of transformations, which gives power users a lot of flexibility. A user could place two rotations on a "Planet" prim, allowing them to control revolution and rotation around two different pivots on the same prim. This is powerful, but complicates simple queries like "What is the position of an object at time 101.0?"
 

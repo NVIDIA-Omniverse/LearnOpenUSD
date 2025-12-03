@@ -12,7 +12,7 @@ By the end of this chapter, you'll be able to:
 - **Navigate scene hierarchies** using prim and property {term}`paths <Path>`
 - **Choose the right USD file format** for your specific needs and workflows
 - **Organize data with {term}`metadata <Metadata>`** to enhance collaboration and pipeline efficiency
-- **Handle time-varying data** using {term}`timecodes <Time Code>` and {term}`time samples <Time Sample>` for animation
+- **Handle time-varying data** using {term}`time codes <Time Code>` and {term}`time samples <Time Sample>` for animation
 
 ## Why This Matters
 

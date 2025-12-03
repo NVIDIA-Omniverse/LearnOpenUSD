@@ -53,7 +53,7 @@ While both metadata and {term}`attributes <Attribute>` allow us to store additio
 
 * Metadata is separate from the core schema and data model, while attributes are part of the schema definition.
 * Metadata is typically used for supplementary information, while attributes are often used for data directly related to the object's properties or behavior.
-* Metadata cannot be sampled over time (i.e. timesamples), allowing it to be evaluated and stored more efficiently than attribute values.
+* Metadata cannot be sampled over time (i.e. time samples), allowing it to be evaluated and stored more efficiently than attribute values.
 
 ### Working With Python
 

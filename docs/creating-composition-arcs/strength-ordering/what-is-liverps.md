@@ -25,7 +25,7 @@ In the USDA file on the right, we have a local opinion which is our radius on ou
 
 ![](../../images/composition-arcs/image85.png)
 
-In this stage with one layer, there is only one `primSpec` and `propertySpec` for the Sphere prim, so the composition is obvious. The composition is just the radius of the sphere, 2.0.
+In this stage with one layer, there is only one {term}`prim spec <Prim Spec>` and {term}`property spec <Property Spec>` for the Sphere prim, so the composition is obvious. The composition is just the radius of the sphere, 2.0.
 
 ![](../../images/composition-arcs/image42.png)
 
@@ -52,7 +52,7 @@ It’s important to note that composition operations, such as references and pay
 
 ![](../../images/composition-arcs/image12.png)
 
-LIVRPS answers the questions--given a {term}`prim <Prim>` on a USD stage, how do I build the `primSpec` stack that represents it? How do you build `propertySpec` stacks for the {term}`properties <Property>` on the prim?
+LIVRPS answers the questions--given a {term}`prim <Prim>` on a USD stage, how do I build the {term}`prim stack <Prim Stack>` that represents it? How do you build {term}`property stacks <Property Stack>` for the {term}`properties <Property>` on the prim?
 
 ![](../../images/composition-arcs/image16.png)
 

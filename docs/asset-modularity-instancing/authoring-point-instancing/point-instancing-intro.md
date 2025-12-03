@@ -77,7 +77,7 @@ Many of the PointInstancer properties are array attributes. There's no easy way 
 Additionally, at the moment, there is no way to do sparse overrides on arrays. If you want to move even just a single point in a PointInstancer, you need to author the entire `positions` array again for the new {term}`opinion <Opinions>`.
 
 ```{code-block} usda
-:caption: A PointInstancer override requiring full arrays for each timesample.
+:caption: A PointInstancer override requiring full arrays for each time sample.
 
 #usda 1.0
 (

@@ -32,7 +32,7 @@ jupytext:
 ```{kaltura} 1_u0uzffig
 ```
 
-{term}`Attributes <Attribute>` are the most common type of {term}`property <Property>` that you'll work with when creating scenes. An attribute can have one specific data type, such as a number, text, or a vector. Each attribute can have a {term}`default value <Default Value>`, and it can also have different values at different points in time, called {term}`timeSamples <Time Sample>`.
+{term}`Attributes <Attribute>` are the most common type of {term}`property <Property>` that you'll work with when creating scenes. An attribute can have one specific data type, such as a number, text, or a vector. Each attribute can have a {term}`default value <Default Value>`, and it can also have different values at different points in time, called {term}`time samples <Time Sample>`.
 
 ### How Does It Work?
 
@@ -48,7 +48,7 @@ Some common examples of attributes include:
 
 Attributes can be authored and stored within USD {term}`layers <Layer>`, which are files that describe different aspects of a scene. When a USD {term}`stage <Stage>` is composed, the attribute values from various layers are combined according to specific {term}`composition <Composition>` rules, allowing for flexible scene assembly.
 
-Attributes can be {term}`animated <Animated Value>` by providing multiple keyframed values over time. OpenUSD's timeSampling model ensures efficient storage and interpretation of animated data. We will learn more about timeSamples in the {doc}`../timecodes-timesamples` lesson.
+Attributes can be {term}`animated <Animated Value>` by providing multiple keyframed values over time. OpenUSD's timeSampling model ensures efficient storage and interpretation of animated data. We will learn more about time samples in the {doc}`../timecodes-timesamples` lesson.
 
 ### Working With Python
 
