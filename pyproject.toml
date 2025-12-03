@@ -21,7 +21,7 @@ dependencies = [
     "urllib3==2.5.0",
     "tornado==6.5.0",
     "jupyter-core==5.8.1",
-    
+    "sphinx-tippy>=0.4.3",
 ]
 
 [build-system]
