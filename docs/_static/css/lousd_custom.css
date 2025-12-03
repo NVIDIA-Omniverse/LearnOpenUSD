@@ -77,3 +77,37 @@ html[data-theme="dark"] .home-header > h1 {
     background-image: url(../learn-openusd-bbm-dark.jpg);
     color: white;
 }
+
+
+/***********
+* TIPPY CSS
+************/
+
+.tippy-box {
+    background-color:var(--pst-color-surface);
+    color:var(--pst-color-text-base);
+    border: 1px solid var(--pst-color-border);
+}
+
+/* Show only the first paragraph in glossary term tooltips */
+.tippy-box dd > p:not(:first-child) {
+    display: none;
+}
+
+/* Also hide other elements after the first paragraph */
+.tippy-box dd > p:first-child ~ * {
+    display: none;
+}
+
+/* Add instruction at the end of glossary tooltips */
+.tippy-box dd::after {
+    content: "Click the term for the full definition";
+    display: block;
+    margin-top: 0.75rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--pst-color-border);
+    font-size: 0.875em;
+    font-style: italic;
+    color: var(--pst-color-text-muted);
+    text-align: center;
+}

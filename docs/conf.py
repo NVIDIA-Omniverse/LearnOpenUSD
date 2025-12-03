@@ -54,8 +54,13 @@ extensions = [
     'myst_nb',
     'sphinx_design',
     'sphinx_copybutton',
+    'sphinx_tippy',
     'directives',
 ]
+
+# Skip all URLs that don't match glossary term pattern
+# This regex matches any URL that does NOT contain 'glossary.html#term-'
+tippy_skip_urls = (r"^(?!.*glossary\.html#term-).*$",)
 
 templates_path = ['_templates']
 exclude_patterns = ['_includes/**', '_build', 'Thumbs.db', '.DS_Store']

@@ -511,6 +511,7 @@ dependencies = [
     { name = "sphinx" },
     { name = "sphinx-copybutton" },
     { name = "sphinx-design" },
+    { name = "sphinx-tippy" },
     { name = "sphinxcontrib-doxylink" },
     { name = "tornado" },
     { name = "types-usd" },
@@ -530,6 +531,7 @@ requires-dist = [
     { name = "sphinx", specifier = ">=8.2.3" },
     { name = "sphinx-copybutton", specifier = ">=0.5.2" },
     { name = "sphinx-design", specifier = ">=0.6.1" },
+    { name = "sphinx-tippy", specifier = ">=0.4.3" },
     { name = "sphinxcontrib-doxylink", specifier = ">=1.13.0" },
     { name = "tornado", specifier = "==6.5.0" },
     { name = "types-usd", specifier = ">=24.5.2" },
@@ -1152,6 +1154,21 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/2b/69/b34e0cb5336f09c6866d53b4a19d76c227cdec1bbc7ac4de63ca7d58c9c7/sphinx_design-0.6.1.tar.gz", hash = "sha256:b44eea3719386d04d765c1a8257caca2b3e6f8421d7b3a5e742c0fd45f84e632", size = 2193689, upload-time = "2024-08-02T13:48:44.277Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c6/43/65c0acbd8cc6f50195a3a1fc195c404988b15c67090e73c7a41a9f57d6bd/sphinx_design-0.6.1-py3-none-any.whl", hash = "sha256:b11f37db1a802a183d61b159d9a202314d4d2fe29c163437001324fe2f19549c", size = 2215338, upload-time = "2024-08-02T13:48:42.106Z" },
+]
+
+[[package]]
+name = "sphinx-tippy"
+version = "0.4.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "beautifulsoup4" },
+    { name = "jinja2" },
+    { name = "requests" },
+    { name = "sphinx" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/1d/2b/411b0a8fdcd6729c0de4ea41fdfa6ac25f5c334ed7a9194075c79f004398/sphinx_tippy-0.4.3.tar.gz", hash = "sha256:255abee0aed8085fdb9ab0cc595cd7a45748ae7f4662156e500a17a3f73ad63d", size = 117195, upload-time = "2024-04-23T13:14:45.461Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/54/5d/60c9da704aee0f269a6d6bbd0e24ca61ef34effa6fd5863ca46f496e7cea/sphinx_tippy-0.4.3-py3-none-any.whl", hash = "sha256:572b0e001baec9b03e2b19ec4e9760ca1a853f4c3226b5cea251f477b2c2b096", size = 9952, upload-time = "2024-04-23T13:14:43.245Z" },
 ]
 
 [[package]]
