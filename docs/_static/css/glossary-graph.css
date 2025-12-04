@@ -1,0 +1,473 @@
+/* Interactive Glossary Graph Styles */
+
+/* Hide Sphinx sidebars when glossary graph container is present */
+body:has(#glossary-graph-container) .bd-sidebar-secondary {
+    display: none !important;
+}
+
+/* Make content full width when glossary graph is present */
+body:has(#glossary-graph-container) .bd-main .bd-content {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+body:has(#glossary-graph-container) .bd-article-container {
+    max-width: 100% !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#glossary-graph-wrapper {
+    position: relative;
+    width: 100%;
+    margin: 20px 0;
+}
+
+/* Top toolbar for controls and search */
+#glossary-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 12px 20px;
+    background: rgba(37, 37, 38, 0.98);
+    border: 1px solid #3e3e42;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 0;
+}
+
+#glossary-graph-container {
+    display: flex;
+    height: 85vh;
+    width: 100%;
+    border: 1px solid #3e3e42;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+    background: #2d2d30;
+    position: relative;
+    z-index: 0;
+}
+
+#cy {
+    flex: 1;
+    background: #2d2d30;
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+#glossary-sidebar {
+    width: 380px;
+    min-width: 320px;
+    background: #252526;
+    border-left: 1px solid #3e3e42;
+    padding: 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#glossary-sidebar.hidden {
+    display: none;
+}
+
+#glossary-sidebar h2 {
+    color: var(--nv-color-green);
+    margin-bottom: 8px;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+#glossary-sidebar .aka {
+    color: #999;
+    font-style: italic;
+    margin-bottom: 16px;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+#glossary-sidebar .description {
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: #d4d4d4;
+    font-size: 14px;
+}
+
+/* Style paragraphs in descriptions */
+#glossary-sidebar .description p {
+    margin: 0 0 12px 0;
+}
+
+#glossary-sidebar .description p:last-child {
+    margin-bottom: 0;
+}
+
+/* Style inline code in descriptions */
+#glossary-sidebar .description code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    color: #E06C75;
+}
+
+#glossary-sidebar .description code .pre {
+    color: inherit;
+}
+
+/* Style links in descriptions */
+#glossary-sidebar .description a {
+    color: var(--nv-color-green);
+    text-decoration: none;
+}
+
+#glossary-sidebar .description a:hover {
+    text-decoration: underline;
+}
+
+/* Style emphasis in descriptions */
+#glossary-sidebar .description em {
+    color: #C678DD;
+    font-style: italic;
+}
+
+/* Style strong in descriptions */
+#glossary-sidebar .description strong {
+    color: #E5C07B;
+    font-weight: 600;
+}
+
+#glossary-sidebar .links {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid #3e3e42;
+}
+
+#glossary-sidebar .links strong {
+    color: #e0e0e0;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+#glossary-sidebar .links a {
+    color: var(--nv-color-green);
+    text-decoration: none;
+    display: block;
+    margin: 6px 0;
+    font-size: 13px;
+    transition: color 0.2s;
+}
+
+#glossary-sidebar .links a:hover {
+    color: var(--nv-color-green);
+    text-decoration: underline;
+}
+
+#glossary-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#glossary-controls button {
+    background: var(--nv-color-green);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+#glossary-controls button:hover {
+    background: var(--nv-color-green);
+    filter: brightness(0.85);
+}
+
+#glossary-controls button:active {
+    transform: translateY(1px);
+}
+
+/* Desktop legend - inside sidebar */
+#glossary-legend-desktop {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #3e3e42;
+    background: transparent;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+/* Mobile legend - fixed overlay, hidden on desktop */
+#glossary-legend-mobile {
+    display: none;
+}
+
+#glossary-legend-desktop h3,
+#glossary-legend-mobile h3 {
+    color: #e0e0e0;
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+    font-size: 11px;
+    color: #d4d4d4;
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+#glossary-search {
+    flex: 1;
+    max-width: 400px;
+}
+
+#glossary-search input {
+    padding: 8px 12px;
+    width: 100%;
+    background: #3c3c3c;
+    border: 1px solid #3e3e42;
+    border-radius: 4px;
+    color: #e0e0e0;
+    font-size: 13px;
+    transition: border-color 0.2s;
+}
+
+#glossary-search input:focus {
+    outline: none;
+    border-color: var(--nv-color-green);
+    background: #2d2d30;
+}
+
+#glossary-search input::placeholder {
+    color: #888;
+}
+
+.glossary-placeholder {
+    text-align: center;
+    color: #888;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.glossary-placeholder h2 {
+    color: #999;
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.glossary-placeholder p {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Mobile-specific: bottom drawer */
+.mobile-drawer-handle {
+    display: none;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 2px;
+}
+
+.mobile-drawer-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.0);
+    z-index: 900;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.mobile-drawer-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    #glossary-sidebar {
+        width: 320px;
+        min-width: 280px;
+    }
+    
+    #glossary-search {
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 1024px) {
+    #glossary-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 15px;
+    }
+    
+    #glossary-controls {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    #glossary-controls button {
+        font-size: 12px;
+        padding: 7px 14px;
+    }
+    
+    #glossary-search {
+        max-width: 100%;
+        margin-top: 8px;
+    }
+    
+    #glossary-graph-container {
+        height: 60vh;
+        min-height: 500px;
+    }
+    
+    /* Transform sidebar into bottom drawer on mobile */
+    #glossary-sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 60vh;
+        max-height: 60vh;
+        border-left: none;
+        border-top: 2px solid var(--nv-color-green);
+        border-radius: 12px 12px 0 0;
+        z-index: 1000;
+        transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+        padding-top: 32px;
+    }
+    
+    #glossary-sidebar.open {
+        transform: translateY(0);
+    }
+    
+    .mobile-drawer-handle {
+        display: block;
+    }
+    
+    .mobile-drawer-backdrop {
+        display: block;
+    }
+    
+    /* Hide desktop legend, show mobile legend */
+    #glossary-legend-desktop {
+        display: none;
+    }
+    
+    #glossary-legend-mobile {
+        display: block;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        margin-top: 0;
+        padding: 10px 12px;
+        max-width: 160px;
+        background: rgba(37, 37, 38, 0.95);
+        border-radius: 8px;
+        border: 1px solid #3e3e42;
+        backdrop-filter: blur(4px);
+        z-index: 10;
+    }
+    
+    #glossary-legend-mobile h3 {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+    
+    .legend-item {
+        font-size: 10px;
+        margin: 3px 0;
+    }
+    
+    .legend-color {
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+    }
+}
+
+@media (max-width: 768px) {
+    #glossary-graph-container {
+        height: 65vh;
+        min-height: 450px;
+    }
+    
+    #glossary-sidebar {
+        height: 65vh;
+        max-height: 65vh;
+        padding: 32px 16px 20px 16px;
+    }
+    
+    #glossary-sidebar h2 {
+        margin-top: 0;
+    }
+    
+    #glossary-toolbar {
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    #glossary-controls button {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+    
+    #glossary-sidebar h2 {
+        font-size: 18px;
+    }
+    
+    #glossary-sidebar .description {
+        font-size: 13px;
+    }
+    
+    #glossary-legend {
+        max-width: 140px;
+        padding: 8px 10px;
+    }
+}
+
