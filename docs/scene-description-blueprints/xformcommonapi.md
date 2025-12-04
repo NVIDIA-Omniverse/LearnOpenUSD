@@ -28,7 +28,7 @@ kernelspec:
 # XformCommonAPI
 
 ## What Is XformCommonAPI?
-`XformCommonAPI ` is a non-applied API schema of the OpenUSD framework. Today, we're diving into this API to understand its utility in the 3D content creation pipeline.
+`XformCommonAPI ` is a non-applied {term}`API schema <API Schema>` of the OpenUSD framework. Today, we're diving into this API to understand its utility in the 3D content creation pipeline.
 
 This API facilitates the authoring and retrieval of a common set of operations with a single translation, rotation, scale and pivot that is generally compatible with import and export into many tools. It's designed to simplify the interchange of these transformations.
 
@@ -38,9 +38,9 @@ This API facilitates the authoring and retrieval of a common set of operations w
 ### How Does It Work?
 
 The API provides methods to get and set these transformations at specific times--for instance, it allows the retrieval of transformation vectors at any
-given frame or TimeCode, ensuring precise control over the simulation process.
+given frame or {term}`time code <Time Code>`, ensuring precise control over the simulation process.
 
-There’s another way to author and retrieve translations – through the `UsdGeomXformable` function. Xformable prims support arbitrary sequences of transformations, which gives power users a lot of flexibility. A user could place two rotations on a "Planet" prim, allowing them to control revolution and rotation around two different pivots on the same prim. This is powerful, but complicates simple queries like "What is the position of an object at time 101.0?"
+There’s another way to author and retrieve translations – through the `UsdGeomXformable` function. Xformable {term}`prims <Prim>` support arbitrary sequences of transformations, which gives power users a lot of flexibility. A user could place two rotations on a "Planet" prim, allowing them to control revolution and rotation around two different pivots on the same prim. This is powerful, but complicates simple queries like "What is the position of an object at time 101.0?"
 
 ### Working With Python
 
@@ -78,7 +78,7 @@ from utils.visualization import DisplayUSD, DisplayCode
 
 ### Example 1: XformCommonAPI - Transforms and Inheritance
 
-In this example, we will use the [`XformCommonAPI`](https://openusd.org/release/api/class_usd_geom_xform_common_a_p_i.html) to translate, rotate, and scale a parent Xform, then show how a child under that parent inherits those transforms while a similar child under a separate prim hierarchy does not.
+In this example, we will use the [`XformCommonAPI`](https://openusd.org/release/api/class_usd_geom_xform_common_a_p_i.html) to translate, rotate, and scale a parent Xform, then show how a child under that parent inherits those transforms while a similar child under a separate {term}`prim hierarchy <Namespace>` does not.
 
 ```{code-cell}
 :emphasize-lines: 10-34
@@ -125,7 +125,7 @@ stage.Save()
 DisplayUSD(file_path, show_usd_code=True)
 ```
 
-`XformCommonAPI` is used to set and get transform components such as scale, rotation, scale-rotate pivot and translation. Even though these are considered attributes, it is best to go through `XformCommonAPI` when editting transformation values. `XformCommonAPI` is a great way to bootstrap setting up new transformations. Future modules will dive into advanced usage of xformOps. 
+`XformCommonAPI` is used to set and get transform components such as scale, rotation, scale-rotate pivot and translation. Even though these are considered {term}`attributes <Attribute>`, it is best to go through `XformCommonAPI` when editting transformation values. `XformCommonAPI` is a great way to bootstrap setting up new transformations. Future modules will dive into advanced usage of xformOps. 
 
 
 ## Key Takeaways

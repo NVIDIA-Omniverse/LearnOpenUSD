@@ -2,9 +2,9 @@
 
 ![](../../images/asset-structure/image52.png)  
 
-Each asset designed to be opened as a stage or added to a scene through referencing has a root layer that serves as its foundation. This root layer, known as the asset interface layer, is structured to be the primary means of interacting with the asset.
+Each {term}`asset <Asset>` designed to be opened as a {term}`stage <Stage>` or added to a scene through {term}`referencing <Reference>` has a root {term}`layer <Layer>` that serves as its foundation. This root layer, known as the asset interface layer, is structured to be the primary means of interacting with the asset.
 
-Additionally, key descendant prims within an asset, which are designated by maintainers as stable for downstream overrides, are also considered part of the asset's interface (e.g., materials or subcomponent prims). 
+Additionally, key descendant {term}`prims <Prim>` within an asset, which are designated by maintainers as stable for downstream overrides, are also considered part of the asset's interface (e.g., materials or {term}`subcomponent <Subcomponent>` prims). 
 
 ![](../../images/asset-structure/image21.png)
 

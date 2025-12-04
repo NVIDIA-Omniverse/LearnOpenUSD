@@ -31,7 +31,7 @@ jupytext:
 ## What Is Metadata?
 ![Metadata Definition](../images/foundations/Metadata_Definition.webm)
 
-Metadata in OpenUSD refers to a set of name-value pairs that provide additional, non-animatable information attached to prims or their properties. The concept is similar to properties, but it allows us to add custom information or annotations to scene description elements via a dictionary without modifying the underlying schema or data model.
+{term}`Metadata <Metadata>` in OpenUSD refers to a set of name-value pairs that provide additional, non-animatable information attached to {term}`prims <Prim>`, {term}`properties <Property>`, or {term}`layers <Layer>`. The concept is similar to properties, but it allows us to add custom information or annotations to scene description elements via a dictionary without modifying the underlying schema or data model.
 
 ### How Does It Work?
 
@@ -49,11 +49,11 @@ Metadata can be set at different levels of the scene hierarchy, allowing for bot
 
 ![Metadata vs Attributes](../images/foundations/Metadata_vsAttributes.webm)
 
-While both metadata and attributes allow us to store additional data, there are some key differences:
+While both metadata and {term}`attributes <Attribute>` allow us to store additional data, there are some key differences:
 
 * Metadata is separate from the core schema and data model, while attributes are part of the schema definition.
 * Metadata is typically used for supplementary information, while attributes are often used for data directly related to the object's properties or behavior.
-* Metadata cannot be sampled over time (i.e. timesamples), allowing it to be evaluated and stored more efficiently than attribute values.
+* Metadata cannot be sampled over time (i.e. time samples), allowing it to be evaluated and stored more efficiently than attribute values.
 
 ### Working With Python
 
@@ -78,7 +78,7 @@ stage.SetMetadata('key', value)
 GetMetadataByDictKey()
 ```
 
-It’s worth noting that `key` will typically be either `assetInfo`, which can be used to set asset related data or `customData`, which can be used for everything else. We can also create additional metadata keys by adding a new schema.
+It’s worth noting that `key` will typically be either `assetInfo`, which can be used to set {term}`asset <Asset>` related data or `customData`, which can be used for everything else. We can also create additional metadata keys by adding a new {term}`schema <Schema>`.
 
 ## Key Takeaways
 

@@ -1,12 +1,12 @@
 # Exercise: Transforming the Prim Hierarchy
 
-In this exercise, we will create our first transformation step to turn our converted output into an asset that is easy to reference and to fix the `defaultPrim` validation error. Let's look at the tree view of a USD layer produced by `obj2usd`.
+In this exercise, we will create our first transformation step to turn our converted output into a {term}`asset <Asset>` that is easy to {term}`reference <Reference>` and to fix the `defaultPrim` validation error. Let's look at the tree view of a USD {term}`layer <Layer>` produced by `obj2usd`.
 
 ![](../../images/data-exchange/image10.png)
 
-Notice that there are multiple prims under the stage pseudo-root (or root). While our converter output faithfully represents the flat hierarchy from OBJ, it creates two usability issues in OpenUSD:
+Notice that there are multiple {term}`prims <Prim>` under the {term}`stage <Stage>` pseudo-root (or root). While our converter output faithfully represents the flat hierarchy from OBJ, it creates two usability issues in OpenUSD:
 
-- There is no `defaultPrim` metadata to reference this stage without specifying a target prim.
+- There is no `defaultPrim` {term}`metadata <Metadata>` to reference this stage without specifying a target prim.
 - Even with `defaultPrim` set, there's no easy way to reference the entire asset since all the prims that make up the asset don't share a common ancestor prim.
 
 This is why we should add a transformation step to make converted OBJs easier to use out-of-box in OpenUSD. Let's choose to make this a transformation that always runs as part of our converter because it's critical to provide good UX for end users.
@@ -36,7 +36,7 @@ def set_default_prim(stage: Usd.Stage):
         editor.ApplyEdits()
 ```
 
-This function creates a new `UsdGeom.Xform` prim called "/World" and sets it as the `defaultPrim`. It then parents all of the other prims in the root namespace to "/World" using `Usd.NamespaceEditor` so that they all share a common ancestor and can be referenced together.
+This function creates a new `UsdGeom.Xform` prim called "/World" and sets it as the `defaultPrim`. It then parents all of the other prims in the root {term}`namespace <Namespace>` to "/World" using `Usd.NamespaceEditor` so that they all share a common ancestor and can be reference together.
 
 This won’t do anything until we call the new function in `transform()`.
 

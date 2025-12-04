@@ -1,6 +1,6 @@
 # Exercise: Working With Payloads
 
-Let’s first look at how payloads work using simple geometry.
+Let’s first look at how {term}`payloads <Payload>` work using simple geometry.
 
 1. In the Visual Studio Code terminal, **run** the following code to open the file in usdview.
 
@@ -67,7 +67,7 @@ def Xform "World"
 }
 ```
 
-What are some of the things you notice that are similar to references? Any differences? You should notice the `payload` keyword instead of the `references` keyword. We can also see that a payload is added similar to how a reference is added in USDA, where the only difference is the keyword.
+What are some of the things you notice that are similar to {term}`references <Reference>`? Any differences? You should notice the `payload` keyword instead of the `references` keyword. We can also see that a payload is added similar to how a reference is added in USDA, where the only difference is the keyword.
 
 4. Next, **run** the following code in Visual Studio Code to open the file in usdview:
 
@@ -86,7 +86,7 @@ You might be asking yourself, how is this any different from using references? W
 
 Let’s start by showing one of the differences between payloads and references.
 
-5. In usdview, right-click on `red_cube_01` in the tree view. We have the option to *unload* the prim.
+5. In usdview, right-click on `red_cube_01` in the tree view. We have the option to {term}`unload <Load and Unload>` the prim.
 
 ![](../../images/composition-arcs/image76.png)
 
@@ -96,7 +96,7 @@ Let’s start by showing one of the differences between payloads and references.
 
 We can see that the red cube has vanished from the scene. Take note that when selecting **Unload**, all the descendants from the payload are also not in the tree view. This is because payloads have the ability to load (compose) all of the scene description targeted by the payload or unload all their scene description, recomposing all prims beneath the payloaded prim, unloading them from the layer.
 
-On the other hand, references are always composed and present on the stage. They cannot be unloaded.
+On the other hand, references are always composed and present on the {term}`stage <Stage>`. They cannot be unloaded.
 
 7. We can also unload all payloads in the stage at once. In usdview, right-click on **`red_cube_01`** and select **Load** to load it back onto our stage.
 8. Then, right-click on **Root** and click **Unload**. This will unload all payloads that are composed on the stage. To load it back, right-click on **Root** and select **Load**.
@@ -107,7 +107,7 @@ Now, imagine that our scene has become too large and it's hard to see everything
 
 9. **Open** `composition_arcs/payloads/exercise/payloads_exercise.py` in Visual Studio Code.
 
-Similarly to how we added references to prims, we will use `GetPayloads()` and `AddPayload()` to add payloads to a prim.
+Similarly to how we added references to {term}`prims <Prim>`, we will use `GetPayloads()` and `AddPayload()` to add payloads to a prim.
 
 10. **Add** the following code into the script:
 
@@ -175,4 +175,4 @@ bldg.Load()
 
 ![](../../images/composition-arcs/image34.gif)
 
-This means that we can unload all payloads in a stage before opening the layer. This can save on load time especially for large scenes.
+This means that we can unload all payloads in a stage before opening the **{term}`layer <Layer>`**. This can save on load time especially for large scenes.

@@ -507,7 +507,7 @@ Pseudo-Root
 
     The pseudo-root is a convenience prim at path `/` that serves as the parent of all root prims on a stage.
 
-    Each stage contains a pseudo-root prim that allows the stage to contain a single tree of prims rather than a forest. The pseudo root facilitates traversal and processing by providing a common ancestor for all authored root prims. It's represented by the path `/` and is accessible via `UsdStage::GetPseudoRoot()`.
+    Each stage contains a pseudo-root prim that allows the stage to contain a single tree of prims rather than a forest. The pseudo-root facilitates traversal and processing by providing a common ancestor for all authored root prims. It's represented by the path `/` and is accessible via `UsdStage::GetPseudoRoot()`.
 
     **Also Known As:** *PseudoRoot, root prim*  
     **Further Reading**: [Namespace -- OpenUSD.org](<inv:usd:std#glossary:namespace>), [PseudoRoot -- OpenUSD.org](<inv:usd:std#glossary:pseudoroot>)

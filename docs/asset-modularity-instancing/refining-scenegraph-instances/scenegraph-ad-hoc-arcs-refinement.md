@@ -2,13 +2,13 @@
 
 ## What Is Ad Hoc Arcs Refinement?
 
-New composition arcs can be added to an instanceable prim on the local layer stack. Within the additional composition arc, you can introduce new opinions on an instance. The result is a new prototype for that instance and any copies that share the new composition arc.
+New {term}`composition arcs <Composition Arcs>` can be added to an instanceable prim on the local {term}`layer stack <Layer Stack>`. Within the additional composition arc, you can introduce new opinions on an instance. The result is a new prototype for that instance and any copies that share the new composition arc.
 
 ```{figure} ../../images/asset-modularity-instancing/ad-hoc-refinement.png
 Composition arcs can be added to introduce ad hoc edits without disabling instancing.
 ```
 
-In this example, we have four instances of the robot arm. On one of the instanceable prims, we can add a new internal reference with a different pose for the robot arm. The result is three instances using the original prototype and one using the new prototype with an additional internal reference.
+In this example, we have four instances of the robot arm. On one of the instanceable prims, we can add a new internal {term}`reference <Reference>` with a different pose for the robot arm. The result is three instances using the original prototype and one using the new prototype with an additional internal reference.
 
 The more instances you apply the new composition arc to, the more beneficial and appealing this technique gets. In this example, a dozen or so robot arms using the same pose can make this technique worthwhile.
 
@@ -33,7 +33,7 @@ In this exercise, we'll simulate a box that was damaged in the warehouse. We'll 
 :linenos:
 ```
 
-`/_MixinOverrides/DamagedStamp` is a speculative `over` (override) that introduces a new decal Mesh and Material for the "Damaged" stamp. This is a bit hard-coded to position the stamp perfectly on the "CubeBox_A04_26cm" asset, but it could be designed to be used more modularly so it could be applied to all sorts of assets. We're going to use this layer as a reference to refine our boxes as an additional ad hoc composition arc.
+`/_MixinOverrides/DamagedStamp` is a speculative `over` ({term}`override <Over>`) that introduces a new decal Mesh and Material for the "Damaged" stamp. This is a bit hard-coded to position the stamp perfectly on the "CubeBox_A04_26cm" asset, but it could be designed to be used more modularly so it could be applied to all sorts of assets. We're going to use this {term}`layer <Layer>` as a reference to refine our boxes as an additional ad hoc composition arc.
 
 ### Adding Ad Hoc Composition Arcs
 

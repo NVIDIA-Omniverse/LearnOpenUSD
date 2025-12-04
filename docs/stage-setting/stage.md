@@ -28,7 +28,7 @@ kernelspec:
 
 # Stage
 
-Welcome to this lesson on OpenUSD stages, a core element in 3D scene description. Understanding OpenUSD stages enables collaboration across various applications and datasets by allowing us to aggregate our data in one place.
+Welcome to this lesson on OpenUSD {term}`stages <Stage>`, a core element in 3D scene description. Understanding OpenUSD stages enables collaboration across various applications and datasets by allowing us to aggregate our data in one place.
 
 In this lesson, we will:
 
@@ -36,7 +36,7 @@ In this lesson, we will:
 
 ## What Is a Stage?
 
-At its core, an OpenUSD stage presents the scenegraph, which dictates what is in our scene. It is the hierarchy of objects, called prims. These prims can be anything from geometry, to materials, to lights and other organizational elements. This scene is commonly stored in a data structure of connected nodes, which is why we refer to it as the scenegraph.
+At its core, an OpenUSD stage presents the scenegraph, which dictates what is in our scene. It is the hierarchy of objects, called {term}`prims <Prim>`. These prims can be anything from geometry, to materials, to lights and other organizational elements. This scene is commonly stored in a data structure of connected nodes, which is why we refer to it as the scenegraph.
 
 ```{kaltura} 1_cm4ehcvo
 
@@ -46,7 +46,7 @@ At its core, an OpenUSD stage presents the scenegraph, which dictates what is in
 
 Think of it as a scene, a shot or a scenario we may open up in a DCC. A stage could be made up entirely with just one USD file (like a robot), or it could be a USD file that includes many more USD files (like a factory with many robots). The stage is the composed result of the file or files that may contribute to a scenegraph.
 
-Composition is the result of the algorithm for how all of the USD files (or layers, in USD parlance, as USD content need not be file-backed) should be assembled and combined. We’ll look at composition more closely later on.
+{term}`Composition <Composition>` is the result of the algorithm for how all of the USD files (or {term}`layers <Layer>`, in USD parlance, as USD content need not be file-backed) should be assembled and combined. We’ll look at composition more closely later on.
 
 ![A stage with USD assets in the scenegraph.](../images/foundations/11.png)
 
@@ -57,8 +57,8 @@ Each one of these USD assets can also be opened independently of the current sta
 
 When we leverage OpenUSD stages properly, we can enable:
 
-- **Modularity** : Stages enable the modification of individual elements without altering the original files (“non-destructive” editing), fostering a flexible workflow upon modular scene elements.
-- **Scalability** : Stages can manage large datasets efficiently (e.g., via payloads, which we’ll learn more about when we dive deeper into composition).
+* **Modularity** : Stages enable the modification of individual elements without altering the original files (“non-destructive” editing), fostering a flexible workflow upon modular scene elements.
+* **Scalability** : Stages can manage large datasets efficiently (e.g., via {term}`payloads <Payload>`, which we’ll learn more about when we dive deeper into composition).
 
 ### Working With Python
 

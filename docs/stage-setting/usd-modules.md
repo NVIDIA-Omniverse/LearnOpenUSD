@@ -16,20 +16,18 @@ When authoring or querying USD data, you will almost always use a few common USD
 
 ### Working With Python
 
-The schema modules are covered more in depth in relevant videos for each domain. Let’s have a closer look at a few of the other common USD modules: `Usd`, `Sdf`, and `Gf`. In Python, you can import these modules from the `pxr`
-namespace:
+The schema modules are covered more in depth in relevant videos for each domain. Let’s have a closer look at a few of the other common USD modules: `Usd`, `Sdf`, and `Gf`. In Python, you can import these modules from the `pxr` namespace:
 
 ```python
 # Import Usd, Sdf, and Gf libraries from Pixar
 from pxr import Usd, Sdf, Gf
 ```
 
-`Usd` is the core client-facing module for authoring, composing and reading USD. It provides an interface for creating or opening a Stage and generic interfaces for interacting with prims, properties, metadata, and composition arcs.
+`Usd` is the core client-facing module for authoring, composing and reading USD. It provides an interface for creating or opening a {term}`Stage <Stage>` and generic interfaces for interacting with {term}`prims <Prim>`, {term}`properties <Property>`, {term}`metadata <Metadata>`, and {term}`composition arcs <Composition Arcs>`.
 
-`Sdf` (scene description foundation) provides the foundations for serializing scene description to a reference text-based file format and implements scene
-description layers, (`SdfLayer`) which stores part of the scene description. Most notably, you will commonly see this module used for managing prim and property paths and creating USD layers.
+`Sdf` (scene description foundation) provides the foundations for serializing scene description to a reference text-based file format and implements scene description {term}`layers <Layer>`, (`SdfLayer`) which stores part of the scene description. Most notably, you will commonly see this module used for managing prim and property {term}`paths <Path>` and creating USD layers.
 
-`Gf` is the graphics foundation and contains the foundation classes and functions that contribute graphics, like Linear Algebra, Basic Mathematical Operations and Basic Geometry. This module contains classes for 3D data types that you will use for getting and setting particular USD attributes.
+`Gf` is the graphics foundation and contains the foundation classes and functions that contribute graphics, like Linear Algebra, Basic Mathematical Operations and Basic Geometry. This module contains classes for 3D data types that you will use for getting and setting particular USD {term}`attributes <Attribute>`.
 
 ## Key Takeaways
 

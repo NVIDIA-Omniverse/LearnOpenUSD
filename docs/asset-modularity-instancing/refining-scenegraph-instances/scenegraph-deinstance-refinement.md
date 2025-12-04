@@ -8,11 +8,11 @@ The simplest way to edit or override an instance is to disable instancing for th
 Deinstance refinement
 ```
 
-At any point downstream, we can enable or disable instancing on a prim. If we have a use case where we just need to open one box, what we'll do is we'll set `instanceable = false` and now we can apply the overrides to open thet box. 
+At any point downstream, we can enable or disable instancing on a {term}`prim <Prim>`. If we have a use case where we just need to open one box, what we'll do is we'll set `instanceable = false` and now we can apply the overrides to open thet box. 
 
-If you just have one thing that needs to be promoted to be treated uniquely from the rest of the copies, it's totally reasonable to deinstance it in a stronger layer.
+If you just have one thing that needs to be promoted to be treated uniquely from the rest of the copies, it's totally reasonable to deinstance it in a stronger {term}`layer <Layer>`.
 
-You will still benefit from all the performance benefits from composition and modular asset reuse. You are just losing a little bit of the instancing performance benefits for the copy you deinstanced.
+You will still benefit from all the performance benefits from {term}`composition <Composition>` and modular {term}`asset <Asset>` reuse. You are just losing a little bit of the instancing performance benefits for the copy you deinstanced.
 
 Deinstancing is simple and convenient, but if you find yourself wanting to deinstance many copies of a prototype to introduce more diversity in your scenes, then one or more of the other refinement techniques may be better suited.
 
@@ -85,7 +85,7 @@ Let's deinstance another instanceable prim to see how that impacts the stage sta
 
 ### Deinstancing Multiple Instances
 
-Let's say we needed to make changes to more boxes. Let's apply the same decal visibility change to another box.
+Let's say we needed to make changes to more boxes. Let's apply the same decal {term}`visibility <Visibility>` change to another box.
 
 6. **Click** on the box to the right of your current selection in the Viewport.
 

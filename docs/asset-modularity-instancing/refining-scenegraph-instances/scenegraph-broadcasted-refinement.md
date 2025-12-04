@@ -2,7 +2,7 @@
 
 ## What Is Broadcasted Refinement?
 
-Broadcasted refinement leverages the special broadcasting ability of inherits and specializes arcs. These two arcs are built for downstream refinement allowing you to author new opinions on the inherited or specialized namespace in any downstream layer stack. All prims with an inherits or specializes arc targeting that namespace will receive those opinions and apply them according to LIVERPS.
+Broadcasted refinement leverages the special broadcasting ability of {term}`inherit <Inherit>` and {term}`specialize <Specialize>` arcs. These two arcs are built for downstream refinement allowing you to author new {term}`opinions <Opinions>` on the inherited or specialized {term}`namespace <Namespace>` in any downstream {term}`layer stack <Layer Stack>`. All {term}`prims <Prim>` with an inherit or specialize arc targeting that {term}`namespace <Namespace>` will receive those {term}`opinions <Opinions>` and apply them according to LIVERPS.
 
 This type of refinement works on instances too.
 
@@ -41,9 +41,9 @@ Linux:
 
 ![](../../images/asset-modularity-instancing//top-left-box-closeup.png)
 
-3. **Press** the "<span>&#92;</span>" key to select the enclosing model.
+3. **Press** the "<span>&#92;</span>" key to select the enclosing {term}`model <Model>`.
 
-This will select the next model up the prim hierarchy, a "BoxPallet_A01" assembly.
+This will select the next model up the prim hierarchy, a "BoxPallet_A01" {term}`assembly <Assembly>`.
 
 ![](../../images/asset-modularity-instancing//select-pallet-assembly.png)
 
@@ -55,7 +55,7 @@ You should see "BoxPallet_A01_03" selected in the Tree View panel.
 
 ![](../../images/asset-modularity-instancing//reveal-specialize-target.png)
 
-Notice that there is a prim "_PalletBox" enclosed within the "BoxPallet_A01" asset. This is a class prim included as a specialize arc target for every box on that pallet. We can author opinions in "_PalletBox" that will be applied to all boxes on that pallet.
+Notice that there is a prim "_PalletBox" enclosed within the "BoxPallet_A01" {term}`asset <Asset>`. This is a {term}`class <Class>` prim included as a specialize arc target for every box on that pallet. We can author opinions in "_PalletBox" that will be applied to all boxes on that pallet.
 
 ### Applying Broadcasted Refinement
 
@@ -72,7 +72,7 @@ prim.GetReferences().AddReference(str(decals_path), "/_MixinOverrides/DamagedSta
 
 ![](../../images/asset-modularity-instancing/damaged-pallet.png)
 
-Notice how all the boxes on the pallet closest to the camera now show a stamp that says, "Damaged". In this case, we added the same reference as in the [Ad Hoc Composition Arc Addition Refinement](./scenegraph-ad-hoc-arcs-refinement.md) exercise, but this could also have been direct opinions authored in the `/World/Warehouse/Rack_BoxPallet_A01_01/BoxPallet_A01_03/_PalletBox` of this layer. We authored one opinion that rippled changes to all the boxes.
+Notice how all the boxes on the pallet closest to the camera now show a stamp that says, "Damaged". In this case, we added the same {term}`reference <Reference>` as in the [Ad Hoc Composition Arc Addition Refinement](./scenegraph-ad-hoc-arcs-refinement.md) exercise, but this could also have been direct opinions authored in the `/World/Warehouse/Rack_BoxPallet_A01_01/BoxPallet_A01_03/_PalletBox` of this layer. We authored one opinion that rippled changes to all the boxes.
 
 ### Analyzing the Impact on Stage Statistics
 

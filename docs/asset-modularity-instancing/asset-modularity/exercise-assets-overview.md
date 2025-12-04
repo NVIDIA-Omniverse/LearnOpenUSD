@@ -28,12 +28,12 @@ You should see a view like this in the viewport now:
 **Click** *Camera > Select Camera > ExCam_01* if you ever lose your place in the scene or want to get back to this camera position.
 ```
 
-These are the five modular assets that we will be using. Let's review them from left to right. First, there are three component assets:
+These are the five modular assets that we will be using. Let's review them from left to right. First, there are three {term}`component <Component>` assets:
 * CubeBox_A04_26cm
 * BlockPallet_A07
 * BulkStorageRack_A01
 
-The component assets are used in the next two assemblies:
+The component assets are used in the next two {term}`assemblies <Assembly>`:
 * BoxPallet_A01
 * Rack_BoxPallet_A01
 
@@ -78,7 +78,7 @@ This scenario has:
 * 1350 CubeBox_A04_26cm
 * 44408 prims
 
-To make this stage, all we had to do was reference and arrange "BulkStorageRack_A01" 25 times. You can see how leveraging asset modularity we can hide a lot of complexity as we build up large scenes for higher level workflows.
+To make this {term}`stage <Stage>`, all we had to do was {term}`reference <Reference>` and arrange "BulkStorageRack_A01" 25 times. You can see how leveraging asset modularity we can hide a lot of complexity as we build up large scenes for higher level workflows.
 
 6. **Close** usdview.
 

@@ -29,14 +29,14 @@ jupytext:
 
 ## What Is Stage Traversal?
 
-Stage traversal is the process of traversing the scenegraph of a stage with the purpose of querying or editing the scene data. We can traverse the scenegraph by iterating through child prims, accessing parent prims, and traversing the hierarchy to find specific prims of interest.
+{term}`Stage <Stage>` traversal is the process of traversing the scenegraph of a stage with the purpose of querying or editing the scene data. We can traverse the scenegraph by iterating through child {term}`prims <Prim>`, accessing parent prims, and traversing the hierarchy to find specific prims of interest.
 
 ```{kaltura} 1_ott9hzic
 ```
 
 ### How Does It Work?
 
-Traversing stages works via the `Usd.PrimRange` iterator. Other methods like `Usd.Stage.Traverse` return a `Usd.PrimRange` iterator. The difference is that `Usd.PrimRange` takes a starting prim as an argument and `Usd.Stage.Traverse` starts it's traversal from the stage's pseudo-root.
+Traversing stages works via the `Usd.PrimRange` iterator. Other methods like `Usd.Stage.Traverse` return a `Usd.PrimRange` iterator. The difference is that `Usd.PrimRange` takes a starting prim as an argument and `Usd.Stage.Traverse` starts it's traversal from the stage's {term}`pseudo-root <Pseudo-Root>`.
 
 Traversals operate by walking prim by prim in depth-first order. You can use predicates and `Usd.PrimRange.PruneChildren` to optimize your traversals if you know you don't need to visit certain branches.
 
@@ -48,16 +48,16 @@ There are two traversal modes:
 There are also predicates which can be used for pre-filtering the result:
 
 * `Usd.PrimIsActive` 
-  * If the active metadata is `True`
+  * If the {term}`active <Active and Inactive>` {term}`metadata <Metadata>` is `True`
   * Analogous to `Usd.Prim.IsActive()`
 * `Usd.PrimIsLoaded`
-  * If the (ancestor) payload is loaded
+  * If the (ancestor) {term}`payload <Payload>` is {term}`loaded <Load and Unload>`
   * Analogous to `Usd.Prim.IsLoaded()`
 * `Usd.PrimIsModel`
-  * If the kind is a sub kind of `Kind.Tokens.model`
+  * If the {term}`kind <Kind>` is a sub kind of `Kind.Tokens.model`
   * Analogous to `Usd.Prim.IsModel()`
 * `Usd.PrimIsGroup`
-  * If the kind is `Kind.Tokens.group`
+  * If the {term}`kind <Kind>` is `Kind.Tokens.group`
   * Analogous to `Usd.Prim.IsGroup()`
 * `Usd.PrimIsAbstract`
   * If the prim specifier is `Sdf.SpecifierClass`

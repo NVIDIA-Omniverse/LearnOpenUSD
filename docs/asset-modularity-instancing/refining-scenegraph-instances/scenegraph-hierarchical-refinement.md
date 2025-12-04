@@ -2,17 +2,17 @@
 
 ## What Is Hierarchical Refinement?
 
-Hierarchical refinement refers to the process of refining instances by authoring inherited properties on ancestor prims. The most common inherited properties used for this type of refinement are:
+Hierarchical refinement refers to the process of refining instances by authoring inherited properties on ancestor {term}`prims <Prim>`. The most common inherited properties used for this type of refinement are:
 
 * **Transformation Operations (xformOps)** – Moving, rotating, or scaling an ancestor prim will affect all of its descendant instances.
-* **Visibility** – Making an ancestor invisible will also hide all of its descendant instances.
-* **Primvars** – Assigning primvar values to an ancestor can create shading or material variations among its descendant instances.
+* **{term}`Visibility <Visibility>`** – Making an ancestor invisible will also hide all of its descendant instances.
+* **{term}`Primvars <Primvar>`** – Assigning primvar values to an ancestor can create shading or material variations among its descendant instances.
 
 Importantly, these refinements do not create any new prototypes; they simply leverage inheritance to efficiently introduce variety or control across instances.
 
 ## Hierarchical Refinement Using Primvars
 
-Primvars are a way you can drive material properties like color, but it's not limited to just that. The convenient feature about primvars is that they inherit down the prim hierarchy. What this means is that you can set an opinion for a primvar on the instanceable prim (or any ancestor) and your materials can read that inherited value at any point in an instance's subgraph. You can use primvars to hierarchically refine instances.
+Primvars are a way you can drive material properties like color, but it's not limited to just that. The convenient feature about primvars is that they inherit down the prim hierarchy. What this means is that you can set an {term}`opinion <Opinions>` for a primvar on the instanceable prim (or any ancestor) and your materials can read that inherited value at any point in an instance's subgraph. You can use primvars to hierarchically refine instances.
 
 This form of refinement does not introduce any new prototypes since the subgraphs among the instances remain identical. The only new opinions are found on the instanceable prims. This makes primvars a very lightweight way to introduce a ton of variety in a scene with very little performance implications.
 
@@ -62,7 +62,7 @@ def Xform "Warehouse"
 Three unique robot arms all sharing one prototype.
 ```
 
-In this example, we are setting `primvars:arm_color` on the instanceable prim to change the color of two robot arms. The `RobotArm.usd` asset has a shader to read this value and use it within its material network.
+In this example, we are setting `primvars:arm_color` on the instanceable prim to change the color of two robot arms. The `RobotArm.usd` {term}`asset <Asset>` has a shader to read this value and use it within its material network.
 
 ## Exercise: Hierarchical Refinement Using Primvars
 
@@ -104,14 +104,14 @@ You should see "CubeBox_A04_26cm_18" selected in the Tree View panel.
 
 ![](../../images/asset-modularity-instancing//primvar-reader.png)
 
-This shader is used by all boxes to check for `primvars:cleanness` on any gprim (e.g. Mesh or Subset) that it's assigned to.
+This shader is used by all boxes to check for `primvars:cleanness` on any {term}`gprim <Gprim>` (e.g. Mesh or Subset) that it's assigned to.
 
 8. **Click** on "UsdPreviewSurface" to select it.
 9. **Click** on the triangle to the left of the "inputs:occlusion" attribute in the Property panel expand it.
 
 ![](../../images/asset-modularity-instancing//occlusion.png)
 
-This reveals that the output from "UsdPrimvarReader_cleanness" is connected to "inputs:occlusion" to drive the occlusion of this cardboard material. The closer the number gets to `0.0`, the darker the material gets.
+This reveals that the output from "UsdPrimvarReader_cleanness" is {term}`connected <Connection>` to "inputs:occlusion" to drive the occlusion of this cardboard material. The closer the number gets to `0.0`, the darker the material gets.
 
 ### Setting Primvar Values
 

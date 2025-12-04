@@ -6,19 +6,19 @@ This lesson is going to focus on modularity and content reuse in OpenUSD. We'll 
 
 ![](../../images/asset-modularity-instancing/root-layer-stack.png)
 
-We will briefly refresh on composition arcs and layer stacks here. 
+We will briefly refresh on {term}`composition arcs <Composition Arcs>` and {term}`layer stacks <Layer Stack>` here. 
 
 ```{seealso}
 The [Creating Composition Arcs](../../creating-composition-arcs/index.md) module covers layer stacks and composition arcs in-depth and we recommend starting there if you haven't gone through it. 
 ```
 
-In OpenUSD, a scene is composed through its root layer stack.  That's the root layer plus all sublayers, including sublayers of sublayers.
+In OpenUSD, a scene is composed through its {term}`root layer stack <Root Layer Stack>`.  That's the root {term}`layer <Layer>` plus all {term}`sublayers <Sublayer>`, including sublayers of sublayers.
 
 Here we have a "scenario.usd" which is broken down into facility.usd and "elements.usd" sublayers.​ Composition arcs are used to compose data from other layer stacks into the root one.
 
 ![](../../images/asset-modularity-instancing/layer-stacks-composition-arcs.mp4)
 
-The facility sublayer is using composition arcs to compose a warehouse onto the USD stage. The elements sublayer is composing various references of the rack asset onto the stage.​
+The facility sublayer is using composition arcs to compose a warehouse onto the USD {term}`stage <Stage>`. The elements sublayer is composing various {term}`references <Reference>` of the rack {term}`asset <Asset>` onto the stage.​
 
 Together, OpenUSD composition arcs and layer stacks are the fundamental mechanisms that enable the creation and management of complex 3D scenes.​
 
@@ -26,7 +26,7 @@ When learning OpenUSD, we don't always distinguish between layer stacks and arcs
 
 ![](../../images/asset-modularity-instancing/liverps-strength-ordering.png)
 
-Composition adheres to a specific strength ordering, known as LIVERPS--Local, Inherits, Variant Sets, Relocates, References, Payloads, and Specializes. This ordering determines how conflicts are resolved when multiple opinions exist for the same data. Local here refers to the local layer stack.
+{term}`Composition <Composition>` adheres to a {term}`strength ordering <LIVERPS Strength Ordering>`, known as LIVERPS--Local, Inherits, Variant Sets, Relocates, References, Payloads, and Specializes. This ordering determines how conflicts are resolved when multiple {term}`opinions <Opinions>` exist for the same data. Local here refers to the local layer stack.
 
 This system ensures a predictable and controlled outcome when composing disparate scene data.
 
@@ -64,7 +64,7 @@ In terms of standardization, assets that are reused improve navigability and leg
 
 **Efficiency Through Centralized Editing**
 
-If you change the underlying asset once, all uses are instantly updated. If we needed to add a new variant to the rack, or change the material to a more advanced material model, we can do that and then have it propagate through the warehouse all the way back up to our scenarios.
+If you change the underlying asset once, all uses are instantly updated. If we needed to add a new {term}`variant <Variant>` to the rack, or change the material to a more advanced material model, we can do that and then have it propagate through the warehouse all the way back up to our scenarios.
 
 **System Performance**
 

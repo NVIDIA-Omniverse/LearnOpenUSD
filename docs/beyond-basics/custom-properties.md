@@ -28,15 +28,15 @@ kernelspec:
 # Custom Properties
 
 ## What Are Custom Properties?
-Now, let's explore the concept of custom properties in Universal Scene Description. Understanding custom properties is essential for tailoring OpenUSD assets and workflows to specific needs, enabling more flexible and detailed scene descriptions.
+Now, let's explore the concept of custom properties in Universal Scene Description. Understanding custom properties is essential for tailoring OpenUSD {term}`assets <Asset>` and workflows to specific needs, enabling more flexible and detailed scene descriptions.
 
-Custom properties in OpenUSD are user-defined properties that can be added to prims to store additional data. Unlike schema attributes, which are predefined and standardized, custom attributes allow users to extend the functionality of OpenUSD to suit their specific requirements.
+Custom properties in OpenUSD are user-defined properties that can be added to {term}`prims <Prim>` to store additional data. Unlike schema {term}`attributes <Attribute>`, which are predefined and standardized, custom attributes allow users to extend the functionality of OpenUSD to suit their specific requirements.
 
 ## How Does It Work?
 
 ### Custom schemas vs. custom properties
 
-Custom schemas are a more advanced topic that we’ll cover in future lessons, but let’s compare the two briefly. When considering custom properties versus custom schemas, the main strengths of custom properties are their ease of use and ability to be defined at any time. The main strengths of custom schemas are their ability to group related information and provide standardization.
+{term}`Schemas <Schema>` are a more advanced topic that we’ll cover in future lessons, but let’s compare the two briefly. When considering custom properties versus custom schemas, the main strengths of custom properties are their ease of use and ability to be defined at any time. The main strengths of custom schemas are their ability to group related information and provide standardization.
 
 For instance, consider we’re creating a web page for ordering a cake. One approach would be to create a single large, scrollable text field that we can assign a label to, like “What kind of cake do you need?”, and let the user enter whatever they want in it.
 
@@ -50,7 +50,7 @@ On the other hand, custom schemas allow us to define a group of data in a more s
 
 With that, let’s get back to our lesson on custom properties.
 
-Custom properties are created and managed using the USD API. They can work just like schema attributes and relationships. Custom attributes are more common because they can hold various types of data, such as numeric values, strings, or arrays, and can be sampled over time. This flexibility makes them useful for a wide range of applications, from simple metadata storage to complex animations.
+Custom properties are created and managed using the USD API. They can work just like schema attributes and {term}`relationships <Relationship>`. Custom attributes are more common because they can hold various types of data, such as numeric values, strings, or arrays, and can be sampled over time. This flexibility makes them useful for a wide range of applications, from simple metadata storage to complex animations.
 
 Here are a few ways we can use custom properties to enhance our OpenUSD workflows:
 
@@ -59,7 +59,7 @@ Here are a few ways we can use custom properties to enhance our OpenUSD workflow
 * **Simulation parameters** : Storing parameters for physics simulations or other procedural generation processes. 
 * **Arbitrary end user data** : Because they can be easily defined at run time, custom properties are the best way to allow end users to define arbitrary custom data.
 
-Custom properties are the easiest and most flexible way to adapt OpenUSD to specific workflows and requirements, making it a powerful tool for industries like manufacturing, product design, architecture, and engineering, wherever we have multiple data types from many sources with varying purposes--like connecting our OpenUSD to sensor data or IoT for live, connected digital twins, or creating a production model with attributes like part numbers, manufacturer, life cycle costs, and even carbon data that can sync 3D scene description to 2D project documents, like a bill of materials or carbon emission calculators.
+Custom properties are the easiest and most flexible way to adapt OpenUSD to specific workflows and requirements, making it a powerful tool for industries like manufacturing, product design, architecture, and engineering, wherever we have multiple data types from many sources with varying purposes--like connecting our OpenUSD to sensor data or IoT for live, connected digital twins, or creating a production {term}`model <Model>` with attributes like part numbers, manufacturer, life cycle costs, and even carbon data that can sync 3D scene description to 2D project documents, like a bill of materials or carbon emission calculators.
 
 ```{note}
 We often recommend custom properties instead of metadata or `customData` metadata for prototyping because the former requires plugin-based schema development which is less portable and the later is more costly for composition because it is a composable dictionary data type.
@@ -91,7 +91,7 @@ For custom attributes that are not a part of any schema, we use the {usdcpp}`Usd
 
 Setting `custom=True` has no impact on the way that OpenUSD treats the attribute, but it is a useful piece of metadata to inform end-users and developers that a particular attribute is not part of an existing schema.
 
-Lastly, notice the `my_namespace:` prefix on the attribute. It's good practice to namespace custom properties and schemas created by your organization. This helps avoid name clashes and it helps the ecosystem understand where content orginated from. For NVIDIA custom properties, we use the `omni:` namespace for example.
+Lastly, notice the `my_namespace:` prefix on the attribute. It's good practice to {term}`namespace <Namespace>` custom properties and schemas created by your organization. This helps avoid name clashes and it helps the ecosystem understand where content orginated from. For NVIDIA custom properties, we use the `omni:` namespace for example.
 
 ## Examples
 
@@ -198,6 +198,3 @@ DisplayUSD(file_path, show_usd_code=True)
 
 Custom properties in OpenUSD provide a versatile way to extend the functionality of scene descriptions, making them adaptable to various specialized needs. By understanding how to create, set, and retrieve custom properties, we can enhance our OpenUSD workflows and better manage complex data in our projects, significantly improve the precision and efficiency of digital models, and build USD pipelines that are tailored to specific use
 cases.
-
-
-

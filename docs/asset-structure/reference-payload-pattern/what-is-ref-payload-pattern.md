@@ -1,12 +1,12 @@
 # What Is Reference/Payload Pattern?
 
-Instead of expecting users to know whether a complex asset requires payloading, many assets adopt the "reference-payload" pattern. This means their interface file is designed to be referenced, with the payload structure internal to the asset.
+Instead of expecting users to know whether a complex {term}`asset <Asset>` requires payloading, many assets adopt the "reference-payload" pattern. This means their interface file is designed to be {term}`referenced <Reference>`, with the {term}`payload <Payload>` structure internal to the asset.
 
-Important and inexpensive fields like variant sets and inherits are elevated above the payload when they are moved from the contents layer to the interface layer.
+Important and inexpensive fields like {term}`variant sets <Variant Set>` and inheritable properties are elevated above the {term}`payload <Payload>` when they are moved from the contents {term}`layer <Layer>` to the interface layer.
 
 ![](../../images/asset-structure/image40.png)
 
-Lofting fields can help avoid the need to load a payload in certain contexts, thereby improving overall performance. Since there's no general utility for lofting, it is typically achieved through site or project-specific post-scripts associated with asset generation and publishing. Fields found in the `UsdModelAPI` and `UsdGeomModelAPI`, such as `extentsHint`, are good candidates for lofting. The `UsdGeomModelAPI` provides a set of fields that enable the previewing of payloaded content before loading. Newer releases of OpenUSD have introduced the `UsdMediaAssetPreviewsAPI` as a schema for describing asset thumbnails.
+Lofting fields can help avoid the need to load a payload in certain contexts, thereby improving overall performance. Since there's no general utility for lofting, it is typically achieved through site or project-specific post-scripts associated with asset generation and publishing. Fields found in the `UsdModelAPI` and `UsdGeomModelAPI`, such as `extentsHint`, are good candidates for lofting. The `UsdGeomModelAPI` provides a set of fields that enable the previewing of payloaded content before loading. Newer releases of OpenUSD have introduced the `UsdMediaAssetPreviewsAPI` as a {term}`schema <Schema>` for describing asset thumbnails.
 
 By lofting fields, you are making functionality that was previously buried deep within the payload more accessible. This involves authoring new elements above the payload, creating overarching variant sets that control lower-level variant sets, and defining attributes that a payload connects to. Essentially, you are always introducing new fields and maintaining the accessibility of the functionality above the payload.
 

@@ -28,7 +28,7 @@ kernelspec:
 
 # Model Kinds
 
-In this lesson, we'll explore the concept of kinds in OpenUSD.
+In this lesson, we'll explore the concept of {term}`kinds <Kind>` in OpenUSD.
 
 ## What Are Model Kinds?
 ![Kind Definition](../images/foundations/Kind_Definition.webm)
@@ -42,7 +42,7 @@ Understanding kinds enables the creation of modular, reusable assets, and employ
 
 Kinds are a set of predefined categories that define the role and behavior of different prims within the scene hierarchy. These kinds include group, assembly, component, and subcomponent.
 
-Group, assembly, component all inherit from the base kind "model", which is why we refer to these as model kinds. Subcomponent is the outlier. "Model" is an abstract kind and should not be assigned as any prim. This is what the inheritance structure looks like:
+{term}`Group <Group>`, {term}`assembly <Assembly>`, {term}`component <Component>` all inherit from the base kind "model", which is why we refer to these as model kinds. {term}`Subcomponent <Subcomponent>` is the outlier. "Model" is an abstract kind and should not be assigned as any {term}`prim <Prim>`. This is what the inheritance structure looks like:
 
 * model
   * component
@@ -85,9 +85,7 @@ scopes, such as trees and street lights in the neighborhood.
 #### Model Hierarchy
 
 Prims of the group, assembly, and component kind (and any custom kind
-inheriting from them) make up the model hierarchy. This hierarchy is designed
-so that we can better organize assets in our scene. It facilitates navigation,
-asset management, and high-level reasoning about the scene structure.
+inheriting from them) make up the {term}`model hierarchy <Model Hierarchy>`. This hierarchy is designed so that we can better organize assets in our scene. It facilitates navigation, asset management, and high-level reasoning about the scene structure.
 
 We can leverage model hierarchy to prune traversal in the scenegraph. For
 example, all ancestral prims of component models (when they’re correctly
@@ -184,7 +182,4 @@ DisplayUSD(file_path, show_usd_code=True)
 
 ## Key Takeaways
 
-Model kinds in OpenUSD provide a structured way to organize and manage complex
-3D scenes. By defining and adhering to these kinds, artists, designers, and
-developers can create modular, reusable assets that can be easily combined,
-referenced, and shared across different projects and workflows.
+Model kinds in OpenUSD provide a structured way to organize and manage complex 3D scenes. By defining and adhering to these kinds, artists, designers, and developers can create modular, reusable assets that can be easily combined, referenced, and shared across different projects and workflows.

@@ -4,7 +4,7 @@
 
 ![](../../images/composition-arcs/image25.png)
 
-The specialize arc is similar to the inherits arc, but provides the ability to broadcast specs (`primSpecs` or `propertySpecs`) across layer stacks as fallback values. The spec from the specializes source prim is applied to all specializes destination prims if there isn’t another authored opinion for that spec.
+The {term}`specialize arc <Specialize>` is similar to the {term}`inherit arc <Inherit>`, but provides the ability to broadcast specs ({term}`prim specs <Prim Spec>` or {term}`property specs <Property Spec>`) across {term}`layer stacks <Layer Stack>` as fallback values. The spec from the specializes source {term}`prim <Prim>` is applied to all specializes destination prims if there isn’t another authored opinion for that spec.
 
 ## When and Why Do You Use Them?
 

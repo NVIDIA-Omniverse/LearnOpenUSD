@@ -1,6 +1,6 @@
 # Exercise: Organizing Prim Hierarchy
 
-In this exercise, we're going to organize all mesh prims under a new `Geometry` scope and all material prims under a `Looks` scope. This will provide organization and define jurisdictions for products contributed by modelers versus those contributed by surfacers.
+In this exercise, we're going to organize all mesh {term}`prims <Prim>` under a new `Geometry` scope and all material prims under a `Looks` scope. This will provide organization and define jurisdictions for products contributed by modelers versus those contributed by surfacers.
 
 1. Let’s take a look back at our building. **Open** the `lrg_bldgF.usd` in usdview by **running** the following command in the Visual Studio Code terminal:
 
@@ -33,7 +33,7 @@ for prim in default_prim_children:
         editor.ApplyEdits()
 ```
 
-4. Let’s run the script and see how it changes our layer. In the terminal, **run** the script using the following command:
+4. Let’s run the script and see how it changes our {term}`layer <Layer>`. In the terminal, **run** the script using the following command:
 
 Windows:
 ```powershell

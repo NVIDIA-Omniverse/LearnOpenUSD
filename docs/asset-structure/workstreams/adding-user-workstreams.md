@@ -1,8 +1,8 @@
 # Exercise: Adding User Workstreams
 
-In this exercise, we'll organize our asset structure into layers, specifically `geometry.usd` and `shading.usd`, to manage our workstreams effectively. We've already taken the first step by moving the geometry to a `geometry.usd` layer. You can think of this as if a modeler had exported the initial model from their digital content creation tool (DCC) into the `geometry.usd` layer.
+In this exercise, we'll organize our {term}`asset <Asset>` structure into {term}`layers <Layer>`, specifically `geometry.usd` and `shading.usd`, to manage our workstreams effectively. We've already taken the first step by moving the geometry to a `geometry.usd` layer. You can think of this as if a modeler had exported the initial {term}`model <Model>` from their digital content creation tool (DCC) into the `geometry.usd` layer.
 
-Next, we'll create a script to simulate the work of a surfacing artist. This script will mimic a sparse export of only material and binding information from a surfacing DCC. This data will be authored to a `shading.usd` layer, which we will then add as a sublayer to our asset.
+Next, we'll create a script to simulate the work of a surfacing artist. This script will mimic a sparse export of only material and binding information from a surfacing DCC. This data will be authored to a `shading.usd` layer, which we will then add as a {term}`sublayer <Sublayer>` to our asset.
 
 ---
 

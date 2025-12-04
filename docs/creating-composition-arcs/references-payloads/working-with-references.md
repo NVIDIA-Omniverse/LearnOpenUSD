@@ -1,6 +1,6 @@
 # Exercise: Working With References
 
-Let’s see references in action now. We will be going over the reference we looked at in the lecture, but viewing it in usdview.
+Let’s see {term}`references <Reference>` in action now. We will be going over the reference we looked at in the lecture, but viewing it in usdview.
 
 1. Head over to Visual Studio Code and **run** the following code to open the file in usdview:
 
@@ -15,20 +15,20 @@ Linux:
 
 ![](../../images/composition-arcs/image56.png)
 
-What are some of the things you notice? How is this layer organized? Keep these questions in mind as we will go over it again later on, when we talk about encapsulation.
+What are some of the things you notice? How is this {term}`layer <Layer>` organized? Keep these questions in mind as we will go over it again later on, when we talk about encapsulation.
 
-As you might have noticed all prims are underneath and contained within the World prim.
+As you might have noticed all {term}`prims <Prim>` are underneath and contained within the "World" prim.
 
 2. **Close** the window and head back to Visual Studio Code.
 3. **Open** `composition_arcs/references/simple_example/references_simple.usd` in Visual Studio Code, and notice where the references are being made.
 
 ![](../../images/composition-arcs/image62.png)
 
-We can also see that there are `PropertySpecs` being applied to each.
+We can also see that there are {term}`property specs <Property Spec>` being applied to each.
 
 ![](../../images/composition-arcs/image44.png)
 
-Looking at these `PropertySpecs`, how do these affect the layer? Does it also affect `red_cube.usd`?
+Looking at these property specs, how do these affect the layer? Does it also affect `red_cube.usd`?
 
 4. Head back into Visual Studio Code and scroll down to view more of `references_simple.usd`. Take a look at `blue_cube_01` and when you scroll down further you can see that it is being used as a reference for `blue_cube_02` and `blue_cube_03`.
 
@@ -68,7 +68,7 @@ We can also see the composition of `blue_cube_02` when selected.
 
 Going back to the questions we asked before and some new questions:
 
-Looking at these `PropertySpecs`, how do these affect the layer?
+Looking at these property specs, how do these affect the layer?
 
 Does it also affect `red_cube.usd`?
 
@@ -78,7 +78,7 @@ Now after having a basic understanding let’s apply it to a scenario.
 
 The script we're creating could simulate an artist interactively building a city or it could be a tool that will procedurally generate a city. Let’s say we need to create a row of buildings. We can set this up using references.
 
-Let’s take a look at what assets we are using. You can also open these files in usdview. Here we have `skyscraperA` and `skyscraperE`.\
+Let’s take a look at what {term}`assets <Asset>` we are using. You can also open these files in usdview. Here we have `skyscraperA` and `skyscraperE`.\
 ![](../../images/composition-arcs/image39.png)
 
 ![](../../images/composition-arcs/image51.png)

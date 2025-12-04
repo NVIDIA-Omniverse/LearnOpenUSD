@@ -4,11 +4,11 @@
 
 ## What Are Sublayers?
 
-Sublayers are a list of USD layers that are ordered by opinion strength (i.e. the first layer is stronger than the last layer). Each layer overlays on top of each other and provides opinions (specs). When a layer is composed as a sublayer, all of its contents are added to the destination layer in an “include” fashion without any remapping.
+{term}`Sublayers <Sublayer>` are a list of USD {term}`layers <Layer>` that are ordered by opinion strength (i.e. the first layer is stronger than the last layer). Each layer overlays on top of each other and provides opinions (specs). When a layer is composed as a sublayer, all of its contents are added to the destination layer in an “include” fashion without any remapping.
 
 ## When and Why Do You Use Them?
 
-When working with large scenes, being able to have each workstream work in their own smaller, manageable sublayers makes it easier to work in the scene. For example, one workstream could be working on lighting while another workstream works on asset layout. These sublayers are independent but can be composed together. That way, as new assets are added in one workstream, the lighting workstream does not have to change. Each workstream can also work independently without blocking each other.
+When working with large scenes, being able to have each workstream work in their own smaller, manageable sublayers makes it easier to work in the scene. For example, one workstream could be working on lighting while another workstream works on {term}`asset <Asset>` layout. These sublayers are independent but can be composed together. That way, as new assets are added in one workstream, the lighting workstream does not have to change. Each workstream can also work independently without blocking each other.
 
 ![](../../images/composition-arcs/image64.png)
 

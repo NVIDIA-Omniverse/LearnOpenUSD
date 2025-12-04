@@ -14,7 +14,7 @@ Data extraction offers several benefits:
 
 The output USD data from the data extraction phase is often treated as transient data. The author of an exporter will often choose to not write the data extraction output to disk and only output the transformed data which is better-suited for end users.
 
-Authors of data exchange implementations should consider optionally giving access to the in-memory extracted stage or writing the extracted stage to disk as it is valuable for third party developers that may want to write their own transformation steps. Without it, third party developers may be left to reverse engineer your transformations.
+Authors of data exchange implementations should consider optionally giving access to the in-memory extracted {term}`stage <Stage>` or writing the extracted stage to disk as it is valuable for third party developers that may want to write their own transformation steps. Without it, third party developers may be left to reverse engineer your transformations.
 
 Examples of transient data from the extraction phase that could be useful during the transformation phase include:
 
@@ -32,7 +32,7 @@ Examples of transient data from the extraction phase that could be useful during
 
 ![](../../images/data-exchange/image18.png)
 
-To achieve a direct and faithful extraction between two data formats, conceptual data mapping is crucial. This process involves analyzing how to map data models from one format to another. You'll find many commonalities that make for easy extraction, but you may also identify scene description schema gaps (i.e. data models from other formats that don’t map directly to any concepts in USD). Identifying and proposing new schemas for OpenUSD helps enrich the interchange of our scene descriptions and grow the OpenUSD ecosystem.
+To achieve a direct and faithful extraction between two data formats, conceptual data mapping is crucial. This process involves analyzing how to map data models from one format to another. You'll find many commonalities that make for easy extraction, but you may also identify scene description {term}`schema <Schema>` gaps (i.e. data models from other formats that don’t map directly to any concepts in USD). Identifying and proposing new schemas for OpenUSD helps enrich the interchange of our scene descriptions and grow the OpenUSD ecosystem.
 
 Producing a conceptual data mapping document as you go through this process can be valuable:
 

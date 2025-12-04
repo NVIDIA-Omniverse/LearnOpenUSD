@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this exercise, you will learn how to enable scenegraph instancing on component assets and measure its performance impact. You'll use a Python script to toggle instancing, observe how instances and prototypes appear in usdview, and compare startup times to demonstrate the significant performance benefits of instancing in USD workflows.
+In this exercise, you will learn how to enable scenegraph instancing on {term}`component assets <Component>` and measure its performance impact. You'll use a Python script to toggle instancing, observe how instances and prototypes appear in usdview, and compare startup times to demonstrate the significant performance benefits of instancing in USD workflows.
 
 ```{seealso}
 While this will be an imperfect measurement of performance due to a number of variables that can come into play, it should at least indicate some improvement in performance when using instancing. For a more robust way to measure performance, we recommend the [`usdmeasureperformance.py` script](inv:usd:std#toolset:usdmeasureperformance) included with OpenUSD.
@@ -36,7 +36,7 @@ This time we launched usdview with `--camera ExCam_01`. This automatically selec
 2. **Click** on the *?* button on the bottom right of the Tree View panel.
 ![](../../images/asset-modularity-instancing/ex_sg_enable_inst-legend.png)
 
-This will open up the Prim Legend drawer. This legend indicates that scenegraph instances are have light blue text and Prototypes have dark blue text in the Tree View. In this case, we have not enabled instancing yet, so you can see that the stage has no instance prims if you explore the Tree View.
+This will open up the Prim Legend drawer. This legend indicates that scenegraph instances are have light blue text and Prototypes have dark blue text in the Tree View. In this case, we have not enabled instancing yet, so you can see that the {term}`stage <Stage>` has no instance prims if you explore the Tree View.
 
 ![](../../images/asset-modularity-instancing//inst-proto-legend.png)
 

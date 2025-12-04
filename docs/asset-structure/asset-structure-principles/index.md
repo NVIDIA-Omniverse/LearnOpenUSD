@@ -2,10 +2,10 @@
 
 In this lesson, *Principles of Asset Structure*, we will:
 
-* Define what constitutes an asset in OpenUSD and explain why an asset structure is necessary.  
+* Define what constitutes an {term}`asset <Asset>` in OpenUSD and explain why an asset structure is necessary.  
 * Describe and apply the four key principles of scalable asset structures.  
 * Create and work with asset entry points and interfaces.  
-* Organize prim hierarchies effectively.
+* Organize {term}`prim hierarchies <Namespace>` effectively.
 
 Here is an outline for this lesson:
 

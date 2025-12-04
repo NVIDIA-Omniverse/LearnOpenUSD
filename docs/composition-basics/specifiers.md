@@ -30,23 +30,23 @@ kernelspec:
 
 ## What Are Specifiers?
 
-Specifiers in OpenUSD convey the intent for how a prim or a primSpec should be interpreted in the composed scene. The specifier can be one of three values: `def`, `over` or `class`.
+{term}`Specifiers <Specifier>` in OpenUSD convey the intent for how a {term}`prim <Prim>` or a {term}`prim spec <Prim Spec>` should be interpreted in the composed scene. The specifier can be one of three values: `def`, `over` or `class`.
 
 ### How Does It Work?
 
 ![Specifier Def](../images/foundations/Specifiers_Def.webm)
 
-`def`, which is short for _define_ , defines the prim in the current layer. `def` indicates a prim exists and concretely defined on the stage.
+`def`, which is short for _{term}`define <Def>`_ , defines the prim in the current {term}`layer <Layer>`. `def` indicates a prim exists and concretely defined on the {term}`stage <Stage>`.
 
-The resolved specifier of a prim--essentially, which specifier wins when the composition is completed--determines which stage traversals (like rendering) will visit that prim. Default traversals will only visit defined (`def`), non-abstract prims. Abstract prims are those that resolve to the `class` specifiers. `over`, the weakest specifier, will resolve to either a `def` or `class` specifier.
+The resolved specifier of a prim--essentially, which specifier wins when the {term}`composition <Composition>` is completed--determines which stage traversals (like rendering) will visit that prim. Default traversals will only visit defined (`def`), non-abstract prims. Abstract prims are those that resolve to the `class` specifiers. `over`, the weakest specifier, will resolve to either a `def` or `class` specifier.
 
 ![Specifier Over](../images/foundations/Specifiers_Over.webm)
 
-`over`, which is short for _override_ , holds overrides for opinions that already exist in the composed scene on another layer. The `over` will not translate back to the original prim, and is what enables non-destructive editing workflows, such as changing a property of a prim, like its color, in another layer.  
+`over`, which is short for _{term}`override <Over>`_ , holds overrides for {term}`opinions <Opinions>` that already exist in the composed scene on another layer. The `over` will not translate back to the original prim, and is what enables non-destructive editing workflows, such as changing a {term}`property <Property>` of a prim, like its color, in another layer.  
 
 ![Specifier Class](../images/foundations/Specifiers_Class.webm)
 
-A `class` prim essentially signals that it is a blueprint. `class` prims abstract and contain opinions that are meant to be composed onto other prims. It’s worth noting that `class` prims are intended as the target of a reference, payload, inherit, or specialize composition arc or as a relationship target for a PointInstancer. These are concepts we'll cover in a later lesson.
+A `class` prim essentially signals that it is a blueprint. `class` prims abstract and contain opinions that are meant to be composed onto other prims. It’s worth noting that `class` prims are intended as the target of a {term}`reference <Reference>`, {term}`payload <Payload>`, {term}`inherit <Inherit>`, or {term}`specialize <Specialize>` {term}`composition arc <Composition Arcs>` or as a {term}`relationship <Relationship>` target for a PointInstancer. These are concepts we'll cover in a later lesson.
 
 Prims that resolve to `class` specifiers will also be present and composed on a stage, but won’t be visited by default stage traversals, meaning it will be ignored by traversals such as those used for rendering.
 
@@ -96,7 +96,7 @@ from utils.visualization import DisplayUSD, DisplayCode
 ```
 
 ### Example 1: Authoring defs and a class in a base layer
-This script defines two concrete cubes (specifier **def**) and a reusable **class** prim that holds a `displayColor` opinion for inheritance. The output contrasts the composed specifiers for each, showing **def** for scene geometry and **class** for abstract Prim.
+This script defines two concrete cubes (specifier **def**) and a reusable **{term}`class <Class>`** prim that holds a `displayColor` opinion for inheritance. The output contrasts the composed specifiers for each, showing **def** for scene geometry and **class** for abstract Prim.
 
 ```{code-cell}
 :emphasize-lines: 8-27
@@ -137,7 +137,7 @@ DisplayUSD(base_file_path, show_usd_code=True)
 
 
 ### Example 2: Non‑destructive over edits and class inherit
-This script sublayers the base file, authors an over on `/World/Box` to change `size`, and adds an **inherits** arc so the box picks up the class color. The prim‑stack printout makes it clear that the strong layer contributes over while the base contributes def, and the class opinions are applied via the inherit.
+This script sublayers the base file, authors an {term}`over <Over>` on `/World/Box` to change `size`, and adds an **inherits** arc so the box picks up the class color. The prim‑stack printout makes it clear that the strong layer contributes over while the base contributes def, and the class opinions are applied via the inherit.
 
 ```{code-cell}
 :emphasize-lines: 13-25
