@@ -31,13 +31,15 @@ kernelspec:
 Welcome to this lesson on OpenUSD {term}`stages <Stage>`, a core element in 3D scene description. Understanding OpenUSD stages enables collaboration across various applications and datasets by allowing us to aggregate our data in one place.
 
 In this lesson, we will:
-* Define the role of stages in 3D scene description.
+
+- Define the role of stages in 3D scene description.
 
 ## What Is a Stage?
 
 At its core, an OpenUSD stage presents the scenegraph, which dictates what is in our scene. It is the hierarchy of objects, called {term}`prims <Prim>`. These prims can be anything from geometry, to materials, to lights and other organizational elements. This scene is commonly stored in a data structure of connected nodes, which is why we refer to it as the scenegraph.
 
 ```{kaltura} 1_cm4ehcvo
+
 ```
 
 ### How Does It Work?
@@ -65,10 +67,10 @@ Creating a USD stage is the first step to generating a new USD scenegraph. In Py
 ```python
 # Create a new, empty USD stage where 3D scenes are assembled
 Usd.Stage.CreateNew()
-  
+
 # Open an existing USD file as a stage
 Usd.Stage.Open()
-  
+
 # Saves all layers in a USD stage
 Usd.Stage.Save()
 ```
@@ -80,10 +82,11 @@ Usd.Stage.Save()
 At its core, an OpenUSD [stage](https://openusd.org/release/glossary.html#usdglossary-stage) refers to a top-level USD file that serves as a container for organizing a hierarchy of elements called prims. Stages aren't files, but a unified scenegraph populated from multiple data sources called [layers](https://openusd.org/release/glossary.html#usdglossary-layer).
 
 Some of the functions we will use to access the stage will be the following:
+
 - [`Usd.Stage.CreateNew()`](https://openusd.org/release/api/class_usd_stage.html#a50c3f0a412aee9decb010787e5ca2e3e): Creates a new empty USD Stage where 3D scenes are assembled.
 - [`Usd.Stage.Open()`](https://openusd.org/release/api/class_usd_stage.html#ad3e185c150ee38ae13fb76115863d108): Opens an existing USD file as a stage.
 - [`Usd.Stage.Save()`](https://openusd.org/release/api/class_usd_stage.html#adefa2f7ebfc4d8c09f0cd54419aa36c4): Saves the current stage of a USD stage back to a file. If there are multiple layers in the stage, all edited layers that contribute to the stage are being saved. In our case, all edits are being done in a single layer.
-   
+
 ```{code-cell}
 # Import the `Usd` module from the `pxr` package:
 from pxr import Usd
@@ -97,8 +100,104 @@ print(stage.ExportToString(addSourceFileComment=False))
 
 Here we created a `usda` file using Python, loaded it as a stage, and printed out the stage's contents. Since nothing is in our stage we do not get much from the output.
 
-`.usda` are human-readable UTF-8 text. The [Crate file](https://openusd.org/release/glossary.html#crate-file-format) format is USD's own binary file format whose file extension is `.usdc` and is bi-directionally convertible to the `.usda` text format. `.usd` can refer to either Crate or text files. 
+```{seealso}
+`.usda` is a human-readable text format for OpenUSD.
+Read more about the native file formats in the
+[USD File Formats lesson](https://docs.nvidia.com/learn-openusd/latest/stage-setting/usd-file-formats.html).
+```
 
+### Example 2: Open and Save USD Stages
+
+A common task when working with OpenUSD is opening an existing file, making changes to the stage, and then saving the result back to disk. The `Usd.Stage.Open()` function loads a USD file as a stage, and `stage.Save()` writes any edits you make to the stage's root layer.
+
+In this example, we open an existing USDA file, add a prim so the modification is visible, and then save the updated stage.
+
+```{code-cell}
+from pxr import Usd
+
+# Open an existing USD stage from disk:
+stage: Usd.Stage = Usd.Stage.Open("_assets/first_stage.usda")
+
+# Add a simple prim so we can see a change in the saved file:
+stage.DefinePrim("/World", "Xform")
+
+# Save the stage back to disk:
+stage.Save()
+
+# Print the stage as text so we can inspect the result:
+print(stage.ExportToString(addSourceFileComment=False))
+```
+
+Here we opened an existing stage, modified its scenegraph by adding a prim, and saved the result back into the same root layer file. Any edits made to the stage are written to the root layer unless additional layers are introduced.
+
+### Example 3: Create a Stage in Memory
+
+Sometimes you may want to create a stage without immediately writing it to disk. This is useful when generating temporary data, running tests, or building a stage that you only want to save after validating its contents.
+
+The `Usd.Stage.CreateInMemory()` function creates a stage whose root layer exists only in
+memory until you explicitly export it.
+
+```{code-cell}
+from pxr import Usd
+
+# Create a new stage stored only in memory:
+stage: Usd.Stage = Usd.Stage.CreateInMemory()
+
+# Add a prim so the stage contains some data:
+stage.DefinePrim("/World", "Xform")
+
+# Print the stage's contents:
+print("In-memory stage:")
+print(stage.ExportToString(addSourceFileComment=False))
+
+# Export the stage to disk if needed:
+stage.Export("_assets/in_memory_stage.usda")
+```
+
+In this example, the stage begins entirely in memory and is not written to disk until Export() is called. This makes CreateInMemory() useful for temporary stages, procedural generation, and workflows where you want to avoid unnecessary file writes.
+
+### Example 4: Working With the Root Layer
+
+Every stage has a root layer, which is the first layer opened by the stage.  
+Although it acts as the anchor for the layer stack, the majority of authored data may reside in other layers depending on the composition. When you create a stage with CreateNew(), the file you pass becomes its root layer.
+
+In this example, we access the root layer directly, inspect its metadata, and add a sublayer to demonstrate how the root layer organizes a stage’s data.
+
+```{code-cell}
+from pxr import Usd, Sdf
+
+# Create a new stage:
+stage: Usd.Stage = Usd.Stage.CreateNew("_assets/root_layer_example.usda")
+
+# Get the root layer object:
+root_layer: Sdf.Layer = stage.GetRootLayer()
+print("Root layer identifier:", root_layer.identifier)
+
+# Add a simple prim so the stage is not empty:
+stage.DefinePrim("/World", "Xform")
+
+# Create an additional layer (in a different format) and add it as a sublayer:
+extra_layer: Sdf.Layer = Sdf.Layer.CreateNew("_assets/extra_layer.usdc")
+root_layer.subLayerPaths.append(extra_layer.identifier)
+
+# Save both layers:
+stage.Save()
+extra_layer.Save()
+
+# Print the contents of the root layer:
+print("Root layer contents:")
+print(root_layer.ExportToString())
+```
+
+In this example, the file passed to `CreateNew()` becomes the stage’s root layer.
+We access the root layer to inspect it, attach an additional {term}`sublayer <Sublayer>`,
+and save both files. This illustrates how the root layer participates in the layer stack,
+and that sublayers can use different USD file formats.
+
+```{seealso}
+Sublayers are covered in depth in the
+[Sublayers lesson](https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/sublayers/index.html).
+```
 
 ## Key Takeaways
 
