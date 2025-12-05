@@ -79,7 +79,7 @@ Usd.Stage.Save()
 
 ### Example 1: Create a USD File and Load it as a Stage
 
-At its core, an OpenUSD [stage](https://openusd.org/release/glossary.html#usdglossary-stage) refers to a top-level USD file that serves as a container for organizing a hierarchy of elements called prims. Stages aren't files, but a unified scenegraph populated from multiple data sources called [layers](https://openusd.org/release/glossary.html#usdglossary-layer).
+At its core, an OpenUSD stage refers to a top-level USD file that serves as a container for organizing a hierarchy of elements called prims. Stages aren't files, but a unified scenegraph populated from multiple data sources called layers.
 
 Some of the functions we will use to access the stage will be the following:
 
@@ -101,9 +101,7 @@ print(stage.ExportToString(addSourceFileComment=False))
 Here we created a `usda` file using Python, loaded it as a stage, and printed out the stage's contents. Since nothing is in our stage we do not get much from the output.
 
 ```{seealso}
-`.usda` is a human-readable text format for OpenUSD.
-Read more about the native file formats in the
-[USD File Formats lesson](https://docs.nvidia.com/learn-openusd/latest/stage-setting/usd-file-formats.html).
+`.usda` is a human-readable text format for OpenUSD. Read more about the native file formats in the [USD File Formats lesson](./usd-file-formats.md).
 ```
 
 ### Example 2: Open and Save USD Stages
@@ -199,8 +197,7 @@ and save both files. This illustrates how the root layer participates in the lay
 and that sublayers can use different USD file formats.
 
 ```{seealso}
-Sublayers are covered in depth in the
-[Sublayers lesson](https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/sublayers/index.html).
+Sublayers are covered in depth in the [Sublayers lesson](../creating-composition-arcs/sublayers/index.md).
 ```
 
 ## Key Takeaways

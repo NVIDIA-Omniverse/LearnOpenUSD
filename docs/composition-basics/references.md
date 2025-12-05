@@ -69,7 +69,7 @@ from utils.visualization import DisplayUSD, DisplayCode
 
 ### Example 1: Adding a Reference
 
-[References](https://openusd.org/release/glossary.html#usdglossary-references) are a [composition arc](https://openusd.org/release/glossary.html#usdglossary-compositionarcs). [References](https://openusd.org/release/glossary.html#usdglossary-references) are like links to separate pieces of a project, allowing you to include and reuse these pieces without copying them.
+References are a composition arc. References are like links to separate pieces of a project, allowing you to include and reuse these pieces without copying them.
 
 Here's an example of how a reference looks in `.usda`:
 
@@ -131,7 +131,7 @@ Here we created a {term}`stage <Stage>` representing a Cube prim and then used a
 
 ### Example 2: Referencing an External Asset
 
-[References](https://openusd.org/release/glossary.html#usdglossary-reference) in OpenUSD allow for the inclusion of external {term}`assets <Asset>` or sub-scene data into a scene. This mechanism helps in modularizing and reusing assets across different scenes and projects, enabling efficient management of large-scale 3D environments.
+References in OpenUSD allow for the inclusion of external {term}`assets <Asset>` or sub-scene data into a scene. This mechanism helps in modularizing and reusing assets across different scenes and projects, enabling efficient management of large-scale 3D environments.
 
 Here, we'll add a reference to a shipping box asset.
 

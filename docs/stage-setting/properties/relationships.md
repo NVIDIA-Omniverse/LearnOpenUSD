@@ -71,7 +71,7 @@ from utils.helperfunctions import create_new_stage
 ```
 
 ### Example 1: Prim Collections with Relationships
-[`Relationships`](https://openusd.org/release/glossary.html#usdglossary-relationship) are properties that store one or more target paths. You can author a relationship with `CreateRelationship`, then later retrieve it with `GetRelationship` and inspect the targets with `GetTargets`.
+Relationships are properties that store one or more target paths. You can author a relationship with `CreateRelationship`, then later retrieve it with `GetRelationship` and inspect the targets with `GetTargets`.
 ```{code-cell}
 :emphasize-lines: 15-25
 

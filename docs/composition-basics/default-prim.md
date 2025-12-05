@@ -105,7 +105,7 @@ from utils.visualization import DisplayUSD, DisplayCode
 
 [`SetDefaultPrim()`](https://openusd.org/release/api/class_usd_stage.html#a82b260faf91fbf721b0503075f2861e2) sets the default prim for the stage's root layer.
 
-A `defaultPrim` is layer metadata. If the stage's root layer is used as a [`Reference`](https://openusd.org/release/glossary.html#usdglossary-references) or [`Payload`](https://openusd.org/release/glossary.html#usdglossary-payload) it is best practice to set a Default Prim.
+A `defaultPrim` is layer metadata. If the stage's root layer is used as a reference or payload it is best practice to set a default prim.
 
 
 ```{code-cell}
