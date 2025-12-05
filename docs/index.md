@@ -81,6 +81,7 @@ asset-modularity-instancing/index
 :hidden:
 
 Glossary <glossary>
+Interactive Glossary <interactive-glossary>
 usdview-install-instructions
 Certification Study Guide <https://nvdam.widen.net/s/6kxsqcsrrw/ncp-openusd-development-study-guide>
 :::

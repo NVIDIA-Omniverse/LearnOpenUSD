@@ -24,6 +24,7 @@
 import importlib.metadata
 from pathlib import Path
 import posixpath
+import re
 import shutil
 import types
 import urllib.parse
@@ -236,6 +237,212 @@ def create_exercises_archives(app, exception):
                         zip_file.write(file, file.relative_to(exercises.parent))
             print(f"Created {zip_file_path}")
 
+def extract_glossary_from_html(app, exception):
+    """Extract glossary data from the rendered HTML file for interactive graph visualization."""
+    if exception is not None:
+        return
+    
+    import json
+    from pathlib import Path
+    from html.parser import HTMLParser
+    
+    glossary_html_file = Path(app.outdir) / 'glossary.html'
+    
+    if not glossary_html_file.exists():
+        print("Warning: glossary.html not found, skipping graph data extraction")
+        return
+    
+    class GlossaryHTMLParser(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.glossary_data = {}
+            self.current_term = None
+            self.current_aka = None
+            self.in_dd = False
+            self.in_aka_para = False
+            self.in_further_reading_para = False
+            self.description_html = []
+            self.current_links = []
+            self.capture_html = False
+            self.html_buffer = []
+            
+        def handle_starttag(self, tag, attrs):
+            attrs_dict = dict(attrs)
+            
+            # Start of a term
+            if tag == 'dt' and 'id' in attrs_dict and attrs_dict['id'].startswith('term-'):
+                self.current_term = None
+                self.current_aka = None
+                self.description_html = []
+                self.current_links = []
+                
+            # Start of definition
+            elif tag == 'dd':
+                self.in_dd = True
+                self.capture_html = False
+                
+            # Paragraph in definition
+            elif tag == 'p' and self.in_dd:
+                self.html_buffer = []
+                self.capture_html = True
+                
+            # Links in Further Reading
+            elif tag == 'a' and self.in_further_reading_para:
+                link_url = attrs_dict.get('href', '')
+                self.current_link_url = link_url
+                self.current_link_text = []
+                
+            # Capture HTML for description (but not the <p> tag itself)
+            if self.capture_html and not self.in_aka_para and not self.in_further_reading_para and tag != 'p':
+                self.html_buffer.append(self.get_starttag_text())
+                
+        def handle_endtag(self, tag):
+            if tag == 'dt':
+                pass
+                
+            elif tag == 'dd':
+                # Save the term
+                if self.current_term and self.description_html:
+                    self.glossary_data[self.current_term] = {
+                        'title': self.current_term,
+                        'aka': self.current_aka,
+                        'description_html': ''.join(self.description_html),
+                        'links': self.current_links.copy()
+                    }
+                self.in_dd = False
+                
+            elif tag == 'p':
+                if self.capture_html:
+                    # Check if this paragraph had metadata
+                    if not self.in_aka_para and not self.in_further_reading_para:
+                        # Wrap content in <p> tags for proper paragraph spacing
+                        para_content = ''.join(self.html_buffer).strip()
+                        if para_content:
+                            self.description_html.append(f'<p>{para_content}</p>')
+                    self.html_buffer = []
+                    self.capture_html = False
+                    self.in_aka_para = False
+                    self.in_further_reading_para = False
+                    
+            elif tag == 'a' and self.in_further_reading_para and hasattr(self, 'current_link_url'):
+                link_text = ''.join(self.current_link_text)
+                self.current_links.append({
+                    'text': link_text,
+                    'url': self.current_link_url
+                })
+                
+            # Capture HTML for description (but not the </p> tag itself)
+            if self.capture_html and not self.in_aka_para and not self.in_further_reading_para and tag != 'p':
+                self.html_buffer.append(f'</{tag}>')
+                
+        def handle_data(self, data):
+            # Extract term name from dt
+            if not self.in_dd and data.strip() and not self.current_term:
+                # Skip if it's just '#'  (headerlink)
+                if data.strip() != '#':
+                    self.current_term = data.strip()
+                    
+            # Check for metadata markers
+            if self.capture_html:
+                stripped_data = data.strip()
+                
+                if 'Also Known As:' in data:
+                    self.in_aka_para = True
+                    self.html_buffer = []  # Clear buffer for this para
+                    
+                elif 'Further Reading' in data:
+                    self.in_further_reading_para = True
+                    self.html_buffer = []  # Clear buffer for this para
+                    
+                # Capture link text
+                elif self.in_further_reading_para and hasattr(self, 'current_link_text'):
+                    self.current_link_text.append(data)
+                    
+                # Capture aka text (in emphasis tags)
+                elif self.in_aka_para:
+                    if stripped_data and stripped_data != 'Also Known As:':
+                        self.current_aka = stripped_data
+                        
+                # Capture description HTML
+                elif not self.in_aka_para and not self.in_further_reading_para:
+                    self.html_buffer.append(data)
+    
+    # Parse the glossary HTML
+    with open(glossary_html_file, 'r', encoding='utf-8') as f:
+        html_content = f.read()
+    
+    parser = GlossaryHTMLParser()
+    parser.feed(html_content)
+    glossary_data = parser.glossary_data
+    
+    # Save as JavaScript file
+    if glossary_data:
+        output_dir = Path(app.outdir) / '_static' / 'data'
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_file = output_dir / 'glossary-definitions.js'
+        
+        # Generate JavaScript content
+        js_content = "// Auto-generated glossary definitions from glossary.md\n"
+        js_content += "// DO NOT EDIT DIRECTLY - Edit docs/glossary.md instead\n\n"
+        js_content += "const glossaryDefinitions = {\n"
+        
+        for term, data in sorted(glossary_data.items()):
+            # Escape strings for JavaScript
+            title = data['title'].replace('\\', '\\\\').replace('"', '\\"')
+            aka = data['aka'].replace('\\', '\\\\').replace('"', '\\"') if data['aka'] else None
+            # For HTML, use JSON.stringify-style escaping for backticks
+            description_html = data['description_html'].replace('\\', '\\\\').replace('`', '\\`').replace('$', '\\$')
+            
+            js_content += f'    "{title}": {{\n'
+            js_content += f'        title: "{title}",\n'
+            
+            if aka:
+                js_content += f'        aka: "{aka}",\n'
+            else:
+                js_content += f'        aka: null,\n'
+            
+            # Use template literal for HTML content
+            js_content += f'        descriptionHtml: `{description_html}`,\n'
+            js_content += f'        links: [\n'
+            
+            for link in data['links']:
+                link_text = link['text'].replace('\\', '\\\\').replace('`', '\\`')
+                link_url = link['url'].replace('\\', '\\\\').replace('`', '\\`')
+                js_content += f'            {{text: `{link_text}`, url: `{link_url}`}},\n'
+            
+            js_content += '        ]\n'
+            js_content += '    },\n'
+        
+        js_content += "};\n"
+        
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(js_content)
+        
+        # Count nodes in graph structure for comparison
+        graph_structure_file = output_dir / 'glossary-graph-structure.js'
+        node_count = 0
+        if graph_structure_file.exists():
+            try:
+                with open(graph_structure_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                    # Count node entries in the nodes array
+                    # Look for { id: 'Term', ... } patterns
+                    node_matches = re.findall(r'\{\s*id:\s*[\'"]([^\'"]+)[\'"]', content)
+                    node_count = len(node_matches)
+            except Exception as e:
+                print(f"Warning: Could not count nodes in graph structure: {e}")
+        
+        print(f"Glossary graph data: Extracted {len(glossary_data)} definitions from glossary.md")
+        if node_count > 0:
+            print(f"                     Graph structure has {node_count} nodes")
+            if len(glossary_data) < node_count:
+                print(f"                     ⚠️  Warning: {node_count - len(glossary_data)} nodes missing definitions!")
+            elif len(glossary_data) > node_count:
+                print(f"                     ℹ️  Note: {len(glossary_data) - node_count} definitions not shown in graph")
+        print(f"Generated {output_file}")
+    else:
+        print("Warning: No glossary data extracted from doctree")
+
 def monkey_patch_doxylink(app: Sphinx):
     try:
         new_entries = []
@@ -287,6 +494,7 @@ def setup(app):
     app.connect('builder-inited', setup_translators)
     app.connect('builder-inited', monkey_patch_doxylink)
     app.connect('html-page-context', add_glossary_toc)
+    app.connect('build-finished', extract_glossary_from_html)
     app.connect('build-finished', create_exercises_archives)
     app.connect('build-finished', copy_asset_folders)
     
