@@ -100,7 +100,11 @@ print(stage.ExportToString(addSourceFileComment=False))
 
 Here we created a `usda` file using Python, loaded it as a stage, and printed out the stage's contents. Since nothing is in our stage we do not get much from the output.
 
-`.usda` are human-readable UTF-8 text. The [Crate file](https://openusd.org/release/glossary.html#crate-file-format) format is USD's own binary file format whose file extension is `.usdc` and is bi-directionally convertible to the `.usda` text format. `.usd` can refer to either Crate or text files.
+```{seealso}
+`.usda` is a human-readable text format for OpenUSD.
+Read more about the native file formats in the
+[USD File Formats lesson](https://docs.nvidia.com/learn-openusd/latest/stage-setting/usd-file-formats.html).
+```
 
 ### Example 2: Open and Save USD Stages
 
@@ -154,7 +158,8 @@ In this example, the stage begins entirely in memory and is not written to disk 
 
 ### Example 4: Working With the Root Layer
 
-Every stage has a root layer, which is the main USD layer where the stage’s data is stored. When you create a stage with CreateNew(), the file you pass becomes its root layer.
+Every stage has a root layer, which is the first layer opened by the stage.  
+Although it acts as the anchor for the layer stack, the majority of authored data may reside in other layers depending on the composition. When you create a stage with CreateNew(), the file you pass becomes its root layer.
 
 In this example, we access the root layer directly, inspect its metadata, and add a sublayer to demonstrate how the root layer organizes a stage’s data.
 
@@ -162,7 +167,7 @@ In this example, we access the root layer directly, inspect its metadata, and ad
 from pxr import Usd, Sdf
 
 # Create a new stage:
-stage = Usd.Stage.CreateNew("_assets/root_layer_example.usda")
+stage: Usd.Stage = Usd.Stage.CreateNew("_assets/root_layer_example.usda")
 
 # Get the root layer object:
 root_layer: Sdf.Layer = stage.GetRootLayer()
@@ -172,7 +177,7 @@ print("Root layer identifier:", root_layer.identifier)
 stage.DefinePrim("/World", "Xform")
 
 # Create an additional layer (in a different format) and add it as a sublayer:
-extra_layer = Sdf.Layer.CreateNew("_assets/extra_layer.usdc")
+extra_layer: Sdf.Layer = Sdf.Layer.CreateNew("_assets/extra_layer.usdc")
 root_layer.subLayerPaths.append(extra_layer.identifier)
 
 # Save both layers:
@@ -184,16 +189,17 @@ print("Root layer contents:")
 print(root_layer.ExportToString())
 ```
 
-In this example, the file passed to CreateNew() becomes the stage’s root layer. We access the root layer to inspect it, attach an additional sublayer, and save both files. This illustrates how the root layer manages the layer stack, and that sublayers can use different USD file formats.
+In this example, the file passed to `CreateNew()` becomes the stage’s root layer.
+We access the root layer to inspect it, attach an additional {term}`sublayer <Sublayer>`,
+and save both files. This illustrates how the root layer participates in the layer stack,
+and that sublayers can use different USD file formats.
+
+```{seealso}
+Sublayers are covered in depth in the
+[Sublayers lesson](https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/sublayers/index.html).
+```
 
 ## Key Takeaways
 
 An OpenUSD stage is the key to managing and interacting with 3D scenes using USD. The stage enables non-destructive editing, layering, and referencing, making it ideal for complex projects involving multiple collaborators. Leveraging OpenUSD stages properly can significantly enhance the efficiency
 and quality of 3D content production.
-
-````
-
-```
-
-```
-````
