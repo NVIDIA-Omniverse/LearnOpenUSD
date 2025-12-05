@@ -1,6 +1,6 @@
 [project]
 name = "lousd"
-version = "1.4.0"
+version = "1.5.0"
 description = "Learn OpenUSD sphinx-based website and tools."
 readme = "README.md"
 requires-python = ">=3.12"
