@@ -1,6 +1,6 @@
 accessible-pygments==0.0.5
 alabaster==1.0.0
-appnope==0.1.4 ; platform_system == 'Darwin'
+appnope==0.1.4 ; sys_platform == 'darwin'
 asttokens==3.0.0
 attrs==25.3.0
 babel==2.17.0
@@ -9,7 +9,7 @@ certifi==2025.4.26
 cffi==1.17.1 ; implementation_name == 'pypy'
 charset-normalizer==3.4.2
 click==8.2.0
-colorama==0.4.6 ; sys_platform == 'win32' or platform_system == 'Windows'
+colorama==0.4.6 ; sys_platform == 'win32'
 comm==0.2.2
 dataclasses-json==0.6.7
 debugpy==1.8.14
@@ -73,6 +73,7 @@ soupsieve==2.7
 sphinx==8.2.3
 sphinx-copybutton==0.5.2
 sphinx-design==0.6.1
+sphinx-tippy==0.4.3
 sphinxcontrib-applehelp==2.0.0
 sphinxcontrib-devhelp==2.0.0
 sphinxcontrib-doxylink==1.13.0
