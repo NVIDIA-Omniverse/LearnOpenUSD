@@ -77,8 +77,11 @@ Usd.Stage.Traverse()
 # Traverse all prims in the stage
 Usd.Stage.TraverseAll()
 
-# Predicates are combined used bitwise operators
+# Predicates are combined using bitwise operators
 predicate = Usd.PrimIsActive & Usd.PrimIsLoaded
+
+# Boolean operators should NOT be used to combine operators. This won't combine the predicates:
+# bad_predicate = Usd.PrimIsActive and Usd.PrimIsLoaded 
 
 # Traverse starting from the given prim and based on the predicate for filtering the traversal
 Usd.PrimRange(prim, predicate=predicate)
