@@ -77,7 +77,7 @@ Usd.Stage.Traverse()
 # Traverse all prims in the stage
 Usd.Stage.TraverseAll()
 
-# Predicates are combined used bitwise operators
+# Predicates are combined using bitwise operators
 predicate = Usd.PrimIsActive & Usd.PrimIsLoaded
 
 # Traverse starting from the given prim and based on the predicate for filtering the traversal
@@ -90,6 +90,16 @@ for prim in it:
         prim_range.PruneChildren()  # Skip all children of "Environment"
 ```
 
+````{caution}
+Boolean operators, like `and`/`or`/`not`, will NOT combine predicates as intended.  
+Always combine traversal predicates with bitwise operators (`&`, `|`, `~`).  
+For example, AVOID the following:
+
+```python
+# This will NOT work as intended!!
+BAD_predicate = Usd.PrimIsActive and Usd.PrimIsLoaded 
+```
+````
 
 ## Examples
 
