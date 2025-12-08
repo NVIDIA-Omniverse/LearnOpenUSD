@@ -90,7 +90,7 @@ for prim in it:
         prim_range.PruneChildren()  # Skip all children of "Environment"
 ```
 
-````{warning}
+````{caution}
 Boolean operators, like `and`/`or`/`not`, will NOT combine predicates as intended.  
 Always combine traversal predicates with bitwise operators (`&`, `|`, `~`).  
 For example, AVOID the following:
