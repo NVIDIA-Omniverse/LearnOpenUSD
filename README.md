@@ -34,6 +34,15 @@ git lfs pull
 1. `uv run python -m http.server 8000 -d docs/_build/html/`
 1. In a web browser, open `http://localhost:8000`
 
+### Build System Details
+
+The build process:
+1. MyST-NB executes Python code cells
+2. Sphinx processes directives and cross-references
+3. Custom extensions copy assets and create exercise ZIPs
+4. Glossary is extracted for interactive graph
+5. HTML is generated with custom theme
+
 ## Have an Idea for a New Example or New Content?
 Ideas for new content that can help other developers are always welcome. Please [create a new issue](https://github.com/NVIDIA-Omniverse/LearnOpenUSD/issues) describing the type of new content you are requesting and put [New Request] at the end of your title. Someone from the NVIDIA team or OpenUSD community will pick it up. If you can contribute it yourself, even better!
 

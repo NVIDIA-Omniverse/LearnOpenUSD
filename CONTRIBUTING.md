@@ -1,6 +1,14 @@
 
 ## Learn OpenUSD OSS Contribution Rules
 
+#### Style Guide
+
+Please review our **[Style Guide](./STYLEGUIDE.md)** before contributing content. It covers:
+- USD terminology and capitalization rules
+- MyST Markdown syntax and directives
+- Formatting conventions
+- Code example best practices
+
 #### Issue Tracking
 
 * All enhancement, bugfix, or change requests must begin with the creation of a [Learn OpenUSD Issue Request](https://github.com/NVIDIA-Omniverse/LearnOpenUSD/issues).
