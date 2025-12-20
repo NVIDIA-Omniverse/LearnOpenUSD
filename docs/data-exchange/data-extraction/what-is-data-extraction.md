@@ -30,9 +30,13 @@ Examples of transient data from the extraction phase that could be useful during
 
 ## Conceptual Data Mapping
 
-![](../../images/data-exchange/image18.png)
+To achieve a direct and faithful extraction between two data formats, conceptual data mapping is crucial. This process involves analyzing how to map data models from one format to another. You'll find many commonalities that make for easy extraction, but you may also identify scene description {term}`schema <Schema>` gaps (i.e. data models from other formats that don't map directly to any concepts in USD). Identifying and proposing new schemas for OpenUSD helps enrich the interchange of our scene descriptions and grow the OpenUSD ecosystem.
 
-To achieve a direct and faithful extraction between two data formats, conceptual data mapping is crucial. This process involves analyzing how to map data models from one format to another. You'll find many commonalities that make for easy extraction, but you may also identify scene description {term}`schema <Schema>` gaps (i.e. data models from other formats that don’t map directly to any concepts in USD). Identifying and proposing new schemas for OpenUSD helps enrich the interchange of our scene descriptions and grow the OpenUSD ecosystem.
+```{note}
+When source formats have compound or grouped data types (like structs, records, or grouped fields), namespace-prefixed {term}`attributes <Attribute>` provide the convention for grouping related properties together in USD. Since USD doesn't have a native struct type, namespace-prefixed attributes serve as the standard approach for representing this kind of grouped data. See [Custom Properties](../../beyond-basics/custom-properties.md#grouping-related-properties) for more on working with namespaced attributes.
+```
+
+### Benefits of Conceptual Data Mapping
 
 Producing a conceptual data mapping document as you go through this process can be valuable:
 
@@ -43,6 +47,10 @@ Producing a conceptual data mapping document as you go through this process can 
   - Changes to an official data mapping implementation
 - The document enables effective discourse when asking for feedback from the OpenUSD community or communicating schema gaps.
 - It helps third-party developers understand which features are supported between the two formats and what to expect from the extraction phase, allowing them to develop their own data transformations.
+
+### Examples
+
+![](../../images/data-exchange/image18.png)
 
 The image shows a conceptual data mapping document created for the `obj2usd` converter we're developing in this module. Other examples, like the USD and MaterialX concept mapping, can be found in the [OpenUSD documentation](https://openusd.org/release/api/usd_mtlx_page_front.html#usdMtlx_concepts). You can also checkout our additional [guidance and template for conceptual data mapping](https://docs.omniverse.nvidia.com/usd/latest/technical_reference/conceptual_data_mapping/index.html). We hope to see many more conceptual data mapping documents in the future.
 

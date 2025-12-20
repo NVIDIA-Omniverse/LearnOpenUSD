@@ -16,4 +16,4 @@
 * Instances identifiable via index
 * Invasive deinstancing
 * May be combined with scenegraph instancing
-* Good for massive numbers of simpler items where the overhead of an instance outweights the benefits of reuse. (e.g. leaves on trees)
+* Good for massive numbers of simpler items where the overhead of an instance outweighs the benefits of reuse. (e.g. leaves on trees)

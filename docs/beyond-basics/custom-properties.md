@@ -65,6 +65,12 @@ Custom properties are the easiest and most flexible way to adapt OpenUSD to spec
 We often recommend custom properties instead of metadata or `customData` metadata for prototyping because the former requires plugin-based schema development which is less portable and the later is more costly for composition because it is a composable dictionary data type.
 ```
 
+### Grouping Related Properties
+
+Namespace prefixes provide a way to logically group related properties together on a single prim. This is especially useful when working with data from other sources that have compound or structured types (like structs, records, or grouped fields). Since USD doesn't have a native struct type, namespace-prefixed attributes serve as the standard convention for representing this kind of grouped data.
+
+You can even use nested namespaces to create a hierarchical organization. For example, sensor readings from an IoT device might be organized as `acme:sensor:temperature`, `acme:sensor:humidity`, and `acme:sensor:pressure`. Here, `acme:` identifies your organization and `sensor:` groups the related properties—the combined prefix makes it clear both where the data originated and that these attributes belong together conceptually. This approach is particularly valuable in data exchange workflows where you need to map complex data models from other formats into OpenUSD.
+
 ## Working With Python
 
 ![Custom Attribute Python](../images/foundations/CustomAttribute_Python.webm)
@@ -193,6 +199,59 @@ stage.Save()
 :tags: [remove-input]
 DisplayUSD(file_path, show_usd_code=True)
 ```
+
+### Example 3: Grouping Related Properties with Namespaces
+
+When working with grouped or compound data from other sources, namespace-prefixed attributes provide a clean way to organize related properties together. This example demonstrates how to store sensor readings using namespace prefixes.
+
+Notice the double namespacing pattern `acme:sensor:temperature`. The first namespace (`acme:`) identifies the organization that created these custom properties, while the second namespace (`sensor:`) groups related properties together. This hierarchical approach allows you to both claim ownership of your custom properties and logically organize them into functional groups. It's a common pattern when mapping compound data types from other formats into USD.
+
+```{code-cell}
+:emphasize-lines: 9-20
+
+from pxr import Usd, UsdGeom, Sdf
+
+file_path = "_assets/sensor_data.usda"
+stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+
+# Create a prim to represent a sensor device
+sensor_prim = stage.DefinePrim("/EnvironmentSensor", "Xform")
+
+# Group related sensor readings using namespaces: "acme:sensor:"
+# "acme" identifies the organization, "sensor" groups the related properties
+temperature = sensor_prim.CreateAttribute("acme:sensor:temperature", Sdf.ValueTypeNames.Float, custom=True)
+humidity = sensor_prim.CreateAttribute("acme:sensor:humidity", Sdf.ValueTypeNames.Float, custom=True)
+pressure = sensor_prim.CreateAttribute("acme:sensor:pressure", Sdf.ValueTypeNames.Float, custom=True)
+timestamp = sensor_prim.CreateAttribute("acme:sensor:timestamp", Sdf.ValueTypeNames.String, custom=True)
+
+# Document the custom properties to describe their purpose and units
+temperature.SetDocumentation("Temperature reading in degrees Celsius")
+humidity.SetDocumentation("Relative humidity as a percentage (0-100)")
+pressure.SetDocumentation("Atmospheric pressure in kilopascals (kPa)")
+timestamp.SetDocumentation("ISO 8601 formatted timestamp of the sensor reading")
+
+# Set sensor readings
+temperature.Set(22.5)
+humidity.Set(45.0)
+pressure.Set(101.3)
+timestamp.Set("2025-01-09T14:30:00Z")
+
+# Print grouped sensor data
+print("Sensor Readings:")
+print(f"  Temperature: {temperature.Get()}°C")
+print(f"  Humidity: {humidity.Get()}%")
+print(f"  Pressure: {pressure.Get()} kPa")
+print(f"  Timestamp: {timestamp.Get()}")
+
+stage.Save()
+```
+
+```{code-cell}
+:tags: [remove-input]
+DisplayCode(file_path)
+```
+
+Notice how all the sensor-related attributes share the `acme:sensor:` prefix. The nested namespace structure (`organization:group:property`) makes it immediately clear both where these properties came from and that they belong together as a logical group, even though they're separate attributes. This pattern is especially useful when mapping structured data types (like structs or records) from other data sources into USD.
 
 ## Key Takeaways
 

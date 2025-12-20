@@ -58,3 +58,31 @@ Keep in mind that combinations are not “free”. You have to author relevant d
 
 - It’s easy to get carried away with adding too many variant sets and creating variant combinations that will never be used, like a wet character without a hat.
 - You may choose to not author data for all combinations, but that can create bad UX when end-users try to use a non-functional combination.
+
+## Considerations for Variant Design
+
+When designing variant sets, it's helpful to understand the performance characteristics of different kinds of variations. Not all variant switches are equal in terms of computational cost. If you are looking to maitain real-time performance when switching variants, this is an important design decision.
+
+### Lightweight Variant Switches
+
+Some variant operations are relatively fast because they only affect {term}`value resolution <Value Resolution>`. These include:
+
+- **Changing {term}`attribute <Attribute>` values** - For example, switching a color from red to blue, or changing a numeric parameter
+- **Changing {term}`visibility <Visibility>`** - Hiding or showing geometry without affecting {term}`composition <Composition>`
+
+These operations are lightweight because USD doesn't need to rebuild the composed scene structure. The stage's {term}`composition index <Index>` remains the same, and only the final resolved values change. Think of this as changing the settings on existing scene elements.
+
+### Heavyweight Variant Switches
+
+Other variant operations require more computational work because they change the composition structure itself:
+
+- **Changing {term}`reference <Reference>` paths** - Swapping which {term}`layer <Layer>` files are brought into the scene
+- **Changing {term}`activation <Active and Inactive>` opinions** - Activating or deactivating {term}`prims <Prim>`, which affects what gets composed
+
+These operations are more expensive because USD needs to rebuild parts of its composition index. When a variant changes what gets referenced or which prims are active, USD must recompute the composed scene structure, not just resolve different values.
+
+Understanding this distinction can help you design more efficient variant sets. For example, if you need users to frequently toggle between options, consider using {term}`attribute <Attribute>` overrides or {term}`visibility <Visibility>` changes when possible. Reserve structural changes (like swapping references or changing activation) for less frequent switches or when the flexibility is worth the additional cost.
+
+```{note}
+The difference between visibility and activation illustrates this well: visibility is purely a rendering concept that doesn't affect composition, while activation determines whether prims are composed onto the stage at all. This is why changing visibility is faster than changing activation when switching variants.
+```
