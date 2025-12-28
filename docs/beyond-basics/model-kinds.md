@@ -152,6 +152,7 @@ points = {
     }
 for name, pos in points.items():
     cone = UsdGeom.Cone.Define(stage, markers.GetPath().AppendChild(name))
+	UsdGeom.XformCommonAPI(cone).SetRotate(Gf.Vec3f(-90,0,0))
     UsdGeom.XformCommonAPI(cone).SetTranslate(pos)
     cone.CreateDisplayColorPrimvar().Set([Gf.Vec3f(1.0, 0.85, 0.2)])
 
