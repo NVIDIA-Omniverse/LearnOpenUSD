@@ -343,7 +343,7 @@ ${highlightjs_imports}
 
 <div class="container-usd-render">
     <div id="${model_viewer_uuid}-wrapper" class="visualization-column">
-        <model-viewer id="${model_viewer_uuid}" src="${usd_file}" autoplay ar shadow-intensity="1" camera-controls touch-action="pan-y" ${zoom_attr}>
+        <model-viewer id="${model_viewer_uuid}" src="${usd_file}" autoplay ar shadow-intensity="1" tone-mapping="aces" camera-controls touch-action="pan-y" ${zoom_attr}>
             <div class="loading-annotation">
                 <div class="message">Loading your model...</div>
                 <div class="asset-id">${usd_file_id}</div>
@@ -490,7 +490,7 @@ def DisplayUSD(
     item_template = Template("""
 <div class="col">
     <div class="wrapper" style="width: 500px; height: 500px">
-        <model-viewer id="${model_viewer_uuid}" src="${usd_file}" ar shadow-intensity="1" camera-controls touch-action="pan-y" ${zoom_attr}>
+        <model-viewer id="${model_viewer_uuid}" src="${usd_file}" ar shadow-intensity="1" tone-mapping="aces" camera-controls touch-action="pan-y" ${zoom_attr}>
             <div class="loading-annotation">
                 <div class="message">Loading your model...</div>
                 <div class="asset-id">${usd_file_name}</div>
