@@ -101,10 +101,27 @@ box = stage.DefinePrim("/World/CubeBox_A04_26cm_01")
 stage_path = Path(stage.GetRootLayer().identifier)
 box_asset_path = stage_path.parent.parent / "src_assets" / "Assets" / "Components" / "CubeBox_A04_26cm" / "CubeBox_A04_26cm.usd"
 box.GetReferences().AddReference(str(box_asset_path))
+# Compute the transform for the instances.
+# This is more robust than GetPositionsAttr as it accounts for the prototype's transform and velocities too.
+xforms = pi.ComputeInstanceTransformsAtTime(
+  Usd.TimeCode.Default(), 
+  Usd.TimeCode.Default(), 
+  # We can ignore the mask to query the previously deactivated instance
+  applyMask=UsdGeom.PointInstancer.IgnoreMask)
+world_transform = xforms[1228]
+# Extract translation, rotation, and scale from the matrix
+translation = world_transform.ExtractTranslation()
+rotation = world_transform.ExtractRotation()
+scale = Gf.Vec3d(*(v.GetLength() for v in world_transform.ExtractRotationMatrix()))
+
+# Apply the computed transform to the promoted box using Xformable API
 box_xform = UsdGeom.Xformable(box)
-box_xform.GetTranslateOp().Set(pi.GetPositionsAttr().Get()[1228])
-box_xform.AddOrientOp(precision=UsdGeom.XformOp.PrecisionHalf).Set(pi.GetOrientationsAttr().Get()[1228])
+box_xform.GetTranslateOp().Set(translation)
+box_xform.AddOrientOp().Set(Gf.Quatf(rotation.GetQuat()))
+box_xform.AddScaleOp().Set(scale)
 ```
+
+This approach uses `ComputeInstanceTransformsAtTime()` to get the complete transform matrix for instance `1228`, which automatically combines the prototype root transform and the instance-specific transform (positions, velocities, orientations, angularVelocities, scales). This is still slightly simplified because we did not account for the PointInstancer prim's transformations. In this case, it's ok because the PointInstancer is at the origin.
 
 The box looks just like it did before in the Viewport, but now we have a new prim hierarchy in the scenegraph where we can author new {term}`opinions <Opinions>` to manipulate this asset.
 

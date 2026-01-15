@@ -8,7 +8,7 @@ The simplest way to edit or override an instance is to disable instancing for th
 Deinstance refinement
 ```
 
-At any point downstream, we can enable or disable instancing on a {term}`prim <Prim>`. If we have a use case where we just need to open one box, what we'll do is we'll set `instanceable = false` and now we can apply the overrides to open thet box. 
+At any point downstream, we can enable or disable instancing on a {term}`prim <Prim>`. If we have a use case where we just need to open one box, what we'll do is we'll set `instanceable = false` and now we can apply the overrides to open that box. 
 
 If you just have one thing that needs to be promoted to be treated uniquely from the rest of the copies, it's totally reasonable to deinstance it in a stronger {term}`layer <Layer>`.
 

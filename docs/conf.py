@@ -444,10 +444,11 @@ def extract_glossary_from_html(app, exception):
         print("Warning: No glossary data extracted from doctree")
 
 def monkey_patch_doxylink(app: Sphinx):
+    print("Monkey patching doxylink entries to add details anchor to class and group entries")
     try:
         new_entries = []
         for entry in app.env.doxylink_cache['usdcpp']['mapping']._entries:
-            if entry.kind == "class":
+            if entry.kind in ("class", "group"):
                 new_entry = Entry(name=f"{entry.name} Details", kind="anchor", file=f"{entry.file}#details", arglist=None)
                 new_entries.append(new_entry)
         app.env.doxylink_cache['usdcpp']['mapping']._entries.extend(new_entries)

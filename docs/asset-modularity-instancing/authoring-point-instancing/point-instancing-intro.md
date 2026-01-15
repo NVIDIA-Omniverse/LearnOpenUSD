@@ -12,7 +12,7 @@ See the {usdcpp}`UsdGeomPointInstancer Details` documentation to learn more abou
 
 Compared to [scenegraph instancing](../authoring-scenegraph-instancing/scenegraph-instancing-intro.md), PointInstancers can be less user-friendly and trickier to refine because most of scene description is hidden away in large arrays that are not as human-readable. 
 
-Point instancing is designed for massive numbers of simpler items where the overhead of an instance outweights the benefits of reuse. What does this mean? Think about leaves on a tree. You might have a 100,000 leaves on a tree. If you started down the path of using scenegraph instancing for this, you would need to define each leaf repetition and you would end up with 100,000 {term}`instanceable <Instanceable>` prims: "Leaf_000001", "Leaf_000002", "Leaf_000003", etc. Do you really need this in your scenegraph? Is this useful data for anyone?
+Point instancing is designed for massive numbers of simpler items where the overhead of an instance outweighs the benefits of reuse. What does this mean? Think about leaves on a tree. You might have a 100,000 leaves on a tree. If you started down the path of using scenegraph instancing for this, you would need to define each leaf repetition and you would end up with 100,000 {term}`instanceable <Instanceable>` prims: "Leaf_000001", "Leaf_000002", "Leaf_000003", etc. Do you really need this in your scenegraph? Is this useful data for anyone?
 
 That's where point instancing is a clear winner.
 
@@ -103,3 +103,22 @@ over "PackingPeanuts"
 ```
 
 Keep this in mind as you perform downstream overrides and considerations you may need to make about things like USD {term}`layers <Layer>` format (i.e. USDA vs {term}`USDC <Crate File Format>`).
+
+## Computing Instance Transforms
+
+When you specify `positions` on a PointInstancer, you're defining positions in the PointInstancer's local coordinate space. However, when USD computes the final world-space position of each instance, it combines multiple transforms together.
+
+For each instance, USD applies the following transforms in order from most local to least local:
+
+1. **Prototype root transform**: The local-to-parent transformation of the prototype root is applied most locally.
+2. **Instance-specific transforms**: The per-instance transformation is applied next, in this order:
+   - `scales[i]` (if authored)
+   - `orientations[i]` (if authored)
+   - `positions[i]`
+3. **PointInstancer prim transform**: The transformation authored on the PointInstancer prim itself is applied least locally.
+
+This means that you can move an entire PointInstancer around your scene by transforming the PointInstancer prim, and you can have prototypes with their own local transforms that will be incorporated into each instance's final position.
+
+```{seealso}
+For the complete details on how instance transforms are computed, including handling of velocities and angular velocities, see the {usdcpp}`UsdGeomPointInstancer` documentation.
+```

@@ -332,7 +332,7 @@ def DisplaySingleUSD(
 </style>
 
 <!-- Import the `<model-viewer>` component: -->
-<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<script type="module" src="https://unpkg.com/@google/model-viewer@4.1.0/dist/model-viewer.min.js"></script>
 
 <!-- Import Bootstrap for layout: -->
 <!--
@@ -343,7 +343,7 @@ ${highlightjs_imports}
 
 <div class="container-usd-render">
     <div id="${model_viewer_uuid}-wrapper" class="visualization-column">
-        <model-viewer id="${model_viewer_uuid}" src="${usd_file}" autoplay ar shadow-intensity="1" camera-controls touch-action="pan-y" ${zoom_attr}>
+        <model-viewer id="${model_viewer_uuid}" src="${usd_file}" autoplay ar shadow-intensity="1" tone-mapping="aces" camera-controls touch-action="pan-y" ${zoom_attr}>
             <div class="loading-annotation">
                 <div class="message">Loading your model...</div>
                 <div class="asset-id">${usd_file_id}</div>
@@ -394,14 +394,19 @@ ${highlightjs_imports}
         }
 
         /**
-         * Display the names of the animations baked into the model, once it is loaded.
+         * Display the names of the animations baked into the model and play them all together, once it is loaded.
          */
-        function displayAnimationNames() {
+        function displayAndPlayAllAnimations() {
             const modelViewer = document.getElementById('${model_viewer_uuid}');
             if (modelViewer !== null) {
                 modelViewer.addEventListener('load', () => {
                     const animationNames = modelViewer.availableAnimations;
                     console.log('Available animation names for "${model_viewer_uuid}": ' + animationNames.join(', '));
+                    animationNames.forEach(animationName => {
+                      modelViewer.appendAnimation(animationName, {weight: 1.0});
+                      console.log("Enabling animation: " + animationName);
+                    });
+                    
                 });
             }
         }
@@ -422,7 +427,7 @@ ${highlightjs_imports}
         }
         
         function main() {
-            displayAnimationNames();
+            displayAndPlayAllAnimations();
             handleViewerProgress();
             handleRightClick();
         }
@@ -485,7 +490,7 @@ def DisplayUSD(
     item_template = Template("""
 <div class="col">
     <div class="wrapper" style="width: 500px; height: 500px">
-        <model-viewer id="${model_viewer_uuid}" src="${usd_file}" ar shadow-intensity="1" camera-controls touch-action="pan-y" ${zoom_attr}>
+        <model-viewer id="${model_viewer_uuid}" src="${usd_file}" ar shadow-intensity="1" tone-mapping="aces" camera-controls touch-action="pan-y" ${zoom_attr}>
             <div class="loading-annotation">
                 <div class="message">Loading your model...</div>
                 <div class="asset-id">${usd_file_name}</div>
@@ -588,7 +593,7 @@ def DisplayUSD(
 </style>
 
 <!-- Import the `<model-viewer>` component: -->
-<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<script type="module" src="https://unpkg.com/@google/model-viewer@4.1.0/dist/model-viewer.min.js"></script>
 
 <!-- Import Bootstrap for layout: -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">

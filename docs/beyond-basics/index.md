@@ -13,6 +13,7 @@ By the end of this module, you'll understand how to:
 - **Utilize {term}`model <Model>` {term}`kinds <Kind>`** - structure assets using {term}`component <Component>`, {term}`assembly <Assembly>`, and {term}`group <Group>` hierarchies
 - **{term}`Traverse stages <Stage Traversal>`** - implement high-performance iteration through complex scene graphs
 - **Understand {term}`Hydra <Hydra>` rendering** - work with USD's flexible rendering architecture and multiple backends
+- **Handle units in USD** - work with `metersPerUnit`, `upAxis`, `timeCodesPerSecond`, and understand automatic vs. manual unit reconciliation during composition
 
 ## Why These Skills Matter
 
@@ -39,4 +40,5 @@ active-inactive-prims
 model-kinds
 stage-traversal
 hydra
+units
 :::
