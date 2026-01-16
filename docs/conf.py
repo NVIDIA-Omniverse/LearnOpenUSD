@@ -42,7 +42,7 @@ from myst_parser.mdit_to_docutils.base import token_line
 
 
 project = 'Learn OpenUSD'
-copyright = '2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved'
+copyright = '2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved'
 author = 'NVIDIA'
 release = importlib.metadata.version("lousd")
 
