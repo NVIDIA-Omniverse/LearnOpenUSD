@@ -17,10 +17,14 @@ dependencies = [
     "types-usd>=24.5.2",
     "sphinx-copybutton>=0.5.2",
     "sphinx-tippy>=0.4.3",
+    "pytest>=8.0",
     # pinned
     "tornado==6.5.0",
     "jupyter-core==5.8.1",
 ]
+
+[project.scripts]
+workshop_prep = "lousd.workshop_prep:main"
 
 [build-system]
 requires = ["setuptools"]
