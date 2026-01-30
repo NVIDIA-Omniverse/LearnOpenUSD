@@ -73,7 +73,7 @@ from the xformable prim that works with any `xformOp` order using the [`GetLocal
 +++
 ```{code-cell}
 :tags: [remove-input]
-from utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.visualization import DisplayUSD, DisplayCode
 ```
 
 ### Example 1: XformCommonAPI - Transforms and Inheritance

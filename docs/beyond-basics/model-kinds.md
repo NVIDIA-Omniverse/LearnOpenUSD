@@ -122,8 +122,8 @@ prim.IsModel()
 +++
 ```{code-cell}
 :tags: [remove-input]
-from utils.visualization import DisplayUSD, DisplayCode
-from utils.helperfunctions import create_new_stage
+from lousd.utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.helperfunctions import create_new_stage
 ```
 
 ### Example 1: Traversal with Model Kinds

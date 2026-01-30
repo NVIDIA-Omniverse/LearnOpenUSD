@@ -95,8 +95,8 @@ sphere_xform_api.SetTranslate(Gf.Vec3d(0,-4.5,0), time=Usd.TimeCode(30))
 +++
 ```{code-cell}
 :tags: [remove-input]
-from utils.visualization import DisplayUSD
-from utils.helperfunctions import create_new_stage
+from lousd.utils.visualization import DisplayUSD
+from lousd.utils.helperfunctions import create_new_stage
 ```
 
 Let's create a USD stage to serve as the starting point for the example in this lesson. We will create a simple stage with a sphere and a blue cube as a backdrop.

@@ -92,7 +92,7 @@ class "_box" {
 +++
 ```{code-cell}
 :tags: [remove-input]
-from utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.visualization import DisplayUSD, DisplayCode
 ```
 
 ### Example 1: Authoring defs and a class in a base layer

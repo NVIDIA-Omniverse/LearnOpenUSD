@@ -59,7 +59,7 @@ prim.IsA(UsdGeom.Scope)
 +++
 ```{code-cell}
 :tags: [remove-input]
-from utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.visualization import DisplayUSD, DisplayCode
 ```
 
 ### Example 1: Define a Scope
