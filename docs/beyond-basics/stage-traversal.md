@@ -108,7 +108,7 @@ BAD_predicate = Usd.PrimIsActive and Usd.PrimIsLoaded
 +++
 ```{code-cell}
 :tags: [remove-input]
-from utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.visualization import DisplayUSD, DisplayCode
 
 
 from pxr import Usd, UsdGeom, UsdLux, UsdShade

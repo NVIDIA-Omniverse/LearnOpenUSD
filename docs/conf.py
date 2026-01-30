@@ -56,7 +56,7 @@ extensions = [
     'sphinx_design',
     'sphinx_copybutton',
     'sphinx_tippy',
-    'directives',
+    'lousd.directives',
 ]
 
 # Skip all URLs that don't match glossary term pattern

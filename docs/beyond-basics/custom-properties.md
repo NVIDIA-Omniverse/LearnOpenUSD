@@ -106,7 +106,7 @@ Lastly, notice the `my_namespace:` prefix on the attribute. It's good practice t
 +++
 ```{code-cell}
 :tags: [remove-input]
-from utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.visualization import DisplayUSD, DisplayCode
 ```
 
 ### Example 1: Creating Custom Attributes

@@ -206,6 +206,33 @@ Without alt text (for decorative images or videos):
 - Use type hints for clarity: `stage: Usd.Stage = ...`
 - Include imports in every code cell (cells should be self-contained)
 - Use descriptive variable names
+- Use Google style docstrings for all functions and modules
+
+### Docstrings
+
+Use [Google style docstrings](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings) for all Python code:
+
+**Key sections (in order):**
+
+1. **Summary line**: Brief one-line description ending with a period
+2. **Extended description** (optional): Additional context or details
+3. **Args**: Document each parameter with name and description
+4. **Returns**: Describe return value(s) and type
+5. **Raises** (optional): List exceptions that may be raised
+
+For modules, include a module-level docstring with an overview and example usage:
+
+```python
+"""Workshop preparation script for Learn OpenUSD.
+
+This script transforms the documentation into a workshop version.
+
+Example:
+    Run the script using uv::
+
+        $ uv run workshop_prep
+"""
+```
 
 ### Code Comments
 
