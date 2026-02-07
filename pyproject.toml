@@ -29,3 +29,8 @@ workshop_prep = "lousd.workshop_prep:main"
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "jupyterlab>=4.5.3",
+]

@@ -33,6 +33,7 @@ git lfs pull
 1. `uv run sphinx-build -M html docs/ docs/_build/`
 1. `uv run python -m http.server 8000 -d docs/_build/html/`
 1. In a web browser, open `http://localhost:8000`
+1. `uv run python scripts/launch_notebooks.py` (If you want to run the notebooks)
 
 ### Build System Details
 
