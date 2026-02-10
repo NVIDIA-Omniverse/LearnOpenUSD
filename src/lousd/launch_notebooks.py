@@ -18,6 +18,3 @@ def main() -> None:
         check=True,
     )
 
-
-if __name__ == "__main__":
-    main()
