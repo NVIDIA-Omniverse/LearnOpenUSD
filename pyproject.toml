@@ -25,6 +25,7 @@ dependencies = [
 
 [project.scripts]
 workshop_prep = "lousd.workshop_prep:main"
+launch_notebooks = "lousd.launch_notebooks:main"
 
 [build-system]
 requires = ["setuptools"]
