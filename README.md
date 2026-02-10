@@ -35,6 +35,7 @@ git lfs pull
 1. In a web browser, open `http://localhost:8000`
 
 ## How to run the notebooks
+1. `rm -rf docs/_build/`
 1. Run the [How to Build](#how-to-build) instructions above
 1. `uv run launch_notebooks`
 
