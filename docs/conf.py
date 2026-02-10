@@ -269,6 +269,13 @@ def convert_jupytext_notebooks(app, exception):
     if not files:
         return
 
+    # Copy exercise_content into notebooks dir so relative paths work at runtime
+    exercise_src = source_dir / 'exercise_content'
+    if exercise_src.is_dir():
+        exercise_dst = notebooks_dir / 'exercise_content'
+        shutil.copytree(exercise_src, exercise_dst, dirs_exist_ok=True)
+        print(f"Copied {exercise_src} to {exercise_dst}")
+
     print(f"Converting {len(files)} Jupytext files to notebooks...")
     for md_file in sorted(files):
         rel = md_file.relative_to(source_dir)
