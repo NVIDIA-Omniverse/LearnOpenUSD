@@ -26,6 +26,8 @@ from pathlib import Path
 import posixpath
 import re
 import shutil
+import subprocess
+import sys
 import types
 import urllib.parse
 import zipfile
@@ -236,6 +238,56 @@ def create_exercises_archives(app, exception):
                     if file.is_file():
                         zip_file.write(file, file.relative_to(exercises.parent))
             print(f"Created {zip_file_path}")
+
+JUPYTEXT_MARKER = re.compile(r"^jupytext:", re.MULTILINE)
+
+def convert_jupytext_notebooks(app, exception):
+    """Convert Jupytext .md files to .ipynb notebooks in the build output."""
+    if exception is not None:
+        return
+
+    source_dir = Path(app.srcdir)
+    build_dir = Path(app.outdir)
+    notebooks_dir = build_dir / 'notebooks'
+
+    files = []
+    for md_file in source_dir.rglob('*.md'):
+        if '.ipynb_checkpoints' in md_file.parts:
+            continue
+        try:
+            md_file.relative_to(source_dir / '_build')
+            continue
+        except ValueError:
+            pass
+        try:
+            text = md_file.read_text(encoding='utf-8', errors='ignore')
+        except OSError:
+            continue
+        if JUPYTEXT_MARKER.search(text):
+            files.append(md_file)
+
+    if not files:
+        return
+
+    # Copy exercise_content into notebooks dir so relative paths work at runtime
+    exercise_src = source_dir / 'exercise_content'
+    if exercise_src.is_dir():
+        exercise_dst = notebooks_dir / 'exercise_content'
+        shutil.copytree(exercise_src, exercise_dst, dirs_exist_ok=True)
+        print(f"Copied {exercise_src} to {exercise_dst}")
+
+    print(f"Converting {len(files)} Jupytext files to notebooks...")
+    for md_file in sorted(files):
+        rel = md_file.relative_to(source_dir)
+        out_dir = notebooks_dir / rel.parent
+        out_dir.mkdir(parents=True, exist_ok=True)
+        out_file = out_dir / rel.with_suffix('.ipynb').name
+        subprocess.run(
+            [sys.executable, '-m', 'jupytext', '--to', 'notebook', str(md_file), '-o', str(out_file)],
+            check=True,
+        )
+        print(f"  {rel} -> {out_file.relative_to(build_dir)}")
+
 
 def extract_glossary_from_html(app, exception):
     """Extract glossary data from the rendered HTML file for interactive graph visualization."""
@@ -498,4 +550,5 @@ def setup(app):
     app.connect('build-finished', extract_glossary_from_html)
     app.connect('build-finished', create_exercises_archives)
     app.connect('build-finished', copy_asset_folders)
+    app.connect('build-finished', convert_jupytext_notebooks)
     

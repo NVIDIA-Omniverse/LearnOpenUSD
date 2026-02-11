@@ -25,7 +25,13 @@ dependencies = [
 
 [project.scripts]
 workshop_prep = "lousd.workshop_prep:main"
+launch_notebooks = "lousd.launch_notebooks:main"
 
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "jupyterlab>=4.5.3",
+]

@@ -34,6 +34,11 @@ git lfs pull
 1. `uv run python -m http.server 8000 -d docs/_build/html/`
 1. In a web browser, open `http://localhost:8000`
 
+## How to run the notebooks
+1. `rm -rf docs/_build/`
+1. Run the [How to Build](#how-to-build) instructions above
+1. `uv run launch_notebooks`
+
 ### Build System Details
 
 The build process:
