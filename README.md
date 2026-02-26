@@ -29,15 +29,8 @@ If you cloned this repo before installing LFS, you can download all LFS to prope
 git lfs pull
 ```
 
-## How to Build
+## How to Build the Docs
 1. `uv run sphinx-build -M html docs/ docs/_build/`
-1. `uv run python -m http.server 8000 -d docs/_build/html/`
-1. In a web browser, open `http://localhost:8000`
-
-## How to run the notebooks
-1. `rm -rf docs/_build/`
-1. Run the [How to Build](#how-to-build) instructions above
-1. `uv run launch_notebooks`
 
 ### Build System Details
 
@@ -47,6 +40,17 @@ The build process:
 3. Custom extensions copy assets and create exercise ZIPs
 4. Glossary is extracted for interactive graph
 5. HTML is generated with custom theme
+
+## How to Preview the Docs
+1. `uv run python -m http.server 8000 -d docs/_build/html/`
+1. In a web browser, open `http://localhost:8000`
+
+## How to Run the Notebooks
+1. `rm -rf docs/_build/`
+1. Run the [How to Build the Docs](#how-to-build-the-docs) instructions above
+1. `uv run launch_notebooks`
+
+
 
 ## Have an Idea for a New Example or New Content?
 Ideas for new content that can help other developers are always welcome. Please [create a new issue](https://github.com/NVIDIA-Omniverse/LearnOpenUSD/issues) describing the type of new content you are requesting and put [New Request] at the end of your title. Someone from the NVIDIA team or OpenUSD community will pick it up. If you can contribute it yourself, even better!

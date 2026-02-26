@@ -20,6 +20,28 @@ from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
 
+def kaltura_embed_html(video_id: str) -> str:
+    """Return the Kaltura iframe HTML for a given video ID.
+    
+    Args:
+        video_id: The Kaltura video entry ID.
+    
+    Returns:
+        HTML string with the video embed iframe.
+    """
+    return f'''<div class="video-container">
+  <iframe
+	src="https://cdnapisec.kaltura.com/p/2935771/embedPlaykitJs/uiconf_id/53712482?iframeembed=true&entry_id={video_id}"
+	title="video"
+	allowfullscreen
+	webkitallowfullscreen
+	mozAllowFullScreen
+	allow="autoplay *; fullscreen *; encrypted-media *"
+	frameborder="0">
+  </iframe>
+</div>'''
+
+
 class KalturaDirective(SphinxDirective):
     """MyST directive for embedding Kaltura videos."""
     
@@ -34,20 +56,7 @@ class KalturaDirective(SphinxDirective):
             return []
             
         video_id = self.arguments[0].strip()
-        
-        # Use the same HTML structure as the _nvfunc.py kaltura function
-        kaltura_html = f'''<div class="video-container">
-  <iframe
-	src="https://cdnapisec.kaltura.com/p/2935771/embedPlaykitJs/uiconf_id/53712482?iframeembed=true&entry_id={video_id}"
-	title="video"
-	allowfullscreen
-	webkitallowfullscreen
-	mozAllowFullScreen
-	allow="autoplay *; fullscreen *; encrypted-media *"
-	frameborder="0">
-  </iframe>
-</div>'''
-        
+        kaltura_html = kaltura_embed_html(video_id)
         raw_node = nodes.raw('', kaltura_html, format='html')
         return [raw_node]
 

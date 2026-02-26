@@ -22,19 +22,17 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 import importlib.metadata
+from html.parser import HTMLParser
+import json
 from pathlib import Path
 import posixpath
 import re
 import shutil
-import subprocess
-import sys
 import types
 import urllib.parse
 import zipfile
 
 from docutils import nodes
-from sphinx.transforms import SphinxTransform
-from sphinx.util.docutils import SphinxDirective
 from sphinx.application import Sphinx
 
 from sphinxcontrib.doxylink.doxylink import Entry
@@ -239,36 +237,85 @@ def create_exercises_archives(app, exception):
                         zip_file.write(file, file.relative_to(exercises.parent))
             print(f"Created {zip_file_path}")
 
-JUPYTEXT_MARKER = re.compile(r"^jupytext:", re.MULTILINE)
-
-def convert_jupytext_notebooks(app, exception):
-    """Convert Jupytext .md files to .ipynb notebooks in the build output."""
+def prepare_executed_notebooks(app, exception):
+    """Post-process executed notebooks: fix image paths."""
     if exception is not None:
         return
-
+    
     source_dir = Path(app.srcdir)
-    build_dir = Path(app.outdir)
-    notebooks_dir = build_dir / 'notebooks'
-
-    files = []
-    for md_file in source_dir.rglob('*.md'):
-        if '.ipynb_checkpoints' in md_file.parts:
-            continue
-        try:
-            md_file.relative_to(source_dir / '_build')
-            continue
-        except ValueError:
-            pass
-        try:
-            text = md_file.read_text(encoding='utf-8', errors='ignore')
-        except OSError:
-            continue
-        if JUPYTEXT_MARKER.search(text):
-            files.append(md_file)
-
-    if not files:
+    build_dir = Path(app.outdir)  # docs/_build/html
+    notebooks_dir = build_dir.parent / 'jupyter_execute'  # docs/_build/jupyter_execute
+    
+    if not notebooks_dir.exists():
+        print(f"No notebooks directory found at {notebooks_dir}, skipping notebook preparation")
         return
-
+    
+    # Copy images directory from HTML build to jupyter_execute
+    html_images = build_dir / '_images'
+    print(html_images)
+    nb_images = notebooks_dir / 'images'
+    if html_images.exists():
+        shutil.copytree(html_images, nb_images, dirs_exist_ok=True)
+        print(f"Copied {html_images} to {nb_images}")
+    
+    # Find all notebooks
+    notebooks = list(notebooks_dir.rglob('*.ipynb'))
+    if not notebooks:
+        return
+    
+    print(f"Preparing {len(notebooks)} executed notebooks...")
+    
+    # Regex patterns
+    image_pattern = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
+    
+    for nb_path in sorted(notebooks):
+        # Load notebook
+        with open(nb_path, 'r', encoding='utf-8') as f:
+            nb_data = json.load(f)
+        
+        # Calculate depth for image path rewriting
+        rel_path = nb_path.relative_to(notebooks_dir)
+        depth = len(rel_path.parent.parts)
+        image_prefix = '../' * depth + 'images/'
+        
+        modified = False
+        
+        # Process each cell
+        for cell in nb_data.get('cells', []):
+            if cell.get('cell_type') != 'markdown':
+                continue
+            
+            source = cell.get('source', [])
+            if isinstance(source, str):
+                source = [source]
+            
+            new_source = []
+            for line in source:
+                # Fix image paths
+                def replace_image(match):
+                    alt_text = match.group(1)
+                    img_path = match.group(2)
+                    # Only rewrite relative paths (not http/https)
+                    if not img_path.startswith(('http://', 'https://')):
+                        # Extract filename from path
+                        filename = Path(img_path).name
+                        new_path = image_prefix + filename
+                        return f'![{alt_text}]({new_path})'
+                    return match.group(0)
+                
+                line = image_pattern.sub(replace_image, line)
+                new_source.append(line)
+            
+            if new_source != source:
+                cell['source'] = new_source
+                modified = True
+        
+        # Save if modified
+        if modified:
+            with open(nb_path, 'w', encoding='utf-8') as f:
+                json.dump(nb_data, f, indent=1, ensure_ascii=False)
+            print(f"  Prepared {rel_path}")
+        
     # Copy exercise_content into notebooks dir so relative paths work at runtime
     exercise_src = source_dir / 'exercise_content'
     if exercise_src.is_dir():
@@ -276,27 +323,12 @@ def convert_jupytext_notebooks(app, exception):
         shutil.copytree(exercise_src, exercise_dst, dirs_exist_ok=True)
         print(f"Copied {exercise_src} to {exercise_dst}")
 
-    print(f"Converting {len(files)} Jupytext files to notebooks...")
-    for md_file in sorted(files):
-        rel = md_file.relative_to(source_dir)
-        out_dir = notebooks_dir / rel.parent
-        out_dir.mkdir(parents=True, exist_ok=True)
-        out_file = out_dir / rel.with_suffix('.ipynb').name
-        subprocess.run(
-            [sys.executable, '-m', 'jupytext', '--to', 'notebook', str(md_file), '-o', str(out_file)],
-            check=True,
-        )
-        print(f"  {rel} -> {out_file.relative_to(build_dir)}")
 
 
 def extract_glossary_from_html(app, exception):
     """Extract glossary data from the rendered HTML file for interactive graph visualization."""
     if exception is not None:
         return
-    
-    import json
-    from pathlib import Path
-    from html.parser import HTMLParser
     
     glossary_html_file = Path(app.outdir) / 'glossary.html'
     
@@ -550,5 +582,5 @@ def setup(app):
     app.connect('build-finished', extract_glossary_from_html)
     app.connect('build-finished', create_exercises_archives)
     app.connect('build-finished', copy_asset_folders)
-    app.connect('build-finished', convert_jupytext_notebooks)
+    app.connect('build-finished', prepare_executed_notebooks)
     
