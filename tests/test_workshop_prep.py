@@ -16,6 +16,7 @@ import requests
 from lousd.workshop_prep import (
     EXTERNAL_BASE_URL,
     FILES_TO_REMOVE,
+    INSTANCING_MODULE,
     MODULES_TO_KEEP,
     MODULES_TO_REMOVE,
     convert_doc_reference,
@@ -166,11 +167,22 @@ class TestResolveDocReferencePath:
     def test_path_to_setup_page_in_kept_module(
         self, temp_docs_dir: Path, sample_current_file: Path
     ) -> None:
-        """Test resolving a path to a setup page in a kept module."""
+        """Test resolving a path to a setup page in a kept module (asset-structure)."""
         ref_path = "setup.md"
         result = resolve_doc_reference_path(ref_path, sample_current_file, temp_docs_dir)
         assert result is not None
         assert "setup" in result
+
+    def test_path_to_instancing_setup_preserved(
+        self, temp_docs_dir: Path
+    ) -> None:
+        """Test that reference from instancing module to setup is kept internal."""
+        instancing_file = temp_docs_dir / INSTANCING_MODULE / "some-page.md"
+        instancing_file.parent.mkdir(parents=True, exist_ok=True)
+        instancing_file.write_text("# Some page\n")
+        ref_path = "setup.md"
+        result = resolve_doc_reference_path(ref_path, instancing_file, temp_docs_dir)
+        assert result is None, "Instancing setup page is kept; link should stay internal"
 
 
 # =============================================================================
@@ -503,16 +515,24 @@ class TestWorkshopPrepIntegration:
             assert not file_path.exists(), f"{filename} should be removed"
 
     def test_setup_pages_removed(self, docs_copy: Path) -> None:
-        """Verify workshop_prep removed setup.md files from kept modules."""
+        """Verify workshop_prep removed or reduced setup pages in kept modules."""
         for module in MODULES_TO_KEEP:
             setup_path = docs_copy / module / "setup.md"
-            assert not setup_path.exists(), f"Setup page in {module} should be removed"
-            
-            # Verify index no longer references setup
             index_path = docs_copy / module / "index.md"
-            if index_path.exists():
-                content = index_path.read_text(encoding="utf-8")
-                assert "Setup <setup>" not in content
+
+            if module == INSTANCING_MODULE:
+                assert setup_path.exists(), "Instancing setup page should be kept"
+                content = setup_path.read_text(encoding="utf-8")
+                assert "## usdview Setup" in content
+                assert "Get the Exercise Content" not in content
+                if index_path.exists():
+                    index_content = index_path.read_text(encoding="utf-8")
+                    assert "Setup <setup>" in index_content
+            else:
+                assert not setup_path.exists(), f"Setup page in {module} should be removed"
+                if index_path.exists():
+                    content = index_path.read_text(encoding="utf-8")
+                    assert "Setup <setup>" not in content
 
     def test_cross_references_converted(self, docs_copy: Path) -> None:
         """Verify workshop_prep converted cross-references to external links."""
