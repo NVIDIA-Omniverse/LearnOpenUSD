@@ -23,7 +23,8 @@ The script performs the following steps:
     1. Updates the site title to reflect workshop branding
     2. Modifies the TOC to keep only workshop-relevant modules
     3. Removes unused module directories and files
-    4. Removes setup pages from kept modules
+    4. Removes setup pages from kept modules (except instancing, where the
+       setup page is reduced to the usdview Setup section only)
     5. Converts cross-references to removed content into external links
 
 Example:
@@ -60,6 +61,10 @@ FILES_TO_REMOVE = [
 
 # Base URL for external links to removed content
 EXTERNAL_BASE_URL = "https://docs.nvidia.com/learn-openusd/latest/"
+
+# Instancing module keeps its setup page with only the usdview section
+INSTANCING_MODULE = "asset-modularity-instancing"
+USDVIEW_SETUP_HEADING = "## usdview Setup"
 
 
 def get_docs_dir() -> Path:
@@ -239,10 +244,12 @@ def remove_unused_modules(docs_dir: Path) -> None:
 
 
 def remove_setup_pages(docs_dir: Path) -> None:
-    """Remove setup.md files from kept modules and update their toctrees.
+    """Remove or reduce setup pages in kept modules.
 
-    For each module in MODULES_TO_KEEP, deletes the setup.md file if present
-    and removes the "Setup <setup>" entry from the module's index.md toctree.
+    For the instancing module, keeps setup.md but reduces its content to only
+    the page title and the "usdview Setup" section; the toctree is unchanged.
+    For all other modules in MODULES_TO_KEEP, deletes setup.md and removes
+    the "Setup <setup>" entry from the module's index.md toctree.
 
     Args:
         docs_dir: Path to the docs directory.
@@ -251,12 +258,27 @@ def remove_setup_pages(docs_dir: Path) -> None:
         module_path = docs_dir / module
         setup_path = module_path / "setup.md"
         index_path = module_path / "index.md"
-        
+
+        if module == INSTANCING_MODULE:
+            # Keep setup page with only the usdview Setup section
+            if setup_path.exists():
+                content = setup_path.read_text(encoding="utf-8")
+                if USDVIEW_SETUP_HEADING in content:
+                    before, after = content.split(USDVIEW_SETUP_HEADING, 1)
+                    # First line is the title (e.g. "# Module Setup: ...")
+                    first_line = before.strip().split("\n")[0]
+                    new_content = first_line + "\n\n" + USDVIEW_SETUP_HEADING + after
+                    setup_path.write_text(new_content, encoding="utf-8")
+                    print(f"Reduced setup page (usdview section only): {setup_path}")
+                else:
+                    print(f"Warning: {USDVIEW_SETUP_HEADING!r} not found in {setup_path}")
+            continue
+
         # Remove setup.md if it exists
         if setup_path.exists():
             setup_path.unlink()
             print(f"Removed: {setup_path}")
-        
+
         # Update the module's index.md to remove setup from toctree
         if index_path.exists():
             content = index_path.read_text(encoding="utf-8")
@@ -315,9 +337,11 @@ def resolve_doc_reference_path(ref_path: str, current_file: Path, docs_dir: Path
         if path_str == base_name or path_str == filename:
             return base_name
     
-    # Check for setup pages in kept modules
+    # Check for setup pages in kept modules (instancing keeps its setup page)
     for module in MODULES_TO_KEEP:
         if path_str == f"{module}/setup" or path_str == f"{module}/setup.md":
+            if module == INSTANCING_MODULE:
+                return None  # Instancing setup is kept; keep internal link
             return f"{module}/setup"
     
     return None
@@ -509,7 +533,7 @@ def main(docs_dir: Path | None = None) -> None:
     remove_unused_modules(docs_dir)
     print()
     
-    print("Step 4: Removing setup pages...")
+    print("Step 4: Removing or reducing setup pages...")
     remove_setup_pages(docs_dir)
     print()
     
