@@ -117,13 +117,13 @@ Note that the component assets in the Tree View now have light blue text. This i
 
 10. **Click** the triangle icon to the left of "World" in the Tree View to collapse that prim hierarchy.
 
-![](../../images/asset-modularity-instancing/first_prototypes.png)
-
-Note the three **prototypes** in dark blue at the bottom. All of the instances in this stage are based on three prototypes. Can you guess what they are?
-
 ```{warning}
 If the prototypes are not showing, ensure you have gone through the [Setup instructions](../setup.md) to enable *Show > Prototype Prims* among other settings for a smooth experience when following our instructions.
 ```
+
+![](../../images/asset-modularity-instancing/first_prototypes.png)
+
+Note the three **prototypes** in dark blue at the bottom. All of the instances in this stage are based on three prototypes. Can you guess what they are?
 
 We enabled instancing on the component models and we have three component models with distinct composition arc configurations: 
 
