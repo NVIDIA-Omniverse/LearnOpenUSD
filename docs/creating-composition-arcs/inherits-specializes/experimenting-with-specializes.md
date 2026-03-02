@@ -83,7 +83,7 @@ Linux:
 
 If you select the road pieces and look at the *Property* panel, you’ll see in that our roads have a new attribute `osm:street:maxspeed` which is coming from the specializes arc. Our side roads also have been set to 20 while our main road is still 30.
 
-Let’s imagine we’ve been told that in `composition_arcs/specializes/exercisescenario_02.usd` we should try setting a new default maximum speed limit of 40. Since we have already created our specializes arc, we just need to {term}`override <Over>` the maxspeed value on the source {term}`prim <Prim>` of the specializes arc to broadcast a fallback.
+Let’s imagine we’ve been told that in `composition_arcs/specializes/exercise/scenario_02.usd` we should try setting a new default maximum speed limit of 40. Since we have already created our specializes arc, we just need to {term}`override <Over>` the maxspeed value on the source {term}`prim <Prim>` of the specializes arc to broadcast a fallback.
 
 8. In Visual Studio Code, **open** the following file: `composition_arcs/specializes/exercise/specializes_exercise_2.py`
 
