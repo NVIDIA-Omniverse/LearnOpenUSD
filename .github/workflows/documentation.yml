@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
         contents: write
-        pull-requests: write   
     steps:
       - uses: actions/checkout@v4
         with:
@@ -29,37 +28,12 @@ jobs:
           echo "content<<EOF" >> $GITHUB_OUTPUT
           cat build-summary.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-      - name: Comment build summary on PR
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const summary = fs.readFileSync('build-summary.txt', 'utf8').trim();
-            const body = `## Docs build summary\n\n\`\`\`\n${summary}\n\`\`\``;
-            const commentMarker = '<!-- docs-build-summary -->';
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            });
-            const botComment = comments.find(c => c.body?.includes(commentMarker));
-            const fullBody = body + '\n' + commentMarker;
-            if (botComment) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: botComment.id,
-                body: fullBody,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body: fullBody,
-              });
-            }
+      - name: Add build summary to job summary
+        run: |
+          echo "## Docs build summary" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat build-summary.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
       - name: Upload docs build
         uses: actions/upload-artifact@v4
         with:
