@@ -87,6 +87,9 @@ Some of the functions we will use to access the stage will be the following:
 - [`Usd.Stage.Open()`](https://openusd.org/release/api/class_usd_stage.html#ad3e185c150ee38ae13fb76115863d108): Opens an existing USD file as a stage.
 - [`Usd.Stage.Save()`](https://openusd.org/release/api/class_usd_stage.html#adefa2f7ebfc4d8c09f0cd54419aa36c4): Saves the current stage of a USD stage back to a file. If there are multiple layers in the stage, all edited layers that contribute to the stage are being saved. In our case, all edits are being done in a single layer.
 
+Hello World!
+Hello too!
+
 ```{code-cell}
 # Import the `Usd` module from the `pxr` package:
 from pxr import Usd
@@ -96,6 +99,7 @@ file_path = "_assets/first_stage.usda"
 # Create a stage at the given `file_path`:
 stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
 print(stage.ExportToString(addSourceFileComment=False))
+print("Hello World!")
 ```
 
 Here we created a `usda` file using Python, loaded it as a stage, and printed out the stage's contents. Since nothing is in our stage we do not get much from the output.

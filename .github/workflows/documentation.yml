@@ -19,9 +19,54 @@ jobs:
           uv sync
       - name: Sphinx build
         run: |
-          uv run sphinx-build -M html docs/ docs/_build/
+          uv run sphinx-build -M html docs/ docs/_build/ 2>&1 | tee sphinx-build.log
+      - name: Extract build summary
+        id: build-summary
+        run: |
+          line=$(grep -E 'build succeeded.*' sphinx-build.log | tail -1 || true)
+          echo "${line:-build output line not found}" > build-summary.txt
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          cat build-summary.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      - name: Comment build summary on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = `## Docs build summary\n\n\`\`\`\n${process.env.BUILD_SUMMARY}\n\`\`\``;
+            const commentMarker = '<!-- docs-build-summary -->';
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const botComment = comments.find(c => c.body?.includes(commentMarker));
+            const fullBody = body + '\n' + commentMarker;
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: fullBody,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: fullBody,
+              });
+            }
+          env:
+            BUILD_SUMMARY: ${{ steps.build-summary.outputs.content }}
+      - name: Upload docs build
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-build
+          path: docs/_build/
 
   test:
+    needs: docs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,6 +78,11 @@ jobs:
       - name: Install dependencies
         run: |
           uv sync
+      - name: Download docs build
+        uses: actions/download-artifact@v4
+        with:
+          name: docs-build
+          path: docs/_build/
       - name: Run tests
         run: |
           uv run pytest tests/ -v
