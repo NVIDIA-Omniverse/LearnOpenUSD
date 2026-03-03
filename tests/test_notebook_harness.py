@@ -21,6 +21,8 @@ tests are not affected by content changes in lesson notebooks like stage.ipynb.
 
 import os
 
+import pytest
+
 
 class TestNotebookHarness:
     """Sanity checks for the notebook execution harness (run_notebook fixture and Notebook wrapper)."""
@@ -75,4 +77,59 @@ class TestNotebookHarness:
         assert nb.only_in_cell_2 is True
         assert "os" in nb
         assert nb.os is os
+        assert "only_in_cell_1" not in nb
+
+    def test_single_tag(self, run_notebook):
+        """Run only cells with tag 'setup'; verify partial execution."""
+        nb = run_notebook(self.NOTEBOOK, tags=["setup"])
+
+        assert nb.harness_sanity_ran is True
+        assert nb.os is os
+        assert nb.os.getcwd()
+        assert "only_in_cell_1" not in nb
+        assert "only_in_cell_2" not in nb
+
+    def test_multiple_tags(self, run_notebook):
+        """Run cells with tags 'setup' or 'final'; verify cells 0 and 2 run, cell 1 does not."""
+        nb = run_notebook(self.NOTEBOOK, tags=["setup", "final"])
+
+        assert nb.harness_sanity_ran is True
+        assert nb.only_in_cell_2 is True
+        assert "os" in nb
+        assert nb.os is os
+        assert "only_in_cell_1" not in nb
+
+    def test_no_matching_tags_raises(self, run_notebook):
+        """Run with a tag that no cell has; harness raises ValueError."""
+        with pytest.raises(ValueError, match="The following tags do not match any cell"):
+            run_notebook(self.NOTEBOOK, tags=["nonexistent"])
+
+    def test_typo_in_tag_raises(self, run_notebook):
+        """If any requested tag does not match a cell (e.g. typo), harness raises to avoid false positives."""
+        with pytest.raises(ValueError, match="The following tags do not match any cell"):
+            run_notebook(self.NOTEBOOK, tags=["setup", "finall"])  # typo: "finall"
+
+    def test_cells_and_tags_exclusive(self, run_notebook):
+        """Passing both cells and tags raises ValueError."""
+        with pytest.raises(ValueError, match="Cannot specify both 'cells' and 'tags'"):
+            run_notebook(self.NOTEBOOK, cells=[0], tags=["setup"])
+
+    def test_cells_out_of_bounds_raises(self, run_notebook):
+        """Passing a code cell index that is out of range raises IndexError."""
+        with pytest.raises(IndexError, match="Code cell index .* out of range"):
+            run_notebook(self.NOTEBOOK, cells=[0, 99])
+
+    def test_cells_negative_index_raises(self, run_notebook):
+        """Passing a negative code cell index raises IndexError."""
+        with pytest.raises(IndexError, match="Code cell index .* out of range"):
+            run_notebook(self.NOTEBOOK, cells=[-1])
+
+    def test_tags_run_in_document_order(self, run_notebook):
+        """Tagged cells run in document order, not in the order tags are passed."""
+        # Request tags in reverse document order; cell 0 (setup) must still run before cell 2 (final)
+        nb = run_notebook(self.NOTEBOOK, tags=["final", "setup"])
+
+        assert nb.harness_sanity_ran is True  # set by cell 0
+        assert nb.only_in_cell_2 is True  # set by cell 2; cell 0 ran first so namespace is shared
+        assert nb.status == "finished" # final cell sets status to 'finished'
         assert "only_in_cell_1" not in nb

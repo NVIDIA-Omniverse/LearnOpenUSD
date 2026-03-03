@@ -302,6 +302,53 @@ stage.Save()
 - Add docstrings explaining purpose
 - Include license header
 
+## Notebook Testing
+
+The notebook test harness runs notebook code cells in an isolated environment so tests can assert on variables and side effects. Use the `run_notebook` pytest fixture from `tests/conftest.py`.
+
+### How the harness works
+
+- **`run_notebook(path, cells=None, tags=None)`** executes code cells from the given notebook path. Paths under `tests/` are resolved from the repo root; other paths are resolved under `docs/_build/jupyter_execute/`.
+- It returns a **`Notebook`** object: executed variables are available as attributes (e.g. `nb.stage`, `nb.some_variable`). Use `nb._work_dir` for the temporary directory; files written to `_assets/` live under `nb._work_dir / "_assets"`.
+- You can select cells by **index** (`cells=[0, 2]`) or by **label** (`tags=["setup", "stage-creation"]`). Do not pass both `cells` and `tags` (raises `ValueError`).
+- Cells selected by `tags` run in **document order**, not in the order tags are listed.
+- **Invalid inputs raise:** an out-of-bounds code cell index raises `IndexError`. If *any* requested tag does not match at least one cell (e.g. a typo), the harness raises `ValueError` listing the unmatched tags so tests fail instead of producing false positives.
+
+### Labeling cells with test-tags
+
+Add a `test-tags` list to cell metadata so tests can run specific cells by semantic label.
+
+**In myst markdown** (lesson `.md` notebooks), use the `:test-tags:` option on the `{code-cell}` directive:
+
+````markdown
+```{code-cell}
+:test-tags: [setup, stage-creation]
+from pxr import Usd
+stage = Usd.Stage.CreateInMemory()
+```
+````
+
+**In `.ipynb` files** (e.g. test fixtures), set `metadata["test-tags"]` on each code cell:
+
+```json
+{
+  "cell_type": "code",
+  "metadata": {
+    "test-tags": ["setup", "stage-creation"]
+  },
+  "source": ["..."]
+}
+```
+
+Tags use OR semantics: a cell runs if it has *any* of the requested tags. Tagged cells always execute in document order.
+
+### Example test
+
+```python
+def test_create_stage(run_notebook):
+    nb = run_notebook("stage-setting/stage.ipynb", tags=["setup"])
+    assert nb.stage is not None
+```
 
 ## Required File Headers
 
