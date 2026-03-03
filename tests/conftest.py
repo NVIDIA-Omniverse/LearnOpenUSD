@@ -55,17 +55,21 @@ def _execute_notebook(notebook_path: str, cells: list[int] | None, work_dir: Pat
     """Execute notebook cells and return the resulting namespace.
     
     Args:
-        notebook_path: Path to notebook relative to docs/_build/jupyter_execute/.
+        notebook_path: Path to notebook. If it starts with "tests/", resolved
+            relative to repo root (for harness sanity notebooks). Otherwise
+            relative to docs/_build/jupyter_execute/.
         cells: List of code cell indices to execute (0-indexed), or None for all cells.
         work_dir: Temporary directory to use as working directory during execution.
     
     Returns:
         Notebook object with executed namespace.
     """
-    # Resolve notebook path
     repo_root = Path(__file__).resolve().parent.parent
-    notebooks_base = repo_root / "docs" / "_build" / "jupyter_execute"
-    nb_file = notebooks_base / notebook_path
+    if notebook_path.startswith("tests/"):
+        nb_file = repo_root / notebook_path
+    else:
+        notebooks_base = repo_root / "docs" / "_build" / "jupyter_execute"
+        nb_file = notebooks_base / notebook_path
     
     if not nb_file.exists():
         raise FileNotFoundError(f"Notebook not found: {nb_file}")
@@ -121,6 +125,12 @@ def run_notebook(tmp_path):
         Callable that executes notebooks and returns Notebook objects.
     
     Example:
+        # Harness sanity (notebook under tests/):
+        def test_harness(run_notebook):
+            nb = run_notebook("tests/fixtures/harness_sanity.ipynb")
+            assert nb.harness_sanity_ran is True
+
+        # Lesson notebook (under docs/_build/jupyter_execute):
         def test_create_stage(run_notebook):
             nb = run_notebook("stage-setting/stage.ipynb", cells=[0])
             assert nb.stage is not None
