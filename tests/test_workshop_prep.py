@@ -378,13 +378,8 @@ class TestExternalURLValidation:
                 pytest.skip(f"Could not connect to {url}: {e}")
 
 
-# =============================================================================
-# Integration tests
-# =============================================================================
-
-
-class TestIntegration:
-    """Integration tests for the workshop_prep module."""
+class TestAllReferenceTypes:
+    """Tests for all reference types."""
 
     def test_full_conversion_pipeline(self, temp_docs_dir: Path) -> None:
         """Test the full conversion of a file with multiple reference types."""
