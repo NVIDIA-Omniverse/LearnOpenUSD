@@ -491,6 +491,9 @@ class TestWorkshopPrepIntegration:
         assert "Common Resources" in content
         assert "why-openusd-developer-certification" in content
 
+        # Notebook setup tutorial must NOT be part of the workshop
+        assert "jupyter-notebook-setup" not in content
+
     def test_removed_modules_deleted(self, docs_copy: Path) -> None:
         """Verify workshop_prep removed the correct module directories."""
         # Verify removed modules are gone

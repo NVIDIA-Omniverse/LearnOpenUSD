@@ -103,6 +103,10 @@ When you get an attribute value without an explicit time code, the default time 
 
 ## Examples
 
+```{tip}
+You can run these examples locally as Jupyter notebooks. See [How to Run Notebooks Locally](../jupyter-notebook-setup.md) for setup instructions.
+```
+
 +++ {"tags": ["remove-cell"]}
 >**NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook.
 +++
