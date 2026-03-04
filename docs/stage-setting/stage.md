@@ -77,6 +77,10 @@ Usd.Stage.Save()
 
 ## Examples
 
+```{tip}
+You can run these examples locally as Jupyter notebooks. See [How to Run Notebooks Locally](../jupyter-notebook-setup.md) for setup instructions.
+```
+
 ### Example 1: Create a USD File and Load it as a Stage
 
 At its core, an OpenUSD stage refers to a top-level USD file that serves as a container for organizing a hierarchy of elements called prims. Stages aren't files, but a unified scenegraph populated from multiple data sources called layers.
