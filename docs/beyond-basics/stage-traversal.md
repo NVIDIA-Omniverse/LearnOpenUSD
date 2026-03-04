@@ -110,12 +110,13 @@ BAD_predicate = Usd.PrimIsActive and Usd.PrimIsLoaded
 :tags: [remove-input]
 :test-tags: [stage-traversal-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.helperfunctions import create_new_stage
 
 
 from pxr import Usd, UsdGeom, UsdLux, UsdShade
 
 file_path = "_assets/stage_traversal.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 stage.SetDefaultPrim(world.GetPrim())

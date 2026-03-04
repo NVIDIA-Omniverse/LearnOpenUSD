@@ -43,6 +43,7 @@ kernelspec:
 :tags: [remove-input]
 :test-tags: [materials-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.helperfunctions import create_new_stage
 ```
 
 ### Example 1: UsdShade and Material
@@ -60,7 +61,7 @@ from lousd.utils.visualization import DisplayUSD, DisplayCode
 
 from pxr import Usd, UsdGeom, UsdShade
 
-stage: Usd.Stage = Usd.Stage.CreateNew("_assets/materials.usda")
+stage: Usd.Stage = create_new_stage("_assets/materials.usda")
 
 world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 stage.SetDefaultPrim(world.GetPrim())

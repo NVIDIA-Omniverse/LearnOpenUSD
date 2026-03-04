@@ -63,15 +63,24 @@ We can use the following Python functions to set the "active" metadata on a prim
 * `UsdPrim.IsActive()` - Return whether a prim is currently active on the stage
 
 ## Examples
-
-### Example 1: Setting Prims as Active/Inactive
-
 +++ {"tags": ["remove-cell"]}
->**NOTE**: The next cell is content setup for this example..
+>**NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook.
 +++
 ```{code-cell}
 :tags: [remove-input]
 :test-tags: [active-inactive-setup]
+from lousd.utils.helperfunctions import create_new_stage
+```
+
+
+### Example 1: Setting Prims as Active/Inactive
+
++++ {"tags": ["remove-cell"]}
+>**NOTE**: The next cell is content setup for this example.
++++
+```{code-cell}
+:tags: [remove-input]
+:test-tags: [active-inactive-content-setup]
 
 from pxr import Usd, UsdGeom, UsdLux, UsdShade
 

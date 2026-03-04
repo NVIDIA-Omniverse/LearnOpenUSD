@@ -98,7 +98,7 @@ from pxr import Usd, UsdGeom, Gf
 
 file_path = "_assets/attributes_ex1.usda"
 
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 
@@ -162,7 +162,7 @@ The attribute values will not show up in `.usda`, however the values are coming 
 from pxr import Usd, UsdGeom, Gf
 
 file_path = "_assets/attributes_ex2.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 
@@ -222,7 +222,7 @@ Now let's modify the `size`, `displayColor`, and `extent` attributes of the cube
 from pxr import Usd, UsdGeom, Gf
 
 file_path = "_assets/attributes_ex3.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 

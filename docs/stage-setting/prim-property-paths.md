@@ -96,7 +96,7 @@ To check if a prim is valid we can use the [`IsValid()`](https://openusd.org/rel
 
 from pxr import Usd
 
-stage: Usd.Stage = Usd.Stage.CreateNew("_assets/paths.usda")
+stage: Usd.Stage = create_new_stage("_assets/paths.usda")
 stage.DefinePrim("/hello")
 stage.DefinePrim("/hello/world")
 
@@ -130,7 +130,7 @@ Construct prim paths with AppendChild, then validate and navigate them with IsPr
 :emphasize-lines: 5-26
 from pxr import Usd, UsdGeom, Sdf
 
-stage = Usd.Stage.CreateNew("_assets/paths_build_and_nav.usda")
+stage = create_new_stage("_assets/paths_build_and_nav.usda")
 
 # Build prim paths via Sdf.Path
 world_path = Sdf.Path("/World")
@@ -172,7 +172,7 @@ A property path identifies a property location but does not create anything by i
 
 from pxr import Usd, UsdGeom, Sdf
 
-stage = Usd.Stage.CreateNew("_assets/paths_property_authoring.usda")
+stage = create_new_stage("_assets/paths_property_authoring.usda")
 
 # A prim to work with
 sphere = UsdGeom.Sphere.Define(stage, "/World/Geom/Sphere")

@@ -97,7 +97,7 @@ To create a generic prim on the stage we use [`DefinePrim()`](https://openusd.or
 from pxr import Usd
 
 # Create a new USD stage with root layer named "prims.usda":
-stage: Usd.Stage = Usd.Stage.CreateNew("_assets/prims.usda")
+stage: Usd.Stage = create_new_stage("_assets/prims.usda")
 
 # Define a new primitive at the path "/hello" on the current stage:
 stage.DefinePrim("/hello")
@@ -126,7 +126,7 @@ While the [`DefinePrim()`](https://openusd.org/release/api/class_usd_stage.html#
 from pxr import Usd, UsdGeom
 
 file_path = "_assets/sphere_prim.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 # Define a prim of type `Sphere` at path `/hello`:
 sphere: UsdGeom.Sphere = UsdGeom.Sphere.Define(stage, "/hello")
@@ -153,7 +153,7 @@ Prims can contain other prims to create a {external+usd:ref}`namespace hierarchy
 from pxr import Usd, UsdGeom
 
 file_path = "_assets/prim_hierarchy.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 # Define a Scope prim in stage at `/Geometry`
 geom_scope: UsdGeom.Scope = UsdGeom.Scope.Define(stage, "/Geometry")

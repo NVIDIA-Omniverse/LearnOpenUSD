@@ -154,6 +154,7 @@ print(f"Updated to: {UsdPhysics.GetStageKilogramsPerUnit(stage)}")
 :tags: [remove-input]
 :test-tags: [units-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.helperfunctions import create_new_stage
 ```
 
 ### Example 1: Demonstrating metersPerUnit Composition Behavior
@@ -172,7 +173,7 @@ from pxr import Usd, UsdGeom, Sdf, Gf
 
 # Create a cube asset in CENTIMETERS (metersPerUnit = 0.01)
 cm_asset_path = "_assets/1m_cube_centimeters.usda"
-cm_stage = Usd.Stage.CreateNew(cm_asset_path)
+cm_stage = create_new_stage(cm_asset_path)
 UsdGeom.SetStageUpAxis(cm_stage, UsdGeom.Tokens.y)
 UsdGeom.SetStageMetersPerUnit(cm_stage, 0.01)  # Centimeters
 
@@ -190,7 +191,7 @@ print(f"  -> Represents a {cube_in_cm.GetSizeAttr().Get() * UsdGeom.GetStageMete
 
 # Create a cube asset in MILLIMETERS (metersPerUnit = 0.001)
 mm_asset_path = "_assets/cube_in_millimeters.usda"
-mm_stage = Usd.Stage.CreateNew(mm_asset_path)
+mm_stage = create_new_stage(mm_asset_path)
 UsdGeom.SetStageUpAxis(mm_stage, UsdGeom.Tokens.y)
 UsdGeom.SetStageMetersPerUnit(mm_stage, 0.001)  # Millimeters
 
@@ -208,7 +209,7 @@ print(f"  -> Represents a {cube_in_mm.GetSizeAttr().Get() * UsdGeom.GetStageMete
 
 # Create a scene that references both cubes (using millimeter scale)
 scene_path = "_assets/units_mismatch_scene.usda"
-scene_stage = Usd.Stage.CreateNew(scene_path)
+scene_stage = create_new_stage(scene_path)
 UsdGeom.SetStageUpAxis(scene_stage, UsdGeom.Tokens.y)
 UsdGeom.SetStageMetersPerUnit(scene_stage, 0.001)  # Scene is in millimeters
 
@@ -261,7 +262,7 @@ from pxr import Usd, UsdGeom, Gf
 
 # Create animated asset at 60 fps
 anim_asset_path = "_assets/animated_60fps.usda"
-anim_stage = Usd.Stage.CreateNew(anim_asset_path)
+anim_stage = create_new_stage(anim_asset_path)
 UsdGeom.SetStageUpAxis(anim_stage, UsdGeom.Tokens.y)
 UsdGeom.SetStageMetersPerUnit(anim_stage, 1.0)
 anim_stage.SetTimeCodesPerSecond(60)  # 60 fps
@@ -287,7 +288,7 @@ print(f"  -> Animates from x=-5 to x=5\n")
 
 # Create scene at 24 fps that references the 60fps animation
 scene_24fps_path = "_assets/units_timecode_scene.usda"
-scene_stage = Usd.Stage.CreateNew(scene_24fps_path)
+scene_stage = create_new_stage(scene_24fps_path)
 UsdGeom.SetStageUpAxis(scene_stage, UsdGeom.Tokens.y)
 UsdGeom.SetStageMetersPerUnit(scene_stage, 1.0)
 scene_stage.SetTimeCodesPerSecond(24)  # Scene is 24 fps

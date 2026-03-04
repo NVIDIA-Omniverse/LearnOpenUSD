@@ -80,7 +80,7 @@ Relationships are properties that store one or more target paths. You can author
 from pxr import Usd, UsdGeom, Gf
 
 file_path = "_assets/relationships_ex1.usda"
-stage = Usd.Stage.CreateNew(file_path)
+stage = create_new_stage(file_path)
 
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 
@@ -119,7 +119,7 @@ Many built‑in schemas expose `Relationships`. `UsdGeom.Imageable` has `proxyPr
 from pxr import Usd, UsdGeom
 
 file_path = "_assets/relationships_ex2.usda"
-stage = Usd.Stage.CreateNew(file_path)
+stage = create_new_stage(file_path)
 
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 
@@ -155,7 +155,7 @@ Material binding is encoded as a relationship named `material:binding` that targ
 from pxr import Usd, UsdGeom, UsdShade, Gf, Sdf
 
 file_path = "_assets/relationships_ex3.usda"
-stage = Usd.Stage.CreateNew(file_path)
+stage = create_new_stage(file_path)
 
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 

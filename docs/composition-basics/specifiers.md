@@ -94,6 +94,7 @@ class "_box" {
 :tags: [remove-input]
 :test-tags: [specifiers-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.helperfunctions import create_new_stage
 ```
 
 ### Example 1: Authoring defs and a class in a base layer
@@ -106,7 +107,7 @@ from pxr import Usd, UsdGeom, Sdf, Gf
 
 base_file_path = "_assets/specifiers_base.usda"
 
-stage = Usd.Stage.CreateNew(base_file_path)
+stage = create_new_stage(base_file_path)
 
 # Create a simple scene with two cubes
 world = UsdGeom.Xform.Define(stage, "/World")
@@ -149,7 +150,7 @@ from pxr import Usd, UsdGeom, Sdf
 new_file_path = "_assets/specifiers_over_base.usda"
 base_file_path = "specifiers_base.usda"  # path relative to the new file
 
-stage = Usd.Stage.CreateNew(new_file_path)
+stage = create_new_stage(new_file_path)
 
 # Base is weaker than the root layer (root opinions are strongest)
 stage.GetRootLayer().subLayerPaths = [base_file_path]

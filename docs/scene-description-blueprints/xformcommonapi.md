@@ -75,6 +75,7 @@ from the xformable prim that works with any `xformOp` order using the [`GetLocal
 :tags: [remove-input]
 :test-tags: [xformcommonapi-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.helperfunctions import create_new_stage
 ```
 
 ### Example 1: XformCommonAPI - Transforms and Inheritance
@@ -88,7 +89,7 @@ In this example, we will use the [`XformCommonAPI`](https://openusd.org/release/
 from pxr import Usd, UsdGeom, Gf
 
 file_path = "_assets/xformcommonapi.usda"
-stage = Usd.Stage.CreateNew(file_path)
+stage = create_new_stage(file_path)
 
 # A root transform group we will move and rotate
 world = UsdGeom.Xform.Define(stage, "/World")

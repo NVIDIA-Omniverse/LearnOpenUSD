@@ -138,7 +138,7 @@ from pxr import Usd, UsdGeom, Kind, Gf
 
 # Create stage and model root
 file_path = "_assets/model_kinds_component.usda"
-stage = Usd.Stage.CreateNew(file_path)
+stage = create_new_stage(file_path)
 world_xform = UsdGeom.Xform.Define(stage, "/World")
 stage.SetDefaultPrim(world_xform.GetPrim())
 

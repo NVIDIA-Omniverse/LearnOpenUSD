@@ -144,6 +144,7 @@ from pxr import Usd
 # Create a new stage stored only in memory:
 stage: Usd.Stage = Usd.Stage.CreateInMemory()
 
+
 # Add a prim so the stage contains some data:
 stage.DefinePrim("/World", "Xform")
 

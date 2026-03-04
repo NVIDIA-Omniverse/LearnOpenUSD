@@ -202,6 +202,7 @@ stage.Save()
 ```{code-cell}
 :tags: [remove-input]
 DisplayUSD(file_path, show_usd_code=True)
+from lousd.utils.helperfunctions import create_new_stage
 ```
 Notice `Get(..., Usd.TimeCode.Default())` returns the user defined default (non‑time‑sampled) value, `Get(..., Usd.TimeCode.EarliestTime())` returns the first time sampled value, and if a **time before the first sample is queried USD also returns the first sampled value**.
 
@@ -217,7 +218,7 @@ import os
 
 # --- Layer 1 (weaker)
 layer_1_path = "_assets/value_resolution_layer_1.usda"
-layer_1_stage = Usd.Stage.CreateNew(layer_1_path)
+layer_1_stage = create_new_stage(layer_1_path)
 
 layer_1_xform = UsdGeom.Xform.Define(layer_1_stage, "/World/XformPrim")
 layer_1_xform_prim = layer_1_xform.GetPrim()
@@ -234,7 +235,7 @@ layer_1_stage.Save()
 
 # --- Layer 2 (stronger)
 layer_2_path = "_assets/value_resolution_layer_2.usda"
-layer_2_stage = Usd.Stage.CreateNew(layer_2_path)
+layer_2_stage = create_new_stage(layer_2_path)
 
 layer_2_xform = UsdGeom.Xform.Define(layer_2_stage, "/World/XformPrim")
 layer_2_xform_prim = layer_2_xform.GetPrim()
@@ -250,7 +251,7 @@ layer_2_stage.Save()
 
 # --- Composed stage. First sublayer listed (layer_2) is strongest
 composed_path = "_assets/value_resolution_composed.usda"
-composed_stage = Usd.Stage.CreateNew(composed_path)
+composed_stage = create_new_stage(composed_path)
 composed_stage.GetRootLayer().subLayerPaths = [os.path.basename(layer_2_path), os.path.basename(layer_1_path)]
 
 xform_prim = composed_stage.GetPrimAtPath("/World/XformPrim")

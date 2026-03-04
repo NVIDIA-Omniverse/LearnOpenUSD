@@ -100,6 +100,7 @@ assert stage.GetDefaultPrim() == default_prim
 :tags: [remove-input]
 :test-tags: [default-prim-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.helperfunctions import create_new_stage
 ```
 
 ### Example 1: Setting a Default Prim
@@ -116,7 +117,7 @@ A `defaultPrim` is layer metadata. If the stage's root layer is used as a refere
 from pxr import Usd
 
 file_path = "_assets/default_prim.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 stage.DefinePrim("/hello")
 stage.DefinePrim("/hello/world")
 hello_prim: Usd.Prim = stage.GetPrimAtPath("/hello")

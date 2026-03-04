@@ -100,7 +100,7 @@ from pxr import Usd, UsdGeom, Gf
 
 # Create stage and default prim
 file_path = "_assets/primvars_displaycolor.usda"
-stage = Usd.Stage.CreateNew(file_path)
+stage = create_new_stage(file_path)
 world = UsdGeom.Xform.Define(stage, "/World")
 stage.SetDefaultPrim(world.GetPrim())
 
@@ -177,7 +177,7 @@ time_code_per_second = 30
 
 # create stage and default prim
 file_path = "_assets/primvars_mesh_deformation.usda"
-stage = Usd.Stage.CreateNew(file_path)
+stage = create_new_stage(file_path)
 stage.SetStartTimeCode(start_tc)
 stage.SetEndTimeCode(end_tc)
 stage.SetTimeCodesPerSecond(time_code_per_second)

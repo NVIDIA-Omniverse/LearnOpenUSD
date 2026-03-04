@@ -108,6 +108,7 @@ Lastly, notice the `my_namespace:` prefix on the attribute. It's good practice t
 :tags: [remove-input]
 :test-tags: [custom-properties-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.helperfunctions import create_new_stage
 ```
 
 ### Example 1: Creating Custom Attributes
@@ -139,7 +140,7 @@ In this example, we will author custom attributes to add more contextual informa
 from pxr import Usd, UsdGeom, Sdf
 
 file_path = "_assets/custom_attributes.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 geometry_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, world_xform.GetPath().AppendPath("Packages"))
@@ -217,7 +218,7 @@ Notice the double namespacing pattern `acme:sensor:temperature`. The first names
 from pxr import Usd, UsdGeom, Sdf
 
 file_path = "_assets/sensor_data.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 # Create a prim to represent a sensor device
 sensor_prim = stage.DefinePrim("/EnvironmentSensor", "Xform")
