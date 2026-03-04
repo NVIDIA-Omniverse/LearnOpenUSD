@@ -84,6 +84,7 @@ values = primvar.Get()
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [primvars-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 from lousd.utils.helperfunctions import create_new_stage
 ```
@@ -93,12 +94,13 @@ from lousd.utils.helperfunctions import create_new_stage
 This example builds the same two‑quad mesh three times and authors the displayColor primvar with three {term}`interpolation <Interpolation>` modes: constant (one value for the whole gprim), uniform (one per face), and vertex (one per point).
 
 ```{code-cell}
+:test-tags: [primvars-displaycolor-interpolation]
 :emphasize-lines: 28-53
 from pxr import Usd, UsdGeom, Gf
 
 # Create stage and default prim
 file_path = "_assets/primvars_displaycolor.usda"
-stage = Usd.Stage.CreateNew(file_path)
+stage = create_new_stage(file_path)
 world = UsdGeom.Xform.Define(stage, "/World")
 stage.SetDefaultPrim(world.GetPrim())
 
@@ -164,6 +166,7 @@ DisplayCode(file_path)
 This example writes two vertex primvars on a quad: rest_state and deformation. It computes new points as rest_state + deformation, then {term}`time samples <Time Sample>` Mesh.points
 
 ```{code-cell}
+:test-tags: [primvars-mesh-deformation]
 :emphasize-lines: 34-57
 from pxr import Usd, UsdGeom, Sdf, Gf
 
@@ -174,7 +177,7 @@ time_code_per_second = 30
 
 # create stage and default prim
 file_path = "_assets/primvars_mesh_deformation.usda"
-stage = Usd.Stage.CreateNew(file_path)
+stage = create_new_stage(file_path)
 stage.SetStartTimeCode(start_tc)
 stage.SetEndTimeCode(end_tc)
 stage.SetTimeCodesPerSecond(time_code_per_second)

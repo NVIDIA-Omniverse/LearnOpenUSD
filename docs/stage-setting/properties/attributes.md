@@ -72,6 +72,7 @@ less brittle. You can learn more about how to work with each specific schema on 
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [attributes-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 from lousd.utils.helperfunctions import create_new_stage
 ```
@@ -90,13 +91,14 @@ Relationships are only lightly discussed in this lesson. We'll talk about relati
 ```
 
 ```{code-cell}
+:test-tags: [attributes-retrieve-properties]
 :emphasize-lines: 9-21
 
 from pxr import Usd, UsdGeom, Gf
 
 file_path = "_assets/attributes_ex1.usda"
 
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 
@@ -154,12 +156,13 @@ The attribute values will not show up in `.usda`, however the values are coming 
 ```
 
 ```{code-cell}
+:test-tags: [attributes-get-values]
 :emphasize-lines: 12-24
 
 from pxr import Usd, UsdGeom, Gf
 
 file_path = "_assets/attributes_ex2.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 
@@ -213,12 +216,13 @@ When getting attribute values, USD will apply {term}`value resolution <Value Res
 Now let's modify the `size`, `displayColor`, and `extent` attributes of the cube by using [`Set()`](https://openusd.org/release/api/class_usd_attribute.html#a151e6fde58bbd911da8322911a3c0079).
 
 ```{code-cell}
+:test-tags: [attributes-set-values]
 :emphasize-lines: 17-20
 
 from pxr import Usd, UsdGeom, Gf
 
 file_path = "_assets/attributes_ex3.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 

@@ -74,6 +74,7 @@ Usd.Stage.GetPrimAtPath()
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [paths-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 from lousd.utils.helperfunctions import create_new_stage
 ```
@@ -90,11 +91,12 @@ To check if a prim is valid we can use the [`IsValid()`](https://openusd.org/rel
 
 
 ```{code-cell}
+:test-tags: [paths-get-validate-define]
 :emphasize-lines: 7-20
 
 from pxr import Usd
 
-stage: Usd.Stage = Usd.Stage.CreateNew("_assets/paths.usda")
+stage: Usd.Stage = create_new_stage("_assets/paths.usda")
 stage.DefinePrim("/hello")
 stage.DefinePrim("/hello/world")
 
@@ -124,10 +126,11 @@ DisplayCode("_assets/paths.usda")
 Construct prim paths with AppendChild, then validate and navigate them with IsPrimPath and GetParentPath
 
 ```{code-cell}
+:test-tags: [paths-build-and-navigate]
 :emphasize-lines: 5-26
 from pxr import Usd, UsdGeom, Sdf
 
-stage = Usd.Stage.CreateNew("_assets/paths_build_and_nav.usda")
+stage = create_new_stage("_assets/paths_build_and_nav.usda")
 
 # Build prim paths via Sdf.Path
 world_path = Sdf.Path("/World")
@@ -164,11 +167,12 @@ DisplayCode("_assets/paths_build_and_nav.usda")
 A property path identifies a property location but does not create anything by itself. You use AppendProperty to build the path, then author the spec with CreateAttribute or CreateRelationship
 
 ```{code-cell}
+:test-tags: [paths-property-authoring]
 :emphasize-lines: 8-38
 
 from pxr import Usd, UsdGeom, Sdf
 
-stage = Usd.Stage.CreateNew("_assets/paths_property_authoring.usda")
+stage = create_new_stage("_assets/paths_property_authoring.usda")
 
 # A prim to work with
 sphere = UsdGeom.Sphere.Define(stage, "/World/Geom/Sphere")

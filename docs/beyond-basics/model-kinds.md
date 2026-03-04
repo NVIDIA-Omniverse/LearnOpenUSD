@@ -122,6 +122,7 @@ prim.IsModel()
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [model-kinds-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 from lousd.utils.helperfunctions import create_new_stage
 ```
@@ -131,12 +132,13 @@ from lousd.utils.helperfunctions import create_new_stage
 This example shows the practical benefit of Model Kinds.  `/World` is marked as a group so children can qualify as models, `/World/Component` is classified as a component, and `/World/Markers` is left untagged. Model‑only traversal allow for edits only to the component while the markers remain untouched.
 
 ```{code-cell}
+:test-tags: [model-kinds-component-traversal]
 :emphasize-lines: 9-40
 from pxr import Usd, UsdGeom, Kind, Gf
 
 # Create stage and model root
 file_path = "_assets/model_kinds_component.usda"
-stage = Usd.Stage.CreateNew(file_path)
+stage = create_new_stage(file_path)
 world_xform = UsdGeom.Xform.Define(stage, "/World")
 stage.SetDefaultPrim(world_xform.GetPrim())
 

@@ -95,6 +95,7 @@ sphere_xform_api.SetTranslate(Gf.Vec3d(0,-4.5,0), time=Usd.TimeCode(30))
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [timecodes-setup]
 from lousd.utils.visualization import DisplayUSD
 from lousd.utils.helperfunctions import create_new_stage
 ```
@@ -102,13 +103,14 @@ from lousd.utils.helperfunctions import create_new_stage
 Let's create a USD stage to serve as the starting point for the example in this lesson. We will create a simple stage with a sphere and a blue cube as a backdrop.
 
 ```{code-cell}
+:test-tags: [timecodes-sample-stage]
 :tags: [remove-output]
 # Import the necessary modules from the `pxr` library:
 from pxr import Usd, UsdGeom, Gf
 
 # Create a new USD stage file named "timecode_sample.usda":
 file_path = "_assets/timecode_sample.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 # Define a transform ("Xform") primitive at the "/World" path:
 world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
@@ -140,6 +142,7 @@ A [`Usd.TimeCode`](https://openusd.org/release/api/class_usd_time_code.html) is 
 To set the stage's `startTimeCode` and `endTimeCode` metadata, use the [`SetStartTimeCode()`](https://openusd.org/release/api/class_usd_stage.html#aef35e121cd9662129b6e338e85ceab44) and [`SetEndTimeCode()`](https://openusd.org/release/api/class_usd_stage.html#a05e5e8a51041bc7f9b7f1165ccec9fa4) methods.
 
 ```{code-cell}
+:test-tags: [timecodes-set-start-end]
 :tags: [remove-output]
 :emphasize-lines: 6-8
 
@@ -188,6 +191,7 @@ USD will interpolate the values for the cube's size attribute between set time s
 Let's create a sphere that moves up and down using the [`XformCommonAPI`](https://openusd.org/release/api/class_usd_geom_xform_common_a_p_i.html).
 
 ```{code-cell}
+:test-tags: [timecodes-translation-time-samples]
 :tags: [remove-output]
 :emphasize-lines: 8-24
 
@@ -233,6 +237,7 @@ For more complex animation it is not recommended to define the animation using s
 It is possible to set time samples for different attributes. We can demonstrate this with the scale of the sphere.
 
 ```{code-cell}
+:test-tags: [timecodes-scale-time-samples]
 :tags: [remove-output]
 :emphasize-lines: 8-22
 

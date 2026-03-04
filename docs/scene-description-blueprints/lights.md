@@ -73,7 +73,9 @@ light_prim.GetIntensityAttr().Set(500)
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [lights-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.helperfunctions import create_new_stage
 ```
 
 ### Example 1: UsdLux and DistantLight
@@ -83,11 +85,12 @@ from lousd.utils.visualization import DisplayUSD, DisplayCode
 One of the schemas in `UsdLux` is [`DistantLight`](https://openusd.org/release/api/class_usd_lux_distant_light.html). A light is emitted from a distance source along the -Z axis. This is commonly known as a directional light.
 
 ```{code-cell}
+:test-tags: [lights-distant-light]
 :emphasize-lines: 13-14
 from pxr import Usd, UsdGeom, UsdLux
 
 file_path = "_assets/distant_light.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 geo_scope: UsdGeom.Scope = UsdGeom.Scope.Define(stage, world.GetPath().AppendPath("Geometry"))
@@ -116,11 +119,12 @@ We're going to define two new prims, [`SphereLight`](https://openusd.org/dev/api
 
 
 ```{code-cell}
+:test-tags: [lights-properties]
 :emphasize-lines: 11-31
 from pxr import Gf, Usd, UsdGeom, UsdLux
 
 file_path = "_assets/light_props.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 geom_scope: UsdGeom.Scope = UsdGeom.Scope.Define(stage, "/Geometry")
 cube: UsdGeom.Cube = UsdGeom.Cube.Define(stage, geom_scope.GetPath().AppendPath("Box"))
 

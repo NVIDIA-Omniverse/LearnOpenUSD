@@ -17,9 +17,13 @@
 
 import json
 import os
+import shutil
 from pathlib import Path
 
 import pytest
+
+# Source for exercise content (mirrors docs/exercise_content under jupyter_execute when needs_content=True).
+_EXERCISE_CONTENT_SRC = Path(__file__).resolve().parent.parent / "docs" / "_build" / "jupyter_execute" / "exercise_content"
 
 
 class Notebook:
@@ -56,9 +60,10 @@ def _execute_notebook(
     cells: list[int] | None,
     tags: list[str] | None,
     work_dir: Path,
+    needs_content: bool = False,
 ) -> Notebook:
     """Execute notebook cells and return the resulting namespace.
-    
+
     Args:
         notebook_path: Path to notebook. If it starts with "tests/", resolved
             relative to repo root (for harness sanity notebooks). Otherwise
@@ -66,37 +71,49 @@ def _execute_notebook(
         cells: List of code cell indices to execute (0-indexed), or None for all cells.
         tags: List of test-tags to match; only cells with any of these tags run.
             Mutually exclusive with cells.
-        work_dir: Temporary directory to use as working directory during execution.
-    
+        work_dir: Temporary directory (base for execution; see needs_content).
+        needs_content: If True, copy exercise_content/ under a jupyter_execute/
+            to work_dir so that ../exercise_content from the notebook cwd resolves.
+
     Returns:
-        Notebook object with executed namespace.
+        Notebook object with the resulting namespace.
     """
     if cells is not None and tags is not None:
         raise ValueError("Cannot specify both 'cells' and 'tags'")
-    
+
     repo_root = Path(__file__).resolve().parent.parent
     if notebook_path.startswith("tests/"):
         nb_file = repo_root / notebook_path
     else:
         notebooks_base = repo_root / "docs" / "_build" / "jupyter_execute"
         nb_file = notebooks_base / notebook_path
-    
+
     if not nb_file.exists():
         raise FileNotFoundError(f"Notebook not found: {nb_file}")
-    
+
+    # Execution directory: jupyter_execute-like layout
+    nb_parent = Path(notebook_path).parent
+    exec_dir = work_dir / nb_parent if str(nb_parent) != "." else work_dir
+    exec_dir.mkdir(parents=True, exist_ok=True)
+
+    # When needs_content copy the content so ../exercise_content works
+    if needs_content:
+        dest_content = work_dir / "exercise_content"
+        shutil.copytree(_EXERCISE_CONTENT_SRC, dest_content)
+
     # Load notebook
-    with open(nb_file, 'r', encoding='utf-8') as f:
+    with open(nb_file, "r", encoding="utf-8") as f:
         nb_data = json.load(f)
-    
+
     # Extract code cells
-    code_cells = [cell for cell in nb_data.get('cells', []) if cell.get('cell_type') == 'code']
-    
+    code_cells = [cell for cell in nb_data.get("cells", []) if cell.get("cell_type") == "code"]
+
     # Determine which cells to execute (preserve document order)
     if tags is not None:
         requested_tags = set(tags)
         tags_in_notebook = set()
         for cell in code_cells:
-            tags_in_notebook.update(cell.get('metadata', {}).get('test-tags', []))
+            tags_in_notebook.update(cell.get("metadata", {}).get("test-tags", []))
         unmatched_tags = requested_tags - tags_in_notebook
         if unmatched_tags:
             raise ValueError(
@@ -106,7 +123,7 @@ def _execute_notebook(
         tag_set = requested_tags
         cells_to_run = [
             cell for cell in code_cells
-            if tag_set & set(cell.get('metadata', {}).get('test-tags', []))
+            if tag_set & set(cell.get("metadata", {}).get("test-tags", []))
         ]
     elif cells is None:
         cells_to_run = code_cells
@@ -119,28 +136,25 @@ def _execute_notebook(
                     f"valid indices 0..{n_code - 1})"
                 )
         cells_to_run = [code_cells[i] for i in cells]
-    
-    # Create _assets directory in work_dir
-    assets_dir = work_dir / "_assets"
+
+    # Create _assets directory in execution directory
+    assets_dir = exec_dir / "_assets"
     assets_dir.mkdir(parents=True, exist_ok=True)
-    
+
     # Execute cells in isolated namespace
     namespace = {}
     old_cwd = os.getcwd()
     try:
-        os.chdir(work_dir)
-        
+        os.chdir(exec_dir)
         for cell in cells_to_run:
-            source = cell.get('source', [])
+            source = cell.get("source", [])
             if isinstance(source, list):
-                source = ''.join(source)
-            
-            # Execute the cell code
+                source = "".join(source)
             exec(source, namespace)
     finally:
         os.chdir(old_cwd)
-    
-    return Notebook(namespace, work_dir)
+
+    return Notebook(namespace, exec_dir)
 
 
 @pytest.fixture
@@ -172,12 +186,18 @@ def run_notebook(tmp_path):
         def test_setup_only(run_notebook):
             nb = run_notebook("stage-setting/stage.ipynb", tags=["setup"])
             assert nb.stage is not None
+
+        # With exercise content (../exercise_content/... resolved):
+        def test_references_with_asset(run_notebook):
+            nb = run_notebook("composition-basics/references.ipynb", needs_content=True)
+            assert (nb._work_dir / "_assets" / "shapes.usda").exists()
     """
     def _run(
         path: str,
         cells: list[int] | None = None,
         tags: list[str] | None = None,
+        needs_content: bool = False,
     ) -> Notebook:
-        return _execute_notebook(path, cells, tags, tmp_path)
-    
+        return _execute_notebook(path, cells, tags, tmp_path, needs_content=needs_content)
+
     return _run

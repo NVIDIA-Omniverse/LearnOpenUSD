@@ -108,13 +108,15 @@ BAD_predicate = Usd.PrimIsActive and Usd.PrimIsLoaded
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [stage-traversal-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.helperfunctions import create_new_stage
 
 
 from pxr import Usd, UsdGeom, UsdLux, UsdShade
 
 file_path = "_assets/stage_traversal.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 stage.SetDefaultPrim(world.GetPrim())
@@ -146,6 +148,7 @@ DisplayCode(file_path)
 To traverse through the stage, we can use the [`Traverse()`](https://openusd.org/release/api/class_usd_stage.html#adba675b55f41cc1b305bed414fc4f178) method. This traversal will yield prims that are active, loaded, defined, non-abstract on the stage in depth-first order.
 
 ```{code-cell}
+:test-tags: [stage-traversal-traverse]
 :emphasize-lines: 7-10
 
 # Import the Usd module from the pxr package
@@ -169,6 +172,7 @@ For this practical example, we will traverse the stage to operate on specific pr
 We can filter based on the type of the prim. For example, we can check if the prim is of type `scope` or `xform`. To do this we pass the prim into the constructor method for the prim type we are interested in. For example,`UsdGeom.Scope(prim)` is equivalent to [`UsdGeom.Scope.Get(prim.GetStage(), prim.GetPath())`](https://openusd.org/release/api/class_usd_geom_scope.html#a538339c2aa462ebcf1eb07fed16f9be4) for a valid prim. If the prim's type does not match, it will return an invalid prim.
 
 ```{code-cell}
+:test-tags: [stage-traversal-filter-types]
 :emphasize-lines: 7-21
 
 # Import necessary modules from the pxr package
@@ -201,6 +205,7 @@ Using [`Traverse()`](https://openusd.org/release/api/class_usd_stage.html#adba67
 If you need to work within a specific scope or hierarchy in the stage, you can perform a traversal starting from a particular prim. Let's take a look at how we can traverse through the children of the default prim.
 
 ```{code-cell}
+:test-tags: [stage-traversal-children]
 :emphasize-lines: 10-13
 
 # Import the `Usd` module from the `pxr` package:
@@ -227,6 +232,7 @@ Let's see an example of [`UsdPrimRange`](https://openusd.org/release/api/class_u
 
 
 ```{code-cell}
+:test-tags: [stage-traversal-prim-range]
 :emphasize-lines: 7-9
 
 # Import the Usd module from the pxr package

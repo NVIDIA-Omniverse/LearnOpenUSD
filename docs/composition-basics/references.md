@@ -64,7 +64,9 @@ references.ClearReferences()
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [references-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.helperfunctions import create_new_stage
 ```
 
 ### Example 1: Adding a Reference
@@ -94,20 +96,21 @@ Firstly, we want to grab all references of a prim. To do this we use [`GetRefere
 To add a reference, we use [`AddReference()`](https://openusd.org/release/api/class_usd_references.html#a95bf456b23a234d3aa017015a4ad05e0). Let's see these in practice.
 
 ```{code-cell}
+:test-tags: [references-add-reference]
 :emphasize-lines: 16-22
 
 from pxr import Usd, UsdGeom, Gf
 
 # Create a new stage and define a cube:
 file_path = "_assets/cube.usda"
-stage = Usd.Stage.CreateNew(file_path)
+stage = create_new_stage(file_path)
 cube = UsdGeom.Cube.Define(stage, "/Cube")
 stage.SetDefaultPrim(cube.GetPrim())
 stage.Save()
 
 # Create a second file path and stage, define a world and a sphere:
 second_file_path = "_assets/shapes.usda"
-stage = Usd.Stage.CreateNew(second_file_path)
+stage = create_new_stage(second_file_path)
 world = UsdGeom.Xform.Define(stage, "/World")
 UsdGeom.Sphere.Define(stage, world.GetPath().AppendPath("Sphere"))
 
@@ -140,6 +143,7 @@ Here, we'll add a reference to a shipping box asset.
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [references-setup-asset]
 import shutil
 # cleanup any existing copy
 try:
@@ -150,12 +154,13 @@ shutil.copytree('../exercise_content/foundations/cubebox_a02', '_assets/cubebox_
 ```
 
 ```{code-cell}
+:test-tags: [references-external-asset]
 :emphasize-lines: 12-17
 
 from pxr import Usd, UsdGeom
 
 file_path = "_assets/asset_ref.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 # Define a root Xform named "World"
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")

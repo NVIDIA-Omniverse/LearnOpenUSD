@@ -59,7 +59,9 @@ prim.IsA(UsdGeom.Scope)
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [scope-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.helperfunctions import create_new_stage
 ```
 
 ### Example 1: Define a Scope
@@ -68,12 +70,13 @@ from lousd.utils.visualization import DisplayUSD, DisplayCode
 We can define `Scope`using [`UsdGeom.Scope.Define()`](https://openusd.org/release/api/class_usd_geom_scope.html#acdb17fed396719a9a21294ebca0116ae).
 
 ```{code-cell}
+:test-tags: [scope-define-scopes]
 :emphasize-lines: 12-28
 
 from pxr import Usd, UsdGeom, Gf
 
 file_path = "_assets/scope.usda"
-stage = Usd.Stage.CreateNew(file_path)
+stage = create_new_stage(file_path)
 
 # World container (transformable)
 world = UsdGeom.Xform.Define(stage, "/World")

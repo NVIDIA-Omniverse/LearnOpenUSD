@@ -57,6 +57,15 @@ xform.AddXformOp(opType, value)
 
 ## Examples
 
++++ {"tags": ["remove-cell"]}
+>**NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook.
++++
+```{code-cell}
+:tags: [remove-input]
+:test-tags: [xform-setup]
+from lousd.utils.helperfunctions import create_new_stage
+```
+
 ### Example 1: UsdGeom and Xform
 
 [`UsdGeom`](https://openusd.org/release/api/usd_geom_page_front.html) defines the 3D graphics-related prim and {term}`property <Property>` {term}`schemas <Schema>` that together form a basis for interchanging geometry between Digital Content Creation (DCC) tools in a graphics pipeline.
@@ -70,6 +79,7 @@ Some things to know about `UsdGeom`:
 
 
 ```{code-cell}
+:test-tags: [xform-define-world]
 :emphasize-lines: 7-8
 
 # Import the necessary modules from the pxr package:
@@ -77,7 +87,7 @@ from pxr import Usd, UsdGeom
 
 # Create a new USD stage with root layer named "xform_prim.usda":
 file_path = "_assets/xform_prim.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 # Define a new Xform primitive at the path "/World" on the current stage:
 world: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")

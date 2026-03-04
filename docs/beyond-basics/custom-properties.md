@@ -106,7 +106,9 @@ Lastly, notice the `my_namespace:` prefix on the attribute. It's good practice t
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [custom-properties-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
+from lousd.utils.helperfunctions import create_new_stage
 ```
 
 ### Example 1: Creating Custom Attributes
@@ -116,6 +118,7 @@ from lousd.utils.visualization import DisplayUSD, DisplayCode
 +++
 ```{code-cell}
 :tags: [remove-input, remove-output]
+:test-tags: [custom-properties-setup-asset]
 import shutil
 # cleanup any existing copy
 try:
@@ -131,12 +134,13 @@ Custom attributes in OpenUSD are used to define additional, user-specific proper
 In this example, we will author custom attributes to add more contextual information to a package asset.
 
 ```{code-cell}
+:test-tags: [custom-properties-create-attributes]
 :emphasize-lines: 13-23
 
 from pxr import Usd, UsdGeom, Sdf
 
 file_path = "_assets/custom_attributes.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 world_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, "/World")
 geometry_xform: UsdGeom.Xform = UsdGeom.Xform.Define(stage, world_xform.GetPath().AppendPath("Packages"))
@@ -176,7 +180,8 @@ After creating an attribute, we can set and get the value of the attribute, simi
 
 Try applying the same logic to the other attributes.
 
-```{code-cell} 
+```{code-cell}
+:test-tags: [custom-properties-modify-attributes]
 :emphasize-lines: 7-10
 
 from pxr import Usd
@@ -207,12 +212,13 @@ When working with grouped or compound data from other sources, namespace-prefixe
 Notice the double namespacing pattern `acme:sensor:temperature`. The first namespace (`acme:`) identifies the organization that created these custom properties, while the second namespace (`sensor:`) groups related properties together. This hierarchical approach allows you to both claim ownership of your custom properties and logically organize them into functional groups. It's a common pattern when mapping compound data types from other formats into USD.
 
 ```{code-cell}
+:test-tags: [custom-properties-namespaces]
 :emphasize-lines: 9-20
 
 from pxr import Usd, UsdGeom, Sdf
 
 file_path = "_assets/sensor_data.usda"
-stage: Usd.Stage = Usd.Stage.CreateNew(file_path)
+stage: Usd.Stage = create_new_stage(file_path)
 
 # Create a prim to represent a sensor device
 sensor_prim = stage.DefinePrim("/EnvironmentSensor", "Xform")
