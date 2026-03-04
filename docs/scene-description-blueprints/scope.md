@@ -59,6 +59,7 @@ prim.IsA(UsdGeom.Scope)
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [scope-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 ```
 
@@ -68,6 +69,7 @@ from lousd.utils.visualization import DisplayUSD, DisplayCode
 We can define `Scope`using [`UsdGeom.Scope.Define()`](https://openusd.org/release/api/class_usd_geom_scope.html#acdb17fed396719a9a21294ebca0116ae).
 
 ```{code-cell}
+:test-tags: [scope-define-scopes]
 :emphasize-lines: 12-28
 
 from pxr import Usd, UsdGeom, Gf

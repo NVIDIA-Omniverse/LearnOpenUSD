@@ -108,6 +108,7 @@ When you get an attribute value without an explicit time code, the default time 
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [value-resolution-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 from lousd.utils.helperfunctions import create_new_stage
 ```
@@ -117,6 +118,7 @@ from lousd.utils.helperfunctions import create_new_stage
 This example shows how a transform attribute (the `xformOp:scale` authored by `XformCommonAPI`) resolves from four sources: a {term}`fallback <Fallback>` value when no authored value exists, an authored default value, authored time sample values, and interpolated values between time samples.
 
 ```{code-cell}
+:test-tags: [value-resolution-attribute-animation]
 :emphasize-lines: 27-67
 from pxr import Usd, UsdGeom
 
@@ -208,6 +210,7 @@ Notice `Get(..., Usd.TimeCode.Default())` returns the user defined default (nonâ
 This example composes {term}`layers <Layer>` to show two resolution rules for dictionary metadata like `customData` (per key by strength) as well as relationships `list editing semantics`.
 
 ```{code-cell}
+:test-tags: [value-resolution-customdata-relationship]
 :emphasize-lines: 37-60
 from pxr import Usd, UsdGeom
 import os

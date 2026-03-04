@@ -74,6 +74,7 @@ Usd.Stage.GetPrimAtPath()
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [paths-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 from lousd.utils.helperfunctions import create_new_stage
 ```
@@ -90,6 +91,7 @@ To check if a prim is valid we can use the [`IsValid()`](https://openusd.org/rel
 
 
 ```{code-cell}
+:test-tags: [paths-get-validate-define]
 :emphasize-lines: 7-20
 
 from pxr import Usd
@@ -124,6 +126,7 @@ DisplayCode("_assets/paths.usda")
 Construct prim paths with AppendChild, then validate and navigate them with IsPrimPath and GetParentPath
 
 ```{code-cell}
+:test-tags: [paths-build-and-navigate]
 :emphasize-lines: 5-26
 from pxr import Usd, UsdGeom, Sdf
 
@@ -164,6 +167,7 @@ DisplayCode("_assets/paths_build_and_nav.usda")
 A property path identifies a property location but does not create anything by itself. You use AppendProperty to build the path, then author the spec with CreateAttribute or CreateRelationship
 
 ```{code-cell}
+:test-tags: [paths-property-authoring]
 :emphasize-lines: 8-38
 
 from pxr import Usd, UsdGeom, Sdf

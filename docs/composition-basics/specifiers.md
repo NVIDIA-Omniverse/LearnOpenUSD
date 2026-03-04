@@ -92,6 +92,7 @@ class "_box" {
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [specifiers-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 ```
 
@@ -99,6 +100,7 @@ from lousd.utils.visualization import DisplayUSD, DisplayCode
 This script defines two concrete cubes (specifier **def**) and a reusable **{term}`class <Class>`** prim that holds a `displayColor` opinion for inheritance. The output contrasts the composed specifiers for each, showing **def** for scene geometry and **class** for abstract Prim.
 
 ```{code-cell}
+:test-tags: [specifiers-def-and-class]
 :emphasize-lines: 8-27
 from pxr import Usd, UsdGeom, Sdf, Gf
 
@@ -140,6 +142,7 @@ DisplayUSD(base_file_path, show_usd_code=True)
 This script sublayers the base file, authors an {term}`over <Over>` on `/World/Box` to change `size`, and adds an **inherits** arc so the box picks up the class color. The prim‑stack printout makes it clear that the strong layer contributes over while the base contributes def, and the class opinions are applied via the inherit.
 
 ```{code-cell}
+:test-tags: [specifiers-over-inherit]
 :emphasize-lines: 13-25
 from pxr import Usd, UsdGeom, Sdf
 

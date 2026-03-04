@@ -88,6 +88,7 @@ Some of the functions we will use to access the stage will be the following:
 - [`Usd.Stage.Save()`](https://openusd.org/release/api/class_usd_stage.html#adefa2f7ebfc4d8c09f0cd54419aa36c4): Saves the current stage of a USD stage back to a file. If there are multiple layers in the stage, all edited layers that contribute to the stage are being saved. In our case, all edits are being done in a single layer.
 
 ```{code-cell}
+:test-tags: [stage-create-new]
 # Import the `Usd` module from the `pxr` package:
 from pxr import Usd
 
@@ -111,6 +112,7 @@ A common task when working with OpenUSD is opening an existing file, making chan
 In this example, we open an existing USDA file, add a prim so the modification is visible, and then save the updated stage.
 
 ```{code-cell}
+:test-tags: [stage-open-save]
 from pxr import Usd
 
 # Open an existing USD stage from disk:
@@ -136,6 +138,7 @@ The `Usd.Stage.CreateInMemory()` function creates a stage whose root layer exist
 memory until you explicitly export it.
 
 ```{code-cell}
+:test-tags: [stage-create-in-memory]
 from pxr import Usd
 
 # Create a new stage stored only in memory:
@@ -162,6 +165,7 @@ Although it acts as the anchor for the layer stack, the majority of authored dat
 In this example, we access the root layer directly, inspect its metadata, and add a sublayer to demonstrate how the root layer organizes a stage’s data.
 
 ```{code-cell}
+:test-tags: [stage-root-layer]
 from pxr import Usd, Sdf
 import os
 

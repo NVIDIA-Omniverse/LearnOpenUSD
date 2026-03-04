@@ -64,6 +64,7 @@ references.ClearReferences()
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [references-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 ```
 
@@ -94,6 +95,7 @@ Firstly, we want to grab all references of a prim. To do this we use [`GetRefere
 To add a reference, we use [`AddReference()`](https://openusd.org/release/api/class_usd_references.html#a95bf456b23a234d3aa017015a4ad05e0). Let's see these in practice.
 
 ```{code-cell}
+:test-tags: [references-add-reference]
 :emphasize-lines: 16-22
 
 from pxr import Usd, UsdGeom, Gf
@@ -140,6 +142,7 @@ Here, we'll add a reference to a shipping box asset.
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [references-setup-asset]
 import shutil
 # cleanup any existing copy
 try:
@@ -150,6 +153,7 @@ shutil.copytree('../exercise_content/foundations/cubebox_a02', '_assets/cubebox_
 ```
 
 ```{code-cell}
+:test-tags: [references-external-asset]
 :emphasize-lines: 12-17
 
 from pxr import Usd, UsdGeom

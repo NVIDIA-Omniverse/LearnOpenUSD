@@ -73,6 +73,7 @@ light_prim.GetIntensityAttr().Set(500)
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [lights-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 ```
 
@@ -83,6 +84,7 @@ from lousd.utils.visualization import DisplayUSD, DisplayCode
 One of the schemas in `UsdLux` is [`DistantLight`](https://openusd.org/release/api/class_usd_lux_distant_light.html). A light is emitted from a distance source along the -Z axis. This is commonly known as a directional light.
 
 ```{code-cell}
+:test-tags: [lights-distant-light]
 :emphasize-lines: 13-14
 from pxr import Usd, UsdGeom, UsdLux
 
@@ -116,6 +118,7 @@ We're going to define two new prims, [`SphereLight`](https://openusd.org/dev/api
 
 
 ```{code-cell}
+:test-tags: [lights-properties]
 :emphasize-lines: 11-31
 from pxr import Gf, Usd, UsdGeom, UsdLux
 

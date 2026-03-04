@@ -98,6 +98,7 @@ assert stage.GetDefaultPrim() == default_prim
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [default-prim-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 ```
 
@@ -109,6 +110,7 @@ A `defaultPrim` is layer metadata. If the stage's root layer is used as a refere
 
 
 ```{code-cell}
+:test-tags: [default-prim-set]
 :emphasize-lines: 9-10
 
 from pxr import Usd

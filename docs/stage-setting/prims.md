@@ -78,6 +78,7 @@ prim.GetProperties()
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [prims-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 from lousd.utils.helperfunctions import create_new_stage
 ```
@@ -89,6 +90,7 @@ A prim is the primary container object in USD. It can contain other prims and pr
 To create a generic prim on the stage we use [`DefinePrim()`](https://openusd.org/release/api/class_usd_stage.html#a6151ae804f7145e451d9aafdde347730). By default, the prim will be typeless meaning that it's just an empty container. By introducing a prim type, we can begin to dictate what kind of data the prim contains depending on if it is a prim to represent a cube, a light, a mesh, etc.
 
 ```{code-cell}
+:test-tags: [prims-define-prim]
 :emphasize-lines: 7-11
 
 # Import the `Usd` module from the `pxr` package:
@@ -118,6 +120,7 @@ While the [`DefinePrim()`](https://openusd.org/release/api/class_usd_stage.html#
 
 
 ```{code-cell}
+:test-tags: [prims-sphere]
 :emphasize-lines: 6-8
 
 from pxr import Usd, UsdGeom
@@ -144,6 +147,7 @@ In this example, we used the `UsdGeom.Sphere` class to create a Sphere type prim
 Prims can contain other prims to create a {external+usd:ref}`namespace hierarchy <glossary:Namespace>`.
 
 ```{code-cell}
+:test-tags: [prims-hierarchy]
 :emphasize-lines: 6-11
 
 from pxr import Usd, UsdGeom
@@ -182,6 +186,7 @@ By nesting prims in this way, a hierarchical scenegraph begins to take shape. In
 When working with large amounts of data it is key to make sure that a prim exists before trying to override it. We can get the child of a prim using [`GetChild()`](https://openusd.org/release/api/class_usd_prim.html#a8c0974bbd49570564f0096ce982ff64a). If it was unable to find the child, it will return an invalid `UsdPrim`. An invalid prim will evaluate as `False` when treated as a boolean. You can use [`Usd.Object.IsValid()`](https://openusd.org/release/api/class_usd_object.html#ac532c4b500b1a85ea22217f2c65a70ed) to check if the prim is valid or exists. 
 
 ```{code-cell}
+:test-tags: [prims-getchild-box]
 :emphasize-lines: 6-11
 
 from pxr import Usd
@@ -204,6 +209,7 @@ DisplayCode(file_path)
 `Box` is not a child of `Geometry`. If we change `Box` to `GroupTransform` then it will print out "Child prim exists". That is because `GetChild()` only returns the direct child of the prim, not nested children.
 
 ```{code-cell}
+:test-tags: [prims-getchild-group-transform]
 :emphasize-lines: 8-8
 
 from pxr import Usd

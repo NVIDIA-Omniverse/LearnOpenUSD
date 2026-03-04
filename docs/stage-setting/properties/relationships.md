@@ -66,6 +66,7 @@ UsdRelationship.RemoveTarget()
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [relationships-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 from lousd.utils.helperfunctions import create_new_stage
 ```
@@ -73,6 +74,7 @@ from lousd.utils.helperfunctions import create_new_stage
 ### Example 1: Prim Collections with Relationships
 Relationships are properties that store one or more target paths. You can author a relationship with `CreateRelationship`, then later retrieve it with `GetRelationship` and inspect the targets with `GetTargets`.
 ```{code-cell}
+:test-tags: [relationships-prim-collections]
 :emphasize-lines: 15-25
 
 from pxr import Usd, UsdGeom, Gf
@@ -111,6 +113,7 @@ DisplayUSD(file_path, show_usd_code=True)
 ### Example 2: Using a Built‑in Relationship (proxyPrim)
 Many built‑in schemas expose `Relationships`. `UsdGeom.Imageable` has `proxyPrim`, which points a high cost prim to a lightweight proxy.
 ```{code-cell}
+:test-tags: [relationships-proxy-prim]
 :emphasize-lines: 14-22
 
 from pxr import Usd, UsdGeom
@@ -146,6 +149,7 @@ DisplayUSD(file_path, show_usd_code=True)
 ### Example 3: Material Binding Relationships
 Material binding is encoded as a relationship named `material:binding` that targets a `UsdShade.Material`. The `UsdShade.MaterialBindingAPI` authors and reads this relationship. Here GreenMat is bound to two cubes and RedMat is bound to one cube.
 ```{code-cell}
+:test-tags: [relationships-material-binding]
 :emphasize-lines: 15-40
 
 from pxr import Usd, UsdGeom, UsdShade, Gf, Sdf

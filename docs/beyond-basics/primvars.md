@@ -84,6 +84,7 @@ values = primvar.Get()
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [primvars-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 from lousd.utils.helperfunctions import create_new_stage
 ```
@@ -93,6 +94,7 @@ from lousd.utils.helperfunctions import create_new_stage
 This example builds the same two‑quad mesh three times and authors the displayColor primvar with three {term}`interpolation <Interpolation>` modes: constant (one value for the whole gprim), uniform (one per face), and vertex (one per point).
 
 ```{code-cell}
+:test-tags: [primvars-displaycolor-interpolation]
 :emphasize-lines: 28-53
 from pxr import Usd, UsdGeom, Gf
 
@@ -164,6 +166,7 @@ DisplayCode(file_path)
 This example writes two vertex primvars on a quad: rest_state and deformation. It computes new points as rest_state + deformation, then {term}`time samples <Time Sample>` Mesh.points
 
 ```{code-cell}
+:test-tags: [primvars-mesh-deformation]
 :emphasize-lines: 34-57
 from pxr import Usd, UsdGeom, Sdf, Gf
 

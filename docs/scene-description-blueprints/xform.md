@@ -70,6 +70,7 @@ Some things to know about `UsdGeom`:
 
 
 ```{code-cell}
+:test-tags: [xform-define-world]
 :emphasize-lines: 7-8
 
 # Import the necessary modules from the pxr package:

@@ -71,6 +71,7 @@ We can use the following Python functions to set the "active" metadata on a prim
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [active-inactive-setup]
 
 from pxr import Usd, UsdGeom, UsdLux, UsdShade
 
@@ -102,6 +103,7 @@ stage.Save()
 In this example, we will print out the contents of a stage at the start and then see how the contents change after deactivating a prim. Here's is what the USDA for this stage looks like:
 
 ```{code-cell}
+:test-tags: [active-inactive-deactivate]
 :emphasize-lines: 15-16
 
 from pxr import Usd

@@ -152,6 +152,7 @@ print(f"Updated to: {UsdPhysics.GetStageKilogramsPerUnit(stage)}")
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [units-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 ```
 
@@ -165,6 +166,7 @@ This example shows what happens when assets with different `metersPerUnit` value
 Both cubes represent the same real-world size—1 meter. If USD automatically converted units during composition, both cubes would appear identical when referenced into any scene regardless of that scene's `metersPerUnit`. Let's see what actually happens when we reference both into a millimeter-scale scene.
 
 ```{code-cell}
+:test-tags: [units-meters-per-unit]
 :emphasize-lines: 7,10-11,25,28-29,50-51,54-55
 from pxr import Usd, UsdGeom, Sdf, Gf
 
@@ -253,6 +255,7 @@ print(scene_stage.ExportToString(addSourceFileComment=False))
 This example demonstrates that USD **does** automatically handle `timeCodesPerSecond` differences during composition. We'll create an animated asset at 60 fps and reference it into a 24 fps scene.
 
 ```{code-cell}
+:test-tags: [units-timecodes-per-second]
 :emphasize-lines: 8-10, 17-20, 25-27, 34-36, 52-55, 57-59, 63-67
 from pxr import Usd, UsdGeom, Gf
 

@@ -73,6 +73,7 @@ from the xformable prim that works with any `xformOp` order using the [`GetLocal
 +++
 ```{code-cell}
 :tags: [remove-input]
+:test-tags: [xformcommonapi-setup]
 from lousd.utils.visualization import DisplayUSD, DisplayCode
 ```
 
@@ -81,6 +82,7 @@ from lousd.utils.visualization import DisplayUSD, DisplayCode
 In this example, we will use the [`XformCommonAPI`](https://openusd.org/release/api/class_usd_geom_xform_common_a_p_i.html) to translate, rotate, and scale a parent Xform, then show how a child under that parent inherits those transforms while a similar child under a separate {term}`prim hierarchy <Namespace>` does not.
 
 ```{code-cell}
+:test-tags: [xformcommonapi-transforms-inheritance]
 :emphasize-lines: 10-34
 
 from pxr import Usd, UsdGeom, Gf
