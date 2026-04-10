@@ -18,6 +18,7 @@
 import html
 import logging
 import os
+from pathlib import Path
 from string import Template
 import subprocess
 from typing import Any, List, Optional, Union
@@ -225,6 +226,92 @@ def FlattenFile(input_file_path: str, show_usd_lights: bool = False) -> str:
     return destination_file_path
 
 
+def display_bake_usd_path(usd_filename: str) -> str:
+    """Return a sibling path used for spline-baked USD (preview-only)."""
+    path = Path(usd_filename)
+    return str(path.with_name(f"{path.stem}_display_bake{path.suffix}"))
+
+
+def bake_spline_attributes_to_time_samples(
+    src_path: str,
+    dst_path: str,
+    *,
+    time_step: int = 1,
+) -> None:
+    """
+    Flatten the composed stage at ``src_path`` and replace each animation spline on an attribute
+    with dense time samples evaluated from the spline. Used so ``usd2gltf`` / ``model-viewer`` can
+    playback motion (those tools key off ``UsdGeom.Xformable.GetTimeSamples()``).
+
+    The file at ``src_path`` is not modified; results are written to ``dst_path``.
+
+    Parameters:
+        src_path: USD scene to open (with composition).
+        dst_path: Output USD path for the flattened, baked scene.
+        time_step: Frame step between samples (inclusive of start/end time codes).
+    """
+    if time_step < 1:
+        raise ValueError("time_step must be >= 1")
+
+    src_stage = Usd.Stage.Open(src_path, Usd.Stage.LoadAll)
+    if not src_stage:
+        log.warning('bake_spline_attributes_to_time_samples: could not open stage at "%s".', src_path)
+        return
+
+    if src_stage.HasAuthoredTimeCodeRange():
+        start_tc = int(src_stage.GetStartTimeCode())
+        end_tc = int(src_stage.GetEndTimeCode())
+    else:
+        start_tc, end_tc = 0, 0
+
+    if end_tc < start_tc:
+        start_tc, end_tc = end_tc, start_tc
+
+    flat_layer = src_stage.Flatten()
+    flat_layer.Export(dst_path)
+
+    bake_stage = Usd.Stage.Open(dst_path, Usd.Stage.LoadAll)
+    if not bake_stage:
+        log.warning('bake_spline_attributes_to_time_samples: could not open baked stage at "%s".', dst_path)
+        return
+
+    if src_stage.HasAuthoredTimeCodeRange():
+        bake_stage.SetStartTimeCode(src_stage.GetStartTimeCode())
+        bake_stage.SetEndTimeCode(src_stage.GetEndTimeCode())
+
+    tcps = src_stage.GetTimeCodesPerSecond()
+    if tcps > 0.0:
+        bake_stage.SetTimeCodesPerSecond(tcps)
+
+    spline_attrs: List[tuple] = []
+    for prim in bake_stage.Traverse():
+        for attr in prim.GetAttributes():
+            if attr.HasSpline():
+                spline_attrs.append((prim.GetPath(), attr.GetName()))
+
+    for prim_path, attr_name in spline_attrs:
+        attr = bake_stage.GetPrimAtPath(prim_path).GetAttribute(attr_name)
+        if not attr.IsValid():
+            continue
+        sampled = {}
+        t = start_tc
+        while t <= end_tc:
+            tc = Usd.TimeCode(t)
+            sampled[t] = attr.Get(tc)
+            t += time_step
+
+        attr.Clear()
+        for frame, value in sampled.items():
+            attr.Set(value, Usd.TimeCode(frame))
+
+    bake_stage.GetRootLayer().Save()
+    log.debug(
+        'bake_spline_attributes_to_time_samples: wrote "%s" (%d spline attributes baked).',
+        dst_path,
+        len(spline_attrs),
+    )
+
+
 def CovertFile(usd_filename):
     input_file_path = usd_filename
     flattened_file_path = FlattenFile(usd_filename)
@@ -248,6 +335,7 @@ def DisplaySingleUSD(
     disable_scrollwheel_zoom: bool = True,
     show_usd_code: bool = False,
     show_usd_lights: bool = False,
+    bake_splines_for_display: bool = False,
 ) -> DisplayHandle:
     """
     Present an interactive 3D visualization in the Jupyter Notebook of the given USD file located in the `./content` folder.
@@ -260,6 +348,10 @@ def DisplaySingleUSD(
         show_usd_code (bool): Flag indicating whether to display the USDA code of the given filename in a
             syntax-highlighted panel next to its 3D visualization.
         show_usd_lights (bool): Flag indicating whether to handle USD lights during the conversion process.
+        bake_splines_for_display (bool): If True, flatten the scene and convert animation splines on attributes into
+            dense time samples in a sibling ``*_display_bake.*`` file used only for GLB conversion. The USDA panel still
+            reflects ``usd_filename`` when ``show_usd_code`` is True. This improves motion in ``model-viewer``, which
+            relies on time-sample-based export from ``usd2gltf``.
 
     Returns:
         DisplayHandle: An interactive 3D visualization of the given USD file.
@@ -268,7 +360,19 @@ def DisplaySingleUSD(
     # Unique identifier for the visualization features:
     unique_viewer_id = str(uuid4())
 
-    new_usd_filename = CovertFile(usd_filename)
+    glb_source_usd = usd_filename
+    if bake_splines_for_display:
+        baked_path = display_bake_usd_path(usd_filename)
+        bake_spline_attributes_to_time_samples(usd_filename, baked_path)
+        if os.path.isfile(baked_path):
+            glb_source_usd = baked_path
+        else:
+            log.warning(
+                'Spline bake did not produce "%s"; using original USD for GLB conversion.',
+                baked_path,
+            )
+
+    new_usd_filename = CovertFile(glb_source_usd)
 
     log.debug(msg=f'Displaying single USD file "{usd_filename}", with width={width},height={height},disable_scrollwheel_zoom={disable_scrollwheel_zoom},unique_viewer_id="{unique_viewer_id},show_usd_code={show_usd_code},show_usd_lights={show_usd_lights}".')
 
@@ -457,6 +561,7 @@ def DisplayUSD(
     disable_scrollwheel_zoom: bool = True,
     show_usd_code: bool = False,
     show_usd_lights: bool = False,
+    bake_splines_for_display: bool = False,
 ) -> DisplayHandle:
     """
     Present an interactive 3D visualization in the Jupyter Notebook of the given USD files located in the `./content` folder.
@@ -469,6 +574,7 @@ def DisplayUSD(
         show_usd_code (bool): Flag indicating whether to display the USDA code of the given filename in a
             syntax-highlighted panel next to its 3D visualization.
         show_usd_lights (bool): Flag indicating whether to handle USD lights during the conversion process.
+        bake_splines_for_display (bool): When ``usd_filenames`` is a single path, forwarded to `DisplaySingleUSD`.
 
     Returns:
         DisplayHandle: An interactive 3D visualization of the given USD file.
@@ -483,6 +589,7 @@ def DisplayUSD(
             disable_scrollwheel_zoom=disable_scrollwheel_zoom,
             show_usd_code=show_usd_code,
             show_usd_lights=show_usd_lights,
+            bake_splines_for_display=bake_splines_for_display,
         )
 
     log.debug(msg=f'Displaying multiple USD files {usd_filenames}, with width={width},height={height},disable_scrollwheel_zoom={disable_scrollwheel_zoom}.')
