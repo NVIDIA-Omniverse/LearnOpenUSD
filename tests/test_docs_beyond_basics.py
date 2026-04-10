@@ -44,6 +44,9 @@ CUSTOM_PROPERTIES_SETUP = ["custom-properties-setup"]
 ACTIVE_INACTIVE_NOTEBOOK = "beyond-basics/active-inactive-prims.ipynb"
 ACTIVE_INACTIVE_SETUP = ["active-inactive-setup"]
 
+SPLINE_ANIMATION_NOTEBOOK = "beyond-basics/spline-animation.ipynb"
+SPLINE_ANIMATION_SETUP = ["spline-animation-setup"]
+
 
 class TestValueResolutionNotebook:
     """Tests for beyond-basics/value-resolution.ipynb."""
@@ -280,3 +283,42 @@ class TestActiveInactivePrimsNotebook:
         # Traverse should not include /World/Box and its descendants
         traversed_paths = [p.GetPath() for p in nb.stage.Traverse()]
         assert "/World/Box" not in traversed_paths
+
+
+class TestSplineAnimationNotebook:
+    """Tests for beyond-basics/spline-animation.ipynb."""
+
+    def test_full_notebook(self, run_notebook):
+        nb = run_notebook(SPLINE_ANIMATION_NOTEBOOK)
+        assert (nb._work_dir / "_assets" / "spline_layer_offset_scene.usda").exists()
+
+    def test_cell_inner_loop(self, run_notebook):
+        nb = run_notebook(
+            SPLINE_ANIMATION_NOTEBOOK,
+            tags=SPLINE_ANIMATION_SETUP + ["spline-animation-inner-loop"],
+        )
+        assert nb.stage is not None
+        yaw = nb.stage.GetPrimAtPath("/World/RotatingCube").GetAttribute("xformOp:rotateZ:yaw")
+        assert yaw.IsValid() and yaw.HasSpline()
+        assert (nb._work_dir / "_assets" / "spline_inner_loop.usda").exists()
+
+    def test_cell_extrapolation(self, run_notebook):
+        nb = run_notebook(
+            SPLINE_ANIMATION_NOTEBOOK,
+            tags=SPLINE_ANIMATION_SETUP + ["spline-animation-extrapolation"],
+        )
+        assert nb.stage is not None
+        rock = nb.stage.GetPrimAtPath("/World/RockingCube").GetAttribute("xformOp:rotateY:rock")
+        assert rock.IsValid() and rock.HasSpline()
+        assert (nb._work_dir / "_assets" / "spline_extrapolation.usda").exists()
+
+    def test_cell_layer_offset(self, run_notebook):
+        nb = run_notebook(
+            SPLINE_ANIMATION_NOTEBOOK,
+            tags=SPLINE_ANIMATION_SETUP + ["spline-animation-layer-offset"],
+        )
+        assert nb.rig_stage is not None
+        assert nb.scene is not None
+        assert nb.early.IsValid() and nb.late.IsValid()
+        assert (nb._work_dir / "_assets" / "spline_slide_rig.usda").exists()
+        assert (nb._work_dir / "_assets" / "spline_layer_offset_scene.usda").exists()

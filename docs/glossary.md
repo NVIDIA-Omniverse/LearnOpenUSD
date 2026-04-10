@@ -19,7 +19,7 @@ Animated Value
     Attributes can store time-varying data using time samples (discrete time-value pairs) or animation splines, and USD automatically interpolates between these data points when you query an attribute at a specific time. An attribute can have both a static default value and animated values, with the animated values taking precedence when querying at specific time codes.
 
     **Also Known As:** *time-varying value, time-sampled value*  
-    **Further Reading**: [Time Codes and Time Samples](<./stage-setting/timecodes-timesamples.md>), [Animated Value -- OpenUSD.org](<inv:usd:std#glossary:animated value>)
+    **Further Reading**: [Time Codes and Time Samples](<./stage-setting/timecodes-timesamples.md>), [Spline animation](<./beyond-basics/spline-animation.md>), [Animated Value -- OpenUSD.org](<inv:usd:std#glossary:animated value>)
 
 
 API Schema
@@ -656,7 +656,7 @@ Value Resolution
 
     When querying attributes, USD traverses the composition index in strength order to find the strongest opinion, evaluating defaults, time samples, splines, blocks, and connections according to LIVERPS. Value resolution also handles interpolation for animated values and applies layer offsets from composition arcs. USD also has unique algorithms for resolving relationships and metadata values.
 
-    **Further Reading**: [What Is Value Resolution?](<./beyond-basics/value-resolution.md>), [Value Resolution -- OpenUSD.org](<inv:usd:std#glossary:value resolution>)
+    **Further Reading**: [What Is Value Resolution?](<./beyond-basics/value-resolution.md>), [Spline animation](<./beyond-basics/spline-animation.md>), [Value Resolution -- OpenUSD.org](<inv:usd:std#glossary:value resolution>)
 
 Variability
 
