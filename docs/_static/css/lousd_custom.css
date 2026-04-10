@@ -111,3 +111,27 @@ html[data-theme="dark"] .home-header > h1 {
     color: var(--pst-color-text-muted);
     text-align: center;
 }
+
+/***********
+* CODE HIGHLIGHTS (Sphinx / Pygments)
+************/
+
+/*
+ * Emphasized lines (:emphasize-lines: / hl_lines): background must span the full width of
+ * long lines inside horizontally scrollable blocks (issue #12).
+ */
+div.highlight {
+    overflow-x: auto;
+}
+
+div.highlight pre {
+    width: max-content;
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+div.highlight .hll {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
