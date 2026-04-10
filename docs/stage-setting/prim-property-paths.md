@@ -89,9 +89,9 @@ Each prim has a path to describe its location in namespace.
 
 For example, we defined a prim `hello` at path `/hello` and another prim `world` at path `/hello/world`.
 
-We can retrieve prims using their path using [`GetPrimAtPath()`](https://openusd.org/release/api/class_usd_stage.html#a6ceb556070804b712c01a7968f925735). This will either return a valid or invalid prim. When using `GetPrimAtPath()` we should always check if the returned prim is valid before using it.
+We can retrieve prims using their path using {usdcpp}`UsdStage::GetPrimAtPath`. This will either return a valid or invalid prim. When using `GetPrimAtPath()` we should always check if the returned prim is valid before using it.
 
-To check if a prim is valid we can use the [`IsValid()`](https://openusd.org/release/api/class_usd_object.html#ac532c4b500b1a85ea22217f2c65a70ed) method. Valid means that the prim exists in the stage. Invalid is when the prim does not exist in the stage or when the path is invalid.
+To check if a prim is valid we can use the {usdcpp}`UsdObject::IsValid` method. Valid means that the prim exists in the stage. Invalid is when the prim does not exist in the stage or when the path is invalid.
 
 
 ```{code-cell}

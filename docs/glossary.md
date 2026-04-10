@@ -57,7 +57,7 @@ Asset Info
     database name), payloadAssetDependencies (pre-computed dependencies for optimization), and version (asset revision information). Asset info persists through composition and flattening, enabling you to track where assets are introduced in your scene and reconstruct references to them.
 
     **Also Known As:** *AssetInfo, asset metadata*  
-    **Further Reading**: [AssetInfo -- OpenUSD.org](<inv:usd:std#glossary:assetinfo>), [UsdObject AssetInfo API](<https://openusd.org/release/api/class_usd_object.html>)
+    **Further Reading**: [AssetInfo -- OpenUSD.org](<inv:usd:std#glossary:assetinfo>), {usdcpp}`UsdObject`
 
 Asset Resolution
 
@@ -65,7 +65,7 @@ Asset Resolution
 
     USD provides a plugin point called `ArResolver` that you can customize to resolve assets using your own logic, external databases, or version control systems. If no custom resolver is available, USD uses a default resolver that searches for assets using configurable search paths.
 
-    **Further Reading**: [Asset Resolution -- OpenUSD.org](<inv:usd:std#glossary:asset resolution>), [ArResolver Documentation](<https://openusd.org/release/api/ar_page_front.html>)
+    **Further Reading**: [Asset Resolution -- OpenUSD.org](<inv:usd:std#glossary:asset resolution>), {usdcpp}`ArResolver <ar_page_front>`
 
 Attribute
 
@@ -90,7 +90,7 @@ Change Processing
 
     When you edit a layer, the stage immediately re-indexes affected prims in the same thread, potentially adding, removing, or modifying prims to maintain an accurate composed view. After processing changes, the stage notifies registered clients through the notification system so they can update themselves accordingly.
 
-     **Further Reading**: [Change Processing -- OpenUSD.org](<inv:usd:std#glossary:change processing>), [UsdNotice](<https://openusd.org/release/api/class_usd_notice.html>)
+     **Further Reading**: [Change Processing -- OpenUSD.org](<inv:usd:std#glossary:change processing>), {usdcpp}`UsdNotice`
 
 Class
 
@@ -109,7 +109,7 @@ Collection
     Collections use include and exclude relationships with expansion rules to compactly represent large object sets, implemented through the multiple-apply `UsdCollectionAPI` schema. They support explicit path lists and pattern-based membership, and can include prims, properties, or even other collections.
 
     **Also Known As:** *UsdCollectionAPI*  
-    **Further Reading**: [Collections and Patterns](<https://openusd.org/release/user_guides/collections_and_patterns.html>), [Collection -- OpenUSD.org](<inv:usd:std#glossary:collection>)
+    **Further Reading**: [Collections and Patterns](<inv:usd:std:doc#user_guides/collections_and_patterns>), [Collection -- OpenUSD.org](<inv:usd:std#glossary:collection>)
 
 Component
 
@@ -197,7 +197,7 @@ Flatten
 
     Flattening converts a dynamically composed stage into a single standalone layer by resolving all composition arcs and baking the results, creating a highly portable file that contains everything. The trade-off is larger file size since referenced assets get duplicated, and the process can be memory and compute intensive. You can flatten using `UsdStage::Flatten` or the usdcat tool with `--flatten`.
 
-    **Further Reading**: [Flatten -- OpenUSD.org](<inv:usd:std#glossary:flatten>), [usdcat Tool](<https://openusd.org/release/toolset.html#usdcat>)
+    **Further Reading**: [Flatten -- OpenUSD.org](<inv:usd:std#glossary:flatten>), [usdcat Tool](<inv:usd:std#toolset:usdcat>)
 
 Gprim
 
@@ -438,7 +438,7 @@ Prim Definition
     The prim definition combines a prim's IsA schema and applied API schemas to determine its built-in properties and metadata beyond its authored scene description. It also provides fallback values for these built-in elements during value resolution, accessible through the `UsdPrimDefinition` class.
 
     **Also Known As:** *type definition, schema definition*  
-    **Further Reading**: [Prim Definition -- OpenUSD.org](<inv:usd:std#glossary:prim definition>), [UsdPrimDefinition API](<https://openusd.org/release/api/class_usd_prim_definition.html>)
+    **Further Reading**: [Prim Definition -- OpenUSD.org](<inv:usd:std#glossary:prim definition>), {usdcpp}`UsdPrimDefinition`
 
 Prim Spec
 
@@ -518,7 +518,7 @@ Purpose
 
     Purpose is a UsdGeomImageable attribute that provides visibility categories that gate scenegraph traversals, with values including "default" (general geometry), "render" (final quality), "proxy" (lightweight preview), and "guide" (visualization helpers). This allows clients to independently include or exclude geometry categories during traversals like rendering or bounding box computation. Purpose is inherited down the namespace hierarchy until explicitly overridden.
 
-    **Further Reading**: [Purpose -- OpenUSD.org](<inv:usd:std#glossary:purpose>), [UsdGeomImageable](<https://openusd.org/release/api/class_usd_geom_imageable.html>)
+    **Further Reading**: [Purpose -- OpenUSD.org](<inv:usd:std#glossary:purpose>), {usdcpp}`UsdGeomImageable`
 
 Reference
 
@@ -571,7 +571,7 @@ Session Layer
 
     Created optionally with a stage, the session layer is the strongest layer in the stage's root layer stack and can have its own sublayers. Session layers embody application state rather than asset data, and commonly contain UI-driven selections like variant choices, visibility overrides, and activation state. `UsdStage::Save()` does not save the session layer, as it's considered temporary application state rather than permanent scene data.
 
-    **Further Reading**: [Session Layer -- OpenUSD.org](<inv:usd:std#glossary:session layer>), [usdview](<https://openusd.org/release/toolset.html#usdview>)
+    **Further Reading**: [Session Layer -- OpenUSD.org](<inv:usd:std#glossary:session layer>), [usdview](<inv:usd:std#toolset:usdview>)
 
 Specialize
 
@@ -691,7 +691,7 @@ Visibility
     Managed by the `UsdGeomImageable` schema, visibility is inherited down the prim hierarchy and can be set to "inherited" (use parent's visibility) or "invisible" (hide this prim and descendants). Unlike active/inactive which affects composition, visibility is purely a rendering concept. Computing visibility requires traversing ancestor prims, so USD provides the efficient `UsdGeomImageable::ComputeVisibility()` method rather than simple attribute queries.
 
     **Also Known As:** *prim visibility*  
-    **Further Reading**: [Visibility -- OpenUSD.org](<inv:usd:std#glossary:visibility>), [UsdGeomImageable](<https://openusd.org/release/api/class_usd_geom_imageable.html>)
+    **Further Reading**: [Visibility -- OpenUSD.org](<inv:usd:std#glossary:visibility>), {usdcpp}`UsdGeomImageable`
 
 :::
 

@@ -87,7 +87,7 @@ Properties are the other kind of namespace object in OpenUSD. Whereas prims prov
 
 There are two types of properties: attributes and relationships.
 
-To retrieve the properties of a prim, we would use the [`GetProperties`](https://openusd.org/release/api/class_usd_prim.html#aa3d8915481ff6280c22c60de4a833423) method. For this demonstration we will be using [`GetPropertyNames()`](https://openusd.org/release/api/class_usd_prim.html#a24377e6ababf44be9534a68046ebb7b8) instead to retrieve the names of the properties. This will not grab the properties themselves, but a list of the names of the properties. Use [`GetProperties`](https://openusd.org/release/api/class_usd_prim.html#aa3d8915481ff6280c22c60de4a833423) to retrieve the properties themselves.
+To retrieve the properties of a prim, we would use the {usdcpp}`UsdPrim::GetProperties` method. For this demonstration we will be using {usdcpp}`UsdPrim::GetPropertyNames` instead to retrieve the names of the properties. This will not grab the properties themselves, but a list of the names of the properties. Use {usdcpp}`UsdPrim::GetProperties` to retrieve the properties themselves.
 
 
 ```{note}
@@ -139,11 +139,11 @@ def Sphere "Sphere"{
 }
 ```
 
-We interact with attributes through the [`UsdAttribute` API](https://openusd.org/release/api/class_usd_attribute.html).
+We interact with attributes through the {usdcpp}`UsdAttribute` API.
 
-Each prim type has their own set of properties and corresponding functions to retrieve them. Since our sphere is of type [`UsdGeom.Sphere`](https://openusd.org/release/api/class_usd_geom_sphere.html), we can use the schema-specific API to get and set the radius attribute.
+Each prim type has their own set of properties and corresponding functions to retrieve them. Since our sphere is of type {usdcpp}`UsdGeomSphere`, we can use the schema-specific API to get and set the radius attribute.
 
-[`GetRadiusAttr()`](https://openusd.org/release/api/class_usd_geom_sphere.html#abae017e4bd8775bc725d7df41317df85) will return a [`UsdAttribute`](https://openusd.org/release/api/class_usd_attribute.html) object that can be used to modify the attribute. Which means it will not retrieve the value of the attribute. To get the value of an attribute, use the [`Get()`](https://openusd.org/release/api/class_usd_attribute.html#a9d41bc223be86408ba7d7f74df7c35a9) method.
+{usdcpp}`UsdGeomSphere::GetRadiusAttr` will return a {usdcpp}`UsdAttribute` object that can be used to modify the attribute. Which means it will not retrieve the value of the attribute. To get the value of an attribute, use {usdcpp}`UsdAttribute::Get`.
 
 For example, to get the value of the radius attribute, we would use the following snippet.
 
@@ -151,9 +151,9 @@ For example, to get the value of the radius attribute, we would use the followin
 sphere_prim.GetRadiusAttr().Get()
 ```
 
-Let's use the [`Get()`](https://openusd.org/release/api/class_usd_attribute.html#a9d41bc223be86408ba7d7f74df7c35a9) method for the `radius`, `displayColor`, and `extent` attributes.
+Let's use the {usdcpp}`UsdAttribute::Get` method for the `radius`, `displayColor`, and `extent` attributes.
 
-Since we have not explicitly authored any attribute values, [`Get()`](https://openusd.org/release/api/class_usd_attribute.html#a9d41bc223be86408ba7d7f74df7c35a9) will return the fallback value that was defined in the schema. 
+Since we have not explicitly authored any attribute values, {usdcpp}`UsdAttribute::Get` will return the fallback value that was defined in the schema.
 
 ```{note}
 The attribute values will not show up in `.usda`, however the values are coming from the fallback value defined in the sphere schema. USD is applying {term}`value resolution <Value Resolution>` to retrieve the values.
@@ -197,7 +197,7 @@ DisplayUSD(file_path, show_usd_code=True)
 
 ### Example 3: Setting Attribute Values
 
-In the last example, we used the [`Get()`](https://openusd.org/release/api/class_usd_attribute.html#a9d41bc223be86408ba7d7f74df7c35a9) method to retrieve the value of the attribute. To set the values, we use the [`Set()`](https://openusd.org/release/api/class_usd_attribute.html#a151e6fde58bbd911da8322911a3c0079) method.
+In the last example, we used the {usdcpp}`UsdAttribute::Get` method to retrieve the value of the attribute. To set the values, we use the {usdcpp}`UsdAttribute::Set` method.
 
 Here is an example of setting a value to the radius attribute.
 
@@ -213,11 +213,11 @@ def Sphere "Sphere"{
 }
 ```
 
-Based on our last modification, if we were to use [`Get()`](https://openusd.org/release/api/class_usd_attribute.html#a9d41bc223be86408ba7d7f74df7c35a9) it would return `100`.
+Based on our last modification, if we were to use {usdcpp}`UsdAttribute::Get` it would return `100`.
 
-When getting attribute values, USD will apply {term}`value resolution <Value Resolution>` since we authored a default value. The [`Get()`](https://openusd.org/release/api/class_usd_attribute.html#a9d41bc223be86408ba7d7f74df7c35a9) method will retrieve the value of the attribute. To set the values, we use the [`Set()`](https://openusd.org/release/api/class_usd_attribute.html#a151e6fde58bbd911da8322911a3c0079) method. This will resolve to the authored value rather than the fallback value from the sphere schema.
+When getting attribute values, USD will apply {term}`value resolution <Value Resolution>` since we authored a default value. The {usdcpp}`UsdAttribute::Get` method will retrieve the value of the attribute. To set the values, we use the {usdcpp}`UsdAttribute::Set` method. This will resolve to the authored value rather than the fallback value from the sphere schema.
 
-Now let's modify the `size`, `displayColor`, and `extent` attributes of the cube by using [`Set()`](https://openusd.org/release/api/class_usd_attribute.html#a151e6fde58bbd911da8322911a3c0079).
+Now let's modify the `size`, `displayColor`, and `extent` attributes of the cube by using {usdcpp}`UsdAttribute::Set`.
 
 ```{code-cell}
 :test-tags: [attributes-set-values]

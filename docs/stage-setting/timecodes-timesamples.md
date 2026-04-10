@@ -142,9 +142,9 @@ DisplayUSD("_assets/timecode_sample.usda", show_usd_code=True)
 
 Time code specifies an exact frame or moment in the animation timeline. It allows for precise control over the timing of changes to properties, enabling smooth and accurate animation of 3D objects. 
 
-A [`Usd.TimeCode`](https://openusd.org/release/api/class_usd_time_code.html) is therefore a unitless, generic time measurement that serves as the ordinate for time-sampled data in USD files. [`Usd.Stage`](https://openusd.org/release/api/class_usd_stage.html) defines the mapping of time codes to units like seconds and frames.
+A {usdcpp}`UsdTimeCode` is therefore a unitless, generic time measurement that serves as the ordinate for time-sampled data in USD files. {usdcpp}`UsdStage` defines the mapping of time codes to units like seconds and frames.
 
-To set the stage's `startTimeCode` and `endTimeCode` metadata, use the [`SetStartTimeCode()`](https://openusd.org/release/api/class_usd_stage.html#aef35e121cd9662129b6e338e85ceab44) and [`SetEndTimeCode()`](https://openusd.org/release/api/class_usd_stage.html#a05e5e8a51041bc7f9b7f1165ccec9fa4) methods.
+To set the stage's `startTimeCode` and `endTimeCode` metadata, use the {usdcpp}`UsdStage::SetStartTimeCode` and {usdcpp}`UsdStage::SetEndTimeCode` methods.
 
 ```{code-cell}
 :test-tags: [timecodes-set-start-end]
@@ -176,9 +176,9 @@ Time samples represent a collection of attribute values at various points in tim
 
 When animating an attribute, you define a time code at which the value should be applied. These values are then interpolated between the time samples to get the value that should be applied at the current time code.
 
-To assign a value at a particular time code, use the [`Set()`](https://openusd.org/release/api/class_usd_attribute.html#a7fd0957eecddb7cfcd222cccd51e23e6) method. 
+To assign a value at a particular time code, use the {usdcpp}`UsdAttribute::Set` method.
 
-[`Set()`](https://openusd.org/release/api/class_usd_attribute.html#a7fd0957eecddb7cfcd222cccd51e23e6) takes two arguments: the time code and the value to assign.
+{usdcpp}`UsdAttribute::Set` takes two arguments: the time code and the value to assign.
 
 For example, if you want to set the size of a cube to `1` at time code `1` and `10` at time code `60`:
 
@@ -193,7 +193,7 @@ cube_size_attr.Set(time=60, value=10)
 
 USD will interpolate the values for the cube's size attribute between set time samples.
 
-Let's create a sphere that moves up and down using the [`XformCommonAPI`](https://openusd.org/release/api/class_usd_geom_xform_common_a_p_i.html).
+Let's create a sphere that moves up and down using {usdcpp}`UsdGeomXformCommonAPI`.
 
 ```{code-cell}
 :test-tags: [timecodes-translation-time-samples]

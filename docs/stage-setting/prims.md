@@ -91,7 +91,7 @@ from lousd.utils.helperfunctions import create_new_stage
 
 A prim is the primary container object in USD. It can contain other prims and properties holding data.
 
-To create a generic prim on the stage we use [`DefinePrim()`](https://openusd.org/release/api/class_usd_stage.html#a6151ae804f7145e451d9aafdde347730). By default, the prim will be typeless meaning that it's just an empty container. By introducing a prim type, we can begin to dictate what kind of data the prim contains depending on if it is a prim to represent a cube, a light, a mesh, etc.
+To create a generic prim on the stage we use {usdcpp}`UsdStage::DefinePrim`. By default, the prim will be typeless meaning that it's just an empty container. By introducing a prim type, we can begin to dictate what kind of data the prim contains depending on if it is a prim to represent a cube, a light, a mesh, etc.
 
 ```{code-cell}
 :test-tags: [prims-define-prim]
@@ -120,7 +120,7 @@ Note in the USDA output that the prim with the name "hello" does not have a type
 
 ### Example 2: Defining a Sphere Prim
 
-While the [`DefinePrim()`](https://openusd.org/release/api/class_usd_stage.html#a6151ae804f7145e451d9aafdde347730) API provides a generic way to create any type of prim. Many prim types have specific API to create and interact with them.
+While the {usdcpp}`UsdStage::DefinePrim` API provides a generic way to create any type of prim. Many prim types have specific API to create and interact with them.
 
 
 ```{code-cell}
@@ -179,7 +179,7 @@ The prim hierarchy that we have created is:
     - *GroupTransform*
         - *Cube*
 
-By nesting prims in this way, a hierarchical scenegraph begins to take shape. In this example, "Geometry" is the root prim. In other words, "Geometry" is a direct child of the pseudo-root `/`. We are also defining three different types of prims here: [`Scope`](https://openusd.org/release/api/class_usd_geom_scope.html), [`Xform`](https://openusd.org/release/api/class_usd_geom_xform.html), and [`Cube`](https://openusd.org/release/api/class_usd_geom_cube.html). We will look at these prim types more closely in other lessons, but for a brief description:
+By nesting prims in this way, a hierarchical scenegraph begins to take shape. In this example, "Geometry" is the root prim. In other words, "Geometry" is a direct child of the pseudo-root `/`. We are also defining three different types of prims here: {usdcpp}`UsdGeomScope`, {usdcpp}`UsdGeomXform`, and {usdcpp}`UsdGeomCube`. We will look at these prim types more closely in other lessons, but for a brief description:
 
 - **Xform**: Defines a transform (translate, rotation, scale)
 - **Scope**: Is a simple container that does not hold transform data
@@ -187,7 +187,7 @@ By nesting prims in this way, a hierarchical scenegraph begins to take shape. In
 
 ### Example 4: Does the Prim Exist?
 
-When working with large amounts of data it is key to make sure that a prim exists before trying to override it. We can get the child of a prim using [`GetChild()`](https://openusd.org/release/api/class_usd_prim.html#a8c0974bbd49570564f0096ce982ff64a). If it was unable to find the child, it will return an invalid `UsdPrim`. An invalid prim will evaluate as `False` when treated as a boolean. You can use [`Usd.Object.IsValid()`](https://openusd.org/release/api/class_usd_object.html#ac532c4b500b1a85ea22217f2c65a70ed) to check if the prim is valid or exists. 
+When working with large amounts of data it is key to make sure that a prim exists before trying to override it. We can get the child of a prim using {usdcpp}`UsdPrim::GetChild`. If it was unable to find the child, it will return an invalid `UsdPrim`. An invalid prim will evaluate as `False` when treated as a boolean. You can use {usdcpp}`UsdObject::IsValid` to check if the prim is valid or exists.
 
 ```{code-cell}
 :test-tags: [prims-getchild-box]

@@ -86,7 +86,7 @@ from lousd.utils.helperfunctions import create_new_stage
 
 [`UsdLux`](https://openusd.org/release/api/usd_lux_page_front.html) is a USD lighting schema that provides a representation for lights.
 
-One of the schemas in `UsdLux` is [`DistantLight`](https://openusd.org/release/api/class_usd_lux_distant_light.html). A light is emitted from a distance source along the -Z axis. This is commonly known as a directional light.
+One of the schemas in `UsdLux` is {usdcpp}`UsdLuxDistantLight`. A light is emitted from a distance source along the -Z axis. This is commonly known as a directional light.
 
 ```{code-cell}
 :test-tags: [lights-distant-light]
@@ -119,7 +119,7 @@ DisplayUSD(file_path, show_usd_code=True)
 
 ### Example 2: Setting Light Properties
 
-We're going to define two new prims, [`SphereLight`](https://openusd.org/dev/api/class_usd_lux_sphere_light.html) and [`DistantLight`](https://openusd.org/release/api/class_usd_lux_distant_light.html), and set a few properties for them.
+We're going to define two new prims, {usdcpp}`UsdLuxSphereLight` and {usdcpp}`UsdLuxDistantLight`, and set a few properties for them.
 
 
 ```{code-cell}

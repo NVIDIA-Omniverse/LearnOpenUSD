@@ -64,7 +64,7 @@ xform_api.SetScale((2.0, 2.0, 2.0))
 ```
 
 These functions demonstrate how to apply translations, rotations, and scaling to a 3D object using the `XformCommonAPI`. We can get a transformation matrix
-from the xformable prim that works with any `xformOp` order using the [`GetLocalTransformation`](https://openusd.org/release/api/class_usd_geom_xformable.html#a9a04ccb1ba8aa16e8cc1e878c2c92969) method.
+from the xformable prim that works with any `xformOp` order using the {usdcpp}`UsdGeomXformable::GetLocalTransformation` method.
 
 ## Examples
 
@@ -84,7 +84,7 @@ from lousd.utils.helperfunctions import create_new_stage
 
 ### Example 1: XformCommonAPI - Transforms and Inheritance
 
-In this example, we will use the [`XformCommonAPI`](https://openusd.org/release/api/class_usd_geom_xform_common_a_p_i.html) to translate, rotate, and scale a parent Xform, then show how a child under that parent inherits those transforms while a similar child under a separate {term}`prim hierarchy <Namespace>` does not.
+In this example, we will use the {usdcpp}`UsdGeomXformCommonAPI` to translate, rotate, and scale a parent Xform, then show how a child under that parent inherits those transforms while a similar child under a separate {term}`prim hierarchy <Namespace>` does not.
 
 ```{code-cell}
 :test-tags: [xformcommonapi-transforms-inheritance]

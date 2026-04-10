@@ -149,7 +149,7 @@ DisplayCode(file_path)
 
 ### Example 1: Traversing Through the Stage
 
-To traverse through the stage, we can use the [`Traverse()`](https://openusd.org/release/api/class_usd_stage.html#adba675b55f41cc1b305bed414fc4f178) method. This traversal will yield prims that are active, loaded, defined, non-abstract on the stage in depth-first order.
+To traverse through the stage, we can use the {usdcpp}`UsdStage::Traverse` method. This traversal will yield prims that are active, loaded, defined, non-abstract on the stage in depth-first order.
 
 ```{code-cell}
 :test-tags: [stage-traversal-traverse]
@@ -173,7 +173,7 @@ Note how the prims were printed in depth-first order. All of the descendants of 
 
 For this practical example, we will traverse the stage to operate on specific prims based on their types.
 
-We can filter based on the type of the prim. For example, we can check if the prim is of type `scope` or `xform`. To do this we pass the prim into the constructor method for the prim type we are interested in. For example,`UsdGeom.Scope(prim)` is equivalent to [`UsdGeom.Scope.Get(prim.GetStage(), prim.GetPath())`](https://openusd.org/release/api/class_usd_geom_scope.html#a538339c2aa462ebcf1eb07fed16f9be4) for a valid prim. If the prim's type does not match, it will return an invalid prim.
+We can filter based on the type of the prim. For example, we can check if the prim is of type `scope` or `xform`. To do this we pass the prim into the constructor method for the prim type we are interested in. For example,`UsdGeom.Scope(prim)` is equivalent to {usdcpp}`UsdGeomScope::Get` for a valid prim. If the prim's type does not match, it will return an invalid prim.
 
 ```{code-cell}
 :test-tags: [stage-traversal-filter-types]
@@ -204,7 +204,7 @@ print("Number of Xform prims: ", xform_count)
 
 ### Example 3: Traversing Through the Children of a Prim
 
-Using [`Traverse()`](https://openusd.org/release/api/class_usd_stage.html#adba675b55f41cc1b305bed414fc4f178) can be a powerful tool, but for large stages, more efficient and targeted methods should be considered. A way to be more efficient and targeted is to traverse through the children of a prim.
+Using {usdcpp}`UsdStage::Traverse` can be a powerful tool, but for large stages, more efficient and targeted methods should be considered. A way to be more efficient and targeted is to traverse through the children of a prim.
 
 If you need to work within a specific scope or hierarchy in the stage, you can perform a traversal starting from a particular prim. Let's take a look at how we can traverse through the children of the default prim.
 
@@ -230,9 +230,9 @@ for child in default_prim.GetAllChildren():
 
 ### Example 4: Traversing Using Usd.PrimRange
 
-[`Traverse()`](https://openusd.org/release/api/class_usd_stage.html#adba675b55f41cc1b305bed414fc4f178) will return a [`UsdPrimRange`](https://openusd.org/release/api/class_usd_prim_range.html) object. `UsdPrimRange` exposes pre- and post- prim visitations allowing for a more involved traversals. It can also be used to perform actions such as pruning subtrees.
+{usdcpp}`UsdStage::Traverse` will return a {usdcpp}`UsdPrimRange` object. `UsdPrimRange` exposes pre- and post- prim visitations allowing for a more involved traversals. It can also be used to perform actions such as pruning subtrees.
 
-Let's see an example of [`UsdPrimRange`](https://openusd.org/release/api/class_usd_prim_range.html) in use.
+Let's see an example of {usdcpp}`UsdPrimRange` in use.
 
 
 ```{code-cell}
@@ -252,7 +252,7 @@ for prim in prim_range:
 
 Note how only "/World/Box" and its descendants are printed.
 
-There are other ways to use [`UsdPrimRange`](https://openusd.org/release/api/class_usd_prim_range.html) such as passing in [`predicates`](https://openusd.org/release/api/prim_flags_8h.html#Usd_PrimFlags), you can find more information in the [Using Usd.PrimRange in Python](https://openusd.org/release/api/class_usd_prim_range.html#details) section of `UsdPrimRange`.
+There are other ways to use {usdcpp}`UsdPrimRange` such as passing in predicates, you can find more information in the {usdcpp}`UsdPrimRange Details` section of `UsdPrimRange`.
 
 
 ## Key Takeaways
