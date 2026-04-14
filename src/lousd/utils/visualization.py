@@ -33,9 +33,13 @@ def _get_highlightjs_imports() -> str:
     """
     Return the list of imports required for HighlightJS syntax highlighting features.
 
+    Notebook outputs embed this stylesheet; on the Learn OpenUSD Sphinx site,
+    ``lousd-hljs-theme.js`` disables it and loads GitHub Light/Dark to track ``data-theme``
+    (closer to Pygments than Atom One Dark alone).
+
     Parameters:
         None
-    
+
     Return:
         str: The HTML DOMElement resources required to import the required assets for HighlightJS.
 

@@ -95,6 +95,9 @@ maximum_signature_line_length = 70
 html_theme = 'nvidia_sphinx_theme'
 html_static_path = ['_static']
 html_css_files = ['css/lousd_custom.css']
+html_js_files = [
+    ('js/lousd-hljs-theme.js', {'priority': 10}),
+]
 html_theme_options = {
     "secondary_sidebar_items": {
         "**": ["page-toc"],
