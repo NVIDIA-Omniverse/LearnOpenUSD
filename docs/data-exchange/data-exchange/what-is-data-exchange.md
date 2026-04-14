@@ -70,7 +70,7 @@ File format plugins are a unique feature of OpenUSD. They allow OpenUSD to compo
 - An OpenUSD {term}`stage <Stage>` can include a source file format directly as a {term}`reference <Reference>`, {term}`payload <Payload>` or {term}`sublayer <Sublayer>`. The source file format is translated on the fly, while it is read as a USD document ({term}`layer <Layer>`, in USD parlance).
 - The source file format can remain the source of truth.
 - File format plugins can be bidirectional, supporting both reading from and writing to the source file format.
-- They can be used as standalone converters with tools like [usdcat](https://openusd.org/release/toolset.html#usdcat).
+- They can be used as standalone converters with tools like [usdcat](inv:usd:std#toolset:usdcat).
 
 ![](../../images/data-exchange/image1.png)
 

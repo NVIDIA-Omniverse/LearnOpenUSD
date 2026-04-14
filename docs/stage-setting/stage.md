@@ -87,9 +87,9 @@ At its core, an OpenUSD stage refers to a top-level USD file that serves as a co
 
 Some of the functions we will use to access the stage will be the following:
 
-- [`Usd.Stage.CreateNew()`](https://openusd.org/release/api/class_usd_stage.html#a50c3f0a412aee9decb010787e5ca2e3e): Creates a new empty USD Stage where 3D scenes are assembled.
-- [`Usd.Stage.Open()`](https://openusd.org/release/api/class_usd_stage.html#ad3e185c150ee38ae13fb76115863d108): Opens an existing USD file as a stage.
-- [`Usd.Stage.Save()`](https://openusd.org/release/api/class_usd_stage.html#adefa2f7ebfc4d8c09f0cd54419aa36c4): Saves the current stage of a USD stage back to a file. If there are multiple layers in the stage, all edited layers that contribute to the stage are being saved. In our case, all edits are being done in a single layer.
+- {usdcpp}`UsdStage::CreateNew`: Creates a new empty USD Stage where 3D scenes are assembled.
+- {usdcpp}`UsdStage::Open`: Opens an existing USD file as a stage.
+- {usdcpp}`UsdStage::Save`: Saves the current stage of a USD stage back to a file. If there are multiple layers in the stage, all edited layers that contribute to the stage are being saved. In our case, all edits are being done in a single layer.
 
 ```{code-cell}
 :test-tags: [stage-create-new]

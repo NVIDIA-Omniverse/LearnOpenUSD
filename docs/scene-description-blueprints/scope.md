@@ -69,9 +69,9 @@ from lousd.utils.helperfunctions import create_new_stage
 ```
 
 ### Example 1: Define a Scope
-[`Scope`](https://openusd.org/release/api/class_usd_geom_scope.html) is a grouping primitive and does NOT have transformability. It can be used to organize libraries with large numbers of entry points. It also is best to group actors and environments under partitioning Scopes. Besides navigating, it's easy for a user to {term}`deactivate <Active and Inactive>` all actors or environments by deactivating the root scope.
+{usdcpp}`UsdGeomScope` is a grouping primitive and does NOT have transformability. It can be used to organize libraries with large numbers of entry points. It also is best to group actors and environments under partitioning Scopes. Besides navigating, it's easy for a user to {term}`deactivate <Active and Inactive>` all actors or environments by deactivating the root scope.
 
-We can define `Scope`using [`UsdGeom.Scope.Define()`](https://openusd.org/release/api/class_usd_geom_scope.html#acdb17fed396719a9a21294ebca0116ae).
+We can define `Scope`using {usdcpp}`UsdGeomScope::Define`.
 
 ```{code-cell}
 :test-tags: [scope-define-scopes]

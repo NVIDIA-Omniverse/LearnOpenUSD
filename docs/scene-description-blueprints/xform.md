@@ -76,10 +76,10 @@ from lousd.utils.helperfunctions import create_new_stage
 
 Some things to know about `UsdGeom`:
 
-- All classes in `UsdGeom` inherit from [`UsdGeomImageable`](https://openusd.org/release/api/class_usd_geom_imageable.html), whose intent is to capture any prim type that might want to be rendered or visualized.
-- All geometry prims are directly transformable. [`UsdGeomXformable`](https://openusd.org/release/api/class_usd_geom_xformable.html) encapsulates the schema for a prim that is transformable.  
+- All classes in `UsdGeom` inherit from {usdcpp}`UsdGeomImageable`, whose intent is to capture any prim type that might want to be rendered or visualized.
+- All geometry prims are directly transformable. {usdcpp}`UsdGeomXformable` encapsulates the schema for a prim that is transformable.
 
-[`UsdGeomXform`](https://openusd.org/release/api/class_usd_geom_xform.html) is a concrete prim schema for a transform, which is transformable and can transform other child prims as a group.
+{usdcpp}`UsdGeomXform` is a concrete prim schema for a transform, which is transformable and can transform other child prims as a group.
 
 
 ```{code-cell}

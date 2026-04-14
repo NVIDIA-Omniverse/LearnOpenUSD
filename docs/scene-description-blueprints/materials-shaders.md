@@ -54,7 +54,7 @@ from lousd.utils.helperfunctions import create_new_stage
 
 [`UsdShade`](https://openusd.org/release/api/usd_shade_page_front.html) is a {term}`schema <Schema>` for creating and binding materials.
 
-[`Material`](https://openusd.org/release/api/class_usd_shade_material.html) provides a container to store data for defining a "shading material" to a renderer.
+{usdcpp}`UsdShadeMaterial` provides a container to store data for defining a "shading material" to a renderer.
 
 `UsdShade` and `Materials` will be covered in later topics and are only covered here to show another use case for schema-specific APIs.
 
