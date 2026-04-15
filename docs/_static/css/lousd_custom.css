@@ -112,6 +112,12 @@ html[data-theme="dark"] .home-header > h1 {
     text-align: center;
 }
 
+/* Disable dark-mode dimming on content screenshots */
+html[data-theme="dark"] .bd-content img,
+html[data-theme="dark"] article img,
+html[data-theme="dark"] main img {
+    filter: none !important;
+    opacity: 1 !important;
 /***********
 * CODE HIGHLIGHTS (Sphinx / Pygments)
 ************/

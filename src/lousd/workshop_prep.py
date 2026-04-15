@@ -57,6 +57,7 @@ MODULES_TO_REMOVE = [
 # Individual files to remove
 FILES_TO_REMOVE = [
     "usdview-install-instructions.md",
+    "install-usda-syntax.md",
 ]
 
 # Base URL for external links to removed content
