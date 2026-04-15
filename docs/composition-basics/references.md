@@ -95,9 +95,9 @@ def Xform "World"
 }
 ```
 
-Firstly, we want to grab all references of a prim. To do this we use [`GetReferences()`](https://openusd.org/release/api/class_usd_prim.html#ac9081d27e9d2a1058e32249fb96aaa34). This returns a [`UsdReferences`](https://openusd.org/release/api/class_usd_references.html) object, which allows us to add, remove, and modify references.
+Firstly, we want to grab all references of a prim. To do this we use {usdcpp}`UsdPrim::GetReferences`. This returns a {usdcpp}`UsdReferences` object, which allows us to add, remove, and modify references.
 
-To add a reference, we use [`AddReference()`](https://openusd.org/release/api/class_usd_references.html#a95bf456b23a234d3aa017015a4ad05e0). Let's see these in practice.
+To add a reference, we use {usdcpp}`UsdReferences::AddReference`. Let's see these in practice.
 
 ```{code-cell}
 :test-tags: [references-add-reference]

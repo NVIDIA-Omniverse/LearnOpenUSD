@@ -109,7 +109,7 @@ from lousd.utils.helperfunctions import create_new_stage
 
 ### Example 1: Setting a Default Prim
 
-[`SetDefaultPrim()`](https://openusd.org/release/api/class_usd_stage.html#a82b260faf91fbf721b0503075f2861e2) sets the default prim for the stage's root layer.
+{usdcpp}`UsdStage::SetDefaultPrim` sets the default prim for the stage's root layer.
 
 A `defaultPrim` is layer metadata. If the stage's root layer is used as a reference or payload it is best practice to set a default prim.
 

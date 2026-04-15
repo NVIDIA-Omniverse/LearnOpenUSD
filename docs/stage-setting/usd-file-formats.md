@@ -37,7 +37,7 @@ The file formats used in these lessons are chosen for clarity. In production, fo
 * Reserve usda text for small, human‑readable “interface” layers that mostly reference or sublayer other files, and for debugging or diffing.
 * In general, “prefer crate files” for big data, and keep text to lightweight aggregators.
 
-[See Maximizing USD Performance for the full recommendations](https://openusd.org/release/maxperf.html).
+[See Maximizing USD Performance for the full recommendations](inv:usd:std:doc#maxperf).
 
 ```
 

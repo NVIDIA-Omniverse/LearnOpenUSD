@@ -60,7 +60,7 @@ You can find these files in the `composition_arcs/sublayers/exercise/contents/` 
 
 5. To start, go to `composition_arcs/sublayers/exercise/sublayers_exercise.py` from Visual Studio Code’s explorer window.
 
-We will be adding in code that adds sublayers to our root layer. This is done using [Sdf.Layer API](https://openusd.org/release/api/class_sdf_layer.html).
+We will be adding in code that adds sublayers to our root layer. This is done using {usdcpp}`SdfLayer` API.
 
 ![](../../images/composition-arcs/image94.png)
 

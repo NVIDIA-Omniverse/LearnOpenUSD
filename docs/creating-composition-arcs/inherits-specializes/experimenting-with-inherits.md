@@ -152,6 +152,6 @@ Windows:
 ```
 Linux:
 ```sh
-./scripts/usdview.sh ./composition_arcs/inherits/exercise/scenario_02.usd
+./scripts/usdview.sh ./composition_arcs/inherits/exercise/scenario_01.usd
 ```
 Now we can manipulate all of the lights in any stage with a simple override without affecting other stages.
