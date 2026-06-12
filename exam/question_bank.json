@@ -7622,5 +7622,1185 @@
       "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-extraction/what-is-data-extraction.html"
     },
     "id": "gen20260611-048"
+  },
+  {
+    "domain": "Composition",
+    "objective": "sublayer opinion strength ordering",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A root layer lists sublayerB.usda first and sublayerA.usda second. Both sublayers author a value for the same attribute on the same prim. Which sublayer's opinion is resolved as the composed value?",
+    "choices": [
+      "sublayerB.usda, because the first entry in the subLayers list is treated as strongest.",
+      "An average of both sublayers' values, because USD blends conflicting local opinions.",
+      "sublayerA.usda, because the last entry in the subLayers list is treated as strongest.",
+      "The root layer's own opinion, because the root layer always overrides any sublayer."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The source states 'sublayerB comes before sublayerA, meaning the authored opinions in sublayerB will outweigh sublayerA's opinions.' The first-listed sublayer is the stronger one. The last-listed distractor inverts this ordering. The root layer option is only correct when the root layer itself authors an opinion. The blending distractor describes a behavior that does not exist in USD composition.",
+    "source": "creating-composition-arcs__sublayers__what-are-sublayers.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Sublayers",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/sublayers/what-are-sublayers.html"
+    },
+    "id": "gen4217-001"
+  },
+  {
+    "domain": "Composition",
+    "objective": "LIVERPS strength order — inherits vs references vs specializes",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A prim has no local opinion for an attribute. Competing opinions arrive via an inherit arc, a reference arc, and a specializes arc. Under LIVERPS, which arc's opinion is composed as the final value?",
+    "choices": [
+      "The inherits arc, because inherits is ordered above variant sets, references, and specializes.",
+      "The reference and inherits arc opinions are merged by averaging their values.",
+      "The reference arc, because references are the most common composition arc.",
+      "The specializes arc, because specializes provides the fallback of last resort."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The LIVERPS page lists the strength order from strongest to weakest: local, inherits, variant sets, references, payloads, specializes. Inherits wins over references and specializes when no local opinion is present. The specializes distractor correctly identifies specializes as a fallback but mistakes its position. The 'most common arc' distractor misapplies a frequency claim to strength. The averaging distractor describes a behavior USD does not implement.",
+    "source": "creating-composition-arcs__strength-ordering__what-is-liverps.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: What Is LIVERPS?",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/strength-ordering/what-is-liverps.html"
+    },
+    "id": "gen4217-002"
+  },
+  {
+    "domain": "Composition",
+    "objective": "references — grafting vs sublayering for multiple copies",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A developer wants three identical sphere prims at sibling prim paths in one scene. They add the sphere layer as a sublayer three times. Why does this fail to produce three distinct sibling prims?",
+    "choices": [
+      "Sublayers can only be added once per root layer before USD raises an error.",
+      "Sublayering a layer three times causes USD to treat all three as a single merged opinion.",
+      "Sublayers do not support prim definitions; only the over specifier is permitted inside a sublayer.",
+      "Sublayers include content without any prim-path remapping, so all three copies resolve to the same prim path."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The source states: 'Sublayering a layer multiple times won't work in this case … the same sphere would just be redefined three times because there is no way to specify that the copies of the sphere should be defined at different paths.' Sublayers add content without path remapping, so distinct sibling paths cannot be produced. The error-on-duplicate distractor invents a constraint that does not exist. The no-definitions distractor incorrectly restricts sublayer specifiers. The merged-opinion distractor misdescribes sublayer semantics.",
+    "source": "creating-composition-arcs__references-payloads__what-are-references.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: References",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/references-payloads/what-are-references.html"
+    },
+    "id": "gen4217-003"
+  },
+  {
+    "domain": "Composition",
+    "objective": "payloads — deferred loading and strength relative to references",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "How do payloads differ from references with respect to loading behavior and composition strength in LIVERPS?",
+    "choices": [
+      "Payloads can be loaded and unloaded on demand and are stronger than references in LIVERPS.",
+      "Payloads can be loaded and unloaded on demand and are weaker than references in LIVERPS.",
+      "Payloads load eagerly on stage open and are weaker than references in LIVERPS.",
+      "Payloads load eagerly on stage open and are stronger than references in LIVERPS."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The source states: 'Payloads are like references, but with the added ability of being able to load and unload payloads on demand' and 'Payloads are weaker than references in the composition strength order (LIVRPS).' Choices with eager loading invert the defining characteristic of payloads. The choice with deferred loading but stronger strength inverts the LIVERPS ordering.",
+    "source": "creating-composition-arcs__references-payloads__what-are-payloads.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Payloads",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/references-payloads/what-are-payloads.html"
+    },
+    "id": "gen4217-004"
+  },
+  {
+    "domain": "Composition",
+    "objective": "class specifier — rendering and traversal behavior",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A prim is authored with the class specifier. What effect does the class specifier have on rendering and default stage traversal?",
+    "choices": [
+      "Default traversals visit the prim twice: once entering and once exiting its hierarchy.",
+      "Hydra renders the prim at reduced resolution and default traversals exclude it from physics simulation.",
+      "The prim is marked read-only and other composition arcs are prevented from targeting it.",
+      "Hydra does not render the prim and default stage traversals do not visit it."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The source states: 'Hydra does not image (or render) a prim with a class specifier or any of its descendants' and 'Prims that resolve to class specifiers … won't be visited by default stage traversals, meaning it will be ignored by traversals such as those used for rendering.' The reduced-resolution distractor fabricates a rendering mode. The double-visit distractor describes the PreAndPostVisit traversal mode, which is unrelated to the specifier. The read-only distractor confuses class with immutability.",
+    "source": "composition-basics__specifiers.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Specifiers",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/composition-basics/specifiers.html"
+    },
+    "id": "gen4217-005"
+  },
+  {
+    "domain": "Composition",
+    "objective": "defaultPrim — behavior when unset during referencing",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A USD file contains two top-level prims, Car and Building, but its defaultPrim layer metadata is not set. Another layer references this file without specifying an explicit target prim path. What is the result?",
+    "choices": [
+      "The reference resolves as an empty layer and a warning is output to the log.",
+      "USD raises a fatal error and refuses to open the referencing stage.",
+      "USD automatically selects the first top-level prim in declaration order as the implicit default.",
+      "Both top-level prims are grafted into the referencing namespace simultaneously."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The source states: 'If no defaultPrim is set then when the above .usda is brought in as a payload or reference it will resolve as an empty layer and output a warning message in the log.' The fatal-error distractor overstates severity. The both-prims distractor misapplies multi-prim grafting, which requires explicit authoring. The first-prim distractor invents an implicit selection rule that does not exist.",
+    "source": "composition-basics__default-prim.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Default Prim",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/composition-basics/default-prim.html"
+    },
+    "id": "gen4217-006"
+  },
+  {
+    "domain": "Composition",
+    "objective": "variant operations — lightweight vs heavyweight switches",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A variant set is designed for real-time toggling. Which type of variant operation is considered lightweight because it leaves the composition index unchanged?",
+    "choices": [
+      "Introducing new sublayer arcs that add additional layers to the layer stack.",
+      "Swapping which referenced layer file is pulled into the scene.",
+      "Changing an attribute value, such as switching a color from one value to another.",
+      "Changing activation opinions that determine which prims are composed onto the stage."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The source states that lightweight variant operations include 'Changing attribute values - For example, switching a color from red to blue' because 'USD doesn't need to rebuild the composed scene structure. The stage's composition index remains the same.' Swapping referenced layers is explicitly listed as heavyweight because it changes the composition structure. Changing activation opinions is also listed as heavyweight. Introducing new sublayer arcs would change composition structure.",
+    "source": "creating-composition-arcs__variant-sets__what-are-variant-sets.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Variant Sets",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/variant-sets/what-are-variant-sets.html"
+    },
+    "id": "gen4217-007"
+  },
+  {
+    "domain": "Composition",
+    "objective": "variant capabilities — what a variant can author",
+    "difficulty": "hard",
+    "type": "multi",
+    "select_n": 3,
+    "stem": "Which of the following edits can a variant within a variant set author on the prim and its descendants? (Select three.)",
+    "choices": [
+      "Author new composition arcs, such as a reference to a different material layer.",
+      "Define entirely new descendant prims that exist only when that variant is active.",
+      "Sparsely override property values on the prim or any descendant prim.",
+      "Permanently remove other composition arcs authored outside the variant context.",
+      "Rename the prim itself to a different path within the same stage."
+    ],
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "The source explicitly lists three things a variant can do: 'Variants can sparsely override properties on the prim or any descendant prim,' 'Variants can define new descendant prims,' and 'Variants can be used to author new composition arcs that would only exist within that variant.' Permanently removing external composition arcs is not a variant capability — variants are scoped to their own hierarchy. Renaming a prim path is not a variant capability; that requires the relocates arc.",
+    "source": "creating-composition-arcs__variant-sets__what-are-variant-sets.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Variant Sets",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/variant-sets/what-are-variant-sets.html"
+    },
+    "id": "gen4217-008"
+  },
+  {
+    "domain": "Composition",
+    "objective": "inherit arcs — broadcast behavior across layer stacks",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "An asset uses an inherit arc targeting unencapsulated class /_cube_asset. A downstream stage overrides /_cube_asset in a stronger layer. Which statement correctly describes the scope of that override?",
+    "choices": [
+      "The override converts /_cube_asset from a class prim to a def prim in Scenario_A.",
+      "The override affects Scenario_A's composition only; other stages referencing the asset are not affected.",
+      "The override propagates globally to all stages that reference the same asset.",
+      "The override is ignored because inherit arcs cannot be overridden by opinions in stronger layers."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The source states: 'The broadcast only applies to the context in which it is authored. The opinion authored in Scenario_A doesn't affect Scenario_B.' Overrides on an unencapsulated class in a downstream stage are scoped to that stage. The global-propagation distractor conflates overriding the class in the asset file itself with overriding it in a downstream layer. The ignore-stronger distractor reverses how LIVERPS works. The convert-to-def distractor invents a specifier mutation that does not occur.",
+    "source": "creating-composition-arcs__inherits-specializes__what-is-inherits.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Inherits",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/inherits-specializes/what-is-inherits.html"
+    },
+    "id": "gen4217-009"
+  },
+  {
+    "domain": "Composition",
+    "objective": "encapsulation — material binding behavior when source prim is unencapsulated",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A USD file has a Cube under /World and a material scope /Looks at the same level as /World, not nested beneath it. The Cube binds to /Looks/RedMat. After referencing /World as source prim, what happens to the binding?",
+    "choices": [
+      "The binding is silently discarded and no warning is emitted by the composition engine.",
+      "The binding resolves correctly because USD automatically remaps sibling-scope paths during referencing.",
+      "The binding stops working because /Looks is not encapsulated within the referenced prim hierarchy.",
+      "The binding is promoted to the root layer of the referencing stage so it stays reachable."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The source states: 'Unlike our encapsulated example, the scope called Looks is not encapsulated inside of World. So when we reference unencapsulated.usd, the cube will be brought over but the material binding will no longer work because the red material would not exist in the new context.' Automatic path remapping for sibling scopes does not exist. Promotion to the root layer is not a USD behavior. Corpus sources note a warning is emitted, so the silent-discard distractor is also incorrect.",
+    "source": "creating-composition-arcs__encapsulation__what-is-encapsulation.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: What Is Encapsulation?",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/encapsulation/what-is-encapsulation.html"
+    },
+    "id": "gen4217-010"
+  },
+  {
+    "domain": "Composition",
+    "objective": "specializes — fallback value semantics",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A prim specializes a class defining an attribute fallback of 30. The prim also individually authors its own value of 20. The class fallback is later changed to 40. What value does the prim resolve to?",
+    "choices": [
+      "30, because specializes retains the original fallback value at the time the arc was authored.",
+      "20, because any individually authored opinion on the prim is stronger than the specializes fallback.",
+      "40, because the specializes arc always propagates the latest class value to all destination prims.",
+      "A composition conflict arises and the prim falls back to the schema default of 0."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The source states: 'In OOP, objects that override their class members will ignore updates made to those class members.' A prim that individually authors its own opinion is stronger than the specializes fallback under LIVERPS. The always-propagates distractor incorrectly describes specializes — only prims without their own opinion pick up the updated fallback. The retain-original distractor invents a snapshot behavior. The conflict-to-schema distractor invents a resolution mode.",
+    "source": "creating-composition-arcs__inherits-specializes__what-is-specializes.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Specializes",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/inherits-specializes/what-is-specializes.html"
+    },
+    "id": "gen4217-011"
+  },
+  {
+    "domain": "Debugging and Troubleshooting",
+    "objective": "composition caching vs value resolution — key distinction",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A pipeline developer wants to understand whether USD caches composition results or resolved attribute values at stage load time. Which statement correctly describes the caching model?",
+    "choices": [
+      "Composition is cached at the prim level, but value resolution is not pre-calculated.",
+      "Value resolution is cached per attribute, but composition is recomputed on every property query.",
+      "Neither composition nor value resolution is cached; all data is read directly from layers on each access.",
+      "Both composition and value resolution results are cached at load time for maximum query speed."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The source states: 'Composition is cached, value resolution is not. When you open a stage or add new scene data, USD creates an index of the composition logic and result at the prim-level for quick access. However, USD doesn't pre-calculate the final values of properties.' The both-cached distractor conflates the two systems. The neither-cached distractor contradicts the explicit statement that composition is indexed. The value-cached distractor inverts which system is cached.",
+    "source": "beyond-basics__value-resolution.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Value Resolution",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/value-resolution.html"
+    },
+    "id": "gen4217-012"
+  },
+  {
+    "domain": "Debugging and Troubleshooting",
+    "objective": "customData dictionary resolution — per-key merging",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "Two sublayers both author customData on the same prim. The stronger layer sets keys 'source' and 'status'. The weaker layer sets keys 'source' and 'owner'. What does the composed customData contain?",
+    "choices": [
+      "A composition error, because two layers may not author overlapping customData keys on the same prim.",
+      "'source' from the stronger layer, 'status' from the stronger layer, and 'owner' from the weaker layer.",
+      "The keys from the weaker layer — 'source' and 'owner' — because dictionaries accumulate entries from the weakest layer upward.",
+      "The keys from the stronger layer — 'source' and 'status' — because dictionaries follow a winner-takes-all rule across the full dictionary."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The source states: 'Dictionaries combine element by element, so if one layer has customData[keyOne] and another has customData[keyTwo], the final result will have both keys.' For shared keys the strongest opinion wins. Therefore 'source' resolves from the stronger layer, 'status' (unique to the stronger layer) is retained, and 'owner' (unique to the weaker layer) is also retained. The winner-takes-all distractor misapplies the strongest-wins rule to the whole dictionary. The weakest-accumulates distractor inverts opinion strength. The error distractor invents a restriction.",
+    "source": "beyond-basics__value-resolution.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Value Resolution",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/value-resolution.html"
+    },
+    "id": "gen4217-013"
+  },
+  {
+    "domain": "Debugging and Troubleshooting",
+    "objective": "active/inactive prims — effect on traversal and descendants",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A developer calls SetActive(False) on /World/Box, which has children /World/Box/Geometry and /World/Box/Materials. What does the next call to stage.Traverse() visit?",
+    "choices": [
+      "/World/Box is skipped and all of its descendants are also excluded from the traversal.",
+      "/World/Box and its descendants remain in the traversal but their attributes resolve to empty values.",
+      "/World/Box is skipped but its active descendants /World/Box/Geometry and /World/Box/Materials are still visited.",
+      "/World/Box raises a Python exception because deactivated prims cannot be accessed via GetPrimAtPath."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The source states: 'The prim itself will be excluded from default stage traversals' and 'All scene description for the deactivated prim's descendants will not be composed onto the stage.' Both /World/Box and all of its descendants are excluded. The descendants-still-visited distractor incorrectly suggests children are independently traversable after a parent is deactivated. The empty-values distractor misdescribes the effect as attribute-only rather than a composition exclusion. The exception distractor confuses deactivation with deletion.",
+    "source": "beyond-basics__active-inactive-prims.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Active and Inactive Prims",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/active-inactive-prims.html"
+    },
+    "id": "gen4217-014"
+  },
+  {
+    "domain": "Debugging and Troubleshooting",
+    "objective": "traversal predicates — correct bitwise combination syntax",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A tool must traverse only prims that are both active and loaded. A developer writes `predicate = Usd.PrimIsActive and Usd.PrimIsLoaded`. Why does this produce incorrect traversal behavior?",
+    "choices": [
+      "The and keyword produces a set union rather than an intersection, so unloaded prims that are active are also visited.",
+      "Traversal predicates must be combined with bitwise operators such as &, not with the boolean and keyword.",
+      "The and keyword short-circuits and discards Usd.PrimIsLoaded, so only active prims are filtered.",
+      "The and keyword internally calls __bool__ on each predicate object, which always returns True, causing the predicate to match every prim."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The source includes an explicit caution: 'Boolean operators, like and/or/not, will NOT combine predicates as intended. Always combine traversal predicates with bitwise operators (&, |, ~).' The correct form is `predicate = Usd.PrimIsActive & Usd.PrimIsLoaded`. The union distractor incorrectly frames the failure as an intersection-vs-union issue. The __bool__ distractor describes a plausible Python mechanism but is not the precise documented reason. The short-circuit distractor describes standard Python and short-circuiting but is not the documented cause.",
+    "source": "beyond-basics__stage-traversal.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Stage Traversal",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/stage-traversal.html"
+    },
+    "id": "gen4217-015"
+  },
+  {
+    "domain": "Debugging and Troubleshooting",
+    "objective": "attribute value resolution — Get() default vs time-sampled values",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "An attribute has an authored default of (1.5,1.5,1.5) and time samples starting at time code 60 with value (2.5,2.5,2.5). The stage startTimeCode is 1. What does attr.Get() return, and attr.Get(Usd.TimeCode(1))?",
+    "choices": [
+      "attr.Get() returns (2.5, 2.5, 2.5) and attr.Get(Usd.TimeCode(1)) returns (1.5, 1.5, 1.5).",
+      "attr.Get() returns (1.5, 1.5, 1.5) and attr.Get(Usd.TimeCode(1)) returns (2.5, 2.5, 2.5).",
+      "attr.Get() returns (1.5, 1.5, 1.5) and attr.Get(Usd.TimeCode(1)) returns (1.5, 1.5, 1.5).",
+      "attr.Get() returns (2.5, 2.5, 2.5) and attr.Get(Usd.TimeCode(1)) returns (2.5, 2.5, 2.5)."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The source states: 'Get() is the same as Get(Usd.TimeCode.Default())' which returns the authored default value (1.5, 1.5, 1.5). Querying before the first time sample is clamped to the first sample: 'Scale - AnimCube at t=1 (before first sample, clamped): (2.5, 2.5, 2.5).' Therefore Get() returns the default and Get(Usd.TimeCode(1)) returns the clamped first sample. The swapped distractor reverses which call returns which value. The both-time-sampled distractor ignores the default value. The both-default distractor ignores the clamping behavior for pre-sample queries.",
+    "source": "beyond-basics__value-resolution.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Value Resolution",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/value-resolution.html"
+    },
+    "id": "gen4217-016"
+  },
+  {
+    "domain": "Content Aggregation",
+    "objective": "scenegraph instancing — instanceable metadata and composition arcs",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "Three prims each have `instanceable = true` set, but none of them carry any composition arcs. How many implicit prototypes does OpenUSD generate, and why?",
+    "choices": [
+      "One prototype is generated because all three prims share the same local layer stack.",
+      "Zero prototypes are generated because instanceable metadata is restricted to assembly prims and has no effect elsewhere.",
+      "Three prototypes are generated, one per instanceable prim, because the instanceable flag itself drives prototype creation.",
+      "Zero prototypes are generated because instancing requires composition arcs to derive prototypes from."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The page explains this as a deliberate 'trick': setting instanceable = true is an explicit signal, but OpenUSD derives prototypes from composition arcs. Without any composition arcs, there is nothing for the engine to derive prototypes from, so no prototypes are created and memory usage is unchanged. The option stating one prototype is generated from the local layer stack misapplies local-opinion logic; the option claiming three prototypes are always generated ignores the composition-arc requirement; the option restricting instanceable to assembly prims invents a kind constraint that does not exist.",
+    "source": "asset-modularity-instancing__authoring-scenegraph-instancing__scenegraph-instancing-intro.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Introduction to Scenegraph Instancing",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/authoring-scenegraph-instancing/scenegraph-instancing-intro.html"
+    },
+    "id": "gen4217-017"
+  },
+  {
+    "domain": "Content Aggregation",
+    "objective": "scenegraph instancing — prototype creation rules with variant selections",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "Two instanceable prims both reference the same asset file. The first has no additional composition arcs; the second also has a variant selection authored on it. How many prototypes does OpenUSD generate for these two prims?",
+    "snippets": [
+      {
+        "filename": "example.usda",
+        "code": "#usda 1.0\ndef Xform \"Warehouse\"\n{\n    def \"Robot_01\" (\n        references = @./Robot.usd@\n        instanceable = true\n    ) {}\n    def \"Robot_02\" (\n        references = @./Robot.usd@\n        instanceable = true\n        variants = {string color = \"blue\"}\n    ) {}\n}"
+      }
+    ],
+    "choices": [
+      "Two prototypes are generated because the variant selection gives the second prim a distinct composed subgraph.",
+      "Zero prototypes are generated because variant selections prevent prototype sharing.",
+      "Two prototypes are generated because each instanceable prim always receives its own prototype.",
+      "One prototype is generated because both prims reference the same asset file."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Variant sets are part of composition, and variant selections are evaluated when OpenUSD determines what implicit prototypes to create. Because the second prim has a different variant selection, its composed subgraph differs from the first prim's, so OpenUSD generates a separate prototype for it. The option claiming one prototype ignores that variant selections alter the composition arcs used for prototype derivation. The option claiming each instanceable prim always gets its own prototype contradicts how shared-reference instancing works. The option stating variant selections prevent prototype sharing is an invented constraint.",
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-variant-set-refinement.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Refinement Using Variant Sets",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/refining-scenegraph-instances/scenegraph-variant-set-refinement.html"
+    },
+    "id": "gen4217-018"
+  },
+  {
+    "domain": "Content Aggregation",
+    "objective": "scenegraph instancing — hierarchical primvar refinement without new prototypes",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "Primvar values are authored directly on several instanceable prims that all share one prototype, giving each prim a different color. What is the effect on the prototype count, and why?",
+    "choices": [
+      "No new prototypes are created because primvar opinions live on the instanceable prims, not inside the shared subgraph.",
+      "No new prototypes are created because OpenUSD merges primvar overrides into the existing prototype silently.",
+      "One new prototype is created per distinct primvar value because each colored variant requires a unique subgraph.",
+      "One new prototype is created for the group of prims that received overrides, leaving the unmodified prims on the original prototype."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Hierarchical primvar refinement works by authoring primvar opinions on the instanceable prim itself. The subgraphs among the instances remain identical, so no new prototypes are created. The single prototype handles all the shading variability because primvars inherit down the prim hierarchy into the prototype's shader. The option citing one prototype per distinct value confuses primvar refinement with variant-set refinement. The option describing silent merging invents an internal mechanism. The option about a shared prototype for the modified group applies a deinstancing-style logic that does not match primvar behavior.",
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-hierarchical-refinement.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Hierarchical Refinement",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/refining-scenegraph-instances/scenegraph-hierarchical-refinement.html"
+    },
+    "id": "gen4217-019"
+  },
+  {
+    "domain": "Content Aggregation",
+    "objective": "point instancing — invisibleIds vs inactiveIds semantics",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A PointInstancer has hundreds of scattered boxes. Some boxes fell out of position and must be animated on and off over time; other boxes must be permanently pruned and the pruning must support sparse list-editing. Which property drives each requirement?",
+    "choices": [
+      "invisibleIds animates instances on and off over time; inactiveIds prunes them permanently with list-editing support.",
+      "inactiveIds animates instances on and off over time; invisibleIds prunes them permanently with list-editing support.",
+      "visibility animates instances on and off over time; invisibleIds prunes them permanently with list-editing support.",
+      "invisibleIds hides instances over time; protoIndices removes them permanently with list-editing support."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The page states the rule directly: if you need to animate an instance on and off over time, use invisibleIds; otherwise use inactiveIds for permanent pruning. Additionally, inactiveIds supports sparse list-editing so you can add and remove ids without reauthoring the full array. The option swapping the two attributes inverts the stated rule. The option using protoIndices for removal misapplies the prototype-mapping attribute. The option using the visibility attribute applies the prim-level visibility concept rather than the PointInstancer-specific mechanism.",
+    "source": "asset-modularity-instancing__refining-point-instances.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Refining Point Instances",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/refining-point-instances.html"
+    },
+    "id": "gen4217-020"
+  },
+  {
+    "domain": "Content Aggregation",
+    "objective": "broadcasted refinement — inherit/specialize arc broadcasting and prototype creation",
+    "difficulty": "hard",
+    "type": "multi",
+    "select_n": 3,
+    "stem": "A scene uses broadcasted refinement via a specialize arc so that all boxes on one pallet share a common class namespace target. A single reference is added to that class target. Which three statements correctly describe the outcome? (Select three.)",
+    "choices": [
+      "No new prototypes are created because broadcasted refinement, like hierarchical primvar refinement, never generates additional prototypes.",
+      "A new prototype is created for the affected boxes because their composed subgraph now differs from unmodified boxes.",
+      "The instance count stays the same because instancing remains active on all boxes throughout the operation.",
+      "The prim count increases because the new arc and its referenced content introduce additional prims into the stage.",
+      "The total prim count decreases because deinstancing is avoided and fewer per-instance overrides are needed."
+    ],
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "The source data shows broadcasted refinement raised the prototype count from 3 to 4 — a new prototype was created for the affected boxes because their composed subgraph now differs from unmodified boxes. The instance count remained at 1450, confirming instancing stayed active on all boxes. The prim count rose from 1711 to 1747, confirming that the new arc and its referenced content introduce additional prims. The option denying prototype creation confuses broadcasted refinement with hierarchical primvar refinement, which does not generate new prototypes. The option claiming the total prim count decreases is contradicted by the recorded increase of 36 prims.",
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-broadcasted-refinement.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Broadcasted Refinement",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/refining-scenegraph-instances/scenegraph-broadcasted-refinement.html"
+    },
+    "id": "gen4217-021"
+  },
+  {
+    "domain": "Pipeline Development",
+    "objective": "model hierarchy — component kind rules and gprim tagging",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A technical director tags a leaf Mesh prim deep in an asset's hierarchy with `kind = \"component\"`. According to model hierarchy rules, what structural problem does this create?",
+    "choices": [
+      "A leaf Mesh tagged as a component requires its ancestor prims to carry kind = component to maintain a valid hierarchy.",
+      "A leaf Mesh tagged as a component is invalid because the Mesh typeName conflicts with the component kind and USD will silently strip the metadata.",
+      "A leaf Mesh tagged as a component signals that the model hierarchy is too deep, because a gprim at component level is the explicit sign of excessive depth.",
+      "A leaf Mesh tagged as a component violates the nesting rule for component models, because a Mesh is itself treated as a kind of component."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The page states explicitly: 'A gprim tagged as a component is a sign that a model hierarchy is deep.' The model hierarchy is designed to prune traversal at the component model boundary, and having that boundary pushed all the way down to a gprim indicates the hierarchy is excessively deep, introducing unnecessary composition costs. The option about component-within-component misapplies the descendant-component rule to a Mesh itself. The option about typeName conflicts invents a constraint not in the source. The option requiring all ancestors to carry component inverts the actual rule, which requires ancestors to carry group or assembly.",
+    "source": "asset-structure__model-hierarchy__model-hierarchy-considerations.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Model Hierarchy Considerations",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/model-hierarchy/model-hierarchy-considerations.html"
+    },
+    "id": "gen4217-022"
+  },
+  {
+    "domain": "Pipeline Development",
+    "objective": "model hierarchy — assembly and component kind relationships",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A prim is marked `kind = \"component\"`. According to model hierarchy rules, which statement about this prim's descendants is correct?",
+    "choices": [
+      "Component descendants may include prims marked kind = group to provide optional organizational grouping below the component boundary.",
+      "Component descendants must all carry kind = subcomponent so that downstream traversal can find material prims.",
+      "Component descendants may include prims marked kind = assembly provided they are at least two levels below the component root.",
+      "Component descendants cannot include other prims marked kind = component because the component is the leaf of the model hierarchy."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The page states that 'component models cannot contain other component models as descendants.' The component kind denotes a leaf asset or pruning point in the model hierarchy. Descendants can use subcomponent for important prims that are outside the model hierarchy, but another component kind as a descendant is forbidden. The option requiring all descendants to be subcomponent overstates the rule. The option permitting group descendants below a component inverts the hierarchy direction — groups and assemblies are ancestors, not descendants. The option permitting assembly descendants is also contradicted by the leaf-boundary rule.",
+    "source": "asset-structure__model-hierarchy__what-are-model-kinds.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: What Are Model Kinds?",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/model-hierarchy/what-are-model-kinds.html"
+    },
+    "id": "gen4217-023"
+  },
+  {
+    "domain": "Pipeline Development",
+    "objective": "asset encapsulation — material bindings outside the defaultPrim hierarchy",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "An asset's material prim is defined at a path outside the `defaultPrim` hierarchy. When the asset is referenced into a scene, what happens to that material binding?",
+    "choices": [
+      "The material binding is silently remapped to the nearest in-scope material prim by the composition engine.",
+      "The material binding target refers to a path outside the scope of the reference and is ignored, causing the binding to stop working.",
+      "The material binding continues to function because references pull the entire source layer, including prims outside the defaultPrim.",
+      "The material binding fails when the reference also specifies a payload, but succeeds in reference-only contexts."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The exercise shows the exact USD warning message: the relationship target 'refers to a path outside the scope of the reference ... Ignoring.' Only prims defined beneath the defaultPrim hierarchy are brought along when the asset is referenced, so a material at a sibling path to World is left behind. The option about silent remapping invents a resolver behavior. The option claiming references pull the entire layer contradicts the encapsulation scoping rule. The option making payload a factor introduces a condition not in the source.",
+    "source": "asset-structure__asset-structure-principles__encapsulating-your-asset.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Exercise: Encapsulating Your Asset",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-structure-principles/encapsulating-your-asset.html"
+    },
+    "id": "gen4217-024"
+  },
+  {
+    "domain": "Pipeline Development",
+    "objective": "reference/payload pattern — purpose of lofting fields above the payload",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "In the reference/payload pattern, a primvar and a variant set are moved from the contents layer to the interface layer above the payload. What is the primary benefit of this lofting?",
+    "choices": [
+      "Lofting converts the fields from payload-local opinions into global layer metadata that all stages can read.",
+      "Lofting makes the fields discoverable and usable by consumers even when the payload is unloaded, improving performance in unloaded contexts.",
+      "Lofting removes the fields from the payload so they contribute no opinions to the composed stage.",
+      "Lofting promotes the fields to the root layer of the stage so they override downstream sublayer opinions."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The page states that 'lofting fields can help avoid the need to load a payload in certain contexts, thereby improving overall performance.' By authoring the primvar or variant set above the payload on the interface layer, consumers can discover and interact with these parameters without triggering payload loading. The exercise confirms that with the payload unloaded the primvars:accentColor attribute is still listed in the Properties panel. The option about removing field opinions contradicts the page, which says the lofted elements still advertise the sets and selections. The option about root-layer promotion mischaracterizes what lofting does. The option about global metadata invents a metadata conversion step.",
+    "source": "asset-structure__reference-payload-pattern__lofting-primvars.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Exercise: Lofting Primvars",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/reference-payload-pattern/lofting-primvars.html"
+    },
+    "id": "gen4217-025"
+  },
+  {
+    "domain": "Pipeline Development",
+    "objective": "asset parameterization — variant sets vs primvars and scenegraph instancing",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "An asset exposes both a color variant set and a primvar on its entry point for downstream parameterization. How do the two approaches differ with respect to scenegraph instancing?",
+    "choices": [
+      "Primvar overrides generate new prototypes for each distinct value authored, while variant selections share one prototype across all selections.",
+      "Variant selections and primvar overrides both share a single prototype regardless of how many different values are authored.",
+      "Variant selections and primvar overrides both generate one new prototype per distinct parameterization value.",
+      "Variant selections generate new prototypes for each distinct selection, while primvar overrides do not generate new prototypes."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The page states directly: 'Variations in variant selections will generate new prototypes for downstream contexts, while primvars will not.' This makes parameterization through primvars the lighter choice for single property parameters, offering upfront memory savings at the cost of additional lookups in materials. The option inverting the two behaviors misattributes prototype generation to primvars. The option claiming both generate prototypes per value is contradicted for primvars. The option claiming both share a single prototype is contradicted for variant selections.",
+    "source": "asset-structure__asset-parameterization__what-is-asset-parameterization.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: What Is Asset Parameterization?",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-parameterization/what-is-asset-parameterization.html"
+    },
+    "id": "gen4217-026"
+  },
+  {
+    "domain": "Pipeline Development",
+    "objective": "workstreams — layer stack design and avoiding procedural growth",
+    "difficulty": "hard",
+    "type": "multi",
+    "select_n": 3,
+    "stem": "A studio is designing layer stacks to model parallel workstreams for an asset and for a distributed simulation pipeline. Which three statements reflect the correct guidance? (Select three.)",
+    "choices": [
+      "A geometry layer and a shading layer can be sublayered together so artists iterate independently without blocking each other.",
+      "Computational workstream layers must always be static; dynamic partitioning across machines is not supported in a layer stack.",
+      "Keeping layer stacks simple and manageable is recommended because there is a cost associated with resolving and opening each layer.",
+      "Layer stacks can grow procedurally over time to accumulate simulation steps, replacing the need for a versioning system.",
+      "Each workstream layer should author only its unique contributions sparsely, avoiding needless overwrites of other workstreams."
+    ],
+    "answer": [
+      "A",
+      "C",
+      "E"
+    ],
+    "explanation": "The guidance states that each workstream should only author its unique contributions sparsely, rather than needlessly overwriting work done by another workstream. It also recommends keeping layer stacks simple and manageable because there is a cost associated with resolving and opening each layer. Splitting geometry and shading into separate sublayered workstream layers lets one content creator work on geometry while another iterates on materials independently. The option endorsing procedurally growing layer stacks contradicts the explicit warning that layer stacks are not a replacement for asset versioning systems. The option declaring computational workstream layers must be static invents a restriction not present in the guidance.",
+    "source": "asset-structure__workstreams__modeling-workstreams.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Modeling Workstreams With Layer Stacks",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/workstreams/modeling-workstreams.html"
+    },
+    "id": "gen4217-027"
+  },
+  {
+    "domain": "Pipeline Development",
+    "objective": "organizing prim hierarchy — Geometry and Looks scope conventions",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "An asset organizes all mesh prims under a `Geometry` scope and all material prims under a `Looks` scope, both children of the asset's `defaultPrim`. What does this convention primarily establish?",
+    "choices": [
+      "It satisfies the encapsulation requirement by ensuring material prims are nested under the same prim as the geometry they bind.",
+      "It establishes kind metadata boundaries so that traversal prunes at the Geometry and Looks scopes instead of at the defaultPrim.",
+      "It defines jurisdictions that separate modeler contributions from surfacer contributions, making it clear which prims each workstream owns.",
+      "It marks the geometry and material prims as components within the model hierarchy so pipeline tools can discover them efficiently."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The exercise page states the goal directly: organizing mesh prims under a Geometry scope and material prims under a Looks scope 'will provide organization and define jurisdictions for products contributed by modelers versus those contributed by surfacers.' This separation makes it clear to downstream users how prims relate and who is responsible for each area. The option about kind metadata boundaries misapplies the model-hierarchy traversal concept to organizational scopes. The option about satisfying encapsulation conflates scope organization with the encapsulation rule about keeping bindings within the defaultPrim. The option about marking scopes as components inverts the role of Scope prims, which carry no kind by default.",
+    "source": "asset-structure__asset-structure-principles__organizing-prim-hierarchy.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Exercise: Organizing Prim Hierarchy",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-structure-principles/organizing-prim-hierarchy.html"
+    },
+    "id": "gen4217-028"
+  },
+  {
+    "domain": "Data Modeling",
+    "objective": "primvar interpolation — constant mode",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A two-quad mesh has 6 points and 2 faces. A primvars:displayColor is authored with 'constant' interpolation. How many color values must its array contain?",
+    "choices": [
+      "6 — one value per vertex",
+      "2 — one value per face",
+      "8 — one value per face-vertex entry",
+      "1 — one value for the entire prim"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The 'constant' interpolation mode supplies exactly one value that applies to the whole prim. 'uniform' requires one value per face (2 for this mesh), 'vertex' requires one per unique point (6), and 'faceVarying' requires one per face-vertex entry (8).",
+    "source": "beyond-basics__primvars.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Primvars",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/primvars.html"
+    },
+    "id": "gen4217-029"
+  },
+  {
+    "domain": "Data Modeling",
+    "objective": "timeCodesPerSecond real-world time mapping",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A stage sets timeCodesPerSecond = 24. An attribute has a time sample at time code 48.0. How many seconds of playback after time code 0 does this sample represent?",
+    "choices": [
+      "2 seconds — time code 48 divided by 24 equals 2 seconds",
+      "1 second — time code 48 at 48 fps maps to 1 second",
+      "0.5 seconds — time code 48 scaled by the 24-fps factor yields 0.5",
+      "24 seconds — one time code per second at this rate"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The corpus states: 'if the root layer has timeCodesPerSecond=24, a time code value of 48.0 would correspond to 2 seconds (48/24) of real time after time code 0.' The other options apply incorrect ratios or invert the formula.",
+    "source": "stage-setting__timecodes-timesamples.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Time Codes and Time Samples",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/stage-setting/timecodes-timesamples.html"
+    },
+    "id": "gen4217-030"
+  },
+  {
+    "domain": "Data Modeling",
+    "objective": "metersPerUnit fallback value",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A USD file does not explicitly author metersPerUnit. According to OpenUSD's fallback behavior, what linear-unit scale does the runtime assume?",
+    "choices": [
+      "0.01 — one unit equals one centimeter by default",
+      "0.001 — one unit equals one millimeter by default",
+      "0.3048 — one unit equals one foot by default",
+      "1.0 — one unit equals one meter by default"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The corpus states: 'If metersPerUnit is not explicitly authored in a USD file, the fallback value is 0.01 (centimeters).' The other values represent meters, millimeters, and feet — each a real unit but not the USD default.",
+    "source": "beyond-basics__units.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Units in OpenUSD",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/units.html"
+    },
+    "id": "gen4217-031"
+  },
+  {
+    "domain": "Data Modeling",
+    "objective": "automatic vs manual unit reconciliation",
+    "difficulty": "hard",
+    "type": "multi",
+    "select_n": 2,
+    "stem": "Which two of the following unit metadata fields are automatically reconciled by USD during composition, requiring no manual corrective transform from the pipeline? (Select two.)",
+    "choices": [
+      "timeCodesPerSecond — USD automatically scales time samples so animation timing remains correct",
+      "upAxis — USD automatically rotates geometry when upAxis values differ between layers",
+      "timeCodesPerSecond applied via a layer offset — USD uses the layer offset to rescale time samples automatically",
+      "kilogramsPerUnit — USD automatically adjusts mass values for physics simulations",
+      "metersPerUnit — USD automatically applies a scale factor to referenced geometry"
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": "The corpus states timeCodesPerSecond is automatically reconciled during composition: 'USD automatically scales time samples so animations play back correctly relative to the root layer's timeCodesPerSecond.' The same automatic scaling applies through layer offsets. metersPerUnit, upAxis, and kilogramsPerUnit are listed as 'Manually Handled' — the assembler is responsible for corrective transforms.",
+    "source": "beyond-basics__units.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Units in OpenUSD",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/units.html"
+    },
+    "id": "gen4217-032"
+  },
+  {
+    "domain": "Data Modeling",
+    "objective": "custom attribute namespace convention for grouped data",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A pipeline must store temperature, humidity, and pressure sensor readings on a single prim without authoring a new schema. USD has no native struct type. Which approach is recommended?",
+    "choices": [
+      "Author each value into a customData dictionary entry under a shared sensor key",
+      "Define a Scope child prim to hold each reading as its own child prim",
+      "Use namespace-prefixed attributes: acme:sensor:temperature, acme:sensor:humidity, and acme:sensor:pressure",
+      "Store the readings as a single string attribute using a structured text encoding"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The corpus states: 'Since USD doesn't have a native struct type, namespace-prefixed attributes serve as the standard convention for representing this kind of grouped data.' The example demonstrates acme:sensor:temperature / humidity / pressure. customData is a composable dictionary described as more costly for composition; a Scope child adds unnecessary hierarchy; a string attribute loses type safety.",
+    "source": "beyond-basics__custom-properties.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Custom Properties",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/custom-properties.html"
+    },
+    "id": "gen4217-033"
+  },
+  {
+    "domain": "Data Modeling",
+    "objective": "custom=True flag semantics",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A developer authors an attribute with custom=True using UsdPrim::CreateAttribute(). What effect does the custom=True flag have on how OpenUSD internally processes that attribute?",
+    "choices": [
+      "It restricts the attribute from carrying time samples and limits it to a default value only",
+      "It marks the attribute as informational metadata for developers but has no impact on how OpenUSD treats the attribute",
+      "It prevents the attribute from being overridden by stronger composition opinions",
+      "It registers the attribute in the schema registry so tools can discover it automatically"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The corpus states explicitly: 'Setting custom=True has no impact on the way that OpenUSD treats the attribute, but it is a useful piece of metadata to inform end-users and developers that a particular attribute is not part of an existing schema.' The other options describe behaviors the flag does not provide.",
+    "source": "beyond-basics__custom-properties.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Custom Properties",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/custom-properties.html"
+    },
+    "id": "gen4217-034"
+  },
+  {
+    "domain": "Visualization",
+    "objective": "Hydra architecture — three main parts",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "Hydra is described as having three main parts. Which set correctly names all three and their roles?",
+    "choices": [
+      "Scene delegate (creates geometry), shader graph (manages material connections), render backend (generates pixels)",
+      "Render index (provides scene information), scene delegate (tracks changes), render delegate (issues draw calls to the GPU)",
+      "Scene proxy (provides scene information), render context (tracks changes), render plugin (creates the final image)",
+      "Scene delegate (provides scene information), render index (tracks changes and manages the scene), render delegate (creates the final image)"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The corpus states: 'A scene delegate, which provides the scene information; The render index, which keeps track of changes and manages the scene; The render delegate, which uses the render index and scene delegate to visualize scene information to create the final image.' The other options swap roles, rename parts, or use non-USD terminology.",
+    "source": "beyond-basics__hydra.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Hydra",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/hydra.html"
+    },
+    "id": "gen4217-035"
+  },
+  {
+    "domain": "Visualization",
+    "objective": "HdStorm — out-of-the-box real-time render delegate",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "OpenUSD ships with several render delegates. Which delegate provides the real-time OpenGL/Metal/Vulkan rendering used by usdview and many other tools out of the box?",
+    "choices": [
+      "HdTiny — the lightweight delegate optimized for interactive viewport rendering in production",
+      "HdEmbree — the production ray-tracing delegate used by usdview by default",
+      "HdPrman — the RenderMan-based delegate that ships with the core OpenUSD distribution",
+      "HdStorm — the interactive rasterization delegate included with the core distribution"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The corpus states: 'OpenUSD ships with HdStorm, the real-time OpenGL/Metal/Vulkan render delegate leveraged by usdview and many other tools. It also ships with HdTiny and HdEmbree, which can be used as examples of how to implement render delegates.' HdPrman is a third-party plugin, not shipped in core OpenUSD.",
+    "source": "beyond-basics__hydra.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Hydra",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/hydra.html"
+    },
+    "id": "gen4217-036"
+  },
+  {
+    "domain": "Visualization",
+    "objective": "UsdLuxDistantLight default emission axis",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A UsdLuxDistantLight is authored with only xformOp:rotateXYZ = (45, 0, 0) and no other transforms. Before any transform is applied, along which local axis does the DistantLight emit by default?",
+    "snippets": [
+      {
+        "filename": "example.usda",
+        "code": "def DistantLight \"SunLight\"\n{\n    float3 xformOp:rotateXYZ = (45, 0, 0)\n    uniform token[] xformOpOrder = [\"xformOp:rotateXYZ\"]\n}"
+      }
+    ],
+    "choices": [
+      "Along the local +X axis, consistent with the horizontal orientation of a sun light",
+      "Along the local -Z axis, representing emission toward the default gaze direction",
+      "Along the local +Z axis, representing emission away from the default viewing plane",
+      "Along the local +Y axis, consistent with the Y-up default coordinate system"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The corpus states: 'A light is emitted from a distance source along the -Z axis.' This is the defined default emission direction for UsdLuxDistantLight before any transforms are applied. The rotation shown in the snippet rotates the light but does not alter which axis is the default emission axis.",
+    "source": "scene-description-blueprints__lights.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Lights",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/scene-description-blueprints/lights.html"
+    },
+    "id": "gen4217-037"
+  },
+  {
+    "domain": "Visualization",
+    "objective": "UsdLux API schema adding light behavior to mesh prims",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "An artist wants a geometry mesh prim to emit light during rendering without defining a separate light prim elsewhere in the hierarchy. Which mechanism in UsdLux makes this possible?",
+    "choices": [
+      "Connecting the mesh prim's material surface output to a UsdLuxSphereLight inputs:color port",
+      "Applying a UsdLux API schema such as MeshLightAPI directly to the existing mesh prim",
+      "Setting the mesh prim's purpose attribute to 'render' so Hydra treats it as a light emitter",
+      "Defining a UsdLuxGeometryLight typed schema prim as a child of the mesh to inherit its shape"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The corpus states: 'UsdLux has API schemas that allow you to add light behavior to prims in your scene, so you can also add light properties to meshes and volumes.' An API schema such as MeshLightAPI is applied to the existing mesh prim. Defining a child light prim, setting purpose, or wiring a shader connection are different USD mechanisms that do not achieve mesh-light emission on the same prim.",
+    "source": "scene-description-blueprints__lights.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Lights",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/scene-description-blueprints/lights.html"
+    },
+    "id": "gen4217-038"
+  },
+  {
+    "domain": "Customizing USD",
+    "objective": "IsA vs API schema — assignment and identification",
+    "difficulty": "medium",
+    "type": "multi",
+    "select_n": 2,
+    "stem": "Which two statements correctly describe how IsA (typed) schemas and API schemas differ in how they are assigned to and identified on a USD prim? (Select two.)",
+    "choices": [
+      "API schemas assign a typeName to a prim and are therefore concrete; IsA schemas are always abstract",
+      "An IsA schema is queryable via HasAPI; an API schema is queryable via IsA on the prim",
+      "An IsA schema is assigned by setting the prim's typeName metadata; an API schema is list-edited into the apiSchemas metadata",
+      "A prim can hold only one IsA schema at a time, whereas multiple API schemas may be applied to the same prim",
+      "Both IsA and API schemas are applied by modifying the prim's typeName, and the distinction is purely organizational"
+    ],
+    "answer": [
+      "C",
+      "D"
+    ],
+    "explanation": "The corpus states: 'We use the typeName metadata to assign an IsA schema to a prim' and 'each prim can only subscribe to one IsA schema at a time.' API schemas 'do not assign a typeName to a prim. Instead, are list-edited in the apiSchemas metadata.' The second option swaps the query methods; the fourth inverts the concreteness rule; the fifth is incorrect because typeName exclusively identifies IsA schemas.",
+    "source": "scene-description-blueprints__schemas.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Schemas",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/scene-description-blueprints/schemas.html"
+    },
+    "id": "gen4217-039"
+  },
+  {
+    "domain": "Customizing USD",
+    "objective": "schema versioning — version identifier encoding",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "Under the USD per-schema versioning proposal, a second major version of the SphereLight schema is created. How is that version encoded in the schema identifier, and what is the identifier for version 0?",
+    "choices": [
+      "Version 2 is encoded as 'SphereLight@2'; version 0 is encoded as 'SphereLight' with no suffix",
+      "Version 2 is encoded as 'SphereLight.v2'; version 0 is encoded as 'SphereLight.v0'",
+      "Version 2 is encoded as 'SphereLight_2'; version 0 is encoded as 'SphereLight' with no suffix",
+      "Version 2 is encoded as 'SphereLight_2'; version 0 is encoded as 'SphereLight_0'"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The corpus states: 'The schema version will be embedded in the schema identifier itself as a suffix, e.g. \"SphereLight_2\" is version 2 of the SphereLight schema.' It further states: 'Version 0 of a schema will be represented without a version suffix. For example \"SphereLight\" is version 0 of SphereLight; \"SphereLight_0\" will not be allowed as a schema identifier.' The underscore-zero form and other separator styles are therefore incorrect.",
+    "source": "schema_versioning",
+    "source_ref": {
+      "title": "OpenUSD: Schema Versioning",
+      "url": "https://openusd.org/release/wp_schema_versioning.html"
+    },
+    "id": "gen4217-040"
+  },
+  {
+    "domain": "Customizing USD",
+    "objective": "schema versioning — criteria for when to version",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A schema maintainer is modifying an existing typed schema. Which change requires creating a new schema version according to the USD schema versioning guidelines?",
+    "choices": [
+      "Adding a new attribute with a fallback value that has no behavioral effect on prims lacking that attribute",
+      "Changing the displayName or doc metadata on an existing property",
+      "Updating a token attribute's allowedTokens field to add a new previously disallowed token",
+      "Changing the fallback value of an existing attribute in a way that affects prim behavior for downstream consumers"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The corpus lists 'Changing the fallback value for an attribute that would have an impact' under 'Do Version a Schema When…'. Adding an attribute with a no-effect fallback, adding a new allowed token, and changing displayName or doc are all listed under 'Do not Version a Schema When…' because they do not cause behavioral changes to existing assets.",
+    "source": "schema_versioning",
+    "source_ref": {
+      "title": "OpenUSD: Schema Versioning",
+      "url": "https://openusd.org/release/wp_schema_versioning.html"
+    },
+    "id": "gen4217-041"
+  },
+  {
+    "domain": "Data Exchange",
+    "objective": "File format selection for asset delivery",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A completed asset must be shipped to an external partner as one self-contained unit with its USD file and all referenced textures included. Which native OpenUSD file format is designed for exactly this atomic, read-only delivery?",
+    "choices": [
+      "USDA, because it is human-readable and easy to inspect after delivery.",
+      "USDZ, because it is an uncompressed zip archive that bundles all necessary assets together.",
+      "USD, because it can be either ASCII or binary without breaking references.",
+      "USDC, because it uses compression and memory mapping for efficient loading."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The corpus states that USDZ 'is an atomic, uncompressed, zipped archive so that we can deliver all of the necessary assets together,' making it the correct format for complete, portable delivery. USDA is optimal for small, human-readable interface layers — not bundled delivery. USDC prioritizes loading performance for data-heavy layers but does not bundle textures. The generic USD extension offers flexibility between ASCII and binary but provides no bundling capability.",
+    "source": "stage-setting__usd-file-formats.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: OpenUSD File Formats",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/stage-setting/usd-file-formats.html"
+    },
+    "id": "gen4217-042"
+  },
+  {
+    "domain": "Data Exchange",
+    "objective": "Two-phase data exchange approach",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "In the two-phase OpenUSD data exchange approach, what is the stated goal of the extract phase?",
+    "choices": [
+      "To prune data irrelevant to a workflow and optimize the output for a specific end client.",
+      "To validate the output stage against compliance rules and flag missing metadata before delivery.",
+      "To translate data to OpenUSD as directly as possible, mapping source concepts to USD concepts to preserve fidelity.",
+      "To apply user export options and restructure content to fit organization-specific asset conventions."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The corpus states: 'The goal is to translate the data to OpenUSD as directly as possible to maintain fidelity to the source format. Try to map concepts from the source format to concepts in OpenUSD as much as possible to preserve the integrity and structure of the source data.' Applying export options and restructuring content are explicitly described as transform-phase activities. Pruning irrelevant data and optimization are also transform-phase responsibilities. Validation against compliance rules is the role of asset validation tools such as usdchecker, not the extract phase.",
+    "source": "data-exchange__data-exchange__what-is-data-exchange.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: What Is Data Exchange?",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-exchange/what-is-data-exchange.html"
+    },
+    "id": "gen4217-043"
+  },
+  {
+    "domain": "Data Exchange",
+    "objective": "File format plugins as USD integration mechanism",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A proprietary CAD application keeps geometry in its own native format as the single source of truth and must compose directly into a USD stage without a pre-export step. Which OpenUSD integration mechanism uniquely enables this, and which capability makes it the right choice?",
+    "choices": [
+      "A DCC exporter, because it translates the application's runtime format to OpenUSD and supports bidirectional conversion.",
+      "A DCC importer, because it translates data from the application's runtime format into OpenUSD structures on demand.",
+      "A file format plugin, because the native file can be referenced, sublayered, or loaded as a payload into a USD stage without a prior conversion step.",
+      "A standalone converter, because it can be run as a batch process that translates the native format to USD at composition time."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The corpus states that file format plugins allow 'An OpenUSD stage can include a source file format directly as a reference, payload or sublayer. The source file format is translated on the fly, while it is read as a USD document,' and crucially that 'The source file format can remain the source of truth.' Standalone converters produce a separate output file and require a pre-export step. DCC importers translate from OpenUSD into the application's runtime format — the opposite direction. DCC exporters translate from the application's runtime format to OpenUSD, also requiring a pre-export step and not retaining the original format as the source of truth.",
+    "source": "data-exchange__data-exchange__what-is-data-exchange.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: What Is Data Exchange?",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-exchange/what-is-data-exchange.html"
+    },
+    "id": "gen4217-044"
+  },
+  {
+    "domain": "Data Exchange",
+    "objective": "Unit metadata reconciliation during composition",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "An asset authored at metersPerUnit = 1.0 (meters) is referenced into a scene with metersPerUnit = 0.01 (centimeters) and no corrective transform is applied. According to OpenUSD's unit handling behavior, what is the result?",
+    "choices": [
+      "The runtime automatically scales the referenced geometry so it appears at the correct real-world size in the scene.",
+      "The stage refuses to compose the reference because the metersPerUnit values do not match.",
+      "The geometry is composed at its raw numeric values without unit conversion, and it appears 100 times too small.",
+      "The geometry is composed at its raw numeric values without unit conversion, and it appears 100 times too large."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The corpus states: 'A 6-meter tall tree (metersPerUnit = 1.0) referenced into a centimeter-based stage (metersPerUnit = 0.01) will compose as 6 centimeters tall by default—100 times too small.' USD does not perform automatic unit conversion for metersPerUnit — geometric values are 'copied literally without unit conversion.' The distractor describing automatic scaling contradicts the stated behavior. Refusing to compose is not a documented behavior. The 100-times-too-large outcome is a direction flip; the correct direction is too small because a meter-scale number is interpreted in centimeter units.",
+    "source": "beyond-basics__units.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: Units in OpenUSD",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/units.html"
+    },
+    "id": "gen4217-045"
+  },
+  {
+    "domain": "Data Exchange",
+    "objective": "Reusability of transformation versus extraction code",
+    "difficulty": "hard",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A studio is building USD exporters for three different DCC applications. A developer asks whether the extraction and transformation code can be shared across all three exporters. What does the two-phase guidance say about reusability?",
+    "choices": [
+      "Both extraction and transformation code can be designed for reuse because they both operate on OpenUSD data after the initial parse.",
+      "Both extraction and transformation code are largely unique to each source format and must be reimplemented per exporter.",
+      "Transformation code is largely unique to each target workflow, while extraction code can be designed for reuse across multiple exporters.",
+      "Extraction code is largely unique to each source format, while transformation code can be designed for reuse across multiple exporters."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The corpus states: 'While extraction code from source formats to OpenUSD is largely unique, data transformation for specific clients or workflows can be designed for reuse across multiple exporters.' This is because transformation operates on OpenUSD data — 'Export options, optimizations and asset structure code can be shared across applications since they all operate on OpenUSD data.' The option claiming both phases are unique ignores the stated reusability of transformation code. Swapping the direction — claiming extraction is reusable — contradicts the corpus directly. The option claiming both are reusable because both operate on OpenUSD data misattributes where OpenUSD data enters the pipeline; only transformation operates on already-extracted OpenUSD data.",
+    "source": "data-exchange__data-transformation__what-is-data-transformation.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: What Is Data Transformation?",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-transformation/what-is-data-transformation.html"
+    },
+    "id": "gen4217-046"
+  },
+  {
+    "domain": "Data Exchange",
+    "objective": "Benefits of the data extraction phase",
+    "difficulty": "hard",
+    "type": "multi",
+    "select_n": 3,
+    "stem": "Which three statements correctly identify benefits of the data extraction phase in a two-phase data exchange pipeline? (Select three.)",
+    "choices": [
+      "The extracted stage provides a common foundation on which all subsequent data transformation steps can be built.",
+      "The extraction phase applies user export options so that end users receive a tailored output without needing a separate transformation step.",
+      "The extraction phase automatically generates a compliant defaultPrim and resolves upAxis conflicts between composed layers.",
+      "Keeping the extracted stage faithful to the source simplifies round-tripping of data back to the original format.",
+      "The extracted output mirrors the source format structure, improving legibility and making it easier to debug for developers and end users."
+    ],
+    "answer": [
+      "A",
+      "D",
+      "E"
+    ],
+    "explanation": "The corpus lists three explicit benefits of data extraction: (1) Output OpenUSD data looks like it did in the source format, making it easier to understand and debug — matching the legibility option; (2) It simplifies round-tripping of data — matching the round-trip option; (3) It provides a common foundation for all data transformation in the transform phase — matching the common-foundation option. The option describing user export options as an extraction-phase activity contradicts the corpus, which explicitly states that export options are data transformation and not part of extraction. The option claiming automatic defaultPrim and upAxis resolution describes transform-phase chasers, not the extraction phase.",
+    "source": "data-exchange__data-extraction__what-is-data-extraction.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: What Is Data Extraction?",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-extraction/what-is-data-extraction.html"
+    },
+    "id": "gen4217-047"
+  },
+  {
+    "domain": "Data Exchange",
+    "objective": "Asset validation tooling — usdchecker and Omniverse Asset Validator",
+    "difficulty": "medium",
+    "type": "single",
+    "select_n": 1,
+    "stem": "A pipeline team wants to go beyond basic command-line USD compliance checks and needs a validation workflow with a Python API, automatic fixes for failed validations, and the ability to add custom rules. Which tool provides these capabilities?",
+    "choices": [
+      "usdchecker, because it validates a USD stage or USDZ package using a defined rule set from the command line.",
+      "Omniverse Asset Validator, because it extends usdchecker with a user interface, a Python API, automatic fixes, and custom rule support.",
+      "usdcat, because it can be used with file format plugins as a standalone converter with inspection support.",
+      "UsdGeomBBoxCache, because it validates geometry bounding boxes and flags spatial inconsistencies across composed layers."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The corpus states that Omniverse Asset Validator 'is based on usdchecker and provides a GUI for asset validation' and lists its specific capabilities: 'User interface, Command line interface, Python API, Automatic fixes for failed validations, Ability to add new rules.' usdchecker is the underlying command-line tool that validates stages and USDZ packages but does not offer a Python API for custom rules or automatic fixes. usdcat is a conversion and inspection utility, not a validation framework. UsdGeomBBoxCache is a USD API for computing geometry bounding boxes, not an asset validation tool.",
+    "source": "data-exchange__asset-validation__what-is-asset-validation.txt",
+    "source_ref": {
+      "title": "Learn OpenUSD: What Is Asset Validation?",
+      "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/asset-validation/what-is-asset-validation.html"
+    },
+    "id": "gen4217-048"
   }
 ]
