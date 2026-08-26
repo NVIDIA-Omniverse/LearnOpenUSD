@@ -8,7 +8,7 @@ By the end of this module, you'll understand how to:
 
 - **Work with {term}`primvars <Primvar>`** - attach rendering data like UVs, vertex colors, and custom attributes to geometry
 - **Leverage {term}`value resolution <Value Resolution>`** - understand how USD resolves attribute values from multiple composition sources (including animation splines)
-- **Author {term}`animation splines <Animated Value>`** - represent looping and extrapolated motion with `pxr.Ts` splines on attributes
+- **Author {term}`animation splines <Animation Spline>`** - represent looping and extrapolated motion with `pxr.Ts` splines on attributes
 - **Create custom {term}`properties <Property>`** - extend USD's data model with user-defined attributes for specific workflows  
 - **Manage scene complexity** - use {term}`active/inactive <Active and Inactive>` {term}`prims <Prim>` for efficient, non-destructive scene management
 - **Utilize {term}`model <Model>` {term}`kinds <Kind>`** - structure assets using {term}`component <Component>`, {term}`assembly <Assembly>`, and {term}`group <Group>` hierarchies

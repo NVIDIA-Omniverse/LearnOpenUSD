@@ -19,7 +19,17 @@ Animated Value
     Attributes can store time-varying data using time samples (discrete time-value pairs) or animation splines, and USD automatically interpolates between these data points when you query an attribute at a specific time. An attribute can have both a static default value and animated values, with the animated values taking precedence when querying at specific time codes.
 
     **Also Known As:** *time-varying value, time-sampled value*  
-    **Further Reading**: [Time Codes and Time Samples](<./stage-setting/timecodes-timesamples.md>), [Spline animation](<./beyond-basics/spline-animation.md>), [Animated Value -- OpenUSD.org](<inv:usd:std#glossary:animated value>)
+    **Further Reading**: [Time Codes and Time Samples](<./stage-setting/timecodes-timesamples.md>), [Spline Animation](<./beyond-basics/spline-animation.md>), [Animated Value -- OpenUSD.org](<inv:usd:std#glossary:animated value>)
+
+
+Animation Spline
+
+    An animation spline is curve-based animation authored directly on an attribute, defined by knots rather than by a dense list of time samples.
+
+    Each knot pairs a time with a value and carries tangent data and an interpolation mode for the segment that follows it, so a spline can describe smooth motion from very few keys. Splines also support inner loops (repeating a prototype segment with an optional value offset) and extrapolation beyond the authored knot range (held, linear, or looping). An attribute resolves splines alongside its default value, time samples, and value clips during value resolution, and splines are retimed by layer offsets just like time samples.
+
+    **Also Known As:** *spline, curve animation*  
+    **Further Reading**: [Spline Animation](<./beyond-basics/spline-animation.md>), [Spline -- OpenUSD.org](<inv:usd:std#glossary:spline>), [Using Splines -- OpenUSD.org](<inv:usd:std#user_guides/time_and_animated_values:using splines>)
 
 
 API Schema
@@ -656,7 +666,7 @@ Value Resolution
 
     When querying attributes, USD traverses the composition index in strength order to find the strongest opinion, evaluating defaults, time samples, splines, blocks, and connections according to LIVERPS. Value resolution also handles interpolation for animated values and applies layer offsets from composition arcs. USD also has unique algorithms for resolving relationships and metadata values.
 
-    **Further Reading**: [What Is Value Resolution?](<./beyond-basics/value-resolution.md>), [Spline animation](<./beyond-basics/spline-animation.md>), [Value Resolution -- OpenUSD.org](<inv:usd:std#glossary:value resolution>)
+    **Further Reading**: [What Is Value Resolution?](<./beyond-basics/value-resolution.md>), [Spline Animation](<./beyond-basics/spline-animation.md>), [Value Resolution -- OpenUSD.org](<inv:usd:std#glossary:value resolution>)
 
 Variability
 

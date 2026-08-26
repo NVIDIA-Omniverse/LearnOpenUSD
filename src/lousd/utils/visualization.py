@@ -226,44 +226,62 @@ def FlattenFile(input_file_path: str, show_usd_lights: bool = False) -> str:
     return destination_file_path
 
 
-def display_bake_usd_path(usd_filename: str) -> str:
-    """Return a sibling path used for spline-baked USD (preview-only)."""
+def DisplayBakeUSDPath(usd_filename: str) -> str:
+    """Return a sibling path used for spline-baked USD (preview-only).
+
+    Args:
+        usd_filename (str): Path of the spline-authored USD file.
+
+    Returns:
+        str: Sibling path with a ``_display_bake`` suffix on the file stem.
+    """
     path = Path(usd_filename)
     return str(path.with_name(f"{path.stem}_display_bake{path.suffix}"))
 
 
-def bake_spline_attributes_to_time_samples(
+def BakeSplineAttributesToTimeSamples(
     src_path: str,
     dst_path: str,
     *,
     time_step: int = 1,
 ) -> None:
-    """
-    Flatten the composed stage at ``src_path`` and replace each animation spline on an attribute
-    with dense time samples evaluated from the spline. Used so ``usd2gltf`` / ``model-viewer`` can
-    playback motion (those tools key off ``UsdGeom.Xformable.GetTimeSamples()``).
+    """Flatten a stage and replace its animation splines with dense time samples.
 
-    The file at ``src_path`` is not modified; results are written to ``dst_path``.
+    Each animation spline authored on an attribute is evaluated across the stage's time code
+    range and rewritten as time samples, so ``usd2gltf`` / ``model-viewer`` can play back the
+    motion (those tools key off ``UsdGeom.Xformable.GetTimeSamples()``). The file at
+    ``src_path`` is not modified; results are written to ``dst_path``.
 
-    Parameters:
-        src_path: USD scene to open (with composition).
-        dst_path: Output USD path for the flattened, baked scene.
-        time_step: Frame step between samples (inclusive of start/end time codes).
+    A stage with no authored time code range has no range to bake over, so it is exported
+    flattened with its splines left intact.
+
+    Args:
+        src_path (str): USD scene to open (with composition).
+        dst_path (str): Output USD path for the flattened, baked scene.
+        time_step (int): Frame step between samples (inclusive of start/end time codes).
+
+    Raises:
+        ValueError: If `time_step` is less than 1.
     """
     if time_step < 1:
         raise ValueError("time_step must be >= 1")
 
     src_stage = Usd.Stage.Open(src_path, Usd.Stage.LoadAll)
     if not src_stage:
-        log.warning('bake_spline_attributes_to_time_samples: could not open stage at "%s".', src_path)
+        log.warning('BakeSplineAttributesToTimeSamples: could not open stage at "%s".', src_path)
         return
 
-    if src_stage.HasAuthoredTimeCodeRange():
-        start_tc = int(src_stage.GetStartTimeCode())
-        end_tc = int(src_stage.GetEndTimeCode())
-    else:
-        start_tc, end_tc = 0, 0
+    if not src_stage.HasAuthoredTimeCodeRange():
+        log.warning(
+            'BakeSplineAttributesToTimeSamples: "%s" has no authored time code range; '
+            "exporting the flattened stage with splines left intact.",
+            src_path,
+        )
+        src_stage.Flatten().Export(dst_path)
+        return
 
+    start_tc = int(src_stage.GetStartTimeCode())
+    end_tc = int(src_stage.GetEndTimeCode())
     if end_tc < start_tc:
         start_tc, end_tc = end_tc, start_tc
 
@@ -272,12 +290,11 @@ def bake_spline_attributes_to_time_samples(
 
     bake_stage = Usd.Stage.Open(dst_path, Usd.Stage.LoadAll)
     if not bake_stage:
-        log.warning('bake_spline_attributes_to_time_samples: could not open baked stage at "%s".', dst_path)
+        log.warning('BakeSplineAttributesToTimeSamples: could not open baked stage at "%s".', dst_path)
         return
 
-    if src_stage.HasAuthoredTimeCodeRange():
-        bake_stage.SetStartTimeCode(src_stage.GetStartTimeCode())
-        bake_stage.SetEndTimeCode(src_stage.GetEndTimeCode())
+    bake_stage.SetStartTimeCode(src_stage.GetStartTimeCode())
+    bake_stage.SetEndTimeCode(src_stage.GetEndTimeCode())
 
     tcps = src_stage.GetTimeCodesPerSecond()
     if tcps > 0.0:
@@ -306,7 +323,7 @@ def bake_spline_attributes_to_time_samples(
 
     bake_stage.GetRootLayer().Save()
     log.debug(
-        'bake_spline_attributes_to_time_samples: wrote "%s" (%d spline attributes baked).',
+        'BakeSplineAttributesToTimeSamples: wrote "%s" (%d spline attributes baked).',
         dst_path,
         len(spline_attrs),
     )
@@ -362,8 +379,8 @@ def DisplaySingleUSD(
 
     glb_source_usd = usd_filename
     if bake_splines_for_display:
-        baked_path = display_bake_usd_path(usd_filename)
-        bake_spline_attributes_to_time_samples(usd_filename, baked_path)
+        baked_path = DisplayBakeUSDPath(usd_filename)
+        BakeSplineAttributesToTimeSamples(usd_filename, baked_path)
         if os.path.isfile(baked_path):
             glb_source_usd = baked_path
         else:

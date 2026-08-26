@@ -36,7 +36,7 @@ Value resolution is how OpenUSD figures out the final value of a {term}`property
 
 Even though value resolution combines many pieces of data together, it's different from composition. Understanding this difference helps you work with USD more effectively.
 
-Animated attributes can be driven by {term}`time samples <Time Sample>` or by **animation splines** (curve data authored on the attribute). In both cases, value resolution evaluates the result at the requested {term}`time code <Time Code>`, including temporal mapping from {term}`layer offsets <Layer Offset>` and frame-rate reconciliation for `timeCodesPerSecond`. See [Spline animation](spline-animation.md) for authoring splines with the `pxr.Ts` API.
+Animated attributes can be driven by {term}`time samples <Time Sample>` or by {term}`animation splines <Animation Spline>` (curve data authored on the attribute). In both cases, value resolution evaluates the result at the requested {term}`time code <Time Code>`, including temporal mapping from {term}`layer offsets <Layer Offset>` and frame-rate reconciliation for `timeCodesPerSecond`. See [Spline Animation](spline-animation.md) for authoring splines with the `pxr.Ts` API.
 
 ## How Does It Work?
 
@@ -72,7 +72,7 @@ Attributes are special because they can combine several kinds of time-varying an
 
 1. **{term}`Value clips <Value Clips>`** - Animation data stored in separate files
 2. **{term}`Time samples <Time Sample>`** - Specific values at specific times
-3. **Animation splines** - Curve-based values (knots, tangents, loop and extrapolation settings) evaluated like samples at a given time code
+3. **{term}`Animation splines <Animation Spline>`** - Curve-based values (knots, tangents, loop and extrapolation settings) evaluated like samples at a given time code
 4. **{term}`Default value <Default Value>`** - A non-time-varying value
 
 Value resolution for animated data (clips, time samples, and splines) also accounts for time scaling and offset operators (e.g. {term}`Layer offsets <Layer Offset>`) and {term}`interpolation <Interpolation>` when a {term}`time code <Time Code>` falls between samples or along a spline segment.

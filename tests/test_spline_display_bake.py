@@ -21,7 +21,7 @@ import tempfile
 import pytest
 from pxr import Ts, Usd, UsdGeom
 
-from lousd.utils.visualization import bake_spline_attributes_to_time_samples, display_bake_usd_path
+from lousd.utils.visualization import BakeSplineAttributesToTimeSamples, DisplayBakeUSDPath
 
 
 @pytest.fixture()
@@ -48,13 +48,13 @@ def spline_usd_path():
 
 
 def test_display_bake_usd_path_suffix():
-    assert display_bake_usd_path("_assets/foo.usda").endswith("_display_bake.usda")
+    assert DisplayBakeUSDPath("_assets/foo.usda").endswith("_display_bake.usda")
 
 
 def test_bake_replaces_spline_with_time_samples(spline_usd_path: str):
     tmp = os.path.dirname(spline_usd_path)
     out = os.path.join(tmp, "out.usda")
-    bake_spline_attributes_to_time_samples(spline_usd_path, out)
+    BakeSplineAttributesToTimeSamples(spline_usd_path, out)
 
     baked = Usd.Stage.Open(out)
     attr = baked.GetPrimAtPath("/X").GetAttribute("xformOp:rotateZ:spin")
@@ -65,9 +65,30 @@ def test_bake_replaces_spline_with_time_samples(spline_usd_path: str):
     assert len(xformable.GetTimeSamples()) >= 1
 
 
+def test_bake_without_time_code_range_preserves_spline(tmp_path):
+    src = str(tmp_path / "no_range.usda")
+    stage = Usd.Stage.CreateNew(src)
+    xf = UsdGeom.Xform.Define(stage, "/X")
+    attr = xf.AddRotateZOp(opSuffix="spin").GetAttr()
+    tn = str(attr.GetTypeName())
+    spline = Ts.Spline(tn)
+    spline.SetKnot(Ts.Knot(typeName=tn, time=0, value=0, nextInterp=Ts.InterpLinear))
+    spline.SetKnot(Ts.Knot(typeName=tn, time=10, value=45, nextInterp=Ts.InterpLinear))
+    attr.SetSpline(spline)
+    stage.Save()
+
+    out = str(tmp_path / "no_range_out.usda")
+    BakeSplineAttributesToTimeSamples(src, out)
+
+    baked = Usd.Stage.Open(out)
+    baked_attr = baked.GetPrimAtPath("/X").GetAttribute("xformOp:rotateZ:spin")
+    assert baked_attr.HasSpline()
+    assert baked_attr.GetNumTimeSamples() == 0
+
+
 def test_bake_value_spline_usd_path_not_modified(spline_usd_path: str):
     before = open(spline_usd_path, encoding="utf-8").read()
     out = os.path.join(os.path.dirname(spline_usd_path), "out.usda")
-    bake_spline_attributes_to_time_samples(spline_usd_path, out)
+    BakeSplineAttributesToTimeSamples(spline_usd_path, out)
     after = open(spline_usd_path, encoding="utf-8").read()
     assert before == after

@@ -26,11 +26,15 @@ kernelspec:
   name: python3
 ---
 
-# Spline animation
+# Spline Animation
+
+## What Is Spline Animation?
 
 {term}`Time samples <Time Sample>` are a straightforward way to animate {term}`attributes <Attribute>`: you author values at chosen {term}`time codes <Time Code>`, and USD interpolates between them (for example, linearly). That model is a good fit when motion is simple or nearly piecewise linear.
 
-**Animation splines** store a curve defined by **knots** (time-value keys), tangent data, and interpolation modes between knots. Splines can represent smoother or sparser animation than dense time-sample sequences, and they support **inner loops** (repeating a prototype segment with a value offset) and **extrapolation** past the authored knot range (for example, repeating the whole curve). Pipeline tools and DCC exports can author splines directly on attributes that support them.
+An {term}`animation spline <Animation Spline>` stores a curve defined by **knots** (time-value keys), tangent data, and interpolation modes between knots. Splines can represent smoother or sparser animation than dense time-sample sequences, and they support **inner loops** (repeating a prototype segment with a value offset) and **extrapolation** past the authored knot range (for example, repeating the whole curve). Pipeline tools and DCC exports can author splines directly on attributes that support them.
+
+## How Does It Work?
 
 This lesson shows how to build splines with the Python `pxr.Ts` helpers, attach them to a transform operation with `UsdAttribute.SetSpline`, and see how {term}`layer offsets <Layer Offset>` apply to spline-evaluated motion the same way they do for time samples. For the full rules engine that merges defaults, time samples, splines, and more, see {term}`value resolution <Value Resolution>`.
 
@@ -42,7 +46,7 @@ Stage timing metadata (`timeCodesPerSecond`, `startTimeCode`, `endTimeCode`) sti
 The embedded **3D previews** in this site use GLB conversion that keys off **time samples**, not raw spline payloads. Each example calls `DisplayUSD(..., bake_splines_for_display=True)`, which writes a temporary flattened USD and **evaluates splines into dense samples** for the viewer only. Your saved `_assets/*.usda` files stay spline-authored; open them in **usdview** to inspect splines directly.
 ```
 
-## Working with Python
+## Working With Python
 
 The `Ts` package provides `Ts.Spline`, `Ts.Knot`, `Ts.LoopParams`, and `Ts.Extrapolation`. You construct a spline for an attribute’s value type (for example `"float"`), add knots, optionally configure loop or extrapolation settings, then call `UsdAttribute.SetSpline`. Reading `attr.Get(timeCode)` evaluates the composed spline at that time, subject to layer time mapping.
 
@@ -59,6 +63,14 @@ spline.SetKnot(
         typeName=type_name,
         time=0,
         value=0,
+        nextInterp=Ts.InterpLinear,
+    )
+)
+spline.SetKnot(
+    Ts.Knot(
+        typeName=type_name,
+        time=48,
+        value=180,
         nextInterp=Ts.InterpLinear,
     )
 )
@@ -147,9 +159,9 @@ The `.spline` payload in USD text lists the loop parameters and knot data. At ev
 
 ### Example 2: Post extrapolation
 
-Without extrapolation, querying times past the last knot typically **holds** the last value. Setting **post extrapolation** to repeat the curve lets motion continue for the rest of the stage range (or until another rule applies).
+Without extrapolation, querying times past the last knot **holds** the last value. Setting **post extrapolation** lets motion continue for the rest of the stage range (or until another rule applies).
 
-This example rocks a cube on the Y axis from -12° to 12° over 60 frames, then repeats that pattern.
+This example rocks a cube on the Y axis from -12° to 12° over 60 frames, then keeps swinging by mirroring that segment with `Ts.ExtrapLoopOscillate`.
 
 ```{code-cell}
 :test-tags: [spline-animation-extrapolation]
@@ -192,14 +204,14 @@ spline.SetKnot(
         nextInterp=Ts.InterpCurve,
     )
 )
-spline.SetPostExtrapolation(Ts.Extrapolation(Ts.ExtrapLoopRepeat))
+spline.SetPostExtrapolation(Ts.Extrapolation(Ts.ExtrapLoopOscillate))
 rock_attr.SetSpline(spline)
 
 stage.Save()
 
-print(f"t=30 (within authored span): {rock_attr.Get(30)}")
-print(f"t=90 (first repeated cycle): {rock_attr.Get(90)}")
-print(f"t=120 (continued extrapolation): {rock_attr.Get(120)}")
+print(f"t=45 (within authored span): {rock_attr.Get(45):.2f}")
+print(f"t=75 (past the last knot, swinging back): {rock_attr.Get(75):.2f}")
+print(f"t=120 (one full oscillation later): {rock_attr.Get(120):.2f}")
 ```
 
 ```{code-cell}
@@ -207,7 +219,7 @@ print(f"t=120 (continued extrapolation): {rock_attr.Get(120)}")
 DisplayUSD(spline_extrap_path, show_usd_code=True, bake_splines_for_display=True)
 ```
 
-`Ts.ExtrapLoopRepeat` continues the spline by repeating the authored segment; the value step between cycles comes from the difference between the first and last knot values.
+`Ts.ExtrapLoopOscillate` continues the spline by mirroring the authored segment, so the cube swings back to -12° and repeats. Choose the mode that matches the motion: `Ts.ExtrapLoopRepeat` repeats the segment's *shape* and offsets each cycle by the difference between the first and last knot values, which would keep turning this cube in one direction instead of rocking it.
 
 ### Example 3: Layer offsets and spline time
 
@@ -278,9 +290,9 @@ print(f"At global t={t_query}, right rig X (offset +24): {late.Get(t_query)}")
 DisplayUSD(offset_scene_path, show_usd_code=True, bake_splines_for_display=True)
 ```
 
-The right instance sees source time \(t - 24\) at global time \(t\), so at global frame 24 it is only at the start of its slide. For deeper retiming, {term}`value clips <Value Clips>` remain the heavier-weight option.
+The right instance sees source time `t - 24` at global time `t`, so at global frame 24 it is only at the start of its slide. For deeper retiming, {term}`value clips <Value Clips>` remain the heavier-weight option.
 
-## Key takeaways
+## Key Takeaways
 
 1. **Splines complement time samples** on the same attributes: you can author smooth, looping, or extrapolated motion without dense sample lists, where tooling supports spline authoring.
 2. **`pxr.Ts` + `SetSpline`** is the usual Python path for constructing curves, inner loops, and extrapolation before saving USD.
