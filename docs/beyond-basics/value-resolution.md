@@ -1,5 +1,5 @@
 ---
-# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -68,12 +68,14 @@ Some metadata like prim {term}`specifier <Specifier>`, {term}`attribute <Attribu
 
 #### Resolving Attributes
 
-Attributes are special because they can combine several kinds of time-varying and static data at each location:
+Attributes are special because they can combine several kinds of time-varying and static data at each location. When more than one kind is authored at the same location, USD consults them in this order and uses the first one that has a value for the requested {term}`time code <Time Code>`:
 
-1. **{term}`Value clips <Value Clips>`** - Animation data stored in separate files
-2. **{term}`Time samples <Time Sample>`** - Specific values at specific times
-3. **{term}`Animation splines <Animation Spline>`** - Curve-based values (knots, tangents, loop and extrapolation settings) evaluated like samples at a given time code
-4. **{term}`Default value <Default Value>`** - A non-time-varying value
+1. **{term}`Time samples <Time Sample>`** - Specific values at specific times
+2. **{term}`Animation splines <Animation Spline>`** - Curve-based values (knots, tangents, loop and extrapolation settings) evaluated like samples at a given time code
+3. **{term}`Default value <Default Value>`** - A non-time-varying value
+4. **{term}`Value clips <Value Clips>`** - Animation data stored in separate files
+
+A practical consequence: authoring time samples on an attribute that already has a spline hides the spline entirely, and a `default` opinion at a location takes precedence over value clips introduced at that same location.
 
 Value resolution for animated data (clips, time samples, and splines) also accounts for time scaling and offset operators (e.g. {term}`Layer offsets <Layer Offset>`) and {term}`interpolation <Interpolation>` when a {term}`time code <Time Code>` falls between samples or along a spline segment.
 

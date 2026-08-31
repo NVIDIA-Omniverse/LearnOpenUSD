@@ -1,5 +1,5 @@
 ---
-# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +11,7 @@
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific governing permissions and
+# See the License for the specific language governing permissions and
 # limitations under the License.
 
 jupytext:
@@ -48,12 +48,23 @@ The embedded **3D previews** in this site use GLB conversion that keys off **tim
 
 ## Working With Python
 
-The `Ts` package provides `Ts.Spline`, `Ts.Knot`, `Ts.LoopParams`, and `Ts.Extrapolation`. You construct a spline for an attribute’s value type (for example `"float"`), add knots, optionally configure loop or extrapolation settings, then call `UsdAttribute.SetSpline`. Reading `attr.Get(timeCode)` evaluates the composed spline at that time, subject to layer time mapping.
+The `Ts` package provides `Ts.Spline`, `Ts.Knot`, `Ts.LoopParams`, and `Ts.Extrapolation`. You construct a spline for an attribute’s value type (for example `"float"`), add knots, optionally configure loop or extrapolation settings, then call `UsdAttribute.SetSpline`.
+
+```{attention}
+Splines are only supported on **floating-point scalar** attributes: `half`, `float`, and `double`. `Ts.Spline` raises an error for any other type name, so you cannot spline-animate `xformOp:translate` (a `double3`) directly. Use the single-axis transform ops instead—`xformOp:rotateZ` is a `float` and `xformOp:translateX` is a `double`—or author one spline per component. The examples below pass `attr.GetTypeName()` straight to `Ts.Spline` only because the ops they use are already scalar.
+```
+
+Reading `attr.Get(timeCode)` evaluates the composed spline at that time, subject to layer time mapping—**provided no time samples are authored for that attribute at a stronger or equal location**. Time samples win over splines during {term}`value resolution <Value Resolution>`, so an attribute carrying both returns the sampled value and `attr.HasSpline()` reports `False`.
+
+The snippet below is a complete, self-contained example:
 
 ```python
-from pxr import UsdGeom, Ts
+from pxr import Usd, UsdGeom, Ts
 
-# xform is a UsdGeom.Xformable
+stage = Usd.Stage.CreateInMemory()
+xform = UsdGeom.Xform.Define(stage, "/World/Spinner")
+
+# xformOp:rotateZ is a float attribute, which splines support
 spin = xform.AddRotateZOp(opSuffix="yaw")
 attr = spin.GetAttr()
 type_name = str(attr.GetTypeName())
@@ -296,7 +307,8 @@ The right instance sees source time `t - 24` at global time `t`, so at global fr
 
 1. **Splines complement time samples** on the same attributes: you can author smooth, looping, or extrapolated motion without dense sample lists, where tooling supports spline authoring.
 2. **`pxr.Ts` + `SetSpline`** is the usual Python path for constructing curves, inner loops, and extrapolation before saving USD.
-3. **Resolution is per time code**: `Get(t)` evaluates the composed spline (after strength ordering and time mapping), consistent with how samples and `timeCodesPerSecond` interact across layers.
-4. **Layer offsets retime splines** just like samples—plan for held behavior outside knot coverage if you rely on offsets or short authored ranges.
+3. **Splines are for `half`, `float`, and `double` attributes only**—animate single-axis transform ops, or one spline per component, rather than vector types like `double3`.
+4. **Resolution is per time code**: `Get(t)` evaluates the composed spline (after strength ordering and time mapping), consistent with how samples and `timeCodesPerSecond` interact across layers. Time samples at a stronger or equal location take precedence over a spline.
+5. **Layer offsets retime splines** just like samples—plan for held behavior outside knot coverage if you rely on offsets or short authored ranges.
 
 For how defaults, samples, splines, and clips combine in the attribute stack, see [Value resolution](value-resolution.md).
