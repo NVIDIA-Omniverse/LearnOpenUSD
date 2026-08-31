@@ -354,11 +354,11 @@ def test_create_stage(run_notebook):
 
 ### License Header
 
-Every new `.md` with executable code or `.py` file must include the Apache 2.0 SPDX license header:
+Every new `.md` with executable code or `.py` file must include the Apache 2.0 SPDX license header. Substitute the four-digit year the file is created for `<YEAR>`:
 
 ```markdown
 ---
-# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) <YEAR> NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

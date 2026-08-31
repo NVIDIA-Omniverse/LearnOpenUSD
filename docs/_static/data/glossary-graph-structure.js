@@ -15,6 +15,7 @@ const graphStructure = {
     nodes: [
         { id: 'Active and Inactive', label: 'Active and Inactive', category: 'stage-population' },
         { id: 'Animated Value', label: 'Animated Value', category: 'value-resolution' },
+        { id: 'Animation Spline', label: 'Animation Spline', category: 'value-resolution' },
         { id: 'API Schema', label: 'API Schema', category: 'schemas' },
         { id: 'Assembly', label: 'Assembly', category: 'multi-domain-schemas' },
         { id: 'Asset', label: 'Asset', category: 'multi-domain-schemas' },
@@ -126,6 +127,9 @@ const graphStructure = {
         { source: 'Attribute', target: 'Animated Value', label: 'may have' },
         { source: 'Attribute', target: 'Attribute Block', label: 'may have' },
         { source: 'Animated Value', target: 'Time Sample', label: 'contains' },
+        { source: 'Animated Value', target: 'Animation Spline', label: 'contains' },
+        { source: 'Animation Spline', target: 'Time Code', label: 'contains' },
+        { source: 'Animation Spline', target: 'Interpolation', label: 'has' },
         { source: 'Time Sample', target: 'Time Code', label: 'contains' },
         { source: 'Time Sample', target: 'Interpolation', label: 'has' },
         { source: 'Property', target: 'Property Stack', label: 'has' },

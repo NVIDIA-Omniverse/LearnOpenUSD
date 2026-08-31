@@ -19,7 +19,17 @@ Animated Value
     Attributes can store time-varying data using time samples (discrete time-value pairs) or animation splines, and USD automatically interpolates between these data points when you query an attribute at a specific time. An attribute can have both a static default value and animated values, with the animated values taking precedence when querying at specific time codes.
 
     **Also Known As:** *time-varying value, time-sampled value*  
-    **Further Reading**: [Time Codes and Time Samples](<./stage-setting/timecodes-timesamples.md>), [Animated Value -- OpenUSD.org](<inv:usd:std#glossary:animated value>)
+    **Further Reading**: [Time Codes and Time Samples](<./stage-setting/timecodes-timesamples.md>), [Spline Animation](<./beyond-basics/spline-animation.md>), [Animated Value -- OpenUSD.org](<inv:usd:std#glossary:animated value>)
+
+
+Animation Spline
+
+    An animation spline is curve-based animation authored directly on an attribute, defined by knots rather than by a dense list of time samples.
+
+    Each knot pairs a time with a value and carries tangent data and an interpolation mode for the segment that follows it, so a spline can describe smooth motion from very few keys. Splines also support inner loops (repeating a prototype segment with an optional value offset) and extrapolation beyond the authored knot range (held, linear, or looping). An attribute resolves splines alongside its default value, time samples, and value clips during value resolution, and splines are retimed by layer offsets just like time samples.
+
+    **Also Known As:** *spline, curve animation*  
+    **Further Reading**: [Spline Animation](<./beyond-basics/spline-animation.md>), [Spline -- OpenUSD.org](<inv:usd:std#glossary:spline>), [Using Splines -- OpenUSD.org](<inv:usd:std#user_guides/time_and_animated_values:using splines>)
 
 
 API Schema
@@ -637,9 +647,9 @@ Time Sample
 
     A time sample is a time-value pair that defines an attribute's value at a specific time.
 
-    Time samples are the most common way to author animated values in USD, stored as an ordered collection of time code and value pairs. When querying an attribute at a time code that doesn't exactly match an authored time sample, USD uses interpolation (linear by default) between neighboring samples. Multiple time samples can be authored efficiently and sparsely, with USD automatically handling interpolation and temporal queries.
+    Time samples are the most common way to author animated values in USD, stored as an ordered collection of time code and value pairs. When querying an attribute at a time code that doesn't exactly match an authored time sample, USD uses interpolation (linear by default) between neighboring samples. Multiple time samples can be authored efficiently and sparsely, with USD automatically handling interpolation and temporal queries. Animation splines are the alternative for floating-point attributes, describing motion as a curve through knots instead of a dense list of samples; where both are authored at the same site, time samples win.
 
-    **Further Reading**: [Time Codes and Time Samples](<./stage-setting/timecodes-timesamples.md>), [TimeSample -- OpenUSD.org](<inv:usd:std#glossary:timesample>)
+    **Further Reading**: [Time Codes and Time Samples](<./stage-setting/timecodes-timesamples.md>), [Spline Animation](<./beyond-basics/spline-animation.md>), [TimeSample -- OpenUSD.org](<inv:usd:std#glossary:timesample>)
 
 Value Clips
 
@@ -654,9 +664,9 @@ Value Resolution
 
     Value resolution is the process of determining the final composed value for a property or metadata from all contributing opinions.
 
-    When querying attributes, USD traverses the composition index in strength order to find the strongest opinion, evaluating defaults, time samples, splines, blocks, and connections according to LIVERPS. Value resolution also handles interpolation for animated values and applies layer offsets from composition arcs. USD also has unique algorithms for resolving relationships and metadata values.
+    When querying attributes, USD traverses the composition index in LIVERPS strength order to find the strongest opinion, also accounting for blocks and connections. LIVERPS orders the contributing sites; at a single site, USD consults time samples, then animation splines, then the default value, then value clips, using the first that has a value for the requested time code. Value resolution also handles interpolation for animated values and applies layer offsets from composition arcs. USD also has unique algorithms for resolving relationships and metadata values.
 
-    **Further Reading**: [What Is Value Resolution?](<./beyond-basics/value-resolution.md>), [Value Resolution -- OpenUSD.org](<inv:usd:std#glossary:value resolution>)
+    **Further Reading**: [What Is Value Resolution?](<./beyond-basics/value-resolution.md>), [Spline Animation](<./beyond-basics/spline-animation.md>), [Value Resolution -- OpenUSD.org](<inv:usd:std#glossary:value resolution>)
 
 Variability
 

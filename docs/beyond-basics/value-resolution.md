@@ -1,5 +1,5 @@
 ---
-# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,9 +36,7 @@ Value resolution is how OpenUSD figures out the final value of a {term}`property
 
 Even though value resolution combines many pieces of data together, it's different from composition. Understanding this difference helps you work with USD more effectively.
 
-```{note}
-Animation splines were recently added to OpenUSD and are also part of value resolution. We'll update this lesson to include them soon.
-```
+Animated attributes can be driven by {term}`time samples <Time Sample>` or by {term}`animation splines <Animation Spline>` (curve data authored on the attribute). In both cases, value resolution evaluates the result at the requested {term}`time code <Time Code>`, including temporal mapping from {term}`layer offsets <Layer Offset>` and frame-rate reconciliation for `timeCodesPerSecond`. See [Spline Animation](spline-animation.md) for authoring splines with the `pxr.Ts` API.
 
 ## How Does It Work?
 
@@ -62,7 +60,7 @@ Animation splines were recently added to OpenUSD and are also part of value reso
 
 For most metadata, the rule is simple: **the strongest opinion wins**. Think of it like a voting system where the most authoritative source gets the final say.
 
-Some metadata like prim {term}`specifier <Specifier>`, {term}`attribute <Attribute>` typeName, and several others have special resolution rules. A common metadata type you may encount with special resolution rules are dictionaries (like `customData`). Dictionaries combine element by element, so if one layer has `customData["keyOne"]` and another has `customData["keyTwo"]`, the final result will have both keys.
+Some metadata like prim {term}`specifier <Specifier>`, {term}`attribute <Attribute>` typeName, and several others have special resolution rules. A common metadata type you may encounter with special resolution rules are dictionaries (like `customData`). Dictionaries combine element by element, so if one layer has `customData["keyOne"]` and another has `customData["keyTwo"]`, the final result will have both keys.
 
 #### Resolving Relationships
 
@@ -70,13 +68,16 @@ Some metadata like prim {term}`specifier <Specifier>`, {term}`attribute <Attribu
 
 #### Resolving Attributes
 
-Attributes are special because they have three possible sources of values at each location:
+Attributes are special because they can combine several kinds of time-varying and static data at each location. When more than one kind is authored at the same location, USD consults them in this order and uses the first one that has a value for the requested {term}`time code <Time Code>`:
 
-1. **{term}`Value clips <Value Clips>`** - Animation data stored in separate files
-2. **{term}`Time samples <Time Sample>`** - Specific values at specific times
+1. **{term}`Time samples <Time Sample>`** - Specific values at specific times
+2. **{term}`Animation splines <Animation Spline>`** - Curve-based values (knots, tangents, loop and extrapolation settings) evaluated like samples at a given time code
 3. **{term}`Default value <Default Value>`** - A non-time-varying value
+4. **{term}`Value clips <Value Clips>`** - Animation data stored in separate files
 
-Value resolution of attributes in the first two cases also account for time scaling and offset operators (e.g. {term}`Layer offsets <Layer Offset>`) and {term}`interpolation <Interpolation>` for {term}`time codes <Time Code>` that fall between two explicit time samples.
+A practical consequence: authoring time samples on an attribute that already has a spline hides the spline entirely, and a `default` opinion at a location takes precedence over value clips introduced at that same location.
+
+Value resolution for animated data (clips, time samples, and splines) also accounts for time scaling and offset operators (e.g. {term}`Layer offsets <Layer Offset>`) and {term}`interpolation <Interpolation>` when a {term}`time code <Time Code>` falls between samples or along a spline segment.
 
 ## Working With Python
 
