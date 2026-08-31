@@ -51,7 +51,9 @@ The embedded **3D previews** in this site use GLB conversion that keys off **tim
 The `Ts` package provides `Ts.Spline`, `Ts.Knot`, `Ts.LoopParams`, and `Ts.Extrapolation`. You construct a spline for an attribute’s value type (for example `"float"`), add knots, optionally configure loop or extrapolation settings, then call `UsdAttribute.SetSpline`.
 
 ```{attention}
-Splines are only supported on **floating-point scalar** attributes: `half`, `float`, and `double`. `Ts.Spline` raises an error for any other type name, so you cannot spline-animate `xformOp:translate` (a `double3`) directly. Use the single-axis transform ops instead—`xformOp:rotateZ` is a `float` and `xformOp:translateX` is a `double`—or author one spline per component. The examples below pass `attr.GetTypeName()` straight to `Ts.Spline` only because the ops they use are already scalar.
+Splines are only supported on **floating-point scalar** attributes: `half`, `float`, and `double`. `Ts.Spline` raises an error for any other type name, so the multi-axis transform ops cannot be splined directly: `AddTranslateOp`, `AddRotateXYZOp`, and `AddScaleOp` all produce a 3-component type (`float3`, `double3`, or `half3`, depending on the precision you request).
+
+Use the single-axis ops instead, or author one spline per component. Single-axis ops are always scalar—`AddRotateZOp` yields a `float` by default and `AddTranslateXOp` a `double`, and passing `UsdGeom.XformOp.PrecisionHalf` or `PrecisionDouble` still gives you `half` or `double`. That is why the examples below can pass `attr.GetTypeName()` straight to `Ts.Spline`: every precision those ops can produce is one splines support.
 ```
 
 Reading `attr.Get(timeCode)` evaluates the composed spline at that time, subject to layer time mapping—**provided no time samples are authored for that attribute at a stronger or equal location**. Time samples win over splines during {term}`value resolution <Value Resolution>`, so an attribute carrying both returns the sampled value and `attr.HasSpline()` reports `False`.
