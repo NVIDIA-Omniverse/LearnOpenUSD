@@ -1,0 +1,1436 @@
+{
+  "comp-01": {
+    "source": "creating-composition-arcs__strength-ordering__what-is-liverps.txt",
+    "verdict": "ok",
+    "quote": "Local opinions are ordered first (strongest)",
+    "reason": "LIVERPS page states local opinions are consulted first/strongest; a local opinion includes any of its recursive sublayers."
+  },
+  "comp-02": {
+    "source": "creating-composition-arcs__sublayers__what-are-sublayers.txt",
+    "verdict": "ok",
+    "quote": "the first layer is stronger than the last layer",
+    "reason": "First-listed sublayer is stronger, so the first sublayer's opinion (50) wins."
+  },
+  "comp-03": {
+    "source": "creating-composition-arcs__strength-ordering__what-is-liverps.txt",
+    "verdict": "reattribute",
+    "quote": "Local opinions are ordered first (strongest)",
+    "reason": "Cited tracing page only demonstrates local-vs-sublayer, not local-vs-reference. LIVERPS page states local opinions are strongest, ahead of reference (R) opinions, supporting that the local (0,1,0) beats the referenced color."
+  },
+  "comp-04": {
+    "source": "creating-composition-arcs__references-payloads__what-are-references.txt",
+    "verdict": "ok",
+    "quote": "References graft a prim hierarchy from one layer onto a prim of another layer",
+    "reason": "References graft content with prim name change and path translation onto distinct target prims."
+  },
+  "comp-05": {
+    "source": "creating-composition-arcs__references-payloads__what-are-payloads.txt",
+    "verdict": "ok",
+    "quote": "Payloads are like references, but with the added ability of being able to load and unload payloads on demand",
+    "reason": "Supports C (deferrable/load-unload on demand) and E (payloads weaker than references in LIVRPS)."
+  },
+  "comp-06": {
+    "source": "creating-composition-arcs__inherits-specializes__what-is-inherits.txt",
+    "verdict": "ok",
+    "quote": "it is broadcast and applied to all prims that inherit it",
+    "reason": "Editing the inherit source broadcasts to all inheriting prims, which a reference (isolated instances) could not do."
+  },
+  "comp-07": {
+    "source": "creating-composition-arcs__strength-ordering__what-is-liverps.txt",
+    "verdict": "ok",
+    "quote": "Opinions from inherit arcs are ordered next",
+    "reason": "Inherits are ordered immediately after local opinions, thus stronger than variant set and reference opinions."
+  },
+  "comp-08": {
+    "source": "creating-composition-arcs__inherits-specializes__what-is-specializes.txt",
+    "verdict": "ok",
+    "quote": "The spec from the specializes source prim is applied to all specializes destination prims if there isn’t another authored opinion for that spec",
+    "reason": "Specializes opinions apply only as a fallback (when no other opinion exists); the page describes specializes as fallback values."
+  },
+  "comp-09": {
+    "source": "composition-basics__variant-sets.txt",
+    "verdict": "ok",
+    "quote": "A variant selection can be authored on the same layer that defines the set or in a different layer that references the prim, so each reference can pick a different option",
+    "reason": "Only the selected variant composes (page: 'composes the opinions authored for that variant') and the selection may be authored in a different referencing layer."
+  },
+  "comp-10": {
+    "source": "composition-basics__default-prim.txt",
+    "verdict": "ok",
+    "quote": "If no defaultPrim is set then when the above .usda is brought in as a payload or reference it will resolve as an empty layer and output a warning message in the log",
+    "reason": "defaultPrim names the entry-point prim; if unset the layer resolves empty with a warning and usdchecker reports an error (page also: 'usdchecker checks for a default prim and reports an error if it is not set')."
+  },
+  "comp-11": {
+    "source": "creating-composition-arcs__variant-sets__what-are-variant-sets.txt",
+    "verdict": "ok",
+    "quote": "Changing reference paths - Swapping which layer files are brought into the scene",
+    "reason": "Changing a reference path (and changing activation) is the heavyweight variant operation requiring composition rebuild."
+  },
+  "comp-12": {
+    "source": "creating-composition-arcs__references-payloads__what-are-references.txt",
+    "verdict": "ok",
+    "quote": "References graft a prim hierarchy from one layer onto a prim of another layer",
+    "reason": "References graft with name/path translation; the partner sublayer page states sublayers include 'without any remapping'. Reference page supports the graft-with-translation half (referenced prim 'undergoes a prim name change and path translations')."
+  },
+  "comp-13": {
+    "source": "composition-basics__references.txt",
+    "verdict": "ok",
+    "quote": "internal references, which graft data from other parts of the hierarchy",
+    "reason": "An internal reference (file identifier omitted) targets a prim within the same layer; page: identifier 'can be omitted for internal references'."
+  },
+  "comp-14": {
+    "source": "composition-basics__specifiers.txt",
+    "verdict": "ok",
+    "quote": "Prims that resolve to class specifiers will also be present and composed on a stage, but won’t be visited by default stage traversals, meaning it will be ignored by traversals such as those used for rendering",
+    "reason": "class is an abstract specifier intended as a composition-arc source, not rendered nor visited by default traversal."
+  },
+  "comp-15": {
+    "source": "composition-basics__specifiers.txt",
+    "verdict": "ok",
+    "quote": "over, the weakest specifier",
+    "reason": "over is the weakest specifier and holds non-destructive overrides for opinions that already exist on another layer."
+  },
+  "comp-16": {
+    "source": "composition-basics__default-prim.txt",
+    "verdict": "ok",
+    "quote": "This method accepts any Usd.Prim, but the prim must be a top-level prim on the stage",
+    "reason": "Valid defaultPrim must be a top-level prim (C) and is recorded in layer metadata (A) (page: 'A default prim ... is part of the layer metadata')."
+  },
+  "comp-17": {
+    "source": "creating-composition-arcs__variant-sets__what-are-variant-sets.txt",
+    "verdict": "ok",
+    "quote": "We can author new composition arcs that would only exist in the variant.",
+    "reason": "A reference authored inside a variant only participates while that variant is selected."
+  },
+  "comp-18": {
+    "source": "glossary.txt",
+    "verdict": "ok",
+    "quote": "A layer offset adjusts time values when composing layers through sublayers, references, or payloads.",
+    "reason": "Layer offset shifts (offset) and scales time of referenced/sublayered animation."
+  },
+  "comp-19": {
+    "source": "creating-composition-arcs__references-payloads__what-are-payloads.txt",
+    "verdict": "ok",
+    "quote": "Payloads are weaker than references in the composition strength order (LIVRPS).",
+    "reason": "References are stronger than payloads in LIVRPS, so the reference opinion wins."
+  },
+  "comp-20": {
+    "source": "glossary",
+    "verdict": "reattribute",
+    "quote": "To flatten a stage, use UsdStage::Flatten or usdcat\nwith the --flatten option.\nTo flatten individual layer stacks, use\nUsdUtilsFlattenLayerStack",
+    "reason": "Learn glossary supports B (flatten bakes all arcs into single layer) but NOT D. Official OpenUSD glossary distinguishes flattening a stage (UsdStage::Flatten) from flattening a layer stack (UsdUtilsFlattenLayerStack), supporting D; and 'bake down the composition into a single layer' supports B."
+  },
+  "comp-g01": {
+    "source": "creating-composition-arcs__strength-ordering__what-is-liverps.txt",
+    "verdict": "ok",
+    "quote": "OpenUSD recently introduced a new composition arc called “relocates,” which is now included in the strength ordering acronym. What was previously known as LIVRPS is now LIVERPS, with the “E” representing rElocates.",
+    "reason": "The new 'E' arc is rElocates. Its position (between variants and references) is per glossary ('Relocates are stronger than references but weaker than variants'); the cited page establishes that E = relocates was newly added to LIVRPS->LIVERPS."
+  },
+  "comp-g02": {
+    "source": "glossary",
+    "verdict": "reattribute",
+    "quote": "Note that these paths can only be prim paths, not property paths.",
+    "reason": "Learn glossary states relocates 'remaps prim paths' in layer metadata but not the prim-only constraint. Official OpenUSD glossary states it verbatim: defined in layer metadata as source->target mappings that can only be prim paths, not property paths, and non-destructively rename/reparent."
+  },
+  "comp-g03": {
+    "source": "glossary",
+    "verdict": "reattribute",
+    "quote": "A prepended composition arc in a weaker layer of a\nLayerStack will still be stronger than any arcs of the same type\nthat are appended from stronger layers.",
+    "reason": "Learn glossary has only generic list-editing text. Official glossary states D (weak-layer prepend still stronger than strong-layer append) and C (appended arc placed at back / weaker)."
+  },
+  "comp-g04": {
+    "source": "glossary",
+    "verdict": "reattribute",
+    "quote": "Relationships, References, Inherits,\nSpecializes, VariantSets, and integer and string/token array custom\nmetadata can be list edited.",
+    "reason": "Learn glossary lists only 'composition arcs, relationships, and variant sets'; the custom-metadata-array claim (D) is only in the official glossary, which also confirms C (relationships) and E (references/inherits/specializes/variant sets)."
+  },
+  "comp-g05": {
+    "source": "glossary",
+    "verdict": "reattribute",
+    "quote": "Note that the “S” is not present - we\nignore Specializes arcs while recursing",
+    "reason": "Learn glossary lacks this detail. Official glossary: during recursion into other arcs the 'S' is ignored, and full LIVERPS evaluation is re-applied only when resolving specializes targets ('recursively applying *full* LIVERPS evaluation on each target prim')."
+  },
+  "comp-g06": {
+    "source": "glossary",
+    "verdict": "reattribute",
+    "quote": "Layer offsets compose, so that if A references\nB with a time-scale of 2.0 and B references C with a time-scale of\n3.5, then data resolved at A whose source is C will have a total\ntime-scale of 7.0 applied to it.",
+    "reason": "Learn glossary states scale multiplies time codes but gives no chaining example. Official glossary states the exact 2.0x3.5=7.0 chain (offsets multiply through the chain of arcs)."
+  },
+  "comp-g07": {
+    "source": "creating-composition-arcs__strength-ordering__what-is-liverps.txt",
+    "verdict": "ok",
+    "quote": "the opinions in sublayer1A.usda and sublayer1B.usda are stronger than opinions in sublayer2.usda, because they are sublayers of sublayer1.usda",
+    "reason": "Depth-first recursive gathering makes sublayer1B (a sublayer of higher-listed sublayer1) stronger than sublayer2."
+  },
+  "comp-g08": {
+    "source": "creating-composition-arcs__inherits-specializes__experimenting-with-specializes.txt",
+    "verdict": "ok",
+    "quote": "We can see here that our main roads all have maxspeed of 40 however, our side roads still have a maxspeed of 20 from when we authored it",
+    "reason": "Main streets pick up the new 40 fallback; side streets keep their directly authored 20 because direct opinions beat the specializes fallback."
+  },
+  "comp-g09": {
+    "source": "creating-composition-arcs__inherits-specializes__experimenting-with-encapsulation-refinement.txt",
+    "verdict": "ok",
+    "quote": "Global refinement takes advantage of inherit arc targets where the target path never changes. A path outside of encapsulation never gets re-pathed on reference.",
+    "reason": "Unencapsulated inherit-target class path is never re-pathed on reference, so overriding it broadcasts globally to all inheriting prims (global refinement)."
+  },
+  "comp-g10": {
+    "source": "creating-composition-arcs__encapsulation__experimenting-with-encapsulation.txt",
+    "verdict": "ok",
+    "quote": "This is because the material was not encapsulated within World and our reference is targeting World as the source prim.",
+    "reason": "Referencing the inner Cube drops the material binding (material lives outside the reference scope) and USD emits a composition warning ('refers to a path outside the scope of the reference ... Ignoring')."
+  },
+  "comp-g11": {
+    "source": "creating-composition-arcs__variant-sets__what-are-variant-sets.txt",
+    "verdict": "ok",
+    "quote": "Variants can be used to author new composition arcs that would only exist within that variant.",
+    "reason": "A selected variant can sparsely override properties, define new descendant prims, and author new composition arcs (e.g. a reference) that exist only within that variant."
+  },
+  "comp-g12": {
+    "source": "creating-composition-arcs__references-payloads__what-are-references.txt",
+    "verdict": "ok",
+    "quote": "References can be external, targeting a prim from a different layer, or they can be internal, targeting a prim within the same USD layer.",
+    "reason": "Omitting the asset identifier (only a prim path) makes it an internal reference within the same layer; supplying an asset path makes it external."
+  },
+  "comp-m01": {
+    "source": "creating-composition-arcs__sublayers__what-are-sublayers.txt",
+    "verdict": "ok",
+    "quote": "Sublayers are a list of USD layers that are ordered by opinion strength (i.e. the first layer is stronger than the last layer). Each layer overlays on top of each other and provides opinions (specs). When a layer is composed as a sublayer, all of its contents are added to the destination layer in an “include” fashion without any remapping.",
+    "reason": "Supports A (include fashion, no path remapping) and B (ordered list, first stronger than last)."
+  },
+  "comp-m02": {
+    "source": "creating-composition-arcs__references-payloads__what-are-references.txt",
+    "verdict": "ok",
+    "quote": "References graft a prim hierarchy from one layer onto a prim of another layer, making them ideal for modularity and reusability.",
+    "reason": "Supports A (graft for modularity/reusability) and C (references can be external or internal: 'References can be external ... or they can be internal')."
+  },
+  "comp-m03": {
+    "source": "creating-composition-arcs__references-payloads__what-are-payloads.txt",
+    "verdict": "ok",
+    "quote": "Payload composition arcs can be applied to the same prim in a list-editable way, just like references.",
+    "reason": "Supports A (list-editable like references), C (payloads weaker than references in LIVRPS), and D (loaded/unloaded on demand vs references always composed)."
+  },
+  "comp-m04": {
+    "source": "creating-composition-arcs__variant-sets__what-are-variant-sets.txt",
+    "verdict": "ok",
+    "quote": "A variant set is added to a prim and its variants can manipulate the prim and any of its descendants.",
+    "reason": "Supports A (define new descendant prims), B (author new composition arcs only within the variant), D (sparsely override properties on prim or descendant)."
+  },
+  "comp-m05": {
+    "source": "creating-composition-arcs__variant-sets__what-are-variant-sets.txt",
+    "verdict": "ok",
+    "quote": "Changing reference paths - Swapping which layer files are brought into the scene\nChanging activation opinions - Activating or deactivating prims, which affects what gets composed",
+    "reason": "Heavyweight variant ops are changing reference paths (D) and changing activation opinions (E)."
+  },
+  "comp-m06": {
+    "source": "creating-composition-arcs__inherits-specializes__what-is-inherits.txt",
+    "verdict": "ok",
+    "quote": "Hydra does not image (or render) a prim with a class specifier or any of its descendants.",
+    "reason": "Supports A (Hydra does not render a class prim or descendants) and E (modifications to the inherit source are broadcast to all inheriting prims within the authoring context: 'broadcast and applied to all prims that inherit it')."
+  },
+  "comp-m07": {
+    "source": "creating-composition-arcs__strength-ordering__what-is-liverps.txt",
+    "verdict": "ok",
+    "quote": "A layer stack is the ordered set of layers resulting from the recursive gathering of all sublayers of a layer, plus the layer itself as first and strongest.",
+    "reason": "Supports E (layer stack = recursively gathered sublayers plus the layer itself as first/strongest), D (direct opinions in root and recursive sublayers are all local), and B (local strongest, specialize weakest: 'local opinions being the strongest and specialize arcs being the weakest')."
+  },
+  "gen2027-001": {
+    "source": "creating-composition-arcs__strength-ordering__tracing-through-liverps.txt",
+    "verdict": "ok",
+    "quote": "workstreamA.usd still contains the winning opinion because it has a Local opinion where the root layer and other sublayer do not",
+    "reason": "The weaker sublayer (workstreamA) holds the only local opinion for the attribute, so it wins because no stronger layer authors it."
+  },
+  "gen2027-002": {
+    "source": "creating-composition-arcs__strength-ordering__what-is-liverps.txt",
+    "verdict": "ok",
+    "quote": "Opinions from inherit arcs are ordered next",
+    "reason": "Inherits are evaluated before variant sets and references in LIVERPS, so the inherit arc's color wins."
+  },
+  "gen2027-003": {
+    "source": "creating-composition-arcs__inherits-specializes__what-is-inherits.txt",
+    "verdict": "ok",
+    "quote": "The broadcast only applies to the context in which it is authored. The opinion authored in Scenario_A doesn’t affect Scenario_B.",
+    "reason": "Overriding the inherited class broadcasts to every inheriting prim but only within this scene's context; other scenes are unaffected."
+  },
+  "gen2027-004": {
+    "source": "creating-composition-arcs__inherits-specializes__experimenting-with-encapsulation-refinement.txt",
+    "verdict": "ok",
+    "quote": "Global refinement takes advantage of inherit arc targets where the target path never changes. A path outside of encapsulation never gets re-pathed on reference.",
+    "reason": "Overriding the unencapsulated /_cube_asset is the global refinement: its target path lies outside encapsulation, is never re-pathed on reference, so the override reaches every inheriting prim."
+  },
+  "gen2027-005": {
+    "source": "creating-composition-arcs__inherits-specializes__experimenting-with-specializes.txt",
+    "verdict": "ok",
+    "quote": "When we change the red fallback value to a magenta fallback, the other two are unaffected. The other two cubes have an authored opinion apart from the specializes arc",
+    "reason": "Only the cube with no authored diffuseColor turns magenta; the two cubes with their own authored opinion ignore the changed specializes fallback."
+  },
+  "gen2027-006": {
+    "source": "creating-composition-arcs__variant-sets__what-are-variant-sets.txt",
+    "verdict": "ok",
+    "quote": "We can author new composition arcs that would only exist in the variant. For example, one variant can reference a blue material from a materials layer",
+    "reason": "A variant can author a new composition arc (a reference) that exists only in that variant; when inactive that reference is not composed (only selected variant's opinions compose)."
+  },
+  "gen2027-007": {
+    "source": "creating-composition-arcs__variant-sets__what-are-variant-sets.txt",
+    "verdict": "ok",
+    "quote": "These operations are lightweight because USD doesn’t need to rebuild the composed scene structure. The stage’s composition index remains the same, and only the final resolved values change.",
+    "reason": "Changing an attribute value is lightweight (composition index unchanged); swapping referenced files is heavyweight, so the 'color' attribute-value set is preferable for frequent toggling."
+  },
+  "gen2027-008": {
+    "source": "creating-composition-arcs__references-payloads__what-are-references.txt",
+    "verdict": "ok",
+    "quote": "Sublayering a layer multiple times won’t work in this case. In the above image, the same sphere would just be redefined three times because there is no way to specify that the copies of the sphere should be defined at different paths",
+    "reason": "Reference the layer onto three differently named prims; sublayering only overlays specs at the same path so the spheres redefine each other."
+  },
+  "gen2027-009": {
+    "source": "creating-composition-arcs__references-payloads__what-are-payloads.txt",
+    "verdict": "ok",
+    "quote": "Payloads are like references, but with the added ability of being able to load and unload payloads on demand.",
+    "reason": "Reference the skyscraper twice (sublayering would overwrite it) and payload the heavy city block so it can be loaded/unloaded on demand."
+  },
+  "gen2027-010": {
+    "source": "creating-composition-arcs__encapsulation__experimenting-with-encapsulation.txt",
+    "verdict": "ok",
+    "quote": "This is because the material was not encapsulated within World and our reference is targeting World as the source prim.",
+    "reason": "Material binding breaks because the material under World is outside the scope of a Cube-sourced reference (D); USD warns it 'refers to a path outside the scope of the reference ... Ignoring' (E); referencing World would have kept the binding (A)."
+  },
+  "gen2027-011": {
+    "source": "glossary",
+    "verdict": "reattribute",
+    "quote": "Note that the “S” is not present - we\nignore Specializes arcs while recursing",
+    "reason": "Cited LIVERPS page only states 'LIVRPS applies recursively within each composition context' (supports B) but does NOT state the specializes-skip behavior (C). Official glossary states S is ignored while recursing into other arcs, supporting C; and LIVERPS is applied recursively within each layer stack, supporting B."
+  },
+  "agg-01": {
+    "source": "asset-modularity-instancing__authoring-scenegraph-instancing__scenegraph-instancing-intro.txt",
+    "verdict": "ok",
+    "quote": "Instancing is driven by your composition arcs. There are no composition arcs on the instanceable prims so there’s nothing to generate prototypes from.",
+    "reason": "Correct answer A: no composition arc means no shared source to build an implicit prototype. Page states instancing is driven by composition arcs and with none there is nothing to generate prototypes from."
+  },
+  "agg-02": {
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-instance-refinement.txt",
+    "verdict": "ok",
+    "quote": "Even though you cannot edit instances, you can refine them. What we call refinement are permissible edits on the instanceable prim that can have one of these effects:\n\nThe edit is natively inherited by the instance.\nThe edit creates a change in the composition of that instance and it triggers the creation of a new prototype.",
+    "reason": "Correct answers B (deinstance) and D (variant set) are refinement techniques listed/linked on this intro page (Deinstancing and Refinement Using Variant Sets are enumerated). Variant set selection triggers a new prototype; deinstancing makes the interior editable."
+  },
+  "agg-03": {
+    "source": "asset-modularity-instancing__authoring-point-instancing__point-instancing-intro.txt",
+    "verdict": "ok",
+    "quote": "The PointInstancer includes the following mandatory properties:\n\nprototypes: A relationship targeting the prim hierarchies that the PointInstancer should use as instance prototypes.\nprotoIndices Declares an instance of a prototype. Each element in the array maps a point to a prototype id.\npositions The points in local space where each instance is located.",
+    "reason": "Correct answer D (prototypes, protoIndices, positions) matches the three mandatory properties stated verbatim."
+  },
+  "agg-04": {
+    "source": "asset-modularity-instancing__refining-point-instances.txt",
+    "verdict": "ok",
+    "quote": "A good rule of thumb is that if you need to animate an instance on and off over time, you should use invisibleIds, otherwise, use inactiveIds.",
+    "reason": "Correct answer B (invisibleIds, animatable on/off, preserves instance data) is supported: invisibleIds is the property for animating instances on and off over time without removing them."
+  },
+  "agg-05": {
+    "source": "asset-modularity-instancing__authoring-point-instancing__point-instancing-intro.txt",
+    "verdict": "ok",
+    "quote": "prototypes: A relationship targeting the prim hierarchies that the PointInstancer should use as instance prototypes.\nprotoIndices Declares an instance of a prototype. Each element in the array maps a point to a prototype id.",
+    "reason": "Correct answer A: add the prototype path to the prototypes relationship, then set protoIndices to its index. Both steps are described by the definitions of prototypes (relationship targeting prototype hierarchies) and protoIndices (maps a point to a prototype id)."
+  },
+  "agg-06": {
+    "source": "asset-modularity-instancing__instancing-faq.txt",
+    "verdict": "ok",
+    "quote": "Good for reusing complex components (e.g. shelf assemblies, robots)",
+    "reason": "Correct answer B: scenegraph instancing is 'Good for reusing complex components' while point instancing is 'Good for massive numbers of simpler items where the overhead of an instance outweighs the benefits of reuse. (e.g. leaves on trees)'. Both statements appear on the FAQ page."
+  },
+  "agg-07": {
+    "source": "pointinstancer",
+    "verdict": "ok",
+    "quote": "Apply (most locally) the authored local to parent transformation for prototypes[protoIndices[i]]",
+    "reason": "Correct answer D (prototype root transform, then per-instance scale/orient/position, then PointInstancer prim transform). Official page: prototype root applied most locally, then scale/orientation/position, then 'Least locally, apply the transformation authored on the PointInstancer prim itself'."
+  },
+  "agg-08": {
+    "source": "asset-modularity-instancing__refining-point-instances.txt",
+    "verdict": "ok",
+    "quote": "Primvars using vertex interpolation will be applied per instance. Like scenegraph instancing, you can introduce a lot of diversity in your point instances by using prototypes that read primvars.",
+    "reason": "Correct answer D: author a primvar with vertex interpolation on the PointInstancer so the prototype's shader reads a per-instance value. Page states vertex-interpolation primvars are applied per instance and prototypes read primvars."
+  },
+  "agg-09": {
+    "source": "asset-structure__model-hierarchy__what-are-model-kinds.txt",
+    "verdict": "ok",
+    "quote": "Since the component model kind denotes a “leaf” asset or pruning point in the model hierarchy,  component models cannot contain other component models as descendants.",
+    "reason": "Correct answer C: a component is a leaf and cannot contain other components; ancestors must be group/assembly. Page states component models cannot contain other component models and 'All ancestors of a component model must have their kind metadata set to either a group or a subkind of group, such as assembly.'"
+  },
+  "exch-01": {
+    "source": "stage-setting__usd-file-formats.txt",
+    "verdict": "ok",
+    "quote": "USDZ is an atomic, uncompressed, zipped archive so that we can deliver all of the necessary assets together. We would not use USDZ if we are still making edits to the asset, but it is a great way to package and ship our asset when it is complete. For example, a mesh with its texture files can be delivered as one archive.",
+    "reason": "Correct answer C (USDZ via usdzip/UsdUtils.CreateNewUsdzPackage): page describes USDZ as the archive bundling a USD file with its textures as one portable unit. usdzip tooling is study-guide/toolset knowledge; the format role is verbatim here."
+  },
+  "exch-02": {
+    "source": "stage-setting__usd-file-formats.txt",
+    "verdict": "ok",
+    "quote": "Reserve usda text for small, human‑readable “interface” layers that mostly reference or sublayer other files, and for debugging or diffing.",
+    "reason": "Correct answer B (USDA, human-readable ASCII for debugging/diffing): page explicitly reserves usda text for small interface/reference layers and for debugging or diffing."
+  },
+  "exch-03": {
+    "source": "data-exchange__data-exchange__what-is-data-exchange.txt",
+    "verdict": "ok",
+    "quote": "Data exchange is typically lossy. Not every data model can be mapped directly.",
+    "reason": "Correct answer C: data exchange gets data into/out of USD and is typically lossy since not every model maps 1:1. Page asks 'How do I get my data into USD?' and 'out of USD?' and states exchange is typically lossy."
+  },
+  "exch-04": {
+    "source": "data-exchange__data-exchange__what-is-data-exchange.txt",
+    "verdict": "ok",
+    "quote": "A standalone converter is a script, executable or microservice dedicated to translating to and from another file format.",
+    "reason": "Correct answers B (standalone converters as scripts/microservices) and D (File Format Plugins keep source as source of truth, usable via usdcat). Page: 'The source file format can remain the source of truth.' and 'They can be used as standalone converters with tools like usdcat.'"
+  },
+  "exch-05": {
+    "source": "data-exchange__data-extraction__exercise-extracting-geometry.txt",
+    "verdict": "ok",
+    "quote": "Also note that we are setting the subdivision scheme to UsdGeom.Tokens.none so that these meshes are explicitly treated as polygonal meshes, not SubD meshes, as OBJ doesn’t support SubD meshes.",
+    "reason": "Correct answer B: rebuild per-mesh faceVertexCounts/faceVertexIndices and set subdivisionScheme to none. Page builds per-mesh face arrays and sets subdivision scheme to none for polygonal OBJ data."
+  },
+  "exch-06": {
+    "source": "data-exchange__data-transformation__transformation-hierarchy.txt",
+    "verdict": "ok",
+    "quote": "Even with defaultPrim set, there’s no easy way to reference the entire asset since all the prims that make up the asset don’t share a common ancestor prim.",
+    "reason": "Correct answer A: a binding target outside the defaultPrim hierarchy breaks encapsulation; author the material under the Asset hierarchy so it resolves when referenced. Page stresses that referenceability requires all asset prims share a common ancestor under the defaultPrim (/World)."
+  },
+  "exch-07": {
+    "source": "data-exchange__data-extraction__exercise-extracting-materials.txt",
+    "verdict": "ok",
+    "quote": "One point of interest is that the material names were fixed in this case with Tf.MakeValidIdentifier() since this OBJ was authored in Blender with material names in the format: “Material.001”. The invalid character, the period, was replaced with an underscore.",
+    "reason": "Correct answer D: Tf.MakeValidIdentifier produces names like Material_001. Page shows Tf.MakeValidIdentifier sanitizing 'Material.001' by replacing the period with an underscore."
+  },
+  "exch-08": {
+    "source": "data-exchange__data-extraction__what-is-data-extraction.txt",
+    "verdict": "reattribute",
+    "quote": "When source formats have compound or grouped data types (like structs, records, or grouped fields), namespace-prefixed attributes provide the convention for grouping related properties together in USD. Since USD doesn’t have a native struct type, namespace-prefixed attributes serve as the standard approach for representing this kind of grouped data.",
+    "reason": "Correct answer A (namespace-prefixed attributes to group related properties). Cited page was correct key already; quote verbatim from what-is-data-extraction.txt confirming namespace-prefixed attributes are the idiom since USD has no struct type."
+  },
+  "exch-09": {
+    "source": "data-exchange__data-extraction__exercise-extracting-materials.txt",
+    "verdict": "ok",
+    "quote": "material.CreateSurfaceOutput().ConnectToSource(shader.ConnectableAPI(), UsdShade.Tokens.surface)",
+    "reason": "Correct answer D: build a UsdPreviewSurface via UsdShade and bind with UsdShadeMaterialBindingAPI. Page creates a UsdShade.Shader with CreateIdAttr('UsdPreviewSurface') and binds via UsdShade.MaterialBindingAPI.Apply(usd_mesh.GetPrim())."
+  },
+  "exch-10": {
+    "source": "data-exchange__asset-validation__what-is-asset-validation.txt",
+    "verdict": "ok",
+    "quote": "usdchecker can validate a USD stage or USDZ package using a set of defined rules to provide the best assurance that an asset will be properly interchangeable and renderable by Hydra.",
+    "reason": "Correct answer C (usdchecker): validates a USD stage or USDZ package as interchangeable and Hydra-renderable. Flagging of missing defaultPrim/upAxis/metersPerUnit is demonstrated in the validation exercise."
+  },
+  "exch-11": {
+    "source": "data-exchange__data-transformation__what-is-data-transformation.txt",
+    "verdict": "ok",
+    "quote": "When designing workflows that involve round-trip data exchange (importing and exporting), minimize data transformations. Extensive transformations can complicate the process of accurately reversing changes when reimporting the data, potentially leading to loss of information or inconsistencies.",
+    "reason": "Correct answer B: export options/restructuring/merging belong in Transform, and minimizing transformations preserves round-trip fidelity. Page lists Export options, Content re-structuring, mesh merging as transformation, and advises minimizing transformations for round-trips."
+  },
+  "exch-12": {
+    "source": "data-exchange__asset-validation__exercise-asset-validation-testing.txt",
+    "verdict": "ok",
+    "quote": "usdchecker reports three errors for our asset, all related to stage metadata:\n\nOur asset is missing metadata specifying the upAxis and units type for linear units. We should fix these now in our converter, as this was an oversight in the extraction phase. The missing defaultPrim metadata is better handled during the transformation phase, but it’s good that usdchecker is flagging it for us.",
+    "reason": "Correct answers B (missing defaultPrim) and C (missing upAxis or metersPerUnit). Page reports usdchecker flagging missing upAxis, linear units (metersPerUnit), and defaultPrim."
+  },
+  "agg-g01": {
+    "source": "asset-modularity-instancing__instancing-faq.txt",
+    "verdict": "ok",
+    "quote": "Each instance has an instanceable prim that’s editable, but the subgraph–instance proxy–is read-only",
+    "reason": "Correct answers A (editable instanceable prim, read-only proxy subgraph) and B (implicit prototypes from composition arcs). Page lists both 'Each instance has an instanceable prim that’s editable, but the subgraph...is read-only' and 'Implicit prototypes derived from composition arcs'."
+  },
+  "agg-g02": {
+    "source": "asset-modularity-instancing__authoring-scenegraph-instancing__scenegraph-instancing-intro.txt",
+    "verdict": "ok",
+    "quote": "You tell OpenUSD the candidates for instancing, it figures out the prototypes implicitly from the authored composition arcs.",
+    "reason": "Correct answer C: you tag candidate prims instanceable=true and OpenUSD derives prototypes implicitly from authored composition arcs. Verbatim explanation of the 'explicit instances, implicit prototypes' mantra."
+  },
+  "agg-g03": {
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-instance-refinement.txt",
+    "verdict": "ok",
+    "quote": "This override is invalid. In this case, the developer saw a “/__Prototype_01” item in the usdview tree view that is just used for reference and thought they could edit it. This override produces a dangling override completely unrelated to the actual prototype.",
+    "reason": "Correct answer B: prototypes are a runtime data model and not editable; the override is dangling and unrelated to the real prototype. Page: 'Prototypes are a runtime data model and are not editable' plus the dangling-override explanation."
+  },
+  "agg-g04": {
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-instance-refinement.txt",
+    "verdict": "ok",
+    "quote": "The edit creates a change in the composition of that instance and it triggers the creation of a new prototype.",
+    "reason": "Correct answers C (variant set) and D (ad hoc arcs) create new prototypes because they change composition. Hierarchical/xformOp refinements (A,B) do not. The intro page distinguishes refinements that change composition (new prototype) from those natively inherited; variant-set and ad-hoc-arc pages confirm new prototypes, hierarchical page confirms no new prototype."
+  },
+  "agg-g05": {
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-broadcasted-refinement.txt",
+    "verdict": "ok",
+    "quote": "These two arcs are built for downstream refinement allowing you to author new opinions on the inherited or specialized namespace in any downstream layer stack. All prims with an inherit or specialize arc targeting that namespace will receive those opinions",
+    "reason": "Correct answer A: broadcasted refinement authors a single opinion on a shared inherit/specialize target that all instances point to. Page: authoring on the inherited/specialized namespace broadcasts to all prims targeting it, keeping instancing."
+  },
+  "agg-g06": {
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-hierarchical-refinement.txt",
+    "verdict": "ok",
+    "quote": "This form of refinement does not introduce any new prototypes since the subgraphs among the instances remain identical. The only new opinions are found on the instanceable prims.",
+    "reason": "Correct answer D: primvars inherit down the hierarchy, materials read the inherited value, subgraphs stay identical and the new opinion lives only on the instanceable prim, so no new prototype. Verbatim from page."
+  },
+  "agg-g07": {
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-deinstance-refinement.txt",
+    "verdict": "ok",
+    "quote": "The simplest way to edit or override an instance is to disable instancing for that instance.",
+    "reason": "Correct answer B: deinstancing (set instanceable=false in a stronger layer, then author overrides) is the simplest technique for arbitrary overrides on one instance's interior geometry. Page: 'set instanceable = false and now we can apply the overrides'."
+  },
+  "agg-g08": {
+    "source": "asset-modularity-instancing__refining-point-instances.txt",
+    "verdict": "ok",
+    "quote": "A good rule of thumb is that if you need to animate an instance on and off over time, you should use invisibleIds, otherwise, use inactiveIds. A nice feature of inactiveIds is that it can be list-edited so you can sparsely add and remove ids.",
+    "reason": "Correct answer D: use invisibleIds for animated on/off over time; use inactiveIds to prune, and inactiveIds can be list-edited to sparsely add/remove ids. Verbatim from page."
+  },
+  "agg-g09": {
+    "source": "glossary",
+    "verdict": "reattribute",
+    "quote": "Because the root-prims of instance prototypes possess no properties, it\nis pointless to instance a gprim directly. Renderers must not\ninfer instanceability from an instance of a gprim prototype, because each\ninstance is allowed to override any property defined originally on the\nreferenced prototype root prim. One can use USD’s instancing feature to\ncreate gprim-level instancing, but to do so requires adding an Xform\nparent to the gprim in the prototype, and making the instances reference\nthe parent, rather than the gprim, directly.",
+    "reason": "Cited Learn OpenUSD glossary.txt does not contain this. The OpenUSD.org glossary (source key 'glossary' -> pages_official/glossary.txt) supports correct answer C verbatim: prototype root prims have no properties so instancing a gprim directly is pointless; add an Xform parent and reference the parent."
+  },
+  "exch-g01": {
+    "source": "data-exchange__data-exchange__what-is-data-exchange.txt",
+    "verdict": "ok",
+    "quote": "To help with these data exchange challenges, we propose a two-phase approach: extract and transform.",
+    "reason": "Correct answer D: two phases, extract then an optional transform. Page: two-phase approach (extract and transform) and 'The transform phase consists of one or more optional steps'."
+  },
+  "exch-g02": {
+    "source": "data-exchange__data-exchange__what-is-data-exchange.txt",
+    "verdict": "ok",
+    "quote": "Importers translate data from OpenUSD to the runtime format of the application.\nExporters translate data from the runtime format of the application to OpenUSD.",
+    "reason": "Correct answer A matches verbatim: importers translate from OpenUSD to the app runtime format; exporters from runtime format to OpenUSD."
+  },
+  "exch-g03": {
+    "source": "data-exchange__data-exchange__what-is-data-exchange.txt",
+    "verdict": "ok",
+    "quote": "An OpenUSD stage can include a source file format directly as a reference, payload or sublayer. The source file format is translated on the fly, while it is read as a USD document (layer, in USD parlance).",
+    "reason": "Correct answers B (bidirectional + non-file sources) and C (include source directly as reference/payload/sublayer, translated on the fly). Page also: 'File format plugins can be bidirectional' and they 'compose with...non-file-based sources, such as databases and procedurally generated content.'"
+  },
+  "exch-g04": {
+    "source": "data-exchange__data-transformation__what-is-data-transformation.txt",
+    "verdict": "ok",
+    "quote": "When designing workflows that involve round-trip data exchange (importing and exporting), minimize data transformations. Extensive transformations can complicate the process of accurately reversing changes when reimporting the data, potentially leading to loss of information or inconsistencies.",
+    "reason": "Correct answers C (export options/restructuring/mesh merging are transform-phase work) and E (minimize transformations for round-trip). Page lists Export options/Content re-structuring/Optimizations e.g. mesh merging as transformation, and advises minimizing transformations to ease reversing on reimport."
+  },
+  "exch-g05": {
+    "source": "data-exchange__data-extraction__exercise-extracting-materials.txt",
+    "verdict": "ok",
+    "quote": "roughness = 1 - math.sqrt(mtl[\"SHININESS\"] / 1000.0)",
+    "reason": "Correct answer D: roughness = 1 - sqrt(shininess/1000.0) and useSpecularWorkflow set to 1. Page shows that formula plus shader.CreateInput(\"useSpecularWorkflow\", ...).Set(1)."
+  },
+  "exch-g06": {
+    "source": "data-exchange__data-extraction__exercise-extracting-materials.txt",
+    "verdict": "ok",
+    "quote": "material.CreateSurfaceOutput().ConnectToSource(shader.ConnectableAPI(), UsdShade.Tokens.surface)",
+    "reason": "Correct answer B: define a UsdShade.Shader, CreateIdAttr('UsdPreviewSurface'), then material.CreateSurfaceOutput().ConnectToSource(shader.ConnectableAPI(), UsdShade.Tokens.surface). The connect line is verbatim; CreateIdAttr('UsdPreviewSurface') also appears on the page."
+  },
+  "exch-g07": {
+    "source": "data-exchange__data-transformation__transformation-hierarchy.txt",
+    "verdict": "ok",
+    "quote": "This function creates a new UsdGeom.Xform prim called “/World” and sets it as the defaultPrim. It then parents all of the other prims in the root namespace to “/World” using Usd.NamespaceEditor so that they all share a common ancestor and can be reference together.",
+    "reason": "Correct answer C: define /World Xform, set it as defaultPrim, reparent root prims under it with Usd.NamespaceEditor. Verbatim from page."
+  },
+  "exch-g08": {
+    "source": "data-exchange__data-transformation__exercise-export-option.txt",
+    "verdict": "ok",
+    "quote": "If the upAxis is not the OBJ default (Y), it will also apply a corrective on the defaultPrim to reorient the stage to remain face up in the new coordinate system. We suffix the X-axis rotation operation with “unitsResolve” by convention to explain to end users the purpose of the transformation.",
+    "reason": "Correct answer C: adds a +90-degree rotate-X op suffixed 'unitsResolve' on the defaultPrim to reorient and keep content upright. Code shows xformable.AddRotateXOp(opSuffix=\"unitsResolve\").Set(90.0)."
+  },
+  "exch-g09": {
+    "source": "data-exchange__asset-validation__exercise-asset-validation-testing.txt",
+    "verdict": "ok",
+    "quote": "The OBJ specification states that the Y axis is the upAxis in OBJ files, so we can map that directly to OpenUSD. For linear units, OBJ is unitless. For our converter, we’ll choose meters as a sensible default. Note that the API for this geometric stage metadata is found in UsdGeom, not Usd.Stage where you might first think to look for it.",
+    "reason": "Correct answer D: API in UsdGeom (not Usd.Stage); OBJ is Y-up so upAxis Y, OBJ unitless so meters chosen as sensible default. Verbatim from page."
+  },
+  "exch-g10": {
+    "source": "data-exchange__asset-validation__what-is-asset-validation.txt",
+    "verdict": "ok",
+    "quote": "Omniverse Asset Validator is based on usdchecker and provides a GUI for asset validation. The asset validator includes:\n\nUser interface\nCommand line interface\nPython API\nAutomatic fixes for failed validations\nAbility to add new rules",
+    "reason": "Correct answers A (GUI) and B (automatic fixes and ability to add new rules). Verbatim list from page."
+  },
+  "exch-g11": {
+    "source": "data-exchange__data-extraction__what-is-data-extraction.txt",
+    "verdict": "ok",
+    "quote": "Authors of data exchange implementations should consider optionally giving access to the in-memory extracted stage or writing the extracted stage to disk as it is valuable for third party developers that may want to write their own transformation steps.",
+    "reason": "Correct answer D: optionally give access to the in-memory extracted stage or write it to disk because it's valuable to third-party developers writing their own transformations. Verbatim from page."
+  },
+  "exch-g12": {
+    "source": "data-exchange__data-extraction__what-is-data-extraction.txt",
+    "verdict": "ok",
+    "quote": "It serves as a data specification for your extraction implementation and helps stakeholders participate in setting requirements and expectations.",
+    "reason": "Correct answers C (data specification, stakeholder participation) and E (enables discourse for community feedback and communicating schema gaps). Page also: 'The document enables effective discourse when asking for feedback from the OpenUSD community or communicating schema gaps.'"
+  },
+  "exch-g13": {
+    "source": "data-exchange__data-transformation__what-is-data-transformation.txt",
+    "verdict": "ok",
+    "quote": "Export options, optimizations and asset structure code can be shared across applications since they all operate on OpenUSD data. While extraction code from source formats to OpenUSD is largely unique, data transformation for specific clients or workflows can be designed for reuse across multiple exporters.",
+    "reason": "Correct answer A: extraction code is largely unique while transformation code (export options/optimizations/asset structure) can be shared because it operates on OpenUSD data. Verbatim from page."
+  },
+  "exch-g14": {
+    "source": "data-exchange__data-extraction__exercise-extracting-geometry.txt",
+    "verdict": "ok",
+    "quote": "face_vertex_indices.extend(indices)",
+    "reason": "Correct answer A: extend faceVertexIndices with each face's indices and append len(indices) to faceVertexCounts. Page code: face_vertex_indices.extend(indices) and face_vertex_counts.append(len(indices))."
+  },
+  "agg-m01": {
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-ad-hoc-arcs-refinement.txt",
+    "verdict": "ok",
+    "quote": "New composition arcs can be added to an instanceable prim on the local layer stack. Within the additional composition arc, you can introduce new opinions on an instance. The result is a new prototype for that instance and any copies that share the new composition arc.",
+    "reason": "Correct answers A (ad hoc arcs), B (variant sets), D (broadcasted) create a new prototype; C (deinstancing) and E (hierarchical primvar) do not. The cited ad-hoc-arcs page verbatim confirms ad hoc arcs create a new prototype; variant-set and broadcasted pages confirm new prototypes for those."
+  },
+  "agg-m02": {
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-instance-refinement.txt",
+    "verdict": "ok",
+    "quote": "“/World/RobotArm_01” is an instanceable prim and the translation override is valid. This will successfully position the prim at (10, 0, 20).",
+    "reason": "Correct answers D (xformOp:translate on the instanceable prim /World/RobotArm_01 is valid) and E (over on /World/RobotArm_01/joint_1 is invalid because it targets an instance proxy). Page marks the instanceable-prim override Editable and the instance-proxy override (joint_1) NOT editable with local opinions discarded."
+  },
+  "agg-m03": {
+    "source": "asset-modularity-instancing__refining-point-instances.txt",
+    "verdict": "ok",
+    "quote": "A good rule of thumb is that if you need to animate an instance on and off over time, you should use invisibleIds, otherwise, use inactiveIds. A nice feature of inactiveIds is that it can be list-edited so you can sparsely add and remove ids.",
+    "reason": "Correct answers B (inactiveIds prunes and can be list-edited to sparsely add/remove ids) and E (invisibleIds to animate on/off over time). Verbatim from page."
+  },
+  "exch-m01": {
+    "source": "data-exchange__data-exchange__what-is-data-exchange.txt",
+    "verdict": "ok",
+    "quote": "They allow OpenUSD to compose with additional file formats and even non-file-based sources, such as databases and procedurally generated content.",
+    "reason": "Correct answers C (compose with non-file sources like databases/procedural content) and E (source format included directly as reference/payload/sublayer, translated on the fly). Page also: 'An OpenUSD stage can include a source file format directly as a reference, payload or sublayer. The source file format is translated on the fly, while it is read as a USD document.'"
+  },
+  "exch-m02": {
+    "source": "data-exchange__data-exchange__what-is-data-exchange.txt",
+    "verdict": "ok",
+    "quote": "Data exchange to OpenUSD should start with the extract phase. The goal is to translate the data to OpenUSD as directly as possible to maintain fidelity to the source format.",
+    "reason": "Correct answers B (extract translates as directly as possible to maintain fidelity) and C (transform is one or more optional steps such as export options and restructuring). Page also: 'The transform phase consists of one or more optional steps added to better meet end client and user needs.'"
+  },
+  "exch-m03": {
+    "source": "stage-setting__usd-file-formats.txt",
+    "verdict": "ok",
+    "quote": "This makes USDA optimal for small files, such as a stage that is referencing external content.",
+    "reason": "Correct answers A (USDA human-readable ASCII, optimal for small files like a stage referencing external content), B (USDC minimizes load time, efficient for numerically-heavy geometry), C (USDZ atomic zipped archive, read-only, optimal for XR). Page: USDC 'designed to minimize load time...extremely efficient for numerically-heavy data, like geometry' and USDZ 'atomic...zipped archive...generally intended as read-only and is optimal for XR experiences.'"
+  },
+  "exch-m04": {
+    "source": "data-exchange__asset-validation__what-is-asset-validation.txt",
+    "verdict": "ok",
+    "quote": "usdchecker can validate a USD stage or USDZ package using a set of defined rules to provide the best assurance that an asset will be properly interchangeable and renderable by Hydra.",
+    "reason": "Correct answers A (usdchecker part of USD Toolset validates stage/USDZ against rules for interchange and Hydra render) and E (Omniverse Asset Validator is based on usdchecker, adds automatic fixes and ability to add new rules). Page: 'usdchecker is one of the tools that comes as part of the USD Toolset' and 'Omniverse Asset Validator is based on usdchecker...Automatic fixes for failed validations / Ability to add new rules.'"
+  },
+  "exch-m05": {
+    "source": "data-exchange__data-transformation__transformation-hierarchy.txt",
+    "verdict": "ok",
+    "quote": "There is no defaultPrim metadata to reference this stage without specifying a target prim.\nEven with defaultPrim set, there’s no easy way to reference the entire asset since all the prims that make up the asset don’t share a common ancestor prim.",
+    "reason": "Correct answers A (no common ancestor means no easy way to reference the entire asset) and B (no defaultPrim, so stage cannot be referenced without specifying a target prim). Both verbatim from page."
+  },
+  "gen2027-017": {
+    "source": "asset-modularity-instancing__authoring-point-instancing__point-instancing-intro.txt",
+    "verdict": "ok",
+    "quote": "ids is an optional attribute if you want explicit control over the integer id of each instance. Otherwise, each instance id is inferred from the element index in the protoIndices array. (e.g. index 0 in protoIndices is instance id 0).",
+    "reason": "Correct answer C: with no ids authored, the third instance (element index 2) gets id 2, inferred from its element index in protoIndices. Verbatim rule from page."
+  },
+  "gen2027-018": {
+    "source": "asset-modularity-instancing__authoring-point-instancing__point-instancing-intro.txt",
+    "verdict": "ok",
+    "quote": "Prototype root transform: The local-to-parent transformation of the prototype root is applied most locally.\nInstance-specific transforms: The per-instance transformation is applied next, in this order:\n\nscales[i] (if authored)\norientations[i] (if authored)\npositions[i]\n\n\nPointInstancer prim transform: The transformation authored on the PointInstancer prim itself is applied least locally.",
+    "reason": "Correct answer A: prototype root, then scales[i], orientations[i], positions[i], then the PointInstancer prim transform (most-local to least-local). Verbatim from page."
+  },
+  "gen2027-019": {
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-ad-hoc-arcs-refinement.txt",
+    "verdict": "reattribute",
+    "quote": "New composition arcs can be added to an instanceable prim on the local layer stack. Within the additional composition arc, you can introduce new opinions on an instance. The result is a new prototype for that instance and any copies that share the new composition arc.",
+    "reason": "Correct answers A (ad hoc internal reference) and D (variant selection) create new prototypes; B (inherited primvar) and C (xformOp:translate) do not. The cited variant-set page only covers variants; the ad-hoc-arcs page verbatim supports the ad hoc internal reference creating a new prototype (the load-bearing distinguishing fact for answer A)."
+  },
+  "gen2027-020": {
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-broadcasted-refinement.txt",
+    "verdict": "ok",
+    "quote": "These two arcs are built for downstream refinement allowing you to author new opinions on the inherited or specialized namespace in any downstream layer stack. All prims with an inherit or specialize arc targeting that namespace will receive those opinions and apply them according to LIVERPS.",
+    "reason": "Correct answer B: broadcasted refinement authors one opinion on the inherited/specialized namespace and LIVERPS applies it to all instances targeting it, keeping instancing. Verbatim from page (including LIVERPS)."
+  },
+  "gen2027-021": {
+    "source": "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-instance-refinement.txt",
+    "verdict": "ok",
+    "quote": "This override produces a dangling override completely unrelated to the actual prototype.",
+    "reason": "Correct answer D: prototypes are a runtime data model and not editable; the override is a dangling spec unrelated to the real prototype. Page: 'Prototypes are a runtime data model and are not editable' plus the dangling-override sentence."
+  },
+  "gen2027-042": {
+    "source": "data-exchange__data-exchange__what-is-data-exchange.txt",
+    "verdict": "ok",
+    "quote": "An OpenUSD stage can include a source file format directly as a reference, payload or sublayer. The source file format is translated on the fly, while it is read as a USD document (layer, in USD parlance).\nThe source file format can remain the source of truth.",
+    "reason": "Correct answers B (source remains source of truth, no separate copy to sync) and C (stage includes source directly as reference/payload/sublayer, translated on the fly). Both verbatim from page."
+  },
+  "gen2027-043": {
+    "source": "data-exchange__data-extraction__exercise-extracting-geometry.txt",
+    "verdict": "ok",
+    "quote": "face_vertex_counts.append(len(indices))",
+    "reason": "Correct answer C: extend faceVertexIndices with the face's indices and append len(indices) to faceVertexCounts. Page code: face_vertex_indices.extend(indices) and face_vertex_counts.append(len(indices))."
+  },
+  "gen2027-044": {
+    "source": "data-exchange__data-extraction__exercise-extracting-geometry.txt",
+    "verdict": "ok",
+    "quote": "we are setting the subdivision scheme to UsdGeom.Tokens.none so that these meshes are explicitly treated as polygonal meshes, not SubD meshes, as OBJ doesn’t support SubD meshes.",
+    "reason": "Correct answer A: setting subdivisionScheme none treats the mesh as polygonal not SubD, required because OBJ does not support subdivision meshes. Verbatim from page."
+  },
+  "gen2027-045": {
+    "source": "data-exchange__data-extraction__exercise-extracting-materials.txt",
+    "verdict": "ok",
+    "quote": "roughness = 1 - math.sqrt(mtl[\"SHININESS\"] / 1000.0)",
+    "reason": "Correct answer B: shininess inverted into roughness via 1 - sqrt(SHININESS/1000), and useSpecularWorkflow set to 1 to use specular rather than metallic/PBR. Page shows the formula and shader.CreateInput(\"useSpecularWorkflow\", ...).Set(1) with note it uses a specular workflow instead of PBR."
+  },
+  "gen2027-046": {
+    "source": "data-exchange__data-transformation__transformation-hierarchy.txt",
+    "verdict": "ok",
+    "quote": "This function creates a new UsdGeom.Xform prim called “/World” and sets it as the defaultPrim. It then parents all of the other prims in the root namespace to “/World” using Usd.NamespaceEditor so that they all share a common ancestor and can be reference together.",
+    "reason": "Correct answer C: define a /World Xform, set it as defaultPrim, then reparent every root-namespace prim under /World with a namespace editor. Verbatim from page."
+  },
+  "gen2027-047": {
+    "source": "data-exchange__data-transformation__exercise-export-option.txt",
+    "verdict": "ok",
+    "quote": "it will also apply a corrective on the defaultPrim to reorient the stage to remain face up in the new coordinate system. We suffix the X-axis rotation operation with “unitsResolve” by convention to explain to end users the purpose of the transformation.",
+    "reason": "Correct answer D: adds a +90-degree rotateX on the default prim to keep geometry upright in Z-up; the 'unitsResolve' suffix documents the intent. Code: xformable.AddRotateXOp(opSuffix=\"unitsResolve\").Set(90.0)."
+  },
+  "gen2027-048": {
+    "source": "data-exchange__asset-validation__what-is-asset-validation.txt",
+    "verdict": "ok",
+    "quote": "usdchecker can validate a USD stage or USDZ package using a set of defined rules to provide the best assurance that an asset will be properly interchangeable and renderable by Hydra.",
+    "reason": "Correct answers A (usdchecker validates stage/USDZ against rules for interchange and Hydra render; flags missing upAxis/metersPerUnit) and B (Omniverse Asset Validator builds on usdchecker adding GUI, Python API, automatic fixes, new rules). Page lists 'User interface / Command line interface / Python API / Automatic fixes for failed validations / Ability to add new rules'; the metadata flagging is shown in the validation testing exercise."
+  },
+  "custom-01": {
+    "source": "scene-description-blueprints__schemas.txt",
+    "verdict": "ok",
+    "quote": "Unlike IsA schemas, API schemas do not assign a typeName to a prim. Instead, are list-edited in the apiSchemas metadata and queryable via the HasAPI method. API schemas are assigned to already-typed prims to annotate them with additional properties that govern behaviors.",
+    "reason": ""
+  },
+  "custom-02": {
+    "source": "scene-description-blueprints__schemas.txt",
+    "verdict": "ok",
+    "quote": "IsA schemas, also known as Typed schemas or Prim schemas, essentially tell a prim what it is. Because of this, each prim can only subscribe to one IsA schema at a time.",
+    "reason": ""
+  },
+  "custom-03": {
+    "source": "study_guide",
+    "verdict": "reattribute",
+    "quote": "",
+    "reason": "Cited schema_versioning page only lists 'usdGenSchema' in its site nav, with no text stating that usdGenSchema generates the C++/Python classes, generatedSchema.usda, and plugInfo.json. No corpus page covers this; it is a study-guide-level fact, so re-attributed to study_guide (no corpus page to quote)."
+  },
+  "custom-04": {
+    "source": "data-exchange__data-exchange__what-is-data-exchange.txt",
+    "verdict": "ok",
+    "quote": "An OpenUSD stage can include a source file format directly as a reference, payload or sublayer. The source file format is translated on the fly, while it is read as a USD document (layer, in USD parlance).",
+    "reason": ""
+  },
+  "custom-05": {
+    "source": "glossary",
+    "verdict": "ok",
+    "quote": "USD provides a plugin point for asset resolution, the ArResolver interface, which clients can implement to resolve assets discovered in a USD scene, using whatever logic and external inputs they require.",
+    "reason": ""
+  },
+  "custom-06": {
+    "source": "asset-structure__model-hierarchy__model-hierarchy-considerations.txt",
+    "verdict": "reattribute",
+    "quote": "The Kind library that ships with OpenUSD can be extended using plugin info, allowing users to define their own extensions to component, assembly, and subcomponent kinds.",
+    "reason": "Cited glossary only says the KindRegistry is an 'extensible hierarchical typing-system'; the model-hierarchy-considerations page explicitly states the Kind library is extended via plugin info to declare new kinds extending component/assembly, directly supporting answer C."
+  },
+  "pipe-01": {
+    "source": "composition-basics__layers.txt",
+    "verdict": "ok",
+    "quote": "This layered approach allows for non-destructive editing, where changes made to one layer do not affect the others.",
+    "reason": ""
+  },
+  "pipe-02": {
+    "source": "study_guide",
+    "verdict": "ok",
+    "quote": "",
+    "reason": "Study-guide-only fact (naming conventions/directory structure and validation at boundaries) already cited study_guide; no corpus page to quote."
+  },
+  "pipe-03": {
+    "source": "asset-structure__model-hierarchy__model-hierarchy-considerations.txt",
+    "verdict": "ok",
+    "quote": "The kind metadata is explicitly read during composition for all members of the model hierarchy, with costs minimized in a shallow structure. A deep model hierarchy introduces a small but measurable overhead to composition and misses out on performance gains from pruned traversals. A gprim tagged as a component is a sign that a model hierarchy is “deep”.",
+    "reason": ""
+  },
+  "pipe-04": {
+    "source": "glossary",
+    "verdict": "ok",
+    "quote": "Edit Targets, embodied by the\nUsdEditTarget class, allow you to work with the composed stage and the\nUsdPrims it contains, while specifying which contributing\nsite in the stage’s network of composition arcs should receive the opinions you\nare about to author using the composed prim.",
+    "reason": ""
+  },
+  "pipe-05": {
+    "source": "asset-structure__reference-payload-pattern__what-is-ref-payload-pattern.txt",
+    "verdict": "ok",
+    "quote": "Instead of expecting users to know whether a complex asset requires payloading, many assets adopt the “reference-payload” pattern. This means their interface file is designed to be referenced, with the payload structure internal to the asset.",
+    "reason": ""
+  },
+  "pipe-06": {
+    "source": "study_guide",
+    "verdict": "ok",
+    "quote": "",
+    "reason": "Study-guide-only fact (SdfChangeBlock batches change notifications for performance) already cited study_guide; no corpus page to quote."
+  },
+  "pipe-07": {
+    "source": "glossary",
+    "verdict": "ok",
+    "quote": "To flatten a stage, use UsdStage::Flatten or usdcat\nwith the --flatten option.\nTo flatten individual layer stacks, use\nUsdUtilsFlattenLayerStack or usdcat with the\n--flattenLayerStack option.",
+    "reason": ""
+  },
+  "pipe-08": {
+    "source": "data-exchange__asset-validation__what-is-asset-validation.txt",
+    "verdict": "ok",
+    "quote": "usdchecker can validate a USD stage or USDZ package using a set of defined rules to provide the best assurance that an asset will be properly interchangeable and renderable by Hydra.",
+    "reason": ""
+  },
+  "pipe-09": {
+    "source": "beyond-basics__units.txt",
+    "verdict": "ok",
+    "quote": "In contrast, USD does not automatically reconcile geometric and physics unit metadata.",
+    "reason": ""
+  },
+  "pipe-10": {
+    "source": "beyond-basics__units.txt",
+    "verdict": "ok",
+    "quote": "UsdGeom.SetStageMetersPerUnit(stage, 0.0254)  # Set to inches",
+    "reason": "Page Working-With-Python uses UsdGeom.GetStageUpAxis/SetStageUpAxis and UsdGeom.GetStageMetersPerUnit/SetStageMetersPerUnit, confirming UsdGeom.SetStageUpAxis and UsdGeom.SetStageMetersPerUnit are the correct calls."
+  },
+  "pipe-11": {
+    "source": "glossary",
+    "verdict": "ok",
+    "quote": "USD provides a plugin\npoint for asset resolution, the ArResolver interface, which clients can\nimplement to resolve assets discovered in a USD scene, using whatever logic and\nexternal inputs they require.",
+    "reason": ""
+  },
+  "pipe-g01": {
+    "source": "asset-structure__asset-structure-principles__asset-interface-pt1.txt",
+    "verdict": "ok",
+    "quote": "A single asset entry point can typically be specified using the root layer’s defaultPrim metadata. OpenUSD’s composition engine will respect this metadata when referencing.",
+    "reason": ""
+  },
+  "pipe-g02": {
+    "source": "asset-structure__asset-structure-principles__encapsulating-your-asset.txt",
+    "verdict": "ok",
+    "quote": "The roof material prim was not fully encapsulated in World. Only prims defined beneath World were brought over.",
+    "reason": ""
+  },
+  "pipe-g03": {
+    "source": "asset-structure__reference-payload-pattern__what-is-ref-payload-pattern.txt",
+    "verdict": "ok",
+    "quote": "Lofting fields can help avoid the need to load a payload in certain contexts, thereby improving overall performance.",
+    "reason": ""
+  },
+  "pipe-g04": {
+    "source": "asset-structure__asset-parameterization__what-is-asset-parameterization.txt",
+    "verdict": "ok",
+    "quote": "Both variant selection and primvars on the asset entry point are compatible with scene graph instancing. Variations in variant selections will generate new prototypes for downstream contexts, while primvars will not.",
+    "reason": ""
+  },
+  "pipe-g05": {
+    "source": "asset-structure__workstreams__modeling-workstreams.txt",
+    "verdict": "ok",
+    "quote": "Ideally, each workstream should only author its unique contributions sparsely, rather than needlessly overwriting work done by another workstream.",
+    "reason": "Also supports D: “They are not a replacement for asset versioning systems. Avoid modeling workstreams in layer stacks that might grow procedurally over time…”"
+  },
+  "pipe-g06": {
+    "source": "asset-structure__model-hierarchy__what-are-model-kinds.txt",
+    "verdict": "ok",
+    "quote": "Since the component model kind denotes a “leaf” asset or pruning point in the model hierarchy,  component models cannot contain other component models as descendants.",
+    "reason": "Component is a leaf model kind; tagging the leaf gprim Body as component would make the hierarchy invalid/deep."
+  },
+  "pipe-g07": {
+    "source": "asset-structure__model-hierarchy__model-hierarchy-considerations.txt",
+    "verdict": "ok",
+    "quote": "The kind metadata is explicitly read during composition for all members of the model hierarchy, with costs minimized in a shallow structure. A deep model hierarchy introduces a small but measurable overhead to composition and misses out on performance gains from pruned traversals. A gprim tagged as a component is a sign that a model hierarchy is “deep”.",
+    "reason": ""
+  },
+  "pipe-g08": {
+    "source": "asset-modularity-instancing__refining-point-instances.txt",
+    "verdict": "ok",
+    "quote": "We can use inactiveIds to deactivate the point instance that will be replaced by the character and then reference the character into the same position.",
+    "reason": "Promotion via deactivation then referencing; transform computed with ComputeInstanceTransformsAtTime() for that instance id (also cited on this page)."
+  },
+  "custom-g01": {
+    "source": "scene-description-blueprints__schemas.txt",
+    "verdict": "ok",
+    "quote": "Unlike IsA schemas, API schemas do not assign a typeName to a prim. Instead, are list-edited in the apiSchemas metadata and queryable via the HasAPI method.",
+    "reason": "Supports A; B supported by “multiple-apply API schemas can be applied multiple times to the same prim with different instance names”; D by “each prim can only subscribe to one IsA schema at a time” via the typeName metadata."
+  },
+  "custom-g02": {
+    "source": "scene-description-blueprints__schemas.txt",
+    "verdict": "ok",
+    "quote": "Concrete schemas provide both a name and a typeName in the schema definition.\nMeanwhile, abstract, or non-concrete schemas, provide a name but no typeName in the schema definition.",
+    "reason": ""
+  },
+  "custom-g03": {
+    "source": "beyond-basics__stage-traversal.txt",
+    "verdict": "ok",
+    "quote": "Always combine traversal predicates with bitwise operators (&, |, ~).",
+    "reason": "Also: “Boolean operators, like and/or/not, will NOT combine predicates as intended.” and example predicate = Usd.PrimIsActive & Usd.PrimIsLoaded."
+  },
+  "custom-g04": {
+    "source": "beyond-basics__stage-traversal.txt",
+    "verdict": "ok",
+    "quote": "prim_range.PruneChildren()  # Skip all children of \"Environment\"",
+    "reason": "PruneChildren() on the iterator skips the current prim's children during traversal."
+  },
+  "custom-g05": {
+    "source": "beyond-basics__active-inactive-prims.txt",
+    "verdict": "ok",
+    "quote": "Deactivating a prim is a non-destructive operation–-the prim still exists in the scene description, but it is pruned from the composed stage view until reactivated.",
+    "reason": "Also: “All scene description for the deactivated prim’s descendants will not be composed onto the stage.”"
+  },
+  "custom-g06": {
+    "source": "stage-setting__usd-file-formats.txt",
+    "verdict": "ok",
+    "quote": "A USD (.usd) file can be either ASCII or binary – the advantage of which is that we can change the underlying format at any point without breaking references.",
+    "reason": "Supports C; A supported by USDC “compressed binary… extremely efficient for numerically-heavy data, like geometry” and USDA being ASCII; B by USDZ “atomic, uncompressed, zipped archive… read-only… optimal for XR”."
+  },
+  "custom-g07": {
+    "source": "stage-setting__usd-file-formats.txt",
+    "verdict": "ok",
+    "quote": "Any other 3D file format can be loaded into OpenUSD Stages through plugins. It’s worth noting that any data provider can implement file format plugins to natively speak USD – even .usdc, .usd, .usda, and .usdz are file format plugins.",
+    "reason": ""
+  },
+  "custom-g08": {
+    "source": "stage-setting__usd-modules.txt",
+    "verdict": "ok",
+    "quote": "Usd is the core client-facing module for authoring, composing and reading USD. It provides an interface for creating or opening a Stage and generic interfaces for interacting with prims, properties, metadata, and composition arcs.",
+    "reason": "Also: “Sdf (scene description foundation) provides the foundations for serializing scene description… implements scene description layers, (SdfLayer)… used for managing prim and property paths.”"
+  },
+  "custom-g09": {
+    "source": "stage-setting__prim-property-paths.txt",
+    "verdict": "ok",
+    "quote": "Prims are indicated by a slash separator, which indicates the namespace (e.g. \"/geo/box\")\nPeriod separators after an identifier is used to introduce a property (ex: \"/geo/box.weight\")\nVariants are indicated by curly brackets, like this: (ex. \"/geo/box{size=large}\")",
+    "reason": ""
+  },
+  "pipe-m01": {
+    "source": "asset-modularity-instancing__instancing-faq.txt",
+    "verdict": "ok",
+    "quote": "Good for massive numbers of simpler items where the overhead of an instance outweighs the benefits of reuse. (e.g. leaves on trees)",
+    "reason": "Supports D; A supported by point instancing “Schema-based instancing” / “Explicit prototypes specified in scene description”."
+  },
+  "pipe-m02": {
+    "source": "pointinstancer",
+    "verdict": "ok",
+    "quote": "Required property.",
+    "reason": "On the official UsdGeomPointInstancer page, the 'Required property.' marker is attached to GetProtoIndicesAttr(), GetPositionsAttr(), and GetPrototypesRel() — i.e. protoIndices, positions, and prototypes are the required properties (answer B/D/E). orientations and invisibleIds are not marked required."
+  },
+  "pipe-m03": {
+    "source": "data-exchange__data-exchange__what-is-data-exchange.txt",
+    "verdict": "ok",
+    "quote": "The goal is to translate the data to OpenUSD as directly as possible to maintain fidelity to the source format.",
+    "reason": "Supports E; D supported by “The transform phase consists of one or more optional steps added to better meet end client and user needs. This includes: Applying user export options. Making changes to the content structure that deviate from the source format.”"
+  },
+  "pipe-m04": {
+    "source": "asset-structure__workstreams__modeling-workstreams.txt",
+    "verdict": "ok",
+    "quote": "It’s important to keep layer stacks simple and manageable. They are not a replacement for asset versioning systems. Avoid modeling workstreams in layer stacks that might grow procedurally over time, as there is a cost associated with resolving and opening each layer.",
+    "reason": "Supports C; D supported by “each workstream should only author its unique contributions sparsely, rather than needlessly overwriting work done by another workstream.”"
+  },
+  "custom-m01": {
+    "source": "schema_versioning",
+    "verdict": "ok",
+    "quote": "Version 0 of a schema will be represented without a version suffix. For\nexample “SphereLight” is version 0 of SphereLight; “SphereLight_0” will not\nbe allowed as a schema identifier. All current existing schemas will\nautomatically be their own version 0.",
+    "reason": "Supports D and E (E: “The schema version will be embedded in the schema identifier itself as a suffix, e.g. ‘SphereLight_2’ is version 2 of the SphereLight schema.”). A (custom schemas group info/require more planning) is the custom-properties contrast covered in beyond-basics__custom-properties.txt; the two versioning facts central to the question are verbatim on schema_versioning."
+  },
+  "custom-m02": {
+    "source": "beyond-basics__custom-properties.txt",
+    "verdict": "ok",
+    "quote": "Since USD doesn’t have a native struct type, namespace-prefixed attributes serve as the standard convention for representing this kind of grouped data.",
+    "reason": "Supports A; E supported by “Setting custom=True has no impact on the way that OpenUSD treats the attribute, but it is a useful piece of metadata to inform end-users and developers that a particular attribute is not part of an existing schema.”"
+  },
+  "gen2027-022": {
+    "source": "asset-structure__asset-structure-principles__encapsulating-your-asset.txt",
+    "verdict": "ok",
+    "quote": "The roof material prim was not fully encapsulated in World. Only prims defined beneath World were brought over.",
+    "reason": "Fix is to reparent the roof material under the entry point: “let’s re-parent our roof so it is encapsulated underneath World.”"
+  },
+  "gen2027-023": {
+    "source": "asset-structure__reference-payload-pattern__what-is-ref-payload-pattern.txt",
+    "verdict": "ok",
+    "quote": "A lofted class does not contribute any opinions. It just provides a target for the arc.",
+    "reason": "Also: lofted variants “just advertise the sets and selections specified by the underlying contents payload,” keeping functionality accessible above the payload when it is unloaded."
+  },
+  "gen2027-024": {
+    "source": "asset-structure__model-hierarchy__model-hierarchy-considerations.txt",
+    "verdict": "ok",
+    "quote": "A deep model hierarchy introduces a small but measurable overhead to composition and misses out on performance gains from pruned traversals. A gprim tagged as a component is a sign that a model hierarchy is “deep”.",
+    "reason": ""
+  },
+  "gen2027-025": {
+    "source": "asset-structure__model-hierarchy__what-are-model-kinds.txt",
+    "verdict": "ok",
+    "quote": "All ancestors of a component model must have their kind metadata set to either a group or a subkind of group, such as assembly.",
+    "reason": "Supports B; C supported by “component models cannot contain other component models as descendants.”"
+  },
+  "gen2027-026": {
+    "source": "asset-structure__asset-parameterization__what-is-asset-parameterization.txt",
+    "verdict": "ok",
+    "quote": "Variations in variant selections will generate new prototypes for downstream contexts, while primvars will not.",
+    "reason": ""
+  },
+  "gen2027-027": {
+    "source": "asset-structure__workstreams__modeling-workstreams.txt",
+    "verdict": "ok",
+    "quote": "They are not a replacement for asset versioning systems. Avoid modeling workstreams in layer stacks that might grow procedurally over time, as there is a cost associated with resolving and opening each layer.",
+    "reason": "Supports B; C supported by “each workstream should only author its unique contributions sparsely, rather than needlessly overwriting work done by another workstream.”"
+  },
+  "gen2027-028": {
+    "source": "asset-modularity-instancing__refining-point-instances.txt",
+    "verdict": "ok",
+    "quote": "A good rule of thumb is that if you need to animate an instance on and off over time, you should use invisibleIds, otherwise, use inactiveIds. A nice feature of inactiveIds is that it can be list-edited so you can sparsely add and remove ids.",
+    "reason": ""
+  },
+  "gen2027-039": {
+    "source": "schema_versioning",
+    "verdict": "ok",
+    "quote": "The schema version will be embedded in the schema identifier itself as a suffix, e.g. “SphereLight_2” is version 2 of the SphereLight schema.",
+    "reason": "Also: “Version 0 of a schema will be represented without a version suffix… ‘SphereLight_0’ will not be allowed as a schema identifier.”"
+  },
+  "gen2027-040": {
+    "source": "schema_versioning",
+    "verdict": "ok",
+    "quote": "Changing the fallback value for an attribute that would have an impact,\nlike if we were to change the fallback for “size” in Cube from 2 to 1",
+    "reason": "Supports D; E supported by “Changing the type of an existing attribute, for example, if we were to change Sphere’s ‘radius’ attribute from a float type to a double type.” both under ‘Do Version a Schema When…’"
+  },
+  "gen2027-041": {
+    "source": "data-exchange__data-exchange__what-is-data-exchange.txt",
+    "verdict": "ok",
+    "quote": "An OpenUSD stage can include a source file format directly as a reference, payload or sublayer. The source file format is translated on the fly, while it is read as a USD document (layer, in USD parlance).",
+    "reason": "Supports C (file format plugin lets the proprietary format be read into stages natively). B (.usda preferred for small diffable interface/reference layers) is the file-formats guidance reinforced across the curriculum; the file-format-plugin claim central to this question is verbatim here."
+  },
+  "model-01": {
+    "source": "data-exchange__data-extraction__exercise-extracting-geometry.txt",
+    "verdict": "ok",
+    "quote": "usd_mesh.CreatePointsAttr(mesh.vertices)\n3usd_mesh.CreateFaceVertexCountsAttr().Set(face_vertex_counts)\n4usd_mesh.CreateFaceVertexIndicesAttr().Set(face_vertex_indices)",
+    "reason": ""
+  },
+  "model-02": {
+    "source": "data-exchange__data-extraction__exercise-extracting-geometry.txt",
+    "verdict": "ok",
+    "quote": "the indices from OBJ are grouped on a per-face basis, but OpenUSD prefers a flattened list of indices that can be recomposed into faces using an ordered list of face vertex counts",
+    "reason": "500 triangles flattened = 500 x 3 = 1500 face vertex indices; page establishes the flattened-indices model."
+  },
+  "model-03": {
+    "source": "stage-setting__properties__attributes.txt",
+    "verdict": "unsupported",
+    "quote": "",
+    "reason": "The cited page only states 'Extent - Defines the boundaries of a geometric prim' and lists points as vertices. It never states that points and extent must be kept synchronized when vertices are displaced. No page in the corpus states the extent-must-track-points requirement that distinguishes the correct answer (points and extent) from the distractors."
+  },
+  "model-04": {
+    "source": "beyond-basics__primvars.txt",
+    "verdict": "ok",
+    "quote": "The need to “bind” user data on geometric primitives that becomes available to shaders during rendering.\nThe need to specify a set of values associated with vertices or faces of a primitive that will interpolate across the primitive’s surface under subdivision or shading.\nThe need to inherit attributes down namespace to allow sparse authoring of shareable data.",
+    "reason": ""
+  },
+  "model-05": {
+    "source": "beyond-basics__primvars.txt",
+    "verdict": "ok",
+    "quote": "authors the displayColor primvar with three interpolation modes: constant (one value for the whole gprim), uniform (one per face), and vertex (one per point)",
+    "reason": "constant = exactly one value for the whole prim."
+  },
+  "model-06": {
+    "source": "beyond-basics__primvars.txt",
+    "verdict": "ok",
+    "quote": "constant (one value for the whole gprim), uniform (one per face), and vertex (one per point)",
+    "reason": "uniform => one value per face."
+  },
+  "model-07": {
+    "source": "stage-setting__properties__attributes.txt",
+    "verdict": "ok",
+    "quote": "Since we have not explicitly authored any attribute values, Get() will return the fallback value that was defined in the schema.",
+    "reason": ""
+  },
+  "model-08": {
+    "source": "stage-setting__properties__attributes.txt",
+    "verdict": "unsupported",
+    "quote": "",
+    "reason": "The cited page describes attribute data types only generically ('a number, text, or a vector') and never states that the token type is appropriate for fixed, enumerated/controlled vocabularies such as purpose or kind. No corpus page justifies token-for-enumeration, so the distinguishing fact is unsupported."
+  },
+  "model-09": {
+    "source": "beyond-basics__value-resolution.txt",
+    "verdict": "ok",
+    "quote": "Scale - AnimCube at mid_t=90 (interpolated):  (3.75, 3.75, 3.75)",
+    "reason": "Page demonstrates linear interpolation between two authored time samples for a time code that falls between them."
+  },
+  "model-10": {
+    "source": "beyond-basics__value-resolution.txt",
+    "verdict": "ok",
+    "quote": "Value clips - Animation data stored in separate files\nTime samples - Specific values at specific times\nDefault value - A non-time-varying value",
+    "reason": "Value resolution lists the sources in strongest-to-weakest order: value clips win over time samples over default."
+  },
+  "model-11": {
+    "source": "stage-setting__metadata.txt",
+    "verdict": "ok",
+    "quote": "key will typically be either assetInfo, which can be used to set asset related data or customData, which can be used for everything else",
+    "reason": "customData metadata is the intended store for arbitrary bookkeeping data without authoring a new schema."
+  },
+  "viz-01": {
+    "source": "glossary",
+    "verdict": "ok",
+    "quote": "Visibility is a builtin attribute of the UsdGeomImageable base\nschema",
+    "reason": "Both Visibility and Purpose are defined in the glossary as builtin attributes of the UsdGeomImageable (base) schema, i.e. common properties for imageable/renderable prims."
+  },
+  "viz-02": {
+    "source": "glossary",
+    "verdict": "ok",
+    "quote": "Subtrees rooted at\na prim with purpose *render* should generally only be included when\nperforming a “final quality” render. Subtrees rooted at a prim with purpose\n*proxy* should generally only be included when performing a lightweight\nproxy render (such as OpenGL).",
+    "reason": "render = final render; proxy = lightweight viewport/proxy render."
+  },
+  "viz-03": {
+    "source": "data-exchange__data-extraction__exercise-extracting-materials.txt",
+    "verdict": "reattribute",
+    "quote": "The material prim serves as a container for a material graph. In this case, we have just one node in our material graph, a UsdPreviewSurface shader.",
+    "reason": "Cited materials-shaders.txt does not mention UsdPreviewSurface. The extracting-materials exercise creates the shader with CreateIdAttr(\"UsdPreviewSurface\") and identifies it as the preview surface shader."
+  },
+  "viz-04": {
+    "source": "data-exchange__data-extraction__exercise-extracting-materials.txt",
+    "verdict": "reattribute",
+    "quote": "we loft the material graph output by connecting the outputs:surface from the shader prim to the material prim",
+    "reason": "materials-shaders.txt does not cover surface-output connection or shader inputs. The extracting-materials page connects outputs:surface to the UsdPreviewSurface (choice A) and authors diffuseColor and roughness as shader inputs (choice D): shader.CreateInput(\"diffuseColor\", ...) and shader.CreateInput(\"roughness\", ...)."
+  },
+  "viz-05": {
+    "source": "glossary",
+    "verdict": "reattribute",
+    "quote": "def Shader \"stReader\"\n    {\n        uniform token info:id = \"UsdPrimvarReader_float2\"\n        token inputs:varname.connect = </TexModel/boardMat.inputs:frame:stPrimvarName>\n        float2 outputs:result\n    }",
+    "reason": "materials-shaders.txt does not mention UsdPrimvarReader. The official glossary shading-network example shows a UsdPrimvarReader shader node reading a named primvar and feeding its result into the shading network (connected into shader inputs like diffuseColor), which is the mechanism to drive diffuseColor from a primvar."
+  },
+  "viz-06": {
+    "source": "data-exchange__data-extraction__exercise-extracting-materials.txt",
+    "verdict": "reattribute",
+    "quote": "binding_api = UsdShade.MaterialBindingAPI.Apply(usd_mesh.GetPrim())\n2binding_api.Bind(material)",
+    "reason": "materials-shaders.txt does not cover MaterialBindingAPI. The extracting-materials page applies UsdShade.MaterialBindingAPI to the prim before calling Bind()."
+  },
+  "viz-07": {
+    "source": "creating-composition-arcs__encapsulation__what-is-encapsulation.txt",
+    "verdict": "reattribute",
+    "quote": "the cube will be brought over but the material binding will no longer work because the red material would not exist in the new context",
+    "reason": "materials-shaders.txt does not discuss encapsulation. The encapsulation page directly describes a material bound to a prim that sits outside the encapsulated hierarchy failing to resolve when referenced."
+  },
+  "model-g01": {
+    "source": "stage-setting__timecodes-timesamples.txt",
+    "verdict": "ok",
+    "quote": "if the root layer has timeCodesPerSecond=24, a time code value\nof 48.0 would correspond to 2 seconds (48/24) of real time after the\ntime code 0",
+    "reason": ""
+  },
+  "model-g02": {
+    "source": "beyond-basics__value-resolution.txt",
+    "verdict": "ok",
+    "quote": "Scale - AnimCube at t=1 (before first sample, clamped):  (2.5, 2.5, 2.5)",
+    "reason": "Before the first authored time sample the value clamps/holds to the earliest sample."
+  },
+  "model-g03": {
+    "source": "beyond-basics__value-resolution.txt",
+    "verdict": "ok",
+    "quote": "use UsdTimeCode::EarliestTime() to make sure you get the actual animated values rather than just the default value",
+    "reason": "Get() with no time code returns the default (Default time code is implied); EarliestTime() retrieves the first animated time sample."
+  },
+  "model-g04": {
+    "source": "beyond-basics__value-resolution.txt",
+    "verdict": "ok",
+    "quote": "Dictionaries combine element by element, so if one layer has customData[\"keyOne\"] and another has customData[\"keyTwo\"], the final result will have both keys.",
+    "reason": "Per-key resolution: shared key takes stronger opinion, unique weaker-layer keys persist."
+  },
+  "model-g05": {
+    "source": "stage-setting__metadata.txt",
+    "verdict": "ok",
+    "quote": "Metadata cannot be sampled over time (i.e. time samples), allowing it to be evaluated and stored more efficiently than attribute values.",
+    "reason": "Supports B (non-animatable, no time samples); the customData per-key merge for D is supported by the value-resolution page but metadata page establishes the non-animatable property; dictionary merge is the standard metadata rule."
+  },
+  "model-g06": {
+    "source": "beyond-basics__units.txt",
+    "verdict": "ok",
+    "quote": "A 6-meter tall tree (metersPerUnit = 1.0) referenced into a centimeter-based stage (metersPerUnit = 0.01) will compose as 6 centimeters tall by default—100 times too small",
+    "reason": ""
+  },
+  "model-g07": {
+    "source": "beyond-basics__units.txt",
+    "verdict": "ok",
+    "quote": "If metersPerUnit is not explicitly authored in a USD file, the fallback value is 0.01 (centimeters). For upAxis, the fallback is \"Y\".",
+    "reason": ""
+  },
+  "model-g08": {
+    "source": "beyond-basics__units.txt",
+    "verdict": "ok",
+    "quote": "When layers with different timeCodesPerSecond values are composed (via sublayers, references, or payloads), USD automatically scales time samples so animations play back correctly relative to the root layer’s timeCodesPerSecond.",
+    "reason": "timeCodesPerSecond is automatically reconciled so real-time duration is preserved, unlike linear units."
+  },
+  "model-g09": {
+    "source": "beyond-basics__primvars.txt",
+    "verdict": "ok",
+    "quote": "constant (one value for the whole gprim), uniform (one per face), and vertex (one per point)",
+    "reason": "vertex interpolation => one value per point; the 6-point mesh needs 6 values."
+  },
+  "model-g10": {
+    "source": "beyond-basics__custom-properties.txt",
+    "verdict": "ok",
+    "quote": "Setting custom=True has no impact on the way that OpenUSD treats the attribute, but it is a useful piece of metadata to inform end-users and developers that a particular attribute is not part of an existing schema.",
+    "reason": ""
+  },
+  "model-g11": {
+    "source": "beyond-basics__custom-properties.txt",
+    "verdict": "ok",
+    "quote": "sensor readings from an IoT device might be organized as acme:sensor:temperature, acme:sensor:humidity, and acme:sensor:pressure",
+    "reason": "Namespace-prefixed attributes are the standard convention for grouped/structured data since USD has no native struct type."
+  },
+  "viz-g01": {
+    "source": "beyond-basics__hydra.txt",
+    "verdict": "ok",
+    "quote": "A scene delegate, which provides the scene information\nThe render index, which keeps track of changes and manages the scene\nThe render delegate, which uses the render index and scene delegate to visualize scene information to create the final image.",
+    "reason": ""
+  },
+  "viz-g02": {
+    "source": "beyond-basics__hydra.txt",
+    "verdict": "ok",
+    "quote": "OpenUSD ships with HdStorm, the real-time OpenGL/Metal/Vulkan render delegate leveraged by usdview and many other tools.",
+    "reason": ""
+  },
+  "viz-g03": {
+    "source": "scene-description-blueprints__lights.txt",
+    "verdict": "ok",
+    "quote": "A light is emitted from a distance source along the -Z axis. This is commonly known as a directional light.",
+    "reason": ""
+  },
+  "viz-g04": {
+    "source": "glossary",
+    "verdict": "reattribute",
+    "quote": "If the resolved value is invisible, then\nneither the prim itself nor any prims in the subtree rooted at the prim should\nbe rendered - this is what we mean by “pruning invisibility”, since invisible\nsubtrees are definitively pruned in their entirety.",
+    "reason": "The cited active-inactive-prims.txt only covers deactivation, not visibility. The glossary Visibility entry covers BOTH halves: invisible prunes the prim+subtree from rendering but, 'unlike the action of deactivating geometry prims, invisible geometry is still available for inspection, for positioning, for defining volumes, etc.'"
+  },
+  "viz-g05": {
+    "source": "scene-description-blueprints__scope.txt",
+    "verdict": "ok",
+    "quote": "Scope is a grouping primitive and does NOT have transformability.",
+    "reason": "Scope is a non-transformable, non-renderable grouping prim; the page also states it 'does not represent any geometry or renderable content itself' and that transformable World/children are evaluated within/below it."
+  },
+  "viz-g06": {
+    "source": "scene-description-blueprints__xformcommonapi.txt",
+    "verdict": "ok",
+    "quote": "Parent xformOpOrder: [xformOp:translate, xformOp:rotateXYZ, xformOp:scale]",
+    "reason": "XformCommonAPI authors a fixed order: translate, rotateXYZ, scale (with optional pivot)."
+  },
+  "model-m01": {
+    "source": "beyond-basics__primvars.txt",
+    "verdict": "ok",
+    "quote": "constant (one value for the whole gprim), uniform (one per face), and vertex (one per point)",
+    "reason": "uniform = one per face (A); constant = one for whole gprim (C)."
+  },
+  "model-m02": {
+    "source": "beyond-basics__value-resolution.txt",
+    "verdict": "ok",
+    "quote": "For most metadata, the rule is simple: the strongest opinion wins.",
+    "reason": "Supports A; the page also states relationships combine all opinions via list ops (B) and dictionaries like customData combine element by element so weaker-layer keys appear (C)."
+  },
+  "model-m03": {
+    "source": "beyond-basics__value-resolution.txt",
+    "verdict": "ok",
+    "quote": "use UsdTimeCode::EarliestTime() to make sure you get the actual animated values rather than just the default value",
+    "reason": "EarliestTime returns the first authored sample (A); Get() with no time code is Get(Default()) returning the default (B). Page: '# Usd.TimeCode.Default() is implied' / default_value = attr.Get()."
+  },
+  "model-m04": {
+    "source": "scene-description-blueprints__schemas.txt",
+    "verdict": "ok",
+    "quote": "Unlike IsA schemas, API schemas do not assign a typeName to a prim. Instead, are list-edited in the apiSchemas metadata and queryable via the HasAPI method.",
+    "reason": "Supports A; concrete schemas provide name+typeName while abstract provide name but no typeName (C); IsA assigned via typeName and a prim can subscribe to only one IsA schema at a time (E): 'each prim can only subscribe to one IsA schema at a time' and 'We use the typeName metadata to assign an IsA schema to a prim.'"
+  },
+  "viz-m01": {
+    "source": "beyond-basics__hydra.txt",
+    "verdict": "ok",
+    "quote": "OpenUSD ships with HdStorm, the real-time OpenGL/Metal/Vulkan render delegate leveraged by usdview and many other tools.",
+    "reason": "Supports C; D is supported by 'A scene delegate, which provides the scene information / The render index, which keeps track of changes and manages the scene / The render delegate, which uses the render index and scene delegate ... to create the final image.'"
+  },
+  "viz-m02": {
+    "source": "scene-description-blueprints__lights.txt",
+    "verdict": "ok",
+    "quote": "UsdLux has API schemas that allow you to add light behavior to prims in your scene, so you can also add light properties to meshes and volumes.",
+    "reason": "Supports A; C is supported by the standardized light-type list (DistantLight, RectLight, DiskLight, SphereLight, DomeLight); E by 'A light is emitted from a distance source along the -Z axis.'"
+  },
+  "viz-m03": {
+    "source": "beyond-basics__units.txt",
+    "verdict": "ok",
+    "quote": "When layers with different timeCodesPerSecond values are composed (via sublayers, references, or payloads), USD automatically scales time samples so animations play back correctly relative to the root layer’s timeCodesPerSecond.",
+    "reason": "Supports D; E supported by 'USD does not automatically reconcile geometric and physics unit metadata' and 'it is the assembler’s responsibility to apply suitable correctives to the referenced data.'"
+  },
+  "gen2027-029": {
+    "source": "beyond-basics__value-resolution.txt",
+    "verdict": "ok",
+    "quote": "Scale - AnimCube at t=1 (before first sample, clamped):  (2.5, 2.5, 2.5)",
+    "reason": "GetXformVectors at time code 1 (before the first sample at 60) clamps to the earliest sample (2.5,2.5,2.5); the authored default is ignored once time samples exist."
+  },
+  "gen2027-030": {
+    "source": "stage-setting__timecodes-timesamples.txt",
+    "verdict": "ok",
+    "quote": "When an attribute is evaluated\nat a specific time code, the value is linearly interpolated from the",
+    "reason": "Time code 90 is halfway between samples at 60 and 120, so linear interpolation gives (0,0,3.75)."
+  },
+  "gen2027-031": {
+    "source": "beyond-basics__primvars.txt",
+    "verdict": "ok",
+    "quote": "constant (one value for the whole gprim), uniform (one per face), and vertex (one per point)",
+    "reason": "uniform interpolation => one value per face; the 2-face mesh needs 2 values."
+  },
+  "gen2027-032": {
+    "source": "beyond-basics__units.txt",
+    "verdict": "ok",
+    "quote": "A 6-meter tall tree (metersPerUnit = 1.0) referenced into a centimeter-based stage (metersPerUnit = 0.01) will compose as 6 centimeters tall by default—100 times too small",
+    "reason": "6 cm = 0.06 m; USD copies the raw value 6 and the 0.01 m/unit stage reads it as 6*0.01 m because USD does not auto-reconcile linear units."
+  },
+  "gen2027-033": {
+    "source": "beyond-basics__value-resolution.txt",
+    "verdict": "ok",
+    "quote": "Dictionaries combine element by element, so if one layer has customData[\"keyOne\"] and another has customData[\"keyTwo\"], the final result will have both keys.",
+    "reason": "source resolves to the stronger layer's value (per-key, stronger wins); unique_layer_value from the weaker layer persists."
+  },
+  "gen2027-034": {
+    "source": "beyond-basics__custom-properties.txt",
+    "verdict": "ok",
+    "quote": "the main strengths of custom properties are their ease of use and ability to be defined at any time",
+    "reason": "Supports D (custom properties are easy to author at any time, no plugin-based schema dev) and B (namespace-prefixed attributes like acme:sensor:temperature group related fields). Page also: 'sensor readings ... organized as acme:sensor:temperature, acme:sensor:humidity, and acme:sensor:pressure.'"
+  },
+  "gen2027-035": {
+    "source": "scene-description-blueprints__lights.txt",
+    "verdict": "ok",
+    "quote": "A light is emitted from a distance source along the -Z axis. This is commonly known as a directional light.",
+    "reason": ""
+  },
+  "gen2027-036": {
+    "source": "scene-description-blueprints__xformcommonapi.txt",
+    "verdict": "ok",
+    "quote": "Parent xformOpOrder: [xformOp:translate, xformOp:rotateXYZ, xformOp:scale]",
+    "reason": "XformCommonAPI authors order [translate, rotateXYZ, scale]; the rightmost op (scale) is applied to a point first, then rotate, then translate."
+  },
+  "gen2027-037": {
+    "source": "beyond-basics__hydra.txt",
+    "verdict": "ok",
+    "quote": "OpenUSD ships with HdStorm, the real-time OpenGL/Metal/Vulkan render delegate leveraged by usdview and many other tools.",
+    "reason": "Supports A; D supported by 'The render delegate, which uses the render index and scene delegate to visualize scene information to create the final image'; E by 'A scene delegate, which provides the scene information.'"
+  },
+  "gen2027-038": {
+    "source": "data-exchange__data-extraction__exercise-extracting-materials.txt",
+    "verdict": "reattribute",
+    "quote": "This will complete the material definitions, but we won’t see anything in the viewport until we bind the material to the mesh.",
+    "reason": "materials-shaders.txt does not state this. The extracting-materials page shows that defining material/shader prims adds scene description but nothing is visible until the material is bound to geometry; lights likewise emit no visible geometry (lights page: 'The SunLight will not show up in the scene visually but it is displayed in the hierarchy')."
+  },
+  "debug-01": {
+    "source": "study_guide",
+    "verdict": "ok",
+    "quote": "",
+    "reason": "study-guide/API fact: SdfChangeBlock batches authoring changes and the caveat that composed state must not be read inside the block is an API behavior not covered by any Learn-OpenUSD corpus page."
+  },
+  "debug-02": {
+    "source": "glossary.txt",
+    "verdict": "ok",
+    "quote": "On a composed stage, any object may be affected by multiple opinions from different layers, with the ordering determined by LIVERPS strength ordering. Value resolution selects the strongest opinion from all contributing opinions to determine the final composed value.",
+    "reason": "Supports the central correct cause (C): a stronger opinion wins per LIVERPS / opinion authored to the wrong site is overridden."
+  },
+  "debug-03": {
+    "source": "glossary.txt",
+    "verdict": "ok",
+    "quote": "A property stack is the ordered list of property specs that contribute values or metadata for a composed property.\nAvailable through UsdProperty::GetPropertyStack(), the property stack should only be used for debugging, not value resolution.",
+    "reason": "GetPropertyStack returns the ordered list of contributing property specs."
+  },
+  "debug-04": {
+    "source": "creating-composition-arcs__references-payloads__working-with-references.txt",
+    "verdict": "ok",
+    "quote": "click on the Layer Stack tab in the bottom right of usdview.",
+    "reason": "Page describes using usdview's Layer Stack tab and the adjacent Composition tab to inspect the arcs (e.g. reference) that compose the selected prim."
+  },
+  "debug-05": {
+    "source": "study_guide",
+    "verdict": "ok",
+    "quote": "",
+    "reason": "study-guide/API fact: TfDebug with symbolic flags set via the TF_DEBUG environment variable or TfDebug::SetDebugSymbolsByName is a TfDiagnostics API facility not covered by any Learn-OpenUSD corpus page."
+  },
+  "debug-06": {
+    "source": "creating-composition-arcs__sublayers__what-are-sublayers.txt",
+    "verdict": "ok",
+    "quote": "we see that sublayerB comes before sublayerA, meaning the authored opinions in sublayerB will outweigh sublayerA’s opinions. This is why in the composed result sublayerB’s opinion for the cube’s size of 50 was used instead of size 100 from sublayerA.",
+    "reason": "An opinion in a weaker sublayer is overridden by a stronger sublayer's opinion; authoring to the stronger sublayer makes it win."
+  },
+  "debug-07": {
+    "source": "study_guide",
+    "verdict": "ok",
+    "quote": "",
+    "reason": "study-guide/API fact: UsdStage::MuteLayer suppressing a layer's contributions without removing it from the layer stack is an API behavior; neither glossary nor any Learn-OpenUSD page defines 'mute'."
+  },
+  "debug-08": {
+    "source": "study_guide",
+    "verdict": "ok",
+    "quote": "",
+    "reason": "study-guide/API fact: TfDiagnosticMgr/UsdUtilsCoalescingDiagnosticDelegate for coalescing warnings and Trace for profiling are TfDiagnostics/Trace API facilities not covered by any Learn-OpenUSD corpus page."
+  },
+  "debug-09": {
+    "source": "data-exchange__asset-validation__exercise-asset-validation-testing.txt",
+    "verdict": "ok",
+    "quote": "usdchecker reports three errors for our asset, all related to stage metadata:",
+    "reason": "usdchecker validates and flags missing stage metadata (defaultPrim, upAxis, metersPerUnit/linear units)."
+  },
+  "debug-g01": {
+    "source": "glossary.txt",
+    "verdict": "ok",
+    "quote": "Available through UsdProperty::GetPropertyStack(), the property stack should only be used for debugging, not value resolution. In the presence of value clips, the stack may need recomputation each frame, and it doesn’t contain the correct time-offsets for animated values when layer offsets are present.",
+    "reason": "Stack can change over time with value clips (A) and is debugging-only, not for value resolution (B)."
+  },
+  "debug-g02": {
+    "source": "glossary.txt",
+    "verdict": "ok",
+    "quote": "A prim stack is the ordered list of prim specs that contribute opinions for a composed prim’s metadata.\nAvailable through UsdPrim::GetPrimStack()",
+    "reason": "GetPrimStack returns prim specs contributing to metadata; GetPropertyStack returns property specs for a property's value (Property Stack entry)."
+  },
+  "debug-g03": {
+    "source": "glossary",
+    "verdict": "reattribute",
+    "quote": "UsdEditTarget provides specific methods for selecting any\nsublayer in a stage’s root layerStack, or the currently selected variant of any defined top-level or nested variantSet. In addition, You can create an EditTarget from any\n“Node” in a prim’s PrimIndex, which allows you to target\ninherited classes, reference targets, etc.",
+    "reason": "Learn glossary.txt has no EditTarget definition; the full EditTarget site description (sublayer of root layerStack, selected variant, or any node in a prim's index) is only in the official OpenUSD glossary (key 'glossary')."
+  },
+  "debug-g04": {
+    "source": "glossary",
+    "verdict": "reattribute",
+    "quote": "For performance and scalability reasons, a UsdStage will ignore any\ncomposition arcs contained in a “clip” USD file, which means that value clips\ncan only usefully contain direct (local) opinions about the attributes they\nwish to modify.",
+    "reason": "Learn glossary.txt's Value Clips entry does not state arcs are ignored; this fact is only in the official OpenUSD glossary (key 'glossary')."
+  },
+  "debug-g05": {
+    "source": "beyond-basics__value-resolution.txt",
+    "verdict": "reattribute",
+    "quote": "When you open a stage or add new scene data, USD creates an index of the composition logic and result at the prim-level for quick access. However, USD doesn’t pre-calculate the final values of properties.",
+    "reason": "Learn glossary.txt does not state 'composition is cached, value resolution is not'; that fact (B) and the UsdAttributeQuery caching tip (C) are on the Value Resolution page."
+  },
+  "debug-g06": {
+    "source": "creating-composition-arcs__encapsulation__experimenting-with-encapsulation.txt",
+    "verdict": "ok",
+    "quote": "the material was not encapsulated within World and our reference is targeting World as the source prim.",
+    "reason": "The 'refers to a path outside the scope of the reference ... Ignoring' warning arises because the bound material was not encapsulated under the referenced default prim; fix by re-authoring so dependent prims live under the default prim."
+  },
+  "debug-m01": {
+    "source": "glossary",
+    "verdict": "ok",
+    "quote": "A PrimStack is a list of PrimSpecs that contribute\nopinions for a composed prim’s\nmetadata.",
+    "reason": "Cited 'glossary' (official). GetPrimStack returns ordered prim specs across layers contributing to a prim's metadata (E); GetPropertyStack should only be used for debugging, not value resolution (D)."
+  },
+  "debug-m02": {
+    "source": "beyond-basics__value-resolution.txt",
+    "verdict": "ok",
+    "quote": "When you open a stage or add new scene data, USD creates an index of the composition logic and result at the prim-level for quick access. However, USD doesn’t pre-calculate the final values of properties.",
+    "reason": "Composition cached at prim level, value resolution not pre-calculated (A); 'you can use special tools like UsdAttributeQuery to cache this information yourself' supports C."
+  },
+  "debug-m03": {
+    "source": "beyond-basics__active-inactive-prims.txt",
+    "verdict": "ok",
+    "quote": "the inactive state can be overridden by stronger layer opinions that set the “active” metadata to true for that prim. This allows selective reactivation of pruned subtrees.",
+    "reason": "Inactive state overridable by stronger 'active'=true opinion (C); setting active=false is a non-destructive prune excluding prim and descendants from composition (D), supported by 'non-destructive operation--the prim still exists ... pruned from the composed stage view'."
+  },
+  "gen2027-012": {
+    "source": "glossary.txt",
+    "verdict": "ok",
+    "quote": "the property stack should only be used for debugging, not value resolution. In the presence of value clips, the stack may need recomputation each frame, and it doesn’t contain the correct time-offsets for animated values when layer offsets are present.",
+    "reason": "GetPropertyStack is debugging-only and omits the time-offsets needed for correct animated values when layer offsets exist."
+  },
+  "gen2027-013": {
+    "source": "composition-basics__strength-ordering.txt",
+    "verdict": "ok",
+    "quote": "When conflicting opinions (data values) exist across layers, the stronger layer’s opinion takes precedence, allowing for non-destructive overrides and layering of scene data.",
+    "reason": "Without reordering, author/redirect the color opinion into the stronger layer so it wins value resolution."
+  },
+  "gen2027-014": {
+    "source": "beyond-basics__active-inactive-prims.txt",
+    "verdict": "ok",
+    "quote": "You can see that the /World/Box prim and all of its descendant prims have be excluded on the second traversal because we deactivated /World/Box.",
+    "reason": "/World/Box and descendants excluded from Traverse(); deactivation is non-destructive and reversible ('the prim still exists in the scene description, but it is pruned from the composed stage view until reactivated')."
+  },
+  "gen2027-015": {
+    "source": "glossary",
+    "verdict": "reattribute",
+    "quote": "For performance and scalability reasons, a UsdStage will ignore any\ncomposition arcs contained in a “clip” USD file, which means that value clips\ncan only usefully contain direct (local) opinions about the attributes they\nwish to modify.",
+    "reason": "Learn glossary.txt's Value Clips entry does not state arcs are ignored; this fact is only in the official OpenUSD glossary (key 'glossary')."
+  },
+  "gen2027-016": {
+    "source": "beyond-basics__value-resolution.txt",
+    "verdict": "ok",
+    "quote": "Composition rules vary by composition arc, value resolution rules vary by data type",
+    "reason": "Value resolution rules vary by data type, composition rules vary by composition arc (A); composition cached at prim level while value resolution not pre-computed (E), supported by 'Composition is cached, value resolution is not'."
+  }
+}

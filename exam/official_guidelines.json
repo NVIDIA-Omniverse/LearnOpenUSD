@@ -1,0 +1,37 @@
+{
+  "_comment": "Official NCP-OUSD exam guidelines, agent-browser-verified from the NVIDIA certification page. The generator (generate_quiz.py) loads THIS file as its source of truth for domain weighting, exam duration, and question-count range. Update here if NVIDIA changes the blueprint.",
+  "source_url": "https://www.nvidia.com/en-us/learn/certification/openusd-development-professional/",
+  "verified_via": "agent-browser (headless Chromium), rendered-DOM extraction",
+  "credential": "NVIDIA-Certified Professional: OpenUSD Development (NCP-OUSD)",
+  "level": "Professional",
+  "format": "online, proctored remotely",
+  "question_count_min": 60,
+  "question_count_max": 70,
+  "duration_minutes": 120,
+  "price_usd": 200,
+  "passing_target_note": "NVIDIA does not publish an exact cut score; 70%+ is the commonly cited preparation target.",
+  "mnemonic": "LIVERPS",
+  "domain_weights": {
+    "Composition": 23,
+    "Data Exchange": 15,
+    "Pipeline Development": 14,
+    "Data Modeling": 13,
+    "Debugging and Troubleshooting": 11,
+    "Content Aggregation": 10,
+    "Visualization": 8,
+    "Customizing USD": 6
+  },
+  "objectives_per_domain": {
+    "Composition": 11,
+    "Content Aggregation": 5,
+    "Customizing USD": 8,
+    "Data Exchange": 8,
+    "Data Modeling": 6,
+    "Debugging and Troubleshooting": 5,
+    "Pipeline Development": 8,
+    "Visualization": 4
+  },
+  "question_formats": ["single-choice (A-D)", "multi-select (Select two / Select three options)"],
+  "multi_select_target_ratio": 0.30,
+  "style": "conceptual and scenario/code-driven; inline multi-file USDA snippets; multi-select items include a plausible-but-wrong distractor"
+}

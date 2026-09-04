@@ -1,0 +1,590 @@
+{
+  "asset-structure__asset-structure-principles__asset-interface-pt3.txt": {
+    "title": "Learn OpenUSD: What Is an Asset Interface? (Part 3)",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-structure-principles/asset-interface-pt3.html"
+  },
+  "creating-composition-arcs__index.txt": {
+    "title": "Learn OpenUSD: Creating Composition Arcs",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/index.html"
+  },
+  "asset-modularity-instancing__asset-modularity__what-is-asset-modularity.txt": {
+    "title": "Learn OpenUSD: What Is Asset Modularity?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/asset-modularity/what-is-asset-modularity.html"
+  },
+  "creating-composition-arcs__variant-sets__what-are-variant-sets.txt": {
+    "title": "Learn OpenUSD: Variant Sets",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/variant-sets/what-are-variant-sets.html"
+  },
+  "data-exchange__data-extraction__exercise-extracting-geometry.txt": {
+    "title": "Learn OpenUSD: Exercise: Extracting Geometry",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-extraction/exercise-extracting-geometry.html"
+  },
+  "asset-structure__model-hierarchy__exercise-variation-workstream.txt": {
+    "title": "Learn OpenUSD: Exercise: Variation Workstream",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/model-hierarchy/exercise-variation-workstream.html"
+  },
+  "asset-modularity-instancing__authoring-scenegraph-instancing__scenegraph-instancing-intro.txt": {
+    "title": "Learn OpenUSD: Introduction to Scenegraph Instancing",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/authoring-scenegraph-instancing/scenegraph-instancing-intro.html"
+  },
+  "asset-structure__asset-structure-principles__asset-interface-pt2.txt": {
+    "title": "Learn OpenUSD: What Is an Asset Interface? (Part 2)",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-structure-principles/asset-interface-pt2.html"
+  },
+  "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-deinstance-refinement.txt": {
+    "title": "Learn OpenUSD: Deinstancing Refinement",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/refining-scenegraph-instances/scenegraph-deinstance-refinement.html"
+  },
+  "creating-composition-arcs__inherits-specializes__encapsulation-refinement.txt": {
+    "title": "Learn OpenUSD: Encapsulation and Refinement",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/inherits-specializes/encapsulation-refinement.html"
+  },
+  "scene-description-blueprints__scope.txt": {
+    "title": "Learn OpenUSD: Scope",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/scene-description-blueprints/scope.html"
+  },
+  "asset-modularity-instancing__asset-modularity__exercise-assets-overview.txt": {
+    "title": "Learn OpenUSD: Exercise: Assets Overview",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/asset-modularity/exercise-assets-overview.html"
+  },
+  "beyond-basics__custom-properties.txt": {
+    "title": "Learn OpenUSD: Custom Properties",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/custom-properties.html"
+  },
+  "stage-setting__stage.txt": {
+    "title": "Learn OpenUSD: Stage",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/stage-setting/stage.html"
+  },
+  "stage-setting__usd-file-formats.txt": {
+    "title": "Learn OpenUSD: OpenUSD File Formats",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/stage-setting/usd-file-formats.html"
+  },
+  "data-exchange__asset-validation__index.txt": {
+    "title": "Learn OpenUSD: Asset Validation",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/asset-validation/index.html"
+  },
+  "stage-setting__usd-modules.txt": {
+    "title": "Learn OpenUSD: OpenUSD Modules",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/stage-setting/usd-modules.html"
+  },
+  "creating-composition-arcs__sublayers__index.txt": {
+    "title": "Learn OpenUSD: Sublayers",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/sublayers/index.html"
+  },
+  "creating-composition-arcs__strength-ordering__tracing-through-liverps.txt": {
+    "title": "Learn OpenUSD: Tracing Through LIVERPS",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/strength-ordering/tracing-through-liverps.html"
+  },
+  "creating-composition-arcs__variant-sets__index.txt": {
+    "title": "Learn OpenUSD: Variant Sets",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/variant-sets/index.html"
+  },
+  "data-exchange__data-extraction__what-is-data-extraction.txt": {
+    "title": "Learn OpenUSD: What Is Data Extraction?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-extraction/what-is-data-extraction.html"
+  },
+  "asset-structure__asset-structure-principles__asset-interface-pt1.txt": {
+    "title": "Learn OpenUSD: What Is an Asset Interface?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-structure-principles/asset-interface-pt1.html"
+  },
+  "data-exchange__data-exchange__index.txt": {
+    "title": "Learn OpenUSD: Data Exchange",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-exchange/index.html"
+  },
+  "asset-modularity-instancing__refining-scenegraph-instances__index.txt": {
+    "title": "Learn OpenUSD: Refining Scenegraph Instances",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/refining-scenegraph-instances/index.html"
+  },
+  "asset-structure__asset-structure-principles__index.txt": {
+    "title": "Learn OpenUSD: Principles of Asset Structure",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-structure-principles/index.html"
+  },
+  "asset-modularity-instancing__authoring-point-instancing__point-instancing-intro.txt": {
+    "title": "Learn OpenUSD: Introduction to Point Instancing",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/authoring-point-instancing/point-instancing-intro.html"
+  },
+  "beyond-basics__hydra.txt": {
+    "title": "Learn OpenUSD: Hydra",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/hydra.html"
+  },
+  "jupyter-notebook-setup.txt": {
+    "title": "Learn OpenUSD: How to Run Notebooks Locally",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/jupyter-notebook-setup.html"
+  },
+  "creating-composition-arcs__inherits-specializes__experimenting-with-specializes.txt": {
+    "title": "Learn OpenUSD: Exercise: Experimenting With Specializes",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/inherits-specializes/experimenting-with-specializes.html"
+  },
+  "asset-structure__model-hierarchy__model-hierarchy-considerations.txt": {
+    "title": "Learn OpenUSD: Model Hierarchy Considerations",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/model-hierarchy/model-hierarchy-considerations.html"
+  },
+  "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-variant-set-refinement.txt": {
+    "title": "Learn OpenUSD: Refinement Using Variant Sets",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/refining-scenegraph-instances/scenegraph-variant-set-refinement.html"
+  },
+  "data-exchange__data-exchange__what-is-data-exchange.txt": {
+    "title": "Learn OpenUSD: What Is Data Exchange?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-exchange/what-is-data-exchange.html"
+  },
+  "scene-description-blueprints__xformcommonapi.txt": {
+    "title": "Learn OpenUSD: XformCommonAPI",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/scene-description-blueprints/xformcommonapi.html"
+  },
+  "creating-composition-arcs__inherits-specializes__index.txt": {
+    "title": "Learn OpenUSD: Inherits and Specializes",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/inherits-specializes/index.html"
+  },
+  "stage-setting__properties__relationships.txt": {
+    "title": "Learn OpenUSD: Relationships",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/stage-setting/properties/relationships.html"
+  },
+  "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-ad-hoc-arcs-refinement.txt": {
+    "title": "Learn OpenUSD: Ad Hoc Arcs Refinement",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/refining-scenegraph-instances/scenegraph-ad-hoc-arcs-refinement.html"
+  },
+  "manifest.txt": {
+    "title": "Learn OpenUSD: 53267  glossary.txt",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/manifest.html"
+  },
+  "data-exchange__data-transformation__index.txt": {
+    "title": "Learn OpenUSD: Data Transformation",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-transformation/index.html"
+  },
+  "data-exchange__asset-validation__what-is-asset-validation.txt": {
+    "title": "Learn OpenUSD: What Is Asset Validation?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/asset-validation/what-is-asset-validation.html"
+  },
+  "creating-composition-arcs__encapsulation__experimenting-with-encapsulation.txt": {
+    "title": "Learn OpenUSD: Exercise: Experimenting With Encapsulation",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/encapsulation/experimenting-with-encapsulation.html"
+  },
+  "asset-structure__setup.txt": {
+    "title": "Learn OpenUSD: Module Setup: Asset Structure Principles and Content Aggregation",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/setup.html"
+  },
+  "stage-setting__properties__index.txt": {
+    "title": "Learn OpenUSD: Properties",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/stage-setting/properties/index.html"
+  },
+  "asset-modularity-instancing__authoring-scenegraph-instancing__index.txt": {
+    "title": "Learn OpenUSD: Authoring Scenegraph Instancing",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/authoring-scenegraph-instancing/index.html"
+  },
+  "data-exchange__data-extraction__exercise-extracting-materials.txt": {
+    "title": "Learn OpenUSD: Exercise: Extracting Materials",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-extraction/exercise-extracting-materials.html"
+  },
+  "creating-composition-arcs__references-payloads__working-with-payloads.txt": {
+    "title": "Learn OpenUSD: Exercise: Working With Payloads",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/references-payloads/working-with-payloads.html"
+  },
+  "data-exchange__data-transformation__exercise-export-option.txt": {
+    "title": "Learn OpenUSD: Exercise: Adding an Export Option",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-transformation/exercise-export-option.html"
+  },
+  "asset-modularity-instancing__index.txt": {
+    "title": "Learn OpenUSD: Asset Modularity and Instancing",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/index.html"
+  },
+  "asset-structure__workstreams__index.txt": {
+    "title": "Learn OpenUSD: Workstreams",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/workstreams/index.html"
+  },
+  "creating-composition-arcs__inherits-specializes__experimenting-with-inherits.txt": {
+    "title": "Learn OpenUSD: Exercise: Experimenting With Inherits",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/inherits-specializes/experimenting-with-inherits.html"
+  },
+  "creating-composition-arcs__inherits-specializes__what-is-specializes.txt": {
+    "title": "Learn OpenUSD: Specializes",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/inherits-specializes/what-is-specializes.html"
+  },
+  "why-openusd-developer-certification.txt": {
+    "title": "Learn OpenUSD: OpenUSD Development Certification: What It Is and Why It Matters",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/why-openusd-developer-certification.html"
+  },
+  "asset-structure__asset-structure-principles__your-first-asset.txt": {
+    "title": "Learn OpenUSD: Exercise: Your First Asset",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-structure-principles/your-first-asset.html"
+  },
+  "asset-structure__reference-payload-pattern__index.txt": {
+    "title": "Learn OpenUSD: Reference/Payload Pattern",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/reference-payload-pattern/index.html"
+  },
+  "asset-structure__model-hierarchy__exercise-groups.txt": {
+    "title": "Learn OpenUSD: Exercise: Groups",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/model-hierarchy/exercise-groups.html"
+  },
+  "asset-structure__asset-parameterization__exercise-asset-parameterization.txt": {
+    "title": "Learn OpenUSD: Exercise: Asset Parameterization",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-parameterization/exercise-asset-parameterization.html"
+  },
+  "index.txt": {
+    "title": "Learn OpenUSD: Learn OpenUSD",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/index.html"
+  },
+  "beyond-basics__units.txt": {
+    "title": "Learn OpenUSD: Units in OpenUSD",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/units.html"
+  },
+  "creating-composition-arcs__references-payloads__index.txt": {
+    "title": "Learn OpenUSD: References and Payloads",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/references-payloads/index.html"
+  },
+  "creating-composition-arcs__encapsulation__what-is-encapsulation.txt": {
+    "title": "Learn OpenUSD: What Is Encapsulation?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/encapsulation/what-is-encapsulation.html"
+  },
+  "scene-description-blueprints__index.txt": {
+    "title": "Learn OpenUSD: Scene Description Blueprints",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/scene-description-blueprints/index.html"
+  },
+  "composition-basics__variant-sets.txt": {
+    "title": "Learn OpenUSD: Variant Sets Basics",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/composition-basics/variant-sets.html"
+  },
+  "data-exchange__data-transformation__transformation-hierarchy.txt": {
+    "title": "Learn OpenUSD: Exercise: Transforming the Prim Hierarchy",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-transformation/transformation-hierarchy.html"
+  },
+  "data-exchange__data-exchange__exercise.txt": {
+    "title": "Learn OpenUSD: Exercise: Anatomy of a Converter",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-exchange/exercise.html"
+  },
+  "data-exchange__index.txt": {
+    "title": "Learn OpenUSD: Developing Data Exchange Pipelines",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/index.html"
+  },
+  "stage-setting__prim-property-paths.txt": {
+    "title": "Learn OpenUSD: Prim and Property Paths",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/stage-setting/prim-property-paths.html"
+  },
+  "asset-structure__model-hierarchy__exercise-components.txt": {
+    "title": "Learn OpenUSD: Exercise: Components",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/model-hierarchy/exercise-components.html"
+  },
+  "usdview-install-instructions.txt": {
+    "title": "Learn OpenUSD: Installing usdview and Setting Up Python",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/usdview-install-instructions.html"
+  },
+  "asset-structure__reference-payload-pattern__what-is-ref-payload-pattern.txt": {
+    "title": "Learn OpenUSD: What Is Reference/Payload Pattern?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/reference-payload-pattern/what-is-ref-payload-pattern.html"
+  },
+  "asset-modularity-instancing__authoring-scenegraph-instancing__nested-instancing.txt": {
+    "title": "Learn OpenUSD: Nested Instancing",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/authoring-scenegraph-instancing/nested-instancing.html"
+  },
+  "composition-basics__index.txt": {
+    "title": "Learn OpenUSD: Composition Basics",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/composition-basics/index.html"
+  },
+  "beyond-basics__model-kinds.txt": {
+    "title": "Learn OpenUSD: Model Kinds",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/model-kinds.html"
+  },
+  "stage-setting__timecodes-timesamples.txt": {
+    "title": "Learn OpenUSD: Time Codes and Time Samples",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/stage-setting/timecodes-timesamples.html"
+  },
+  "asset-structure__asset-parameterization__what-is-asset-parameterization.txt": {
+    "title": "Learn OpenUSD: What Is Asset Parameterization?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-parameterization/what-is-asset-parameterization.html"
+  },
+  "creating-composition-arcs__references-payloads__references-faq.txt": {
+    "title": "Learn OpenUSD: References Frequently Asked Questions",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/references-payloads/references-faq.html"
+  },
+  "beyond-basics__stage-traversal.txt": {
+    "title": "Learn OpenUSD: Stage Traversal",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/stage-traversal.html"
+  },
+  "creating-composition-arcs__variant-sets__working-with-variant-sets.txt": {
+    "title": "Learn OpenUSD: Exercise: Working With Variant Sets",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/variant-sets/working-with-variant-sets.html"
+  },
+  "asset-modularity-instancing__asset-modularity__index.txt": {
+    "title": "Learn OpenUSD: Asset Modularity",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/asset-modularity/index.html"
+  },
+  "asset-structure__model-hierarchy__what-are-model-kinds.txt": {
+    "title": "Learn OpenUSD: What Are Model Kinds?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/model-hierarchy/what-are-model-kinds.html"
+  },
+  "asset-structure__reference-payload-pattern__lofting-primvars.txt": {
+    "title": "Learn OpenUSD: Exercise: Lofting Primvars",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/reference-payload-pattern/lofting-primvars.html"
+  },
+  "creating-composition-arcs__prim-composition.txt": {
+    "title": "Learn OpenUSD: What Is Prim Composition?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/prim-composition.html"
+  },
+  "data-exchange__data-extraction__index.txt": {
+    "title": "Learn OpenUSD: Data Extraction",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-extraction/index.html"
+  },
+  "stage-setting__prims.txt": {
+    "title": "Learn OpenUSD: Prims",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/stage-setting/prims.html"
+  },
+  "scene-description-blueprints__xform.txt": {
+    "title": "Learn OpenUSD: Xform",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/scene-description-blueprints/xform.html"
+  },
+  "beyond-basics__index.txt": {
+    "title": "Learn OpenUSD: Beyond the Basics",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/index.html"
+  },
+  "glossary.txt": {
+    "title": "Learn OpenUSD: OpenUSD Glossary",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/glossary.html"
+  },
+  "creating-composition-arcs__setup.txt": {
+    "title": "Learn OpenUSD: Module Setup: Creating Composition Arcs",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/setup.html"
+  },
+  "asset-modularity-instancing__authoring-scenegraph-instancing__exercise-nested-instancing.txt": {
+    "title": "Learn OpenUSD: Exercise: Nested Scenegraph Instancing",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/authoring-scenegraph-instancing/exercise-nested-instancing.html"
+  },
+  "asset-structure__asset-parameterization__index.txt": {
+    "title": "Learn OpenUSD: Asset Parameterization",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-parameterization/index.html"
+  },
+  "composition-basics__layers.txt": {
+    "title": "Learn OpenUSD: Layers",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/composition-basics/layers.html"
+  },
+  "creating-composition-arcs__references-payloads__what-are-references.txt": {
+    "title": "Learn OpenUSD: References",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/references-payloads/what-are-references.html"
+  },
+  "creating-composition-arcs__strength-ordering__index.txt": {
+    "title": "Learn OpenUSD: LIVERPS Strength Ordering",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/strength-ordering/index.html"
+  },
+  "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-hierarchical-refinement.txt": {
+    "title": "Learn OpenUSD: Hierarchical Refinement",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/refining-scenegraph-instances/scenegraph-hierarchical-refinement.html"
+  },
+  "composition-basics__strength-ordering.txt": {
+    "title": "Learn OpenUSD: Composition Arcs and Strength Ordering",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/composition-basics/strength-ordering.html"
+  },
+  "composition-basics__default-prim.txt": {
+    "title": "Learn OpenUSD: Default Prim",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/composition-basics/default-prim.html"
+  },
+  "asset-structure__index.txt": {
+    "title": "Learn OpenUSD: Asset Structure Principles and Content Aggregation",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/index.html"
+  },
+  "creating-composition-arcs__encapsulation__index.txt": {
+    "title": "Learn OpenUSD: Encapsulation",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/encapsulation/index.html"
+  },
+  "data-exchange__data-transformation__what-is-data-transformation.txt": {
+    "title": "Learn OpenUSD: What Is Data Transformation?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/data-transformation/what-is-data-transformation.html"
+  },
+  "composition-basics__specifiers.txt": {
+    "title": "Learn OpenUSD: Specifiers",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/composition-basics/specifiers.html"
+  },
+  "asset-structure__workstreams__adding-user-workstreams.txt": {
+    "title": "Learn OpenUSD: Exercise: Adding User Workstreams",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/workstreams/adding-user-workstreams.html"
+  },
+  "asset-structure__model-hierarchy__exercise-assemblies.txt": {
+    "title": "Learn OpenUSD: Exercise: Assemblies",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/model-hierarchy/exercise-assemblies.html"
+  },
+  "stage-setting__metadata.txt": {
+    "title": "Learn OpenUSD: Metadata",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/stage-setting/metadata.html"
+  },
+  "asset-modularity-instancing__instancing-faq.txt": {
+    "title": "Learn OpenUSD: OpenUSD Instancing Frequently Asked Questions",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/instancing-faq.html"
+  },
+  "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-instance-refinement.txt": {
+    "title": "Learn OpenUSD: Introduction to Scenegraph Instance Refinement",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/refining-scenegraph-instances/scenegraph-instance-refinement.html"
+  },
+  "composition-basics__references.txt": {
+    "title": "Learn OpenUSD: Referencing Basics",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/composition-basics/references.html"
+  },
+  "creating-composition-arcs__strength-ordering__what-is-liverps.txt": {
+    "title": "Learn OpenUSD: What Is LIVERPS?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/strength-ordering/what-is-liverps.html"
+  },
+  "asset-structure__model-hierarchy__index.txt": {
+    "title": "Learn OpenUSD: Model Hierarchy",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/model-hierarchy/index.html"
+  },
+  "creating-composition-arcs__sublayers__sublayers-faq.txt": {
+    "title": "Learn OpenUSD: Sublayers Frequently Asked Questions",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/sublayers/sublayers-faq.html"
+  },
+  "creating-composition-arcs__inherits-specializes__experimenting-with-encapsulation-refinement.txt": {
+    "title": "Learn OpenUSD: Exercise: Experimenting With Encapsulation and Refinement",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/inherits-specializes/experimenting-with-encapsulation-refinement.html"
+  },
+  "asset-modularity-instancing__authoring-point-instancing__exercise-authoring-point-instancing.txt": {
+    "title": "Learn OpenUSD: Exercise: Authoring Point Instancing",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/authoring-point-instancing/exercise-authoring-point-instancing.html"
+  },
+  "asset-structure__workstreams__modeling-workstreams.txt": {
+    "title": "Learn OpenUSD: Modeling Workstreams With Layer Stacks",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/workstreams/modeling-workstreams.html"
+  },
+  "creating-composition-arcs__references-payloads__working-with-references.txt": {
+    "title": "Learn OpenUSD: Exercise: Working With References",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/references-payloads/working-with-references.html"
+  },
+  "asset-structure__reference-payload-pattern__lofting-variant-sets.txt": {
+    "title": "Learn OpenUSD: Exercise: Lofting Variant Sets",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/reference-payload-pattern/lofting-variant-sets.html"
+  },
+  "creating-composition-arcs__references-payloads__what-are-payloads.txt": {
+    "title": "Learn OpenUSD: Payloads",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/references-payloads/what-are-payloads.html"
+  },
+  "asset-modularity-instancing__refining-point-instances.txt": {
+    "title": "Learn OpenUSD: Refining Point Instances",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/refining-point-instances.html"
+  },
+  "scene-description-blueprints__materials-shaders.txt": {
+    "title": "Learn OpenUSD: Materials and Shaders",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/scene-description-blueprints/materials-shaders.html"
+  },
+  "asset-structure__reference-payload-pattern__exercise-ref-payload-pattern.txt": {
+    "title": "Learn OpenUSD: Exercise: Reference/Payload Pattern",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/reference-payload-pattern/exercise-ref-payload-pattern.html"
+  },
+  "asset-modularity-instancing__refining-scenegraph-instances__scenegraph-broadcasted-refinement.txt": {
+    "title": "Learn OpenUSD: Broadcasted Refinement",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/refining-scenegraph-instances/scenegraph-broadcasted-refinement.html"
+  },
+  "scene-description-blueprints__schemas.txt": {
+    "title": "Learn OpenUSD: Schemas",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/scene-description-blueprints/schemas.html"
+  },
+  "asset-modularity-instancing__authoring-scenegraph-instancing__exercise-authoring-scenegraph-instancing.txt": {
+    "title": "Learn OpenUSD: Exercise: Author Scenegraph Instancing",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/authoring-scenegraph-instancing/exercise-authoring-scenegraph-instancing.html"
+  },
+  "data-exchange__asset-validation__exercise-asset-validation-testing.txt": {
+    "title": "Learn OpenUSD: Exercise: Asset Validation and Testing",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/asset-validation/exercise-asset-validation-testing.html"
+  },
+  "creating-composition-arcs__inherits-specializes__what-is-inherits.txt": {
+    "title": "Learn OpenUSD: Inherits",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/inherits-specializes/what-is-inherits.html"
+  },
+  "asset-structure__asset-structure-principles__organizing-prim-hierarchy.txt": {
+    "title": "Learn OpenUSD: Exercise: Organizing Prim Hierarchy",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-structure-principles/organizing-prim-hierarchy.html"
+  },
+  "creating-composition-arcs__sublayers__what-are-sublayers.txt": {
+    "title": "Learn OpenUSD: Sublayers",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/sublayers/what-are-sublayers.html"
+  },
+  "asset-modularity-instancing__setup.txt": {
+    "title": "Learn OpenUSD: Module Setup: Asset Modularity and Instancing",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/setup.html"
+  },
+  "interactive-glossary.txt": {
+    "title": "Learn OpenUSD: OpenUSD Interactive Glossary",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/interactive-glossary.html"
+  },
+  "beyond-basics__primvars.txt": {
+    "title": "Learn OpenUSD: Primvars",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/primvars.html"
+  },
+  "scene-description-blueprints__lights.txt": {
+    "title": "Learn OpenUSD: Lights",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/scene-description-blueprints/lights.html"
+  },
+  "stage-setting__index.txt": {
+    "title": "Learn OpenUSD: Setting the Stage",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/stage-setting/index.html"
+  },
+  "creating-composition-arcs__sublayers__working-with-sublayers.txt": {
+    "title": "Learn OpenUSD: Exercise: Working with Sublayers",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/creating-composition-arcs/sublayers/working-with-sublayers.html"
+  },
+  "what-openusd__index.txt": {
+    "title": "Learn OpenUSD: What Is OpenUSD?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/what-openusd/index.html"
+  },
+  "asset-modularity-instancing__authoring-point-instancing__index.txt": {
+    "title": "Learn OpenUSD: Authoring Point Instancing",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/authoring-point-instancing/index.html"
+  },
+  "beyond-basics__active-inactive-prims.txt": {
+    "title": "Learn OpenUSD: Active and Inactive Prims",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/active-inactive-prims.html"
+  },
+  "stage-setting__properties__attributes.txt": {
+    "title": "Learn OpenUSD: Attributes",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/stage-setting/properties/attributes.html"
+  },
+  "asset-modularity-instancing__what-is-instancing.txt": {
+    "title": "Learn OpenUSD: What Is Instancing?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-modularity-instancing/what-is-instancing.html"
+  },
+  "beyond-basics__value-resolution.txt": {
+    "title": "Learn OpenUSD: Value Resolution",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/beyond-basics/value-resolution.html"
+  },
+  "asset-structure__asset-structure-principles__why-necessary.txt": {
+    "title": "Learn OpenUSD: Why Is an Asset Structure Necessary?",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-structure-principles/why-necessary.html"
+  },
+  "asset-structure__asset-structure-principles__encapsulating-your-asset.txt": {
+    "title": "Learn OpenUSD: Exercise: Encapsulating Your Asset",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-structure-principles/encapsulating-your-asset.html"
+  },
+  "data-exchange__setup.txt": {
+    "title": "Learn OpenUSD: Module Setup: Developing Data Exchange Pipelines",
+    "url": "https://docs.nvidia.com/learn-openusd/latest/data-exchange/setup.html"
+  },
+  "glossary": {
+    "title": "OpenUSD Glossary",
+    "url": "https://openusd.org/release/glossary.html"
+  },
+  "time_and_animated_values": {
+    "title": "OpenUSD: Time and Animated Values",
+    "url": "https://openusd.org/dev/user_guides/time_and_animated_values.html"
+  },
+  "linear_units": {
+    "title": "OpenUSD API: UsdGeom Linear Units",
+    "url": "https://openusd.org/dev/api/group___usd_geom_linear_units__group.html"
+  },
+  "xformcommonapi": {
+    "title": "OpenUSD API: UsdGeomXformCommonAPI",
+    "url": "https://openusd.org/dev/api/class_usd_geom_xform_common_a_p_i.html"
+  },
+  "scope": {
+    "title": "OpenUSD API: UsdGeomScope",
+    "url": "https://openusd.org/dev/api/class_usd_geom_scope.html"
+  },
+  "pointinstancer": {
+    "title": "OpenUSD API: UsdGeomPointInstancer",
+    "url": "https://openusd.org/dev/api/class_usd_geom_point_instancer.html"
+  },
+  "schema_versioning": {
+    "title": "OpenUSD: Schema Versioning",
+    "url": "https://openusd.org/release/wp_schema_versioning.html"
+  },
+  "study_guide": {
+    "title": "NCP-OUSD Exam Study Guide (PDF)",
+    "url": "https://nvdam.widen.net/s/6kxsqcsrrw/ncp-openusd-development-study-guide"
+  },
+  "exam_blueprint": {
+    "title": "NVIDIA NCP-OUSD Certification (Exam Blueprint)",
+    "url": "https://www.nvidia.com/en-us/learn/certification/openusd-development-professional/"
+  }
+}

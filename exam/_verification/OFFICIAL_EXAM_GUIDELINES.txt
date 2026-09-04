@@ -1,0 +1,47 @@
+OFFICIAL NCP-OUSD EXAM GUIDELINES (agent-browser verified)
+===========================================================
+Source: https://www.nvidia.com/en-us/learn/certification/openusd-development-professional/
+Method: real headless Chromium (agent-browser), rendered-DOM text extraction.
+Saved page text: pages_openusd/nvidia_exam_page.txt
+
+EXAM FACTS (verbatim from the official page)
+--------------------------------------------
+- Credential: NVIDIA-Certified Professional: OpenUSD Development (NCP-OUSD)
+- Level: Professional (intermediate-level credential)
+- Format: online, proctored remotely
+- Number of questions: 60-70
+- Duration: 120 minutes
+- Price: US$200
+- Prerequisites: 2-3 years experience with the OpenUSD framework and Python or C++,
+  OR completion of the study-guide materials. Able to create 3D content, solve technical
+  problems, use version control collaboratively, understand rendering systems, optimize
+  performance.
+- Credentials: digital badge + optional certificate on passing.
+
+OFFICIAL EXAM BLUEPRINT — domain weights (verbatim)
+---------------------------------------------------
+  Composition                      23%   (author/design/debug composition arcs; debug
+                                          complex LIVERPS scenarios)   <-- page spells it LIVERPS
+  Data Exchange                    15%
+  Pipeline Development             14%
+  Data Modeling                   13%
+  Debugging and Troubleshooting   11%
+  Content Aggregation             10%
+  Visualization                    8%
+  Customizing USD                  6%
+  (sum = 100%)
+
+CROSS-CHECK vs our generator/bank
+---------------------------------
+- Domain weights: MATCH EXACTLY (DOMAIN_WEIGHTS in generate_quiz.py).
+- "LIVERPS" (not LIVRPS): CONFIRMED by the official blueprint wording.
+- Question format (single + multi-select), conceptual/scenario/code style: consistent
+  with the study-guide sample questions.
+- CORRECTION APPLIED: exam duration is 120 min (not 90). generate_quiz.py EXAM_MINUTES
+  updated 90 -> 120. Real exam is 60-70 questions; our default test is 60 (in range).
+
+Recommended prep per the official page: the free Learn OpenUSD curriculum (Setting the
+Stage, Scene Description Blueprints, Composition Basics, Beyond the Basics, Creating
+Composition Arcs, Understanding Model Kinds, Asset Structure Principles and Content
+Aggregation, Asset Modularity and Instancing, Developing Data Exchange Pipelines) plus
+the certification study guide. All of these were crawled into exam/_verification/pages/.
