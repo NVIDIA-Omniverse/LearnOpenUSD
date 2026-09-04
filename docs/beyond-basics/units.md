@@ -322,7 +322,7 @@ xform_api = UsdGeom.XformCommonAPI(local_anim)
 xform_api.SetTranslate(Gf.Vec3d(-5, 2, 0), Usd.TimeCode(0))
 xform_api.SetTranslate(Gf.Vec3d(5, 2, 0), Usd.TimeCode(48))
 
-# Reference thte 60fps animated sphere
+# Reference the 60fps animated sphere
 ref_prim = scene_stage.DefinePrim("/World/ReferencedAnimation")
 ref_prim.GetReferences().AddReference("./" + os.path.basename(anim_asset_path))
 
