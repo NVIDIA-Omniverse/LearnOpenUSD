@@ -172,7 +172,9 @@ Both cubes represent the same real-world size—1 meter. If USD automatically co
 
 ```{code-cell}
 :test-tags: [units-meters-per-unit]
-:emphasize-lines: 7,10-11,25,28-29,50-51,54-55
+:emphasize-lines: 9,12-13,27,30-31,52-53,56-57
+import os
+
 from pxr import Usd, UsdGeom, Sdf, Gf
 
 # Create a cube asset in CENTIMETERS (metersPerUnit = 0.01)
@@ -222,11 +224,11 @@ world = UsdGeom.Xform.Define(scene_stage, "/World")
 scene_stage.SetDefaultPrim(world.GetPrim())
 
 meter_ref = scene_stage.DefinePrim("/World/Cube_1m_In_Centimeters")
-meter_ref.GetReferences().AddReference(cm_asset_path)
+meter_ref.GetReferences().AddReference("./" + os.path.basename(cm_asset_path))
 UsdGeom.XformCommonAPI(meter_ref).SetTranslate(Gf.Vec3d(-1000, 0, 0))
 
 cm_ref = scene_stage.DefinePrim("/World/Cube_1m_In_Millimeters")
-cm_ref.GetReferences().AddReference(mm_asset_path)
+cm_ref.GetReferences().AddReference("./" + os.path.basename(mm_asset_path))
 UsdGeom.XformCommonAPI(cm_ref).SetTranslate(Gf.Vec3d(1000, 0, 0)) 
 
 scene_stage.Save()
@@ -261,7 +263,9 @@ This example demonstrates that USD **does** automatically handle `timeCodesPerSe
 
 ```{code-cell}
 :test-tags: [units-timecodes-per-second]
-:emphasize-lines: 8-10, 17-20, 25-27, 34-36, 52-55, 57-59, 63-67
+:emphasize-lines: 10-12, 19-22, 27-29, 36-38, 54-57, 59-61, 65-69
+import os
+
 from pxr import Usd, UsdGeom, Gf
 
 # Create animated asset at 60 fps
@@ -318,9 +322,9 @@ xform_api = UsdGeom.XformCommonAPI(local_anim)
 xform_api.SetTranslate(Gf.Vec3d(-5, 2, 0), Usd.TimeCode(0))
 xform_api.SetTranslate(Gf.Vec3d(5, 2, 0), Usd.TimeCode(48))
 
-# Reference thte 60fps animated sphere
+# Reference the 60fps animated sphere
 ref_prim = scene_stage.DefinePrim("/World/ReferencedAnimation")
-ref_prim.GetReferences().AddReference(anim_asset_path)
+ref_prim.GetReferences().AddReference("./" + os.path.basename(anim_asset_path))
 
 scene_stage.Save()
 
