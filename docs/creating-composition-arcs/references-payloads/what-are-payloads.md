@@ -10,4 +10,4 @@ By working this way, you can save yourself load time, memory, and interexercise 
 
 Payload {term}`composition arcs <Composition Arcs>` can be applied to the same {term}`prim <Prim>` in a list-editable way, just like references.
 
-Payloads are weaker than references in the composition strength order (LIVRPS). On rare occasions, you may choose to use a payload instead of a reference to produce your desired composition order.
+Payloads are weaker than references in the composition strength order (LIVERPS). On rare occasions, you may choose to use a payload instead of a reference to produce your desired composition order.

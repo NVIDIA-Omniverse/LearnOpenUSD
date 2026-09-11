@@ -7,7 +7,7 @@ This module introduces you to USD's {term}`composition <Composition>` system - t
 By the end of this module, you'll be able to:
 
 - **Understand layers and composition** - learn how USD combines multiple data sources into unified scenes
-- **Navigate {term}`strength ordering <LIVERPS Strength Ordering>` (LIVRPS)** - understand the rules that determine which data takes precedence when conflicts arise
+- **Navigate {term}`strength ordering <LIVERPS Strength Ordering>` (LIVERPS)** - understand the rules that determine which data takes precedence when conflicts arise
 - **Use {term}`specifiers <Specifier>` effectively** - control how {term}`prims <Prim>` are interpreted with `def`, `over`, and `class` specifiers
 - **Create modular assets with references** - build reusable components that can be shared across projects
 - **Set default prims** - establish clear entry points for your composed assets
