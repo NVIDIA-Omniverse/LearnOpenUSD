@@ -1,8 +1,5 @@
 # Composition Arcs and Strength Ordering
 
-```{include} ../_includes/LIVRPSvLIVERPS.md
-```
-
 ## What Is Strength Ordering?
 ![Strength Ordering Definition](../images/foundations/StrengthOrdering_Definition.webm)
 
@@ -14,7 +11,7 @@ Strength ordering is the ordered list of {term}`composition arcs <Composition Ar
 
 ### How Does It Work?
 
-During scene composition, USD's composition engine builds a graph of the layers in the specified strength order. That order is affectionately referred to as the acronym LIVRPS, which stands for the list of composition operations, ordered from strongest to weakest: local, inherits, variant sets, references, payloads, and specializes.
+During scene composition, USD's composition engine builds a graph of the layers in the specified strength order. That order is affectionately referred to as the acronym LIVERPS, which stands for the list of composition operations, ordered from strongest to weakest: local, inherits, variant sets, relocates, references, payloads, and specializes.
 
 Let’s review these terms from strongest to weakest.
 
@@ -31,6 +28,10 @@ Second, it looks for any {term}`inherit <Inherit>` arcs in the scenegraph. An in
 
 Third, {term}`variant sets <Variant Set>`. Variant sets, as the name implies, defines one or more scenegraph hierarchies for a {term}`prim <Prim>` (called variants), and composes one of them. In this way, for example, an object can have multiple geometric representations.
 
+#### Relocates
+
+Fourth, {term}`relocates <Relocate>`. A relocate remaps a {term}`prim <Prim>` path that was introduced by another composition arc, letting you rename or reparent composed prims without editing the {term}`layer <Layer>` they came from. For example, if a referenced {term}`asset <Asset>` names a child prim in a way that doesn't match your pipeline's conventions, a relocate can give it the name you want locally while leaving the source asset untouched. Relocates are authored in layer {term}`metadata <Metadata>` rather than on the prim itself.
+
 #### References and Payloads
 
 The next strongest opinions are {term}`references <Reference>`, and then {term}`payloads <Payload>`. References compose the contents of a separate layer as a scenegraph. Payloads are similar, but have the ability to load or unload the layer from the stage at runtime. A typical use of references and payloads would be to modularly bring assets into a scene (e.g. furniture in a room).
@@ -41,7 +42,7 @@ Finally, we have {term}`specialize <Specialize>` arcs. A specialize arc is essen
 
 ---
 
-For each prim and property, the engine evaluates the opinions from the layers according to LIVRPS, giving precedence to the stronger layer's opinion when conflicts arise. Stronger layers can override or add to the data defined in weaker layers, enabling non-destructive editing and overrides. LIVRPS is applied recursively - for example, when composing a reference, local opinions within the reference are strongest, followed by inherits, followed by variant sets, etc.
+For each prim and property, the engine evaluates the opinions from the layers according to LIVERPS, giving precedence to the stronger layer's opinion when conflicts arise. Stronger layers can override or add to the data defined in weaker layers, enabling non-destructive editing and overrides. LIVERPS is applied recursively - for example, when composing a reference, local opinions within the reference are strongest, followed by inherits, followed by variant sets, etc.
 
 The final composed scene, what we refer to as the USD stage, represents the combined data from all layers, with conflicts resolved according to the strength ordering.
 
