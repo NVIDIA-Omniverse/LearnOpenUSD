@@ -27,7 +27,9 @@ kernelspec:
 ---
 # List Editing
 
-You have already used {term}`list editing <List Editing>` without being told what it was. Every time a lesson authored `prepend references = ...`, that `prepend` was a list-editing operation, and there are four more.
+You have already used {term}`list editing <List Editing>` without being told what it was.
+
+Every time a lesson authored `prepend references = ...`, that `prepend` was a list-editing operation. There are four more.
 
 ## What Is List Editing?
 
