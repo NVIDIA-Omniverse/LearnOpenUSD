@@ -12,6 +12,7 @@ By the end of this module, you'll understand how to:
 - **Create custom {term}`properties <Property>`** - extend USD's data model with user-defined attributes for specific workflows  
 - **Record asset provenance with {term}`asset info <Asset Info>`** - stamp asset identity, version, and dependencies onto prims so downstream users can trace where content came from
 - **Control where edits land and which layers are read** - use {term}`edit targets <Edit Target>` to direct authoring into a specific layer and {term}`layer muting <Layer Muting>` to isolate contributions non-destructively
+- **Compose ordered lists with {term}`list editing <List Editing>`** - use prepend, append, delete, reorder, and reset-to-explicit so multiple layers can contribute to the same list of arcs, targets, or applied schemas
 - **Manage scene complexity** - use {term}`active/inactive <Active and Inactive>` {term}`prims <Prim>` for efficient, non-destructive scene management
 - **Utilize {term}`model <Model>` {term}`kinds <Kind>`** - structure assets using {term}`component <Component>`, {term}`assembly <Assembly>`, and {term}`group <Group>` hierarchies
 - **{term}`Traverse stages <Stage Traversal>`** - implement high-performance iteration through complex scene graphs
@@ -42,6 +43,7 @@ spline-animation
 custom-properties
 asset-info
 edit-targets-layer-muting
+list-editing
 active-inactive-prims
 model-kinds
 stage-traversal
