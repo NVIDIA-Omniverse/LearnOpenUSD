@@ -192,6 +192,24 @@ Direct Opinion
 
     **Further Reading**: [Direct Opinion -- OpenUSD.org](<inv:usd:std#glossary:direct opinion>)
 
+Edit Target
+
+    An edit target determines which layer receives the opinions authored to a stage.
+
+    Every stage has an edit target, defaulting to its root layer, which is why edits go to the root layer unless you say otherwise. Changing the edit target does not change what the stage displays—you still see the fully composed result—it only redirects where the next edit is written, and therefore how strong that opinion is once composition resolves it. Edit targets can also carry a path mapping, which is how authoring inside a variant writes into the correct variant spec. `UsdEditContext` is the recommended way to set one, since it restores the previous target when the block exits.
+
+    **Also Known As:** *UsdEditTarget, edit context*  
+    **Further Reading**: [Edit Targets and Layer Muting](<./beyond-basics/edit-targets-layer-muting.md>), [EditTarget -- OpenUSD.org](<inv:usd:std#glossary:edittarget>), {usdcpp}`UsdEditTarget`
+
+Layer Muting
+
+    Layer muting removes a layer's contributions from composition without deleting the layer or editing the layer stack that references it.
+
+    Muting is stage-level state rather than scene description: it is never written to a layer, never saved, and never shared between stages opened on the same root layer. That makes it well suited to temporary work such as identifying which layer introduced an unwanted opinion or previewing a scene without a particular department's contributions. Layers are muted by identifier, and an identifier that does not match the one the stage resolved will be recorded without affecting composition.
+
+    **Also Known As:** *muting, muted layers*  
+    **Further Reading**: [Edit Targets and Layer Muting](<./beyond-basics/edit-targets-layer-muting.md>), {usdcpp}`UsdStage`
+
 Fallback
 
     A fallback is a default value defined by a schema that applies when no value has been explicitly authored.

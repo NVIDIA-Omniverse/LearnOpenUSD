@@ -50,6 +50,9 @@ SPLINE_ANIMATION_SETUP = ["spline-animation-setup"]
 ASSET_INFO_NOTEBOOK = "beyond-basics/asset-info.ipynb"
 ASSET_INFO_SETUP = ["asset-info-setup"]
 
+EDIT_TARGETS_NOTEBOOK = "beyond-basics/edit-targets-layer-muting.ipynb"
+EDIT_TARGETS_SETUP = ["edit-targets-setup"]
+
 
 class TestValueResolutionNotebook:
     """Tests for beyond-basics/value-resolution.ipynb."""
@@ -389,3 +392,58 @@ class TestAssetInfoNotebook:
         # Only the overridden key is authored in the referencing layer
         scene_spec = nb.scene.GetRootLayer().GetPrimAtPath("/World/Chair_1")
         assert scene_spec.GetInfo("assetInfo") == {"version": "v004"}
+
+
+class TestEditTargetsLayerMutingNotebook:
+    """Tests for beyond-basics/edit-targets-layer-muting.ipynb."""
+
+    def test_full_notebook(self, run_notebook):
+        nb = run_notebook(EDIT_TARGETS_NOTEBOOK)
+        for name in ("root.usda", "shot.usda", "base.usda"):
+            assert (nb._work_dir / "_assets" / name).exists()
+
+    def test_cell_author_routes_edits_by_target(self, run_notebook):
+        nb = run_notebook(
+            EDIT_TARGETS_NOTEBOOK,
+            tags=EDIT_TARGETS_SETUP + ["edit-targets-author"],
+        )
+        # Each opinion landed in the layer it was targeted at
+        assert nb.base.GetAttributeAtPath("/World/Ball.radius").default == 1.0
+        assert nb.shot.GetAttributeAtPath("/World/Ball.radius").default == 5.0
+        # ...and nothing leaked into the root layer, which only holds the sublayer list
+        assert nb.root.GetPrimAtPath("/World") is None
+        assert list(nb.root.subLayerPaths) == ["./shot.usda", "./base.usda"]
+        # The stronger sublayer wins composition
+        assert nb.ball.GetRadiusAttr().Get() == 5.0
+        # EditContext restored the original target on exit
+        assert nb.stage.GetEditTarget().GetLayer() == nb.root
+
+    def test_cell_muting_falls_back_without_editing(self, run_notebook):
+        nb = run_notebook(
+            EDIT_TARGETS_NOTEBOOK,
+            tags=EDIT_TARGETS_SETUP + ["edit-targets-author", "edit-targets-muting"],
+        )
+        # The cell unmutes at the end, so the composed value is back to the shot opinion
+        assert nb.ball.GetRadiusAttr().Get() == 5.0
+        # Muting never touched the layer's data or the scene description
+        assert nb.shot.GetAttributeAtPath("/World/Ball.radius").default == 5.0
+        assert "mute" not in nb.root.ExportToString().lower()
+
+        # Guard the identifier match itself. MuteLayer fails silently when the
+        # identifier does not match the one the stage resolved, so assert that
+        # muting actually changes composition rather than trusting the call.
+        nb.stage.MuteLayer(nb.shot.identifier)
+        assert nb.stage.IsLayerMuted(nb.shot.identifier)
+        assert nb.ball.GetRadiusAttr().Get() == 1.0
+        nb.stage.UnmuteLayer(nb.shot.identifier)
+        assert nb.ball.GetRadiusAttr().Get() == 5.0
+
+    def test_cell_muting_is_per_stage(self, run_notebook):
+        nb = run_notebook(
+            EDIT_TARGETS_NOTEBOOK,
+            tags=EDIT_TARGETS_SETUP
+            + ["edit-targets-author", "edit-targets-muting", "edit-targets-per-stage"],
+        )
+        # Two stages on identical scene description disagree, because muting is stage state
+        assert nb.stage_b.IsLayerMuted(nb.shot.identifier) is False
+        assert UsdGeom.Sphere.Get(nb.stage_b, "/World/Ball").GetRadiusAttr().Get() == 5.0
