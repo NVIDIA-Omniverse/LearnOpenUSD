@@ -47,6 +47,9 @@ ACTIVE_INACTIVE_SETUP = ["active-inactive-setup"]
 SPLINE_ANIMATION_NOTEBOOK = "beyond-basics/spline-animation.ipynb"
 SPLINE_ANIMATION_SETUP = ["spline-animation-setup"]
 
+ASSET_INFO_NOTEBOOK = "beyond-basics/asset-info.ipynb"
+ASSET_INFO_SETUP = ["asset-info-setup"]
+
 
 class TestValueResolutionNotebook:
     """Tests for beyond-basics/value-resolution.ipynb."""
@@ -322,3 +325,67 @@ class TestSplineAnimationNotebook:
         assert nb.early.IsValid() and nb.late.IsValid()
         assert (nb._work_dir / "_assets" / "spline_slide_rig.usda").exists()
         assert (nb._work_dir / "_assets" / "spline_layer_offset_scene.usda").exists()
+
+
+class TestAssetInfoNotebook:
+    """Tests for beyond-basics/asset-info.ipynb."""
+
+    def test_full_notebook(self, run_notebook):
+        nb = run_notebook(ASSET_INFO_NOTEBOOK)
+        assert (nb._work_dir / "_assets" / "chair_a.usda").exists()
+        assert (nb._work_dir / "_assets" / "asset_info_scene.usda").exists()
+
+    def test_cell_author(self, run_notebook):
+        nb = run_notebook(
+            ASSET_INFO_NOTEBOOK,
+            tags=ASSET_INFO_SETUP + ["asset-info-author"],
+        )
+        assert nb.stage is not None
+        prim = nb.stage.GetPrimAtPath("/chair_a")
+        assert prim.IsValid()
+        assert nb.stage.GetDefaultPrim().GetPath() == "/chair_a"
+
+        model = Usd.ModelAPI(prim)
+        assert model.GetAssetName() == "chair_a"
+        assert model.GetAssetVersion() == "v003"
+        assert model.GetAssetIdentifier().path == "asset://chairs/chair_a.usd"
+
+        # Custom keys live in the same dictionary as the conventional ones
+        info = prim.GetAssetInfo()
+        assert info["department"] == "set_dress"
+        assert set(info) == {"identifier", "name", "version", "department"}
+        assert prim.HasAuthoredAssetInfo()
+        assert (nb._work_dir / "_assets" / "chair_a.usda").exists()
+
+    def test_cell_through_reference(self, run_notebook):
+        nb = run_notebook(
+            ASSET_INFO_NOTEBOOK,
+            tags=ASSET_INFO_SETUP + ["asset-info-author", "asset-info-through-reference"],
+        )
+        chair_1 = nb.chair_1
+        assert chair_1.IsValid()
+
+        # Asset info composes through the reference without being authored locally
+        info = chair_1.GetAssetInfo()
+        assert info["name"] == "chair_a"
+        assert info["version"] == "v003"
+        assert info["department"] == "set_dress"
+        assert chair_1.HasAuthoredAssetInfo()
+
+    def test_cell_per_key_override(self, run_notebook):
+        nb = run_notebook(
+            ASSET_INFO_NOTEBOOK,
+            tags=ASSET_INFO_SETUP
+            + ["asset-info-author", "asset-info-through-reference", "asset-info-per-key-override"],
+        )
+        composed = nb.composed
+
+        # Overriding one key must not drop the others
+        assert composed["version"] == "v004"
+        assert composed["name"] == "chair_a"
+        assert composed["department"] == "set_dress"
+        assert composed["identifier"].path == "asset://chairs/chair_a.usd"
+
+        # Only the overridden key is authored in the referencing layer
+        scene_spec = nb.scene.GetRootLayer().GetPrimAtPath("/World/Chair_1")
+        assert scene_spec.GetInfo("assetInfo") == {"version": "v004"}

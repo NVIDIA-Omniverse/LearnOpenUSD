@@ -10,6 +10,7 @@ By the end of this module, you'll understand how to:
 - **Leverage {term}`value resolution <Value Resolution>`** - understand how USD resolves attribute values from multiple composition sources (including animation splines)
 - **Author {term}`animation splines <Animation Spline>`** - represent looping and extrapolated motion with `pxr.Ts` splines on attributes
 - **Create custom {term}`properties <Property>`** - extend USD's data model with user-defined attributes for specific workflows  
+- **Record asset provenance with {term}`asset info <Asset Info>`** - stamp asset identity, version, and dependencies onto prims so downstream users can trace where content came from
 - **Manage scene complexity** - use {term}`active/inactive <Active and Inactive>` {term}`prims <Prim>` for efficient, non-destructive scene management
 - **Utilize {term}`model <Model>` {term}`kinds <Kind>`** - structure assets using {term}`component <Component>`, {term}`assembly <Assembly>`, and {term}`group <Group>` hierarchies
 - **{term}`Traverse stages <Stage Traversal>`** - implement high-performance iteration through complex scene graphs
@@ -38,6 +39,7 @@ primvars
 value-resolution
 spline-animation
 custom-properties
+asset-info
 active-inactive-prims
 model-kinds
 stage-traversal

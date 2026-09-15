@@ -67,7 +67,7 @@ Asset Info
     database name), payloadAssetDependencies (pre-computed dependencies for optimization), and version (asset revision information). Asset info persists through composition and flattening, enabling you to track where assets are introduced in your scene and reconstruct references to them.
 
     **Also Known As:** *AssetInfo, asset metadata*  
-    **Further Reading**: [AssetInfo -- OpenUSD.org](<inv:usd:std#glossary:assetinfo>), {usdcpp}`UsdObject`
+    **Further Reading**: [Asset Info](<./beyond-basics/asset-info.md>), [AssetInfo -- OpenUSD.org](<inv:usd:std#glossary:assetinfo>), {usdcpp}`UsdObject`
 
 Asset Resolution
 
