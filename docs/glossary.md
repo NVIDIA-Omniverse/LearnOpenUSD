@@ -350,7 +350,7 @@ List Editing
     USD provides list editing operations including prepend, append, delete, and reset to explicit that allow each layer to non-destructively modify lists like composition arcs, relationships, and variant sets. This enables multiple layers to contribute to the same list, with each layer able to add, remove, or completely replace items. List editing follows strength ordering rules where stronger layers' operations take precedence over weaker ones.
 
     **Also Known As:** *list ops, sparse lists, SdfListOp*  
-    **Further Reading**: [List Editing -- OpenUSD.org](<inv:usd:std#glossary:list editing>)
+    **Further Reading**: [List Editing](<./beyond-basics/list-editing.md>), [List Editing -- OpenUSD.org](<inv:usd:std#glossary:list editing>)
 
 LIVERPS Strength Ordering
 

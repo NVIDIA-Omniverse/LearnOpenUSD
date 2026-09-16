@@ -53,6 +53,9 @@ ASSET_INFO_SETUP = ["asset-info-setup"]
 EDIT_TARGETS_NOTEBOOK = "beyond-basics/edit-targets-layer-muting.ipynb"
 EDIT_TARGETS_SETUP = ["edit-targets-setup"]
 
+LIST_EDITING_NOTEBOOK = "beyond-basics/list-editing.ipynb"
+LIST_EDITING_SETUP = ["list-editing-setup"]
+
 
 class TestValueResolutionNotebook:
     """Tests for beyond-basics/value-resolution.ipynb."""
@@ -447,3 +450,52 @@ class TestEditTargetsLayerMutingNotebook:
         # Two stages on identical scene description disagree, because muting is stage state
         assert nb.stage_b.IsLayerMuted(nb.shot.identifier) is False
         assert UsdGeom.Sphere.Get(nb.stage_b, "/World/Ball").GetRadiusAttr().Get() == 5.0
+
+
+class TestListEditingNotebook:
+    """Tests for beyond-basics/list-editing.ipynb."""
+
+    def test_full_notebook(self, run_notebook):
+        nb = run_notebook(LIST_EDITING_NOTEBOOK)
+        assert nb.reorder_results
+
+    def test_cell_prepend_append_sandwich(self, run_notebook):
+        nb = run_notebook(
+            LIST_EDITING_NOTEBOOK,
+            tags=LIST_EDITING_SETUP + ["list-editing-sandwich"],
+        )
+        # The strong layer's prepend lands in front of every weaker item and its
+        # append lands behind every one of them.
+        assert nb.composed(nb.stage) == ["/D", "/A", "/B", "/C", "/E"]
+        authored = nb.strong.ExportToString()
+        assert "prepend rel members" in authored
+        assert "append rel members" in authored
+
+    def test_cell_three_removals_differ(self, run_notebook):
+        nb = run_notebook(
+            LIST_EDITING_NOTEBOOK,
+            tags=LIST_EDITING_SETUP + ["list-editing-removal"],
+        )
+        # delete takes one item out of the weaker layer's contribution
+        assert nb.removal_delete == ["/A", "/C"]
+        # reset-to-explicit discards the weaker layer entirely
+        assert nb.removal_explicit == ["/X", "/Y"]
+        # clear erases only this layer's opinion, so the weaker layer shows through
+        assert nb.removal_clear == ["/A", "/B", "/C"]
+        # the three are genuinely different operations
+        assert len({tuple(nb.removal_delete), tuple(nb.removal_explicit), tuple(nb.removal_clear)}) == 3
+
+    def test_cell_reorder_is_not_move_to_front(self, run_notebook):
+        nb = run_notebook(
+            LIST_EDITING_NOTEBOOK,
+            tags=LIST_EDITING_SETUP + ["list-editing-reorder"],
+        )
+        r = nb.reorder_results
+        # reorder is a relative-order constraint: unnamed neighbors get dragged along
+        assert r[("/C", "/A")] == ["/C", "/D", "/A", "/B"]
+        assert r[("/C", "/B")] == ["/A", "/C", "/D", "/B"]
+        # and it is a no-op when the requested relative order already holds
+        assert r[("/B", "/D")] == ["/A", "/B", "/C", "/D"]
+        # never adds or removes
+        for got in r.values():
+            assert sorted(got) == ["/A", "/B", "/C", "/D"]
