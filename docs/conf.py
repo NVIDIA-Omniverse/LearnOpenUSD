@@ -150,22 +150,42 @@ original_render_nb_cell = SphinxNbRenderer._render_nb_cell_code_source
 SphinxNbRenderer._render_nb_cell_code_source = _new_render_nb_cell_code_source
 
 
+# Video extensions rendered as a <video> element, mapped to the MIME type announced
+# in the <source> tag. Browsers use that type to decide whether to fetch the source at
+# all, so announcing the wrong one makes the video unplayable on any browser that does
+# not support the announced format.
+VIDEO_MIME_TYPES = {
+    ".mp4": "video/mp4",
+    ".webm": "video/webm",
+    ".ogg": "video/ogg",
+}
+
+
 class LOUSDHTMLTranslatorMixin:
     def visit_image(self, node):
-        if node['uri'].lower().endswith(('.mp4', '.webm', '.ogg')):
-            olduri = node['uri']
-            # rewrite the URI if the environment knows about it
-            if olduri in self.builder.images:
-                node['uri'] = posixpath.join(
-                    self.builder.imgpath, urllib.parse.quote(self.builder.images[olduri])
-                )
-                # Create video tag with attributes
-                self.body.append('<video controls autoplay loop width="100%">')
-                self.body.append(f'<source src="{node["uri"]}" type="video/webm">')
-                self.body.append('Your browser does not support the video tag.')
-                self.body.append('</video>')
-        else:
+        uri = node['uri']
+        extension = next(
+            (ext for ext in VIDEO_MIME_TYPES if uri.lower().endswith(ext)), None
+        )
+        if extension is None:
             super().visit_image(node)
+            return
+
+        # Rewrite the URI if the environment knows about it. External URLs are not
+        # collected into builder.images, so leave those untouched rather than dropping
+        # the element entirely.
+        if uri in self.builder.images:
+            node['uri'] = posixpath.join(
+                self.builder.imgpath, urllib.parse.quote(self.builder.images[uri])
+            )
+
+        # Create video tag with attributes
+        self.body.append('<video controls autoplay loop width="100%">')
+        self.body.append(
+            f'<source src="{node["uri"]}" type="{VIDEO_MIME_TYPES[extension]}">'
+        )
+        self.body.append('Your browser does not support the video tag.')
+        self.body.append('</video>')
 
 
 def setup_translators(app: Sphinx):
