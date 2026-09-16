@@ -357,7 +357,9 @@ for frame in (0, 12, 24, 36, 48):
 
 ```{code-cell}
 :tags: [remove-input]
-DisplayUSD(asset_path("offsets.usda"), show_usd_code=True, height=420)
+# DisplayUSD needs a path relative to the lesson, not the absolute one asset_path builds,
+# because it is written straight into the page's <model-viewer> src attribute.
+DisplayUSD("_assets/clips/offsets.usda", show_usd_code=True)
 ```
 
 All three cubes are reading the identical clip. `FullSpeed` finishes its slide by frame 24, `HalfSpeed` takes twice as long because 24 frames of clip data are stretched across 48, and `Delayed` sits still for 12 frames because its mapping holds clip time at 0 before advancing.
