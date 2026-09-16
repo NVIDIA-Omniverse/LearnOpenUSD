@@ -79,6 +79,23 @@ Generate one rather than hand-writing it, with `Usd.ClipsAPI.GenerateClipManifes
 Inside a manifest, `double size.timeSamples = {}` means "this attribute has time samples in the clips". That is the opposite of what the same text means in an ordinary layer, where an empty `timeSamples` block is treated as no authored opinion.
 ```
 
+## Retiming With `times`
+
+`active` says *which* clip is live at a given stage time. `times` says *where inside that clip* to read, as a list of `(stageTime, clipTime)` pairs. OpenUSD interpolates between the pairs, so the mapping is a piecewise-linear curve from stage time to clip time.
+
+That one field is what lets a single cache drive many differently-timed instances. Leaving `times` out gives you the identity mapping, so stage time is fed to the clip unchanged and the clip's own sample times must already be in stage time.
+
+| `times` | Effect |
+| --- | --- |
+| `[(0, 0), (24, 24)]` | Identity — plays at authored speed |
+| `[(0, 0), (48, 24)]` | Half speed — 24 frames of clip stretched over 48 |
+| `[(0, 0), (12, 0), (36, 24)]` | Holds for 12 frames, then plays |
+| `[(0, 24), (24, 0)]` | Plays in reverse |
+
+```{note}
+Retiming is only available on explicit clip sets. Template clips derive their timing from the file numbering and always use an identity mapping, which is the main reason to prefer the explicit form when you need offsets.
+```
+
 ## Template Clips
 
 When clips are a numbered sequence — the normal case for a simulation cache — you can skip `assetPaths` and `active` entirely and describe the sequence with a pattern instead:
@@ -113,7 +130,9 @@ You can run these examples locally as Jupyter notebooks. See [How to Run Noteboo
 :test-tags: [value-clips-setup]
 import os
 
-from pxr import Usd, Sdf
+from pxr import Gf, Usd, UsdGeom, Sdf
+
+from lousd.utils.visualization import DisplayUSD
 
 # Clips are referenced by asset path, so these examples need real files.
 ASSETS = os.path.abspath("_assets/clips")
@@ -282,6 +301,70 @@ for missing in [None] + FIELDS:
 ```
 
 Every failure is total and completely quiet. This is the single most common way a clip set goes wrong, and OpenUSD gives you nothing to go on.
+
+### Example 4: Seeing the Offsets
+
+Numbers only get you so far. Here three cubes read from **the same single clip layer** and differ only in their `times` mapping, so the retiming is visible directly.
+
+```{code-cell}
+:test-tags: [value-clips-retiming]
+:emphasize-lines: 24-26
+
+from pxr import Gf, Usd, UsdGeom, Sdf
+
+# One clip layer: a slide from x=0 to x=6 over the clip's own frames 0..24
+slide = fresh_layer("slide.usda")
+slide_stage = Usd.Stage.Open(slide)
+slide_op = UsdGeom.Xformable(slide_stage.DefinePrim("/Clip", "Xform")).AddTranslateOp()
+slide_op.Set(Gf.Vec3d(0, 0, 0), 0)
+slide_op.Set(Gf.Vec3d(6, 0, 0), 24)
+slide.Save()
+
+offsets = fresh_layer("offsets.usda")
+offset_stage: Usd.Stage = Usd.Stage.Open(offsets)
+offset_stage.SetStartTimeCode(0)
+offset_stage.SetEndTimeCode(48)
+world = UsdGeom.Xform.Define(offset_stage, "/World")
+offset_stage.SetDefaultPrim(world.GetPrim())
+
+
+def clipped_cube(name, row, times):
+    cube = UsdGeom.Cube.Define(offset_stage, f"/World/{name}")
+    cube.GetSizeAttr().Set(1.0)
+    xformable = UsdGeom.Xformable(cube)
+    xformable.AddTranslateOp()                                        # driven by clips
+    xformable.AddTranslateOp(opSuffix="row").Set(Gf.Vec3d(0, row, 0))  # static, separates the rows
+    api = Usd.ClipsAPI(cube.GetPrim())
+    api.SetClipAssetPaths([Sdf.AssetPath("./slide.usda")])
+    api.SetClipPrimPath("/Clip")
+    api.SetClipActive([(0, 0)])
+    api.SetClipTimes(times)
+    return cube.GetPrim().GetAttribute("xformOp:translate")
+
+
+full = clipped_cube("FullSpeed", 0.0, [(0, 0), (24, 24)])
+half = clipped_cube("HalfSpeed", 2.0, [(0, 0), (48, 24)])
+delayed = clipped_cube("Delayed", 4.0, [(0, 0), (12, 0), (36, 24)])
+offsets.Save()
+
+retiming_results = {}
+print("frame   FullSpeed  HalfSpeed  Delayed")
+for frame in (0, 12, 24, 36, 48):
+    row = (full.Get(frame)[0], half.Get(frame)[0], delayed.Get(frame)[0])
+    retiming_results[frame] = row
+    print(f"{frame:5}   {row[0]:8.2f}   {row[1]:8.2f}   {row[2]:7.2f}")
+```
+
+```{code-cell}
+:tags: [remove-input]
+DisplayUSD(asset_path("offsets.usda"), show_usd_code=True, height=420)
+```
+
+All three cubes are reading the identical clip. `FullSpeed` finishes its slide by frame 24, `HalfSpeed` takes twice as long because 24 frames of clip data are stretched across 48, and `Delayed` sits still for 12 frames because its mapping holds clip time at 0 before advancing.
+
+```{note}
+The viewer flattens the stage before converting it for display, and flattening bakes resolved clip values into ordinary time samples. That is why clip-driven motion animates here with no extra work, unlike {term}`animation splines <Animation Spline>`, which need `bake_splines_for_display=True`.
+```
 
 ## Failure Modes Worth Knowing
 
