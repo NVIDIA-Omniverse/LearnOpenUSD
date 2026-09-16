@@ -676,7 +676,7 @@ Value Clips
     Value clips allow you to reference time-sampled attribute values from a sequence of external layers without composing their entire structure. This is useful for simulation caches, animation data, and other large time-varying datasets. Clips metadata defines the file sequence, time mappings, and which attributes use clips. USD stitches together the clips transparently during value resolution.
 
     **Also Known As:** *clips, animation clips*  
-    **Further Reading**: [Value Clips -- OpenUSD.org](<inv:usd:std#glossary:value clips>), [Value Clips Documentation](https://openusd.org/release/api/_usd__page__value_clips.html)
+    **Further Reading**: [Value Clips](<./beyond-basics/value-clips.md>), [Value Clips -- OpenUSD.org](<inv:usd:std#glossary:value clips>), [Value Clips Documentation](https://openusd.org/release/api/_usd__page__value_clips.html)
 
 Value Resolution
 

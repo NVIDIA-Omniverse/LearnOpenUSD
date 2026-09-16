@@ -73,7 +73,7 @@ Attributes are special because they can combine several kinds of time-varying an
 1. **{term}`Time samples <Time Sample>`** - Specific values at specific times
 2. **{term}`Animation splines <Animation Spline>`** - Curve-based values (knots, tangents, loop and extrapolation settings) evaluated like samples at a given time code
 3. **{term}`Default value <Default Value>`** - A non-time-varying value
-4. **{term}`Value clips <Value Clips>`** - Animation data stored in separate files
+4. **{term}`Value clips <Value Clips>`** - Animation data stored in separate files, covered in [Value Clips](./value-clips.md)
 
 A practical consequence: authoring time samples on an attribute that already has a spline hides the spline entirely, and a `default` opinion at a location takes precedence over value clips introduced at that same location.
 
