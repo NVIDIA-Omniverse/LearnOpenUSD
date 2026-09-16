@@ -56,10 +56,10 @@ The examples in this lesson use relationship targets, because `GetTargets()` ret
 | Prepend | `prepend rel members = ...` | Add to the front of the composed list |
 | Append | `append rel members = ...` | Add to the back |
 | Delete | `delete rel members = ...` | Remove a matching item contributed by a weaker layer |
-| Reorder | `reorder rel members = ...` | Constrain relative order without adding or removing |
 | Reset to explicit | `rel members = [...]` (no keyword) | Discard everything weaker and use exactly this list |
+| Reorder *(deprecated)* | `reorder rel members = ...` | Constrain relative order without adding or removing |
 
-There is also a legacy `add` operation that still parses but should not be used in new content.
+Two of these are legacy. `add` still parses but should not be used in new content, and `reorder` is deprecated — the official OpenUSD glossary describes list editing as prepend, append, remove, and reset, and does not include `reorder` among the operations at all.
 
 ### Prepend and Append Make a Sandwich
 
@@ -85,7 +85,13 @@ It only blocks *weaker* layers, though. An explicit list is still freely edited 
 An explicit *empty* list serializes as `references = None`, not `references = []`. Both spellings parse identically, but OpenUSD always writes the `None` form, so a hand-typed `[]` round-trips into `None`.
 ```
 
-### Reorder Is the One That Surprises People
+### Reorder Is Deprecated, and Surprising
+
+```{caution}
+`reorder` is deprecated and is not part of the official list-editing operation set. Do not author it in new content.
+
+It is covered here because you will meet it in existing scene description, and because its behavior is almost always misread when you do.
+```
 
 `reorder` never adds and never removes — it only permutes items already in the composed list. Names that are not in the list are silently ignored, with no warning.
 
@@ -284,8 +290,8 @@ Sublayer composition is governed by each layer's own flat list, resolved recursi
 
 ## Key Takeaways
 
-List editing is why a shot layer can add one reference without destroying the ones an asset layer contributed. Lists compose from weakest to strongest out of five operations: `prepend`, `append`, `delete`, `reorder`, and reset-to-explicit.
+List editing is why a shot layer can add one reference without destroying the ones an asset layer contributed. Lists compose from weakest to strongest out of four current operations: `prepend`, `append`, `delete`, and reset-to-explicit. A fifth, `reorder`, is deprecated but still appears in existing content.
 
-Three things are worth remembering past this lesson. Because list order is strength order for composition arcs, **`append` from a strong layer produces a weak arc** — if an arc is not winning, check which end of the list it landed on. **`reorder` is a relative-order constraint, not move-to-front**, and it is a no-op when the requested order already holds. And **`Clear`, `Remove`, and `Set([])` are three different removals**: only the last two block a weaker layer, and choosing the wrong one fails silently.
+Three things are worth remembering past this lesson. Because list order is strength order for composition arcs, **`append` from a strong layer produces a weak arc** — if an arc is not winning, check which end of the list it landed on. **`reorder` is a relative-order constraint, not move-to-front**, and it is a no-op when the requested order already holds — worth recognizing when you read it, though it is deprecated for authoring. And **`Clear`, `Remove`, and `Set([])` are three different removals**: only the last two block a weaker layer, and choosing the wrong one fails silently.
 
 Finally, `subLayers` is not list-edited at all. When you need to suppress a sublayer, reach for muting or edit the owning layer.
