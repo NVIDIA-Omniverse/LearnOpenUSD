@@ -141,7 +141,7 @@ disk_light.GetIntensityAttr().Set(1000)  # from LightAPI
 
 ```python
 # Import related classes
-from pxr import UsdPhysics
+from pxr import Gf, UsdPhysics
 
 # Apply a UsdPhysics Rigidbody API on the cube prim
 cube_rb_api = UsdPhysics.RigidBodyAPI.Apply(cube.GetPrim())
@@ -149,8 +149,8 @@ cube_rb_api = UsdPhysics.RigidBodyAPI.Apply(cube.GetPrim())
 # Get the Kinematic Enabled Attribute 
 cube_rb_api.GetKinematicEnabledAttr()
 	
-# Create a linear velocity attribute of value 5
-cube_rb_api.CreateVelocityAttr(5)
+# Create a linear velocity attribute of value (5, 0, 0)
+cube_rb_api.CreateVelocityAttr(Gf.Vec3f(5, 0, 0))
 ```
 
 This example shows how API schemas can be applied to prims to add specific properties that govern behaviors, such as adding rigid body capabilities to an object hierarchy.
