@@ -93,6 +93,7 @@ OpenUSD Cheatsheet <openusd-cheatsheet>
 usdview-install-instructions
 install-usda-syntax
 jupyter-notebook-setup
+Certification Objective Map <certification-objective-map>
 Certification Study Guide <https://nvdam.widen.net/s/6kxsqcsrrw/ncp-openusd-development-study-guide>
 :::
 

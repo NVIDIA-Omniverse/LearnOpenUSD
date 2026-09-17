@@ -41,6 +41,10 @@ At a minimum, certification verifies critical skills for building industry-ready
 
 Start by taking the open-sourced Learn OpenUSD curriculum. We designed it to be free and easily accessible to anyone, regardless of your industry, experience level, or GPU setup. We’ll continue to develop this content and release periodic updates, and you can help build more USD experts by making your own contributions. 
 
+🗺️ **See which exam topics this curriculum covers.**
+
+The [Certification Objective Map](./certification-objective-map.md) maps every exam topic to the lessons that teach it, and flags the topics you will need to study elsewhere.
+
 🎓 **Find additional resources on the [OpenUSD Development Certification exam page](https://www.nvidia.com/en-us/learn/certification/openusd-development-professional/).**
 
 Once you’ve built a foundation with the Learn OpenUSD content, you can review the additional materials called out in the [certification study guide](https://nvdam.widen.net/s/6kxsqcsrrw/ncp-openusd-development-study-guide). When you’re ready, register for the exam and take it at home at your own convenience.
