@@ -8,6 +8,7 @@ By the end of this module, you'll understand how to:
 
 - **Work with {term}`primvars <Primvar>`** - attach rendering data like UVs, vertex colors, and custom attributes to geometry
 - **Leverage {term}`value resolution <Value Resolution>`** - understand how USD resolves attribute values from multiple composition sources (including animation splines)
+- **Source animation from external layers with {term}`value clips <Value Clips>`** - stitch time samples out of a sequence of clip layers without bringing those layers into composition
 - **Author {term}`animation splines <Animation Spline>`** - represent looping and extrapolated motion with `pxr.Ts` splines on attributes
 - **Create custom {term}`properties <Property>`** - extend USD's data model with user-defined attributes for specific workflows  
 - **Record asset provenance with {term}`asset info <Asset Info>`** - stamp asset identity, version, and dependencies onto prims so downstream users can trace where content came from
@@ -39,6 +40,7 @@ These skills prepare you for the most advanced USD topics: creating custom {term
 Overview <self>
 primvars
 value-resolution
+value-clips
 spline-animation
 custom-properties
 asset-info
