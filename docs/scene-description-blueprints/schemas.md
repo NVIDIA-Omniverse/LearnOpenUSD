@@ -141,14 +141,18 @@ disk_light.GetIntensityAttr().Set(1000)  # from LightAPI
 
 ```python
 # Import related classes
-from pxr import Gf, UsdPhysics
+from pxr import Gf, Usd, UsdGeom, UsdPhysics
+
+# Create a stage and define a cube prim
+stage = Usd.Stage.CreateInMemory()
+cube = UsdGeom.Cube.Define(stage, "/World/Cube")
 
 # Apply a UsdPhysics Rigidbody API on the cube prim
 cube_rb_api = UsdPhysics.RigidBodyAPI.Apply(cube.GetPrim())
-	
-# Get the Kinematic Enabled Attribute 
+
+# Get the Kinematic Enabled Attribute
 cube_rb_api.GetKinematicEnabledAttr()
-	
+
 # Create a linear velocity attribute of value (5, 0, 0)
 cube_rb_api.CreateVelocityAttr(Gf.Vec3f(5, 0, 0))
 ```
