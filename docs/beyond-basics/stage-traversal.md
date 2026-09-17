@@ -107,8 +107,9 @@ BAD_predicate = Usd.PrimIsActive and Usd.PrimIsLoaded
 You can run these examples locally as Jupyter notebooks. See [How to Run Notebooks Locally](../jupyter-notebook-setup.md) for setup instructions.
 ```
 
-+++ {"tags": ["remove-cell"]}
->**NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook. It wil also create a stage used in the examples.
+```{note}
+The cell below imports the helper functions used in this lesson, including `create_new_stage()`, and also creates the stage used throughout the examples on this page. If you copy code from this page into your own script, add this import yourself: `from lousd.utils.helperfunctions import create_new_stage`. See {doc}`How to Run Notebooks Locally </jupyter-notebook-setup>` for why this helper is used instead of `Usd.Stage.CreateNew()`.
+```
 +++
 ```{code-cell}
 :tags: [remove-input]

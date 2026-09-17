@@ -151,8 +151,9 @@ print(f"Updated to: {UsdPhysics.GetStageKilogramsPerUnit(stage)}")
 You can run these examples locally as Jupyter notebooks. See [How to Run Notebooks Locally](../jupyter-notebook-setup.md) for setup instructions.
 ```
 
-+++ {"tags": ["remove-cell"]}
->**NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook.
++++
+```{include} ../_includes/hidden-create-new-stage-import-note.md
+```
 +++
 ```{code-cell}
 :tags: [remove-input]
