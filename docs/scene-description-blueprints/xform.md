@@ -51,8 +51,9 @@ UsdGeom.Xform.Define(stage, path)
 # Retrieves the order of transformation operations, which is crucial for understanding how multiple transformations are combined. Different orders can yield different results, so understanding XformOpOrder is important. 
 xform.GetXformOpOrderAttr()
 	
-# Adds a new transform operation to the Xform prim, such as translation or rotation, with specified value   
-xform.AddXformOp(opType, value)
+# Adds a new transform operation to the Xform prim and returns it; set the value on the returned op
+op = xform.AddXformOp(opType)
+op.Set(value)
 ```
 
 ## Examples
