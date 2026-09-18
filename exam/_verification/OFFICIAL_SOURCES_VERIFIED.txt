@@ -1,0 +1,51 @@
+OFFICIAL openusd.org PRIMARY SOURCES — agent-browser verified
+=============================================================
+Method: real headless Chromium (agent-browser), rendered-DOM text saved under
+exam/_verification/pages_official/. These canonical Pixar/AOUSD docs back the
+"16 gaps" list and are cited directly by questions in the bank.
+
+VERIFIED FACTS (verbatim quotes from the official pages)
+--------------------------------------------------------
+#5  metersPerUnit fallback = 0.01 (centimeters)
+    pages_official/linear_units.txt  (UsdGeom Linear Units API):
+    "If a UsdStage has no authored metersPerUnit we fall back to the value
+     UsdGeomLinearUnits::centimeters, i.e. 0.01."
+
+#8  Scope is non-transformable
+    pages_official/scope.txt  (UsdGeomScope API):
+    "Scope is the simplest grouping primitive, and does not carry the baggage of
+     transformability."  (inherits UsdGeomImageable, not UsdGeomXformable)
+
+#6  XformCommonAPI fixed component set / order
+    pages_official/xformcommonapi.txt  (UsdGeomXformCommonAPI API):
+    "API for authoring and retrieving a standard set of component transformations
+     which include a scale, a rotation, a scale-rotate pivot and a translation."
+    + enum RotationOrder { RotationOrderXYZ, ... }
+
+#9 / #12  PointInstancer ids + transform
+    pages_official/pointinstancer.txt  (UsdGeomPointInstancer API):
+    "Encodes whether to include each prototype's root prim's transformation as the
+     most-local component of computed instance transforms."  + GetInvisibleIdsAttr /
+     CreateInvisibleIdsAttr / inactiveIds. (ComputeInstanceTransformsAtTime present.)
+
+#13  usdGenSchema codegen
+    pages_official/schema_versioning.txt  (Schema Versioning whitepaper):
+    references usdGenSchema generating classes + plugInfo.
+
+#2  Value resolution / time
+    pages_official/time_and_animated_values.txt  (Time and Animated Values):
+    Default TimeCode sentinel + time-sample semantics. (Value-clip strength noted.)
+
+#1 / specializes weakest, LIVERPS
+    pages_official/glossary.txt  (OpenUSD Glossary): relocates (25x), specializes,
+    list editing, value clips all present.
+
+CONSEQUENCE FOR THE BANK
+------------------------
+- source_map.json maps every corpus page + these official pages to {title, url}.
+- Every one of the 160 questions now carries a resolved source_ref {title, url}
+  (100% coverage). 9 questions cite openusd.org directly; 145 cite the Learn OpenUSD
+  curriculum; 6 cite the study-guide PDF.
+- generate_quiz.py SKIPS any question that lacks a primary source and prints why, so a
+  quiz can never present an unsourced question.
+- Each rendered question (and answer-key entry) prints:  Source: <title> --- <url>.

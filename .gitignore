@@ -15,3 +15,16 @@ wheels/
 .venv/
 _assets/
 RUNBOOK/
+
+# Practice-test generator build artifacts (keep bank, script, templates, command)
+exam/output/
+exam/_bank_parts/
+exam/_verification/*.png
+exam/_verification/pages/
+exam/_verification/pages_official/
+exam/_verification/pages_openusd/
+exam/_verification/crawl*.log
+exam/_verification/crawl*.sh
+# Local-only / binary files
+ncp-ousd-study-guide.pdf
+.claude/settings.local.json
