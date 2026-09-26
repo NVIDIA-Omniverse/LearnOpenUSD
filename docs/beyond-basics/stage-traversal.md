@@ -107,8 +107,10 @@ BAD_predicate = Usd.PrimIsActive and Usd.PrimIsLoaded
 You can run these examples locally as Jupyter notebooks. See [How to Run Notebooks Locally](../jupyter-notebook-setup.md) for setup instructions.
 ```
 
-+++ {"tags": ["remove-cell"]}
->**NOTE**: Before starting make sure to run the cell below. This will install the relevant OpenUSD libraries that will be used through this notebook. It wil also create a stage used in the examples.
++++
+```{note}
+The examples on this page open `_assets/stage_traversal.usda`, which a hidden setup cell generates. Its contents are shown below; save them to that path to run the examples yourself.
+```
 +++
 ```{code-cell}
 :tags: [remove-input]
