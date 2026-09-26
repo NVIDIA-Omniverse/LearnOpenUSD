@@ -1,3 +1,3 @@
 ```{note}
-The cell below imports the helper functions used in this lesson, including `create_new_stage()`. If you copy code from this page into your own script, add this import yourself: `from lousd.utils.helperfunctions import create_new_stage`. See {doc}`How to Run Notebooks Locally </jupyter-notebook-setup>` for why this helper is used instead of `Usd.Stage.CreateNew()`.
+Examples on this page use `create_new_stage()`, a notebook helper imported in a hidden setup cell. In your own scripts, use `Usd.Stage.CreateNew()` in its place. If you're running the lessons from a clone of this repository, you can import the helper instead: `from lousd.utils.helperfunctions import create_new_stage`. See {doc}`How to Run Notebooks Locally </jupyter-notebook-setup>` for why.
 ```
