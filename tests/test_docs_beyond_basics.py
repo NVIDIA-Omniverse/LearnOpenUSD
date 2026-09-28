@@ -56,6 +56,9 @@ EDIT_TARGETS_SETUP = ["edit-targets-setup"]
 LIST_EDITING_NOTEBOOK = "beyond-basics/list-editing.ipynb"
 LIST_EDITING_SETUP = ["list-editing-setup"]
 
+VALUE_CLIPS_NOTEBOOK = "beyond-basics/value-clips.ipynb"
+VALUE_CLIPS_SETUP = ["value-clips-setup"]
+
 
 class TestValueResolutionNotebook:
     """Tests for beyond-basics/value-resolution.ipynb."""
@@ -499,3 +502,125 @@ class TestListEditingNotebook:
         # never adds or removes
         for got in r.values():
             assert sorted(got) == ["/A", "/B", "/C", "/D"]
+
+
+class TestValueClipsNotebook:
+    """Tests for beyond-basics/value-clips.ipynb."""
+
+    def test_full_notebook(self, run_notebook):
+        nb = run_notebook(VALUE_CLIPS_NOTEBOOK)
+        assert nb.manifest_results and nb.omission_results
+
+    def test_cell_minimal_clip_set_resolves(self, run_notebook):
+        nb = run_notebook(
+            VALUE_CLIPS_NOTEBOOK,
+            tags=VALUE_CLIPS_SETUP + ["value-clips-minimal"],
+        )
+        # Clips supply time samples the prim's own layer never authored
+        assert nb.size.GetTimeSamples() == [0.0, 1.0, 2.0, 3.0]
+        assert nb.size.Get(0) == 0.0
+        assert nb.size.Get(2) == 10.0
+        # Interpolation works across clip-derived samples
+        assert nb.size.Get(0.5) == 0.5
+        # The clip set is dictionary metadata, not a composition arc
+        text = nb.root.ExportToString()
+        assert "clips = {" in text
+        assert "assetPaths" in text and "primPath" in text and "active" in text
+
+    def test_cell_manifest_acts_as_a_filter(self, run_notebook, capfd):
+        capfd.readouterr()
+        nb = run_notebook(
+            VALUE_CLIPS_NOTEBOOK,
+            tags=VALUE_CLIPS_SETUP + ["value-clips-minimal", "value-clips-manifest"],
+        )
+        none_samples, none_value = nb.manifest_results["none"]
+        good_samples, good_value = nb.manifest_results["good"]
+        empty_samples, empty_value = nb.manifest_results["empty"]
+        # No manifest and a declaring manifest both resolve
+        assert none_value == 0.0 and good_value == 0.0
+        assert list(none_samples) == list(good_samples) != []
+        # The excluded attribute has no other source of values in this example.
+        assert list(empty_samples) == []
+        assert empty_value is None
+        assert capfd.readouterr().err == ""
+
+    def test_cell_required_fields_contribute_no_values(self, run_notebook, capfd):
+        capfd.readouterr()
+        nb = run_notebook(
+            VALUE_CLIPS_NOTEBOOK,
+            tags=VALUE_CLIPS_SETUP + ["value-clips-minimal", "value-clips-required-fields"],
+        )
+        samples, value = nb.omission_results[None]
+        assert list(samples) != [] and value == 0.0
+
+        # An incomplete clip set contributes no values to this custom attribute.
+        for missing in ("assetPaths", "primPath", "active"):
+            samples, value = nb.omission_results[missing]
+            assert list(samples) == [], f"omitting {missing} should yield no samples"
+            assert value is None, f"omitting {missing} should yield no value"
+        # Native OpenUSD diagnostics write to the file descriptor, not sys.stderr.
+        assert capfd.readouterr().err == ""
+        # The same incomplete clip set still permits a schema fallback to resolve.
+        assert nb.fallback_value == 2.0
+
+    def test_missing_clip_emits_native_warning(self, run_notebook, capfd):
+        from pxr import Sdf
+
+        nb = run_notebook(
+            VALUE_CLIPS_NOTEBOOK,
+            tags=VALUE_CLIPS_SETUP + ["value-clips-minimal"],
+        )
+        capfd.readouterr()
+        nb.api.SetClipAssetPaths([Sdf.AssetPath("./missing_clip.usda")])
+        nb.api.SetClipActive([(0, 0)])
+        assert nb.size.Get(0) is None
+        # A real missing-file warning confirms that native diagnostics are captured.
+        assert "missing_clip.usda" in capfd.readouterr().err
+
+    def test_template_clips_support_layer_offsets(self, tmp_path):
+        from pxr import Usd, Sdf
+
+        for frame in (1, 2):
+            clip = Usd.Stage.CreateNew(str(tmp_path / f"cache.{frame:03}.usda"))
+            value = clip.DefinePrim("/Cache").CreateAttribute("value", Sdf.ValueTypeNames.Double)
+            value.Set(float(frame), frame)
+            clip.GetRootLayer().Save()
+
+        source = Usd.Stage.CreateNew(str(tmp_path / "template.usda"))
+        prim = source.DefinePrim("/Cache")
+        prim.CreateAttribute("value", Sdf.ValueTypeNames.Double)
+        api = Usd.ClipsAPI(prim)
+        api.SetClipTemplateAssetPath("./cache.###.usda")
+        api.SetClipTemplateStartTime(1)
+        api.SetClipTemplateEndTime(2)
+        api.SetClipTemplateStride(1)
+        api.SetClipPrimPath("/Cache")
+        source.GetRootLayer().Save()
+
+        stage = Usd.Stage.CreateInMemory()
+        target = stage.DefinePrim("/Cache")
+        target.GetReferences().AddReference(
+            source.GetRootLayer().identifier, "/Cache", Sdf.LayerOffset(10, 2)
+        )
+        value = target.GetAttribute("value")
+        # Clip times 1 and 2 become stage times 12 and 14; interpolation still works.
+        assert [value.Get(time) for time in (12, 13, 14)] == [1.0, 1.5, 2.0]
+
+    def test_cell_retiming_offsets(self, run_notebook):
+        nb = run_notebook(
+            VALUE_CLIPS_NOTEBOOK,
+            tags=VALUE_CLIPS_SETUP + ["value-clips-minimal", "value-clips-retiming"],
+        )
+        r = nb.retiming_results
+        # All three cubes use the same clip layer with different time mappings.
+        assert r[0] == (0.0, 0.0, 0.0)
+        # FullSpeed finishes by frame 24; HalfSpeed is exactly half way there
+        assert r[24][0] == 6.0
+        assert r[24][1] == 3.0
+        # Delayed holds at the start for 12 frames, so it is still at 0 at frame 12
+        assert r[12][2] == 0.0
+        assert r[12][0] == 3.0
+        # Everything has arrived by the end of the stage range
+        assert r[48] == (6.0, 6.0, 6.0)
+        # The clip-driven transform really is animated, not static
+        assert nb.full.GetTimeSamples() != []
