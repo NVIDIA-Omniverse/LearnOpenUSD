@@ -89,6 +89,9 @@ box_mat: UsdShade.Material = UsdShade.Material.Define(stage, mat_scope.GetPath()
 
 
 stage.Save()
+```
+```{code-cell}
+:tags: [remove-input]
 DisplayUSD("_assets/materials.usda", show_usd_code=True)
 ```
 
