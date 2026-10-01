@@ -89,7 +89,7 @@ Some of the functions we will use to access the stage will be the following:
 
 - {usdcpp}`UsdStage::CreateNew`: Creates a new empty USD Stage where 3D scenes are assembled.
 - {usdcpp}`UsdStage::Open`: Opens an existing USD file as a stage.
-- {usdcpp}`UsdStage::Save`: Saves the current stage of a USD stage back to a file. If there are multiple layers in the stage, all edited layers that contribute to the stage are being saved. In our case, all edits are being done in a single layer.
+- {usdcpp}`UsdStage::Save`: Saves the current state of a USD stage back to a file. If there are multiple layers in the stage, all edited layers that contribute to the stage are saved. In our case, all edits are being done in a single layer.
 
 ```{code-cell}
 :test-tags: [stage-create-new]
