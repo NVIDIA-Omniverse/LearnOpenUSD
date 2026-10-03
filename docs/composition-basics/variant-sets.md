@@ -33,7 +33,7 @@ Variant sets let you define **alternative representations** for a prim and switc
 
 ### How Does It Work?
 
-A prim can have **one or more** named variant sets. Each variant set contains **variants** (choices). A **variant selection** can be authored on the same layer that defines the set or in a **different layer** that references the prim, so each reference can pick a different option. You author data “inside a variant” by selecting it and opening a **variant edit context**; opinions authored in that context apply only when that variant is active. Standard strength ordering rules still apply; we will dive deeper into LIVRPS later. 
+A prim can have **one or more** named variant sets. Each variant set contains **variants** (choices). A **variant selection** can be authored on the same layer that defines the set or in a **different layer** that references the prim, so each reference can pick a different option. You author data “inside a variant” by selecting it and opening a **variant edit context**; opinions authored in that context apply only when that variant is active. Standard strength ordering rules still apply; we will dive deeper into LIVERPS later. 
 
 ### Working With Python
 

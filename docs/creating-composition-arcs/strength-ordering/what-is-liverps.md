@@ -1,13 +1,10 @@
 # What Is LIVERPS?
 
-```{include} ../../_includes/LIVRPSvLIVERPS.md
-```
-
 ![](../../images/foundations/strength_ordering.png)
 
-Throughout this module, we’ve been talking about individual {term}`composition arcs <Composition Arcs>` and talking about how some are stronger or weaker than others. These arcs adhere to a set of {term}`strength ordering <LIVERPS Strength Ordering>` rules that we affectionately refer to as LIVRPS (pronounced “liver peas”), an acronym that captures the individual arcs according to their strength, with **local** opinions being the strongest and **{term}`specialize <Specialize>`** arcs being the weakest.
+Throughout this module, we’ve been talking about individual {term}`composition arcs <Composition Arcs>` and talking about how some are stronger or weaker than others. These arcs adhere to a set of {term}`strength ordering <LIVERPS Strength Ordering>` rules that we affectionately refer to as LIVERPS (pronounced “liver peas”), an acronym that captures the individual arcs according to their strength, with **local** opinions being the strongest and **{term}`specialize <Specialize>`** arcs being the weakest.
 
-The LIVRPS acronym captures all of the operations to compose data from {term}`layers <Layer>` onto the {term}`stage <Stage>`, in the order in which each operation is applied.
+The LIVERPS acronym captures all of the operations to compose data from {term}`layers <Layer>` onto the {term}`stage <Stage>`, in the order in which each operation is applied.
 
 Why do we need strength ordering rules? In OpenUSD, multiple {term}`layer stacks <Layer Stack>` and their opinions are composed together to create the composed {term}`stage <Stage>`. We need strength ordering to determine which {term}`opinion <Opinions>` gets composed in the final stage.
 
@@ -37,7 +34,7 @@ For any given layer stack, the opinion of the root layer is considered the stron
 
 ![](../../images/composition-arcs/image70.png)
 
-The local (L) component of LIVRPS also consists of all sublayers of sublayers as they all belong to the same layer stack. When opinion strength is evaluated, the strength-ordered list of sublayers is populated by recursively gathering sublayer opinions in a depth-first order.
+The local (L) component of LIVERPS also consists of all sublayers of sublayers as they all belong to the same layer stack. When opinion strength is evaluated, the strength-ordered list of sublayers is populated by recursively gathering sublayer opinions in a depth-first order.
 
 ![](../../images/composition-arcs/image13.png)
 
@@ -52,7 +49,7 @@ It’s important to note that composition operations, such as references and pay
 
 ![](../../images/composition-arcs/image12.png)
 
-LIVRPS answers the questions--given a {term}`prim <Prim>` on a USD stage, how do I build the {term}`prim stack <Prim Stack>` that represents it? How do you build {term}`property stacks <Property Stack>` for the {term}`properties <Property>` on the prim?
+LIVERPS answers the questions--given a {term}`prim <Prim>` on a USD stage, how do I build the {term}`prim stack <Prim Stack>` that represents it? How do you build {term}`property stacks <Property Stack>` for the {term}`properties <Property>` on the prim?
 
 ![](../../images/composition-arcs/image16.png)
 
@@ -60,13 +57,14 @@ The order of the layer stack changes the composition of the scene.
 
 ![](../../images/composition-arcs/image50.png)
 
-The LIVRPS acronym represents not only the different composition operations, but the order in which they are applied. This means that, when composing the opinions within a layer stack:
+The LIVERPS acronym represents not only the different composition operations, but the order in which they are applied. This means that, when composing the opinions within a layer stack:
 
 - Local opinions are ordered first (strongest)
 - Opinions from inherit arcs are ordered next
 - Opinions from variant set arcs are ordered next
+- Opinions from relocate arcs are ordered next
 - Opinions from reference arcs are ordered next
 - Opinions from payload arcs are ordered next
 - Opinions from specialize arcs are ordered last (weakest)
 
-LIVRPS applies recursively within each composition context (layer stack)
+LIVERPS applies recursively within each composition context (layer stack)
