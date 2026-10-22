@@ -158,3 +158,27 @@ class TestLightsNotebook:
         assert sun.GetAttribute("inputs:intensity").Get() == 120.0
         assert sphere_light.GetAttribute("inputs:intensity").Get() == 50000.0
         assert (nb._work_dir / "_assets" / "light_props.usda").exists()
+
+
+class TestSchemasNotebook:
+    """Execute schema examples and check the resulting USD data."""
+
+    def test_registry(self, run_notebook):
+        nb = run_notebook(
+            "scene-description-blueprints/schemas.ipynb", tags=["schemas-registry"]
+        )
+        assert nb.schema_info.identifier == "Sphere"
+        assert nb.schema_type_name == "Sphere"
+        assert nb.schema_type == UsdGeom.Sphere._GetStaticTfType()
+
+    def test_rigid_body(self, run_notebook):
+        from pxr import Gf, Sdf, UsdPhysics
+
+        nb = run_notebook(
+            "scene-description-blueprints/schemas.ipynb", tags=["schemas-rigid-body"]
+        )
+        assert nb.cube.GetPrim().HasAPI(UsdPhysics.RigidBodyAPI)
+        velocity = nb.cube_rb_api.GetVelocityAttr()
+        assert velocity.GetName() == "physics:velocity"
+        assert velocity.GetTypeName() == Sdf.ValueTypeNames.Vector3f
+        assert velocity.Get() == Gf.Vec3f(5, 0, 0)
