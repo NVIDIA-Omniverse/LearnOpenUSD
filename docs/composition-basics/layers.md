@@ -25,7 +25,7 @@ The true power of layers lies in their ability to be composed together into a si
 
 ![](../images/foundations/layer_USDvsPhotoshop.webm)
 
-While Photoshop composes its final product by compiling each layer on top of the one below it, USD's composition engine combines the data across composition arcs according to a specific {term}`strength ordering <LIVERPS Strength Ordering>`, resolving conflicts based on the arcs’ relative strengths. This strength ordering is referred to as LIVRPS (pronounced "liver peas") – an acronym we'll explain in later lessons.
+While Photoshop composes its final product by compiling each layer on top of the one below it, USD's composition engine combines the data across composition arcs according to a specific {term}`strength ordering <LIVERPS Strength Ordering>`, resolving conflicts based on the arcs’ relative strengths. This strength ordering is referred to as LIVERPS (pronounced "liver peas") – an acronym we'll explain in later lessons.
 
 There are a few practical ways we leverage layers in OpenUSD for collaborative and non-destructive workflows. Layers are used for:
 

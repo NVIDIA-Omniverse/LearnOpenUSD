@@ -1,5 +1,5 @@
 # Tracing Through LIVERPS
-Let's take a look at LIVRPS in action through a series of examples. The following examples will present different {term}`composition <Composition>` scenarios and trace through LIVRPS step-by-step to better understand the composition algorithm.
+Let's take a look at LIVERPS in action through a series of examples. The following examples will present different {term}`composition <Composition>` scenarios and trace through LIVERPS step-by-step to better understand the composition algorithm.
 
 ## Composition of a Single Layer
 

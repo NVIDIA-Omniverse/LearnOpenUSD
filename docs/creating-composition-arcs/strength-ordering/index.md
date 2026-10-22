@@ -1,8 +1,5 @@
 # LIVERPS Strength Ordering
 
-```{include} ../../_includes/LIVRPSvLIVERPS.md
-```
-
 Let's continue with the last lesson in this module, *{term}`LIVERPS Strength Ordering <LIVERPS Strength Ordering>`*. LIVERPS is a fundamental concept in USD that governs how different {term}`composition arcs <Composition Arcs>` are applied when creating a scene. This knowledge is key to understanding how USD resolves conflicts in {term}`opinions <Opinions>` and determines the final state of a scene when multiple {term}`layers <Layer>` and composition operations are involved.
 
 In this module, we will:

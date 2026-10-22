@@ -39,7 +39,7 @@ All USD terminology should use the correct spelling as defined in the [OpenUSD G
 ### Acronyms
 
 - **USD** and **OpenUSD** are always capitalized.
-- **LIVRPS** (strength ordering mnemonic) is always capitalized.
+- **LIVERPS** (strength ordering mnemonic) is always capitalized.
 - Spell out acronyms on first use, then use the acronym: "Universal Scene Description (USD)"
 
 ## MyST Markdown Syntax

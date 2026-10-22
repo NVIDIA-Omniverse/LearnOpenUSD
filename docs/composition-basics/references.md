@@ -28,7 +28,7 @@ kernelspec:
 # Referencing Basics
 
 ## What Are References?
-This lesson talks briefly about {term}`references <Reference>`. The word may seem familiar – we introduced the concept in the previous lesson on {term}`composition <Composition>` and {term}`strength ordering <LIVERPS Strength Ordering>`, where "references" represents the R in LIVRPS.
+This lesson talks briefly about {term}`references <Reference>`. The word may seem familiar – we introduced the concept in the previous lesson on {term}`composition <Composition>` and {term}`strength ordering <LIVERPS Strength Ordering>`, where "references" represents the R in LIVERPS.
 
 A reference in Universal Scene Description is a composition arc that enables the composition of {term}`prims <Prim>` and their descendants onto other prims – this allows us to use references to aggregate larger scenes from smaller, modular units of scene description. This can be done with external references, which graft data from other files, or internal references, which graft data from other parts of the hierarchy.
 
