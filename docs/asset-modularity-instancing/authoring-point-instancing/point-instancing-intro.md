@@ -74,7 +74,11 @@ Let's spend a little bit of time breaking down how points are mapped to prototyp
 
 Many of the PointInstancer properties are array attributes. There's no easy way to ask us for information about individual instances here. Much of the data has been vectorized. You potentially have giant arrays of positions, orientations, scales, etc. You have to index into those arrays yourself to query data about a particular instance or to override any of them.
 
-Additionally, at the moment, there is no way to do sparse overrides on arrays. If you want to move even just a single point in a PointInstancer, you need to author the entire `positions` array again for the new {term}`opinion <Opinions>`.
+Additionally, overriding arrays is currently all-or-nothing. If you want to move even just a single point in a PointInstancer, you need to author the entire `positions` array again for the new {term}`opinion <Opinions>`.
+
+```{note}
+This is changing. OpenUSD 25.11 added `VtArrayEdit`, which can express a sparse edit to an array and serialize it to `.usda` and `.usdc`. Composing those edits during {term}`value resolution <Value Resolution>` is not wired up yet, so authoring the full array is still the working approach — but expect this constraint to lift in a future release.
+```
 
 ```{code-block} usda
 :caption: A PointInstancer override requiring full arrays for each time sample.
