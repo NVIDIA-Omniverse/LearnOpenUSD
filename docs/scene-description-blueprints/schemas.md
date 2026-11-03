@@ -63,7 +63,7 @@ Meanwhile, abstract, or non-concrete schemas, provide a name but no typeName in 
 
 In addition to IsA schemas, we have API schemas. API schemas are similar to IsA schemas except it does not specify a typeName. Since it does not have a typeName they are considered to be non-concrete.
 
-API schemas are typically named with the suffix “API” in their C++ or Python class name, such as `UsdShadeConnectableAPI`. Properties that belong to an API schema are namespaced with the schemas base name and camelCased. For example, `UsdPhysics.RigidBodyAPI.CreateVelocityAttr()` will create an attribute named `physics:velocity`.
+API schemas are typically named with the suffix “API” in their C++ or Python class name, such as `UsdShadeConnectableAPI`. Properties that belong to an API schema are namespaced with the schemas base name and camelCased. For example, calling `CreateVelocityAttr` on an applied `UsdPhysics.RigidBodyAPI` instance creates an attribute named `physics:velocity`, as shown in the rigid body example below.
 
 API schemas can be classified as non-applied or applied schemas, and single-apply or multiple-apply, where single-apply API schemas are applied to only a single instance of a prim, and multiple-apply API schemas can be applied multiple times to the same prim with different instance names.
 
@@ -77,12 +77,18 @@ Unlike IsA schemas, API schemas do not assign a typeName to a prim. Instead, are
 
 In Python, we can work with schemas using the following methods:
 
-```python
-# Retrieve the schema info for a registered schema
-Usd.SchemaRegistry.FindSchemaInfo()
+```{code-cell}
+:test-tags: [schemas-registry]
+from pxr import Tf, Usd, UsdGeom
 
-# Retrieve the schema typeName
-Usd.SchemaRegistry.GetSchemaTypeName()
+# Look up the registered Sphere schema by its identifier.
+schema_info = Usd.SchemaRegistry.FindSchemaInfo("Sphere")
+print(schema_info.identifier)
+
+# Retrieve the schema typeName from its registered Tf.Type.
+schema_type = Tf.Type.FindByName("UsdGeomSphere")
+schema_type_name = Usd.SchemaRegistry.GetSchemaTypeName(schema_type)
+print(schema_type_name)
 ```
 
 These methods allow us to interact with and manipulate schemas programmatically, enabling us to create, modify, and validate USD {term}`assets <Asset>` based on predefined rules and conventions.
@@ -139,7 +145,8 @@ disk_light.GetIntensityAttr().Set(1000)  # from LightAPI
 
 `UsdPhysicsRigidBodyAPI` adds physics properties to any `UsdGeomXformable` object for simulation such as rigid body dynamics.
 
-```python
+```{code-cell}
+:test-tags: [schemas-rigid-body]
 # Import related classes
 from pxr import Gf, Usd, UsdGeom, UsdPhysics
 

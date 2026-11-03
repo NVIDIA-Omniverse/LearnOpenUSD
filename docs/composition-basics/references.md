@@ -80,7 +80,7 @@ References are a composition arc. References are like links to separate pieces o
 
 Here's an example of how a reference looks in `.usda`:
 
-```python
+```usda
 #usda 1.0
 
 def Xform "World"
