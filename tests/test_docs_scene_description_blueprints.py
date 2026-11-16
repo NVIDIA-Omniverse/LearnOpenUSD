@@ -19,7 +19,7 @@ Notebooks are built to docs/_build/jupyter_execute/; paths are relative to that 
 Each class has a full-notebook test and one test per code cell with extensive asserts.
 """
 
-from pxr import UsdGeom
+from pxr import Gf, UsdGeom, UsdShade
 
 XFORM_NOTEBOOK = "scene-description-blueprints/xform.ipynb"
 XFORM_SETUP = ["xform-setup"]
@@ -122,6 +122,44 @@ class TestMaterialsShadersNotebook:
         assert box.IsValid() and mat.IsValid()
         assert mat.GetTypeName() == "Material"
         assert (nb._work_dir / "_assets" / "materials.usda").exists()
+
+    def test_cell_preview_surface(self, run_notebook):
+        nb = run_notebook(
+            MATERIALS_NOTEBOOK,
+            tags=MATERIALS_SETUP + ["materials-preview-surface"],
+        )
+        assert nb.stage is not None
+        cube = nb.stage.GetPrimAtPath("/World/Box/Geometry/Cube")
+        mat = UsdShade.Material(nb.stage.GetPrimAtPath("/World/Box/Materials/BoxMat"))
+        shader = UsdShade.Shader(nb.stage.GetPrimAtPath("/World/Box/Materials/BoxMat/PreviewSurface"))
+        assert cube.IsValid() and mat and shader
+        assert shader.GetIdAttr().Get() == "UsdPreviewSurface"
+        assert shader.GetInput("diffuseColor").Get() == Gf.Vec3f(0.8, 0.1, 0.1)
+        source, source_name, _ = mat.ComputeSurfaceSource()
+        assert source.GetPath() == shader.GetPath() and source_name == "surface"
+        assert cube.HasAPI(UsdShade.MaterialBindingAPI)
+        bound, _ = UsdShade.MaterialBindingAPI(cube).ComputeBoundMaterial()
+        assert bound.GetPath() == mat.GetPath()
+        assert (nb._work_dir / "_assets" / "materials_bound.usda").exists()
+
+    def test_cell_binding_inheritance(self, run_notebook):
+        nb = run_notebook(
+            MATERIALS_NOTEBOOK,
+            tags=MATERIALS_SETUP + ["materials-binding-inheritance"],
+        )
+        assert nb.stage is not None
+        expected = {
+            "/World/Shelf/Box_0": ("/World/Looks/Red", "/World/Shelf"),
+            "/World/Shelf/Box_1": ("/World/Looks/Red", "/World/Shelf"),
+            "/World/Shelf/Box_2": ("/World/Looks/Blue", "/World/Shelf/Box_2"),
+        }
+        for box_path, (mat_path, bound_on) in expected.items():
+            box = nb.stage.GetPrimAtPath(box_path)
+            assert box.IsValid()
+            bound, binding_rel = UsdShade.MaterialBindingAPI(box).ComputeBoundMaterial()
+            assert bound.GetPath() == mat_path
+            assert binding_rel.GetPrim().GetPath() == bound_on
+        assert (nb._work_dir / "_assets" / "material_binding_inheritance.usda").exists()
 
 
 class TestLightsNotebook:
