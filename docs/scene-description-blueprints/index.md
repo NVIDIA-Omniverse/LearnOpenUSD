@@ -10,6 +10,7 @@ By the end of this module, you'll be able to:
 - **Organize scenes with Scopes and Xforms** - use these organizational containers to structure complex hierarchies
 - **Simplify transforms with XformCommonAPI** - use the streamlined API for common transformation workflows
 - **Apply lighting schemas** - work with the UsdLux schema domain to light your scenes
+- **Define and bind materials** - build shading networks with the UsdShade schema domain and assign them to geometry
 
 ## Why This Matters
 
@@ -27,4 +28,5 @@ scope
 xform
 xformcommonapi
 lights
+materials-shaders
 :::
