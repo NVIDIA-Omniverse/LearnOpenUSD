@@ -43,6 +43,6 @@ Start by taking the open-sourced Learn OpenUSD curriculum. We designed it to be 
 
 🎓 **Find additional resources on the [OpenUSD Development Certification exam page](https://www.nvidia.com/en-us/learn/certification/openusd-development-professional/).**
 
-Once you’ve built a foundation with the Learn OpenUSD content, you can review the additional materials called out in the [certification study guide](https://nvdam.widen.net/s/6kxsqcsrrw/ncp-openusd-development-study-guide). When you’re ready, register for the exam and take it at home at your own convenience.
+Once you’ve built a foundation with the Learn OpenUSD content, you can review the additional materials called out in the [certification study guide](https://dam-cdn.nvd.orangelogic.com/AssetLink/sjrg2vjhic7285sph487x53f5e54erf7.pdf). When you’re ready, register for the exam and take it at home at your own convenience.
 
 If you are starting out, the associate-level [NCA OpenUSD Foundations and Workflows study guide](nca-ousd-study-guide.md) covers the same foundations with worked workflow cases and practice questions.

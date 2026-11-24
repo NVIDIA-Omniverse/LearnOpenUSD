@@ -100,7 +100,7 @@ OpenUSD Cheatsheet <openusd-cheatsheet>
 usdview-install-instructions
 install-usda-syntax
 jupyter-notebook-setup
-Certification Study Guide <https://nvdam.widen.net/s/6kxsqcsrrw/ncp-openusd-development-study-guide>
+NCP OpenUSD Development Study Guide <https://dam-cdn.nvd.orangelogic.com/AssetLink/sjrg2vjhic7285sph487x53f5e54erf7.pdf>
 NCA OpenUSD Foundations and Workflows Study Guide <nca-ousd-study-guide>
 :::
 
