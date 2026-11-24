@@ -48,6 +48,13 @@ Learn more
 A single-page entrypoint for OpenUSD learning, validation, optimization, performance, and ecosystem resources.
 :::
 
+:::{grid-item-card} NCA OpenUSD Foundations and Workflows Study Guide
+:link: nca-ousd-study-guide
+:link-type: doc
+
+Study guide and practice workbook for the OpenUSD Foundations and Workflows associate certification, in PDF and agent-readable Markdown.
+:::
+
 :::{grid-item-card} Developer Resources
 :link: https://developer.nvidia.com/usd
 Curated OpenUSD developer resources from NVIDIA and the OpenUSD ecosystem.
@@ -94,6 +101,7 @@ usdview-install-instructions
 install-usda-syntax
 jupyter-notebook-setup
 Certification Study Guide <https://nvdam.widen.net/s/6kxsqcsrrw/ncp-openusd-development-study-guide>
+NCA OpenUSD Foundations and Workflows Study Guide <nca-ousd-study-guide>
 :::
 
 :::{toctree}
