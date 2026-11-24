@@ -1,0 +1,115 @@
+OFFICIAL NCP-OUSD SAMPLE QUESTIONS — DISTRACTOR STYLE CONTRACT
+Extracted from ncp-ousd-study-guide.pdf (v1.1.0, pages 10-17, "Certification Sample Questions").
+This is the benchmark every bank question must match. Key: 1.A 2.C 3.A,B,D 4.C 5.A,B 6.C 7.B,C 8.A,B 9.B 10.B 11.B 12.C 13.B
+
+================ THE 13 OFFICIAL SAMPLES (verbatim) ================
+
+Q1 [Composition] What is the primary purpose of the defaultPrim metadata in a USD layer?
+A. It specifies which prim is used as the root when the layer is referenced.   <- CORRECT
+B. It defines which material is used as the default for geometry in the layer.
+C. It sets which timeCode is used as the default for animation in the layer.
+D. It specifies the default prim type when defining a new custom IsA schema.
+STYLE: all four "It specifies/defines/sets ..." — parallel openers, each a plausible
+function of SOME real USD metadata, same length band.
+
+Q2 [Composition] (chair_base/chair_repositioned referenced; local opinion (0,1,0) in scene.usda)
+What will be the final composed value of xformOp:translate on /World/Chair?
+A. (0, 0, 0)   B. (1, 0, 0)   C. (0, 1, 0) <- CORRECT   D. (1, 1, 0)
+STYLE: pure value matrix — every plausible combination offered; ZERO elimination possible
+without actually knowing LIVERPS.
+
+Q3 [Data Modeling] Which attributes are required to properly define a UsdGeomMesh prim? (Select three.)
+A. points <-   B. faceVertexIndices <-   C. primvars:displayColor   D. extent <-   E. normals
+STYLE: ALL five are real UsdGeomMesh attributes; the distractors are real-but-optional.
+Multi-select distractors are the same KIND of thing as the keys.
+
+Q4 [Data Modeling] Mesh with 1,000 vertices, 500 triangular faces — length of faceVertexIndices?
+A. 500—one index per face
+B. 1,000—one index per vertex
+C. 1,500—three indices per triangular face   <- CORRECT
+D. 2,000—four indices per face (including winding order)
+STYLE: numeric options each carry a SHORT neutral rationale; each rationale is a real
+counting rule misapplied.
+
+Q5 [Pipeline Development] Procedural mesh: which attributes must be kept synchronized? (Select two.)
+A. points and extent—when vertex positions change            <- CORRECT
+B. faceVertexIndices and faceVertexCounts—when topology changes  <- CORRECT
+C. normals and primvars:displayColor—when shading changes
+D. purpose and visibility—when rendering properties change
+STYLE: every option is a REAL attribute pair + "when X changes" — identical template;
+distractors pair real attributes that don't actually need sync.
+
+Q6 [Customizing USD] Custom schema adding physics properties to geometry prims — inherit from?
+A. UsdSchemaBase   B. UsdTyped   C. UsdAPISchemaBase <- CORRECT   D. UsdPhysicsBase
+STYLE: bare API names, three of four genuinely exist; near-miss class names, no prose.
+
+Q7 [Pipeline Development] Primary advantages of USD composition in a production pipeline? (Select two.)
+A. Layers enable version control and tracking of asset changes across the pipeline.
+B. Layers allow multiple users to collaborate on the same scene without conflicts.  <- CORRECT
+C. Layers support nondestructive editing and make it easy to revert or update changes.  <- CORRECT
+D. Layers improve scene performance by optimizing data organization and access.
+STYLE: ALL options start "Layers ..." and SOUND like benefits — the wrong ones are
+attractive overclaims, not absurdities. Tone is identical across options.
+
+Q8 [Pipeline Development] Which architectural decisions are most critical for long-term success? (Select two.)
+A. Establishing clear and consistent asset naming conventions and directory structures.  <- CORRECT
+B. Implementing comprehensive error handling and validation at all pipeline boundaries.  <- CORRECT
+C. Defining an asset structure once that will meet all present and future requirements.
+D. Requiring that all content is always authored, managed, and encoded in USD format.
+STYLE: distractors are real-sounding policies whose flaw (rigidity/absolutism) is implied,
+never stated; gerund-phrase parallel structure throughout.
+
+Q9 [Visualization] Primary purpose of the UsdGeomImageable schema?
+A. It defines common geometric properties for 3D objects.
+B. It provides common properties for objects that can be rendered.  <- CORRECT
+C. It manages how materials are assigned to geometric primitives.
+D. It defines properties for texture image data for 3D objects.
+STYLE: four one-line "It ..." sentences, each the actual purpose of a DIFFERENT real schema
+(Gprim / Imageable / MaterialBindingAPI / texture-ish) — classic neighbor-concept distractors.
+
+Q10 [Visualization] Material easily customizable with different colors/textures — which approach?
+A. Create a single material with hardcoded shader parameters.
+B. Create a material with exposed parameters that can be overridden.  <- CORRECT
+C. Create separate materials for each color/texture combination.
+D. Use only the default material and modify it at render time.
+STYLE: imperative "Create/Use ..." parallel; wrong approaches stated NEUTRALLY —
+no "so they cannot be changed" editorializing. The reader must know WHY they're inferior.
+
+Q11 [Content Aggregation] Reference metersPerUnit=1.0 layer into metersPerUnit=0.01 stage?
+A. The USD runtime automatically rescales the referenced geometry to match the stage's unit system.
+B. The referenced geometry appears 100 times smaller than intended, as USD does not automatically convert units.  <- CORRECT
+C. The referenced geometry appears 100 times larger than intended, due to USD scaling it up automatically.
+D. The referenced geometry is not composed onto the stage, because the unit systems do not match.
+STYLE: each option = outcome + because-clause; B vs C is a direction flip (100x smaller vs
+larger) — the best distractor is the same fact with one inverted detail.
+
+Q12 [Data Exchange] (USDA export snippet) What is the error with the material binding?
+A. The use of bindMaterialAs = "weakerThanDescendants" is not valid in this context.
+B. The material binding is applied to the Mesh prim, but it should be applied to a Subset instead.
+C. The material binding is targeting a prim that is outside the hierarchy of the defaultPrim.  <- CORRECT
+D. The material binding data should go on the Material prim and target prims to bind to.
+STYLE: four competing diagnoses, all referencing real mechanisms visible in the snippet,
+same sentence shape and length.
+
+Q13 [Debugging] (3-layer variant scenario) Why is the box no longer changing to blue?
+A. The "red" variant selection in contents.usda is the strongest opinion and overrides any other opinions.
+B. The direct local opinion for the color variant selection in main.usda is stronger than the opinion of the color variant selection authored by loftedColor.  <- CORRECT
+C. The loftedColor variant set does not set "primvars:displayColor" for the Cube so there is no reason why changing loftedColor would change the Cube's color.
+D. Variant selections cannot be authored in main.usda. Variant selections must be made in MyBox.usda before it is referenced.
+STYLE: long diagnostic options are fine when ALL options are long diagnoses; each cites
+specific layers/mechanisms from the snippets.
+
+================ DISTILLED RULES (enforced by lint + verifiers) ================
+R1 PARALLELISM  — options share grammatical template (same opener pattern) and length band
+                 (no option > ~1.4x the median of the others; correct never uniquely longest).
+R2 NEUTRALITY   — wrong approaches stated as a professional would state them; the option text
+                 NEVER explains its own wrongness ("so they cannot be changed" = forbidden).
+R3 REAL-THING DISTRACTORS — every distractor is a real USD attribute/schema/arc/behavior
+                 misapplied, a direction/order flip, a neighbor concept's true purpose, or a
+                 real counting rule misapplied. Invented absurdities are forbidden.
+R4 NO META      — no "all/none/combinations of the above", no "Both X and Y", no letter refs.
+R5 NO ECHO      — correct option must not uniquely reuse a distinctive 3+ content-word phrase
+                 from the stem; if the stem's terms are needed, distractors use them too.
+R6 TONE PARITY  — extreme qualifiers (always/never/cannot/only/guarantees) may not mark only
+                 distractors; positive framing may not mark only the key. Multi-select: keys
+                 and distractors are the same KIND of item (see Q3, Q5, Q7).

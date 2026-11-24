@@ -1,0 +1,111 @@
+NCP-OUSD Knowledge Base — agent-browser Verification Note
+==========================================================
+Method: real headless Chromium (agent-browser CLI), rendered-DOM text extraction
+        + full-page screenshots. This supersedes the earlier WebFetch (HTML->markdown)
+        crawl, which was lossy on some pages.
+Date of pass: see git history. Site: https://docs.nvidia.com/learn-openusd/latest/
+
+RESULT: All high-stakes facts that feed the question bank were CONFIRMED accurate
+        against the rendered pages. No corrections required.
+
+Pages verified
+--------------
+1. what-is-liverps.html  [screenshot: 01-liverps.png]
+   - CONFIRMED: "What was previously known as LIVRPS is now LIVERPS, with the 'E'
+     representing rElocates." OpenUSD added a new arc "relocates"; both spellings
+     appear interchangeably; Learn OpenUSD to be updated.
+   - CONFIRMED strength order (per layer stack, strongest->weakest):
+     Local -> Inherits -> Variants -> [rElocates] -> References -> Payloads -> Specializes.
+     (The page's explicit bullet list still teaches L-I-V-R-P-S since relocates is not
+     yet covered; the acronym LIVERPS places rElocates between Variants and References.)
+   - CONFIRMED: Layer stack = "the layer itself as first and strongest" + recursively
+     gathered sublayers, depth-first. References/payloads composed BETWEEN layer stacks.
+
+2. tracing-through-liverps.html
+   - CONFIRMED the core trap verbatim: "even though workstreamA.usd has a weaker sublayer
+     strength than workstreamB.usd because it comes later in the order, workstreamA.usd
+     still contains the winning opinion because it has a Local opinion where the root
+     layer and other sublayer do not." => A Local opinion anywhere in the stack beats any
+     non-local arc; sublayer order only breaks ties AMONG local opinions.
+
+3. asset-structure/model-hierarchy/what-are-model-kinds.html
+   - CONFIRMED: component = "leaf" / pruning point; "component models cannot contain other
+     component models as descendants."
+   - CONFIRMED: "All ancestors of a component model must have their kind metadata set to
+     either a group or a subkind of group, such as assembly."
+   - CONFIRMED: subcomponent is OUTSIDE the model hierarchy; "Subcomponent prims can
+     contain other subcomponent prims."
+   - CONFIRMED: "Assembly models can contain other assembly models, group kinds, and
+     component models." Model hierarchy prunes traversal at the component boundary.
+
+4. beyond-basics/units.html
+   - CONFIRMED: metersPerUnit fallback = 0.01 (centimeters); upAxis fallback = "Y".
+   - CONFIRMED: timeCodesPerSecond is AUTOMATICALLY reconciled across composed layers.
+   - CONFIRMED: upAxis, metersPerUnit, kilogramsPerUnit are NOT auto-reconciled --
+     "it is the assembler's responsibility to apply suitable correctives." 6m tree
+     (MPU 1.0) into cm stage (MPU 0.01) composes as 6cm -> 100x too small.
+
+5. asset-modularity-instancing/instancing-faq.html
+   - CONFIRMED Scenegraph instancing: composition-based; implicit prototypes from
+     composition arcs; instances identifiable via PATH; instanceable prim editable but
+     subgraph/instance proxy READ-ONLY; transparent deinstancing.
+   - CONFIRMED Point instancing: schema-based; explicit prototypes in scene description;
+     instances identifiable via INDEX; best for massive numbers of simple items (leaves).
+
+6. composition-basics/default-prim.html  [screenshot: 06-default-prim.png]
+   - CONFIRMED: defaultPrim is a TOP-LEVEL prim and LAYER METADATA; primary entry point.
+   - CONFIRMED: "usdchecker checks for a default prim and reports an ERROR if it is not
+     set on a stage."
+   - CONFIRMED: when the root layer is referenced/payloaded, defaultPrim removes the need
+     to specify a target prim; if unset, it "resolves as an empty layer and outputs a
+     warning message in the log."
+   - CONFIRMED: SetDefaultPrim() requires the prim to be top-level.
+
+Conclusion: WebFetch digest was accurate on all verified facts; safe to author the
+question bank from it. Screenshots retained as ground-truth evidence.
+
+
+==========================================================
+SECOND agent-browser PASS — schema, primvar & material pages
+==========================================================
+Method: same (real headless Chromium, rendered-DOM extraction + full-page screenshots).
+RESULT: All facts CONFIRMED. No corrections required.
+
+7. scene-description-blueprints/schemas.html  [screenshot: s1-schemas.png]
+   - CONFIRMED two schema types: IsA (a.k.a. Typed / Prim) schemas and API schemas.
+   - IsA: "each prim can only subscribe to one IsA schema at a time"; assigned via the
+     typeName metadata; derived from the core class UsdTyped. Concrete = instantiable,
+     provides name + typeName (UsdGeomMesh, UsdGeomScope). Abstract/non-concrete =
+     name but NO typeName, serves as a base class (UsdGeomPointBased base for
+     UsdGeomMesh / UsdGeomBasisCurves).
+   - API schemas: do NOT specify a typeName (non-concrete); named with "API" suffix;
+     properties namespaced + camelCased (RigidBodyAPI.CreateVelocityAttr -> physics:velocity);
+     classified non-applied/applied and single-apply/multiple-apply (multiple-apply uses
+     instance names); list-edited in the apiSchemas metadata; queryable via HasAPI();
+     "assigned to already-typed prims to annotate them with additional properties."
+   - (Note: this lesson does not name UsdAPISchemaBase as the applied-API base class; that
+     is correct USD API knowledge from the API docs / official study guide, used in
+     custom-01. Consistent, just not stated on this page.)
+
+8. beyond-basics/primvars.html  [screenshot: s2-primvars.png]
+   - CONFIRMED primvars = "primitive variables", special attributes that (a) bind user
+     data readable by shaders during rendering, (b) interpolate values across the surface
+     under subdivision/shading, (c) INHERIT down namespace for sparse, shareable authoring.
+   - CONFIRMED interpolation modes verbatim from Example 1: constant = "one value for the
+     whole gprim", uniform = "one per face", vertex = "one per point". (varying/faceVarying
+     per the Primvar User Guide.) displayColor authored as Color3fArray via
+     UsdGeom.PrimvarsAPI. Confirms model-55 (constant = whole prim).
+
+9. data-exchange/data-extraction/exercise-extracting-materials.html  [screenshot: s3-materials.png]
+   - CONFIRMED material graph authoring: UsdShade.Material.Define + UsdShade.Shader.Define;
+     shader.CreateIdAttr("UsdPreviewSurface"); material.CreateSurfaceOutput().ConnectToSource(
+     shader.ConnectableAPI(), UsdShade.Tokens.surface) (outputs:surface -> shader).
+   - CONFIRMED UsdPreviewSurface inputs used: useSpecularWorkflow (Int), diffuseColor
+     (Color3f), emissiveColor, specularColor, roughness (Float). roughness =
+     1 - sqrt(SHININESS/1000.0). Tf.MakeValidIdentifier fixes "Material.001" -> "Material_001".
+   - CONFIRMED binding: UsdShade.MaterialBindingAPI.Apply(prim) then binding_api.Bind(material).
+   - usdview is the recommended inspector to verify outputs:surface. Confirms exch-05/exch-06
+     and the Visualization material questions.
+
+Conclusion (2nd pass): schema, primvar, and material facts in the bank are
+agent-browser-verified. No edits to question_bank.json required.
