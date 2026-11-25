@@ -10,6 +10,7 @@ wheels/
 # System files
 .DS_Store
 .vscode/
+.claude/
 
 # Added
 .venv/
